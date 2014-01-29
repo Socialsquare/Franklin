@@ -73,7 +73,7 @@ DATABASES = {
     }
 }
 
-from .credentials import DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+from .credentials import SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
