@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+<h1>Training Bit overview</h1>
+
+{% block content %}
+
+
+<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+{% for trainingbit in trainingbits %}
+  <li>
+    <a href="trainingbits/{{trainingbit.id}}">
+    {# <img src="/static/images/training-bit-cover.png" alt="Training Bit cover image"> #}
+    <img src="{{trainingbit.image.url}}" alt="Training Bit cover image">
+    {{trainingbit.name}}
+    </a>
+    {# {{trainingbit.description}} #}
+  </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

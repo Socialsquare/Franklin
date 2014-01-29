@@ -1,0 +1,83 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}" />
+  <title>{% block title %}Global Change Lab{% endblock %}</title>
+</head>
+
+<body>
+  <nav class="top-bar" data-topbar>
+    <a href="/" title="Global Change Lab home"><img src="{% static 'images/gcl-logo.png' %}" id="gcl-logo" /></a>
+    {# <ul class="title-area"> #}
+    {#   <li class="name"> #}
+    {#     <h1><a href="/">My Site</a></h1> #}
+    {#   </li> #}
+    {# </ul> #}
+
+    <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li><a href="/skills">Skills</a></li>
+        <li><a href="/skills/trainingbits">Bits</a></li>
+        <li><a href="/user/updates">Updates <span class="update-count">6</span></a></li>
+      </ul>
+
+      <!-- Right Nav Section -->
+      {# <ul class="right"> #}
+      {#   <li class="active"><a href="#">Right Nav Button Active</a></li> #}
+      {#   <li class="has-dropdown"> #}
+      {#     <a href="#">Right Button with Dropdown</a> #}
+      {#     <ul class="dropdown"> #}
+      {#       <li><a href="#">First link in dropdown</a></li> #}
+      {#     </ul> #}
+      {#   </li> #}
+      {# </ul> #}
+
+    </section>
+  </nav>
+  <!-- <header> -->
+  <!--   {% block header %} -->
+  <!--   <ul> -->
+  <!--     <li><a href="/">Home</a></li> -->
+  <!--     <li><a href="/blog/">Blog</a></li> -->
+  <!--   </ul> -->
+  <!--   {% endblock %} -->
+  <!-- </header> -->
+  <div id="content">
+      {% block content %}{% endblock %}
+  </div>
+  <footer>
+    {% block footer %}
+    {% endblock %}
+  </footer>
+</body>
+</html>
+
+
+
+<!-- <br /> -->
+<!--  -->
+<!-- <div class="row"> -->
+<!--   <div class="large&#45;6 columns"> -->
+<!--     <ul data&#45;orbit> -->
+<!--       <li><img src="//placehold.it/1200x300"></li> -->
+<!--       <li><img src="//placehold.it/1200x300"></li> -->
+<!--     </ul> -->
+<!--   </div> -->
+<!--   <div class="large&#45;6 columns"> -->
+<!--     <div data&#45;alert class="alert&#45;box"> -->
+<!--       Some content goes here!!!! -->
+<!--       <a href="#" class="close">&#38;times;</a> -->
+<!--     </div> -->
+<!--     <div data&#45;alert class="alert&#45;box success radius"> -->
+<!--       Some more content goes here!!!! -->
+<!--       <a href="#" class="close">&#38;times;</a> -->
+<!--     </div> -->
+<!--         <div data&#45;alert class="alert&#45;box alert round"> -->
+<!--       Some more content goes here!!!! -->
+<!--       <a href="#" class="close">&#38;times;</a> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+<!--  -->

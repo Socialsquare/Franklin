@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+Hello World from {{name}}!
+<table>
+  {% for skill in skills %}
+  <tr>
+    <!-- <td><a href="skills/skill/{{skill.id}}">{{skill.name}}</a></td> -->
+    <td><a href="skills/{{skill.id}}">{{skill.name}}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
