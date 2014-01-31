@@ -37,8 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # our own stuff
     'global_change_lab',
     'skills',
+
+    # django packages
     'south',
     'storages',
 )
