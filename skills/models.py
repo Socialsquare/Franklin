@@ -12,6 +12,7 @@ class TrainingBit(models.Model):
     name = models.CharField(max_length=30)
     minute_duration = models.IntegerField()
     label = models.CharField(max_length=16, choices=LABELS)
+    description = models.TextField()
 
     image = models.ImageField(upload_to='trainingbits', default='defaultimage')
 
@@ -24,6 +25,7 @@ class Skill(models.Model):
     # optional relation to training bits (i.e. a skill does _have_ to have a
     # training bit)
     training_bits = models.ManyToManyField(TrainingBit, blank=True, null=True)
+    description = models.TextField()
 
     def __str__(self):
         return self.name
