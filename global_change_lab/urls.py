@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^skills/', include('skills.urls')),
 
+    url(r'^shares$', 'global_change_lab.views.shares', name='shares'),
+
     # url(r'^/', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
 )
