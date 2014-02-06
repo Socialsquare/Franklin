@@ -65,19 +65,22 @@ WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'web',
-        'HOST': 'localhost',
-        'NAME': 'GlobalChangeLab',
-        # 'PASSWORD': 'k0Deword.',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+try:
+    from .credentials import SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+except ImportError:
+    print('Credentials not found, using `localhost` default setup')
+    SECRET_KEY = 'localhost-very-secret'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'USER': 'web',
+            'HOST': 'localhost',
+            'NAME': 'GlobalChangeLab',
+            # 'PASSWORD': 'k0Deword.',
+            #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 
-from .credentials import SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
