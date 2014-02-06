@@ -15,8 +15,8 @@
   <nav class="top-bar" data-topbar>
     <a href="/" title="Global Change Lab home"><img src="{% static 'images/gcl-logo.png' %}" id="gcl-logo" /></a>
 
-    {% if user.is_authenticated %}
     <div id="logged-in-menu">
+    {% if user.is_authenticated %}
       <a href="#" class="button" data-dropdown="drop">
         <span class="icon user"></span>
         {{ user.username }}
@@ -27,8 +27,13 @@
         <li><a href="#">This is another</a></li>
         <li><a href="{% url 'account_logout' %}">Sign out</a></li>
       </ul>
-    </div>
+    {% else %}
+      <a href="{% url 'account_login' %}" class="button">
+        Sign in
+        <span class="icon triangle-down red"></span>
+      </a>
     {% endif %}
+    </div>
 
 
     <section class="top-bar-section">
