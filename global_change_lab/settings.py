@@ -15,6 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+SITE_ID = 1
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -24,6 +25,7 @@ TEMPLATE_DEBUG = True
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
+TEMPLATE_CONTEXT_PROCESSORS = ()
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.sites', # requirement for django-allauth
+
     # our own stuff
     'global_change_lab',
     'skills',
@@ -45,6 +49,11 @@ INSTALLED_APPS = (
     # django packages
     'south',
     'storages',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.twitter',
 )
 
 from S3 import CallingFormat
@@ -169,3 +178,21 @@ if DEBUG:
         'django_debug_toolbar_livereloadpanel.panels.LiveReloadPanel',
     )
 
+# allauth
+LOGIN_REDIRECT_URL = '/'
+TEMPLATE_CONTEXT_PROCESSORS += (
+    # Required by allauth template tags
+    'django.core.context_processors.request',
+
+    # allauth specific context processors
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
+    'django.contrib.auth.context_processors.auth',
+)
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)

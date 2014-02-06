@@ -6695,6 +6695,26 @@ th.hide-for-touch {
 .touch th.show-for-touch {
   display: table-cell !important; }
 
+img#gcl-logo {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  height: 1.5625rem; }
+
+div#logged-in-menu {
+  float: right; }
+  div#logged-in-menu a.button {
+    background-color: white;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    padding-top: 0.4375rem;
+    padding-bottom: 0.4375rem;
+    font-size: 0.75rem;
+    color: #373737;
+    text-transform: none; }
+
+.red {
+  color: #ED1C24; }
+
 footer {
   background-color: #E2E4DD;
   background-repeat: no-repeat;
@@ -6718,10 +6738,6 @@ footer {
       font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
       font-weight: bold;
       margin-bottom: 0; }
-  footer img#gcl-logo {
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-    height: 1.5625rem; }
   footer .top-bar-section ul {
     background: none; }
   footer .top-bar-section li {

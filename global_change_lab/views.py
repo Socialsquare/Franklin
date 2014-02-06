@@ -1,11 +1,11 @@
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 from skills.models import Skill
 
 
 def front_page(request):
-    return render_to_response('front_page.html', {
+    return render(request, 'front_page.html', {
         'name': 'malthe',
         'skills': Skill.objects.all(),
     })
@@ -13,6 +13,6 @@ def front_page(request):
 
 # TODO: this page is a stub
 def shares(request):
-    return render_to_response('shares.html', {
+    return render(request, 'shares.html', {
         'shares': None, #Skill.objects.all(),
     })

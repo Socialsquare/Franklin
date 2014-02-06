@@ -4,6 +4,9 @@
 <head>
   <meta charset="utf-8">
   <link href="http://fonts.googleapis.com/css?family=Allerta+Stencil" rel="stylesheet" type="text/css">
+  <script src="/static/foundation/js/vendor/jquery.js"></script>
+  <script src="/static/foundation/js/foundation.js"></script>
+  <script src="/static/foundation/js/foundation/foundation.dropdown.js"></script>
   <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}" />
   <title>{% block title %}Global Change Lab{% endblock %}</title>
 </head>
@@ -11,19 +14,32 @@
 <body>
   <nav class="top-bar" data-topbar>
     <a href="/" title="Global Change Lab home"><img src="{% static 'images/gcl-logo.png' %}" id="gcl-logo" /></a>
-    {# <ul class="title-area"> #}
-    {#   <li class="name"> #}
-    {#     <h1><a href="/">My Site</a></h1> #}
-    {#   </li> #}
-    {# </ul> #}
+
+    {% if user.is_authenticated %}
+    <div id="logged-in-menu">
+      <a href="#" class="button" data-dropdown="drop">
+        <span class="icon user"></span>
+        {{ user.username }}
+        <span class="icon triangle-down red"></span>
+      </a>
+      <ul id="drop" class="f-dropdown" data-dropdown-content>
+        <li><a href="#">This is a link</a></li>
+        <li><a href="#">This is another</a></li>
+        <li><a href="{% url 'account_logout' %}">Sign out</a></li>
+      </ul>
+    </div>
+    {% endif %}
+
 
     <section class="top-bar-section">
+      {% if request.user.is_authenticated %}
       <!-- Left Nav Section -->
       <ul class="left">
         <li><a href="/skills">Skills</a></li>
         <li><a href="/skills/trainingbits">Bits</a></li>
         <li><a href="/user/updates">Updates <span class="update-count">6</span></a></li>
       </ul>
+      {% endif %}
 
       <!-- Right Nav Section -->
       {# <ul class="right"> #}
@@ -77,6 +93,7 @@
     </div>
     {% endblock %}
   </footer>
+  <script>$(document).foundation();</script>
 </body>
 </html>
 

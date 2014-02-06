@@ -12,6 +12,10 @@ urlpatterns = patterns('',
 
     url(r'^shares$', 'global_change_lab.views.shares', name='shares'),
 
+    # django-allauth
+    # url(r'^user/', include('allauth.urls', namespace='allauth', app_name='user')),
+    url(r'^user/', include('allauth.urls')),
+
     # url(r'^/', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
 )
