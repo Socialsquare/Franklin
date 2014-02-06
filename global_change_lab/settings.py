@@ -160,3 +160,12 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
     }
+
+    # Enable LiveReload
+    INSTALLED_APPS += (
+        'django_debug_toolbar_livereloadpanel',
+    )
+    DEBUG_TOOLBAR_PANELS += (
+        'django_debug_toolbar_livereloadpanel.panels.LiveReloadPanel',
+    )
+
