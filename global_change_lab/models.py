@@ -29,5 +29,8 @@ class UserProfile(models.Model):
     def is_trainer(self):
         return self.user.groups.filter(name='Trainers')
 
+    def is_admin(self):
+        return self.user.groups.filter(name='Admins')
+
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

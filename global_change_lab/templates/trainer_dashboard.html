@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block trainer_dashboard_button %}
+{% endblock %}
+
+{% block body-classes %} trainer-interface {% endblock %}
+{% block header-classes %} trainer-interface {% endblock %}
+{% block footer-classes %} trainer-interface {% endblock %}
+
+{% block content %}
+<div id="trainer-dashboard">
+  <h1>Trainer Dashboard</h1>
+  <a class="button" href="{% url 'skills:trainingbit_new' %}">Add new training bit</a>
+  <a class="button" href="{% url 'skills:skill_new' %}">Add new skill</a>
+  <hr>
+  <div class="row">
+    <div class="large-6 columns">
+      <h3>Your active training bits</h3>
+      {# include 'partials/trainingbits_grid.html' #}
+      <div class="list-container">
+      {% for trainingbit in trainingbits %}
+        {% include 'partials/trainer_trainingbit.html' %}
+      {% endfor %}
+      </div>
+    </div>
+    <div class="large-6 columns">
+      <h3>Your active skills</h3>
+    </div>
+  </div>
+</div>
+{% endblock %}

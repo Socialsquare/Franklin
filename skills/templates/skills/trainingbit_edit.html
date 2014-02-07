@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<form id="training-bit-cover-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="input-field-row">
+    <div class="input-field">
+      <input type="text" name="name" placeholder="Name your training bit" value="{{ trainingbit.name }}">
+    </div>
+    <div class="help-text">
+      <h6>Title</h6>
+      Here you should write the name of your training bit.
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      {% if trainingbit.image %}
+      <img src="{{trainingbit.image.url}}" style="height: 5rem">
+      {% endif %}
+      <input id="new-training-bit-cover" type="file" name="cover-image">
+    </div>
+    <div class="help-text">
+      <h6>Cover Image</h6>
+      Drag a file from your computer on to the button, or click the button to find
+      a file on your computer that will be the cover image of this training bit.
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      <textarea type="text" name="description" placeholder="Describe your training bit">{{trainingbit.description}}</textarea>
+    </div>
+    <div class="help-text">
+      <h6>Description</h6>
+      Here you should write a short description of your .
+    </div>
+  </div>
+  <button id="training-bit-submit" type="submit">
+    {% if trainingbit %}
+    Save training bit
+    {% else %}
+    Create new training bit
+    {% endif %}
+  </button>
+</form>
+{{ form_errors }}
+<script src="{% static 'jquery.filedrop.js' %}"></script>
+<script type="text/javascript">
+  {# $('#new-training-bit-cover').filedrop({ }); #}
+</script>
+
+{% endblock %}

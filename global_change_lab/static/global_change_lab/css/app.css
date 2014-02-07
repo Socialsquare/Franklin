@@ -1,3 +1,9 @@
+#training-bit-cover-form input[name=name], h1, h2, h3, h4, h5, h6 {
+  font-family: 'Allerta Stencil', sans-serif; }
+
+#training-bit-cover-form input[name=name], h1, h2, h3, h4, h5, h6 {
+  font-family: 'Allerta Stencil', sans-serif; }
+
 meta.foundation-mq-small {
   font-family: "/only screen and (max-width: 40em)/";
   width: 0em; }
@@ -110,7 +116,7 @@ textarea {
 select {
   width: 100%; }
 
-.row {
+.row, .input-field-row {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -123,15 +129,15 @@ select {
     display: table; }
   .row:after {
     clear: both; }
-  .row.collapse > .column, .row.collapse > .columns {
+  .row.collapse > .column, .row.collapse > .columns, .row.collapse > .input-field, .row.collapse > .help-text {
     position: relative;
     padding-left: 0;
     padding-right: 0;
     float: left; }
-  .row.collapse .row {
+  .row.collapse .row, .row.collapse .input-field-row {
     margin-left: 0;
     margin-right: 0; }
-  .row .row {
+  .row .row, .row .input-field-row {
     width: auto;
     margin-left: -0.9375rem;
     margin-right: -0.9375rem;
@@ -155,7 +161,7 @@ select {
       .row .row.collapse:after {
         clear: both; }
 
-.column, .columns {
+.column, .columns, .input-field, .help-text {
   position: relative;
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
@@ -262,7 +268,7 @@ select {
     position: relative;
     right: 91.66667%;
     left: auto; }
-  .column, .columns {
+  .column, .columns, .input-field, .help-text {
     position: relative;
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -447,7 +453,7 @@ select {
     position: relative;
     right: 91.66667%;
     left: auto; }
-  .column, .columns {
+  .column, .columns, .input-field, .help-text {
     position: relative;
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -720,7 +726,7 @@ select {
     position: relative;
     right: 91.66667%;
     left: auto; }
-  .column, .columns {
+  .column, .columns, .input-field, .help-text {
     position: relative;
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -734,7 +740,7 @@ select {
   .large-3 {
     position: relative;
     width: 25%; }
-  .large-4 {
+  .large-4, .help-text {
     position: relative;
     width: 33.33333%; }
   .large-5 {
@@ -746,7 +752,7 @@ select {
   .large-7 {
     position: relative;
     width: 58.33333%; }
-  .large-8 {
+  .large-8, .input-field {
     position: relative;
     width: 66.66667%; }
   .large-9 {
@@ -1934,13 +1940,13 @@ form {
   margin: 0 0 1rem; }
 
 /* Using forms within rows, we need to set some defaults */
-form .row .row {
+form .row .row, form .row .input-field-row {
   margin: 0 -0.5rem; }
-  form .row .row .column, form .row .row .columns {
+  form .row .row .column, form .row .row .columns, form .row .row .input-field, form .row .row .help-text {
     padding: 0 0.5rem; }
   form .row .row.collapse {
     margin: 0; }
-    form .row .row.collapse .column, form .row .row.collapse .columns {
+    form .row .row.collapse .column, form .row .row.collapse .columns, form .row .row.collapse .input-field, form .row .row.collapse .help-text {
       padding: 0; }
     form .row .row.collapse input {
       -moz-border-radius-bottomright: 0;
@@ -2907,7 +2913,7 @@ ul.pagination {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   top: 6.25rem; }
-  .reveal-modal .column, .reveal-modal .columns {
+  .reveal-modal .column, .reveal-modal .columns, .reveal-modal .input-field, .reveal-modal .help-text {
     min-width: 0; }
   .reveal-modal > :first-child {
     margin-top: 0; }
@@ -3471,7 +3477,7 @@ meta.foundation-mq-topbar {
   .top-bar ul {
     margin-bottom: 0;
     list-style: none; }
-  .top-bar .row {
+  .top-bar .row, .top-bar .input-field-row {
     max-width: none; }
   .top-bar form, .top-bar input {
     margin-bottom: 0; }
@@ -3828,7 +3834,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 0; }
 
 h1 {
-  font-size: 2.125rem; }
+  font-size: 1rem; }
 
 h2 {
   font-size: 1.6875rem; }
@@ -3853,7 +3859,7 @@ h6 {
   margin-bottom: 0.5rem; }
 
 hr {
-  border: solid #ddd;
+  border: solid #373737;
   border-width: 1px 0 0;
   clear: both;
   margin: 1.25rem 0 1.1875rem;
@@ -3983,7 +3989,7 @@ blockquote, blockquote p {
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.4; }
   h1 {
-    font-size: 2.75rem; }
+    font-size: 1.625rem; }
   h2 {
     font-size: 2.3125rem; }
   h3 {
@@ -5780,6 +5786,9 @@ icon .icon-social.github:before {
 .icon-social.smashing:before {
   content: '\F357'; }
 
+#training-bit-cover-form input[name=name], h1, h2, h3, h4, h5, h6 {
+  font-family: 'Allerta Stencil', sans-serif; }
+
 .off-canvas-wrap {
   -webkit-backface-visibility: hidden;
   position: relative;
@@ -6241,7 +6250,7 @@ div#front-page-cols {
   margin-bottom: 2rem; }
   div#front-page-cols .columns:first-child {
     border-left: none; }
-  div#front-page-cols .columns {
+  div#front-page-cols .columns, div#front-page-cols .input-field, div#front-page-cols .help-text {
     border-left: 1px solid #eee;
     text-align: center;
     min-height: 23rem; }
@@ -6249,6 +6258,7 @@ div#front-page-cols {
       margin: 1rem; }
     div#front-page-cols .columns h3 {
       margin: 0 auto;
+      font-size: 1.25rem;
       width: 60%; }
     div#front-page-cols .columns p {
       font-weight: 100;
@@ -6258,6 +6268,9 @@ div#front-page-cols {
       bottom: 0;
       margin: 0 auto;
       font-size: 0.7rem; }
+
+#training-bit-cover-form input[name=name], h1, h2, h3, h4, h5, h6 {
+  font-family: 'Allerta Stencil', sans-serif; }
 
 .off-canvas-wrap {
   -webkit-backface-visibility: hidden;
@@ -6781,21 +6794,71 @@ footer {
         border-bottom-right-radius: 0.125rem;
         border-top-right-radius: 0.125rem; }
 
+body.trainer-interface {
+  background-color: #E2E4DD; }
+
+header.trainer-interface {
+  background-color: #373737; }
+
+footer.trainer-interface {
+  background-color: #373737; }
+  footer.trainer-interface #footer-links a, footer.trainer-interface #footer-links h6 {
+    color: white; }
+
 #trainer-dashboard h1 {
   display: inline-block;
   color: white;
   background-color: #ED1C24; }
 #trainer-dashboard h3 {
   text-transform: none; }
+#trainer-dashboard div.list-container {
+  background-color: white;
+  padding-left: 1rem;
+  padding-right: 1rem; }
+  #trainer-dashboard div.list-container > div {
+    border-top: 1px #E2E4DD solid; }
+    #trainer-dashboard div.list-container > div:first-of-type {
+      border-top: none; }
+#trainer-dashboard div.trainer-trainingbit {
+  padding-bottom: 0.625rem;
+  padding-top: 0.625rem; }
 #trainer-dashboard a.button {
   float: right;
-  margin-left: 0.625rem; }
+  margin-right: 0.625rem; }
+#trainer-dashboard ul.icon-list, #trainer-dashboard ol.icon-list {
+  font-size: 0.625rem;
+  margin-left: 0;
+  margin-bottom: 0.3rem; }
+  #trainer-dashboard ul.icon-list li, #trainer-dashboard ol.icon-list li {
+    display: inline;
+    list-style-type: none;
+    margin-right: 0.625rem; }
+    #trainer-dashboard ul.icon-list li .icon, #trainer-dashboard ol.icon-list li .icon {
+      color: #ED1C24; }
 
-#new-training-bit-cover {
-  width: 100%;
-  height: 9.375rem;
-  border: 1px solid #E2E4DD;
-  margin-bottom: 0.5rem; }
+
+.input-field-row > * {
+  margin-bottom: 1.875rem; }
+
+
+.help-text {
+  color: #565B5B; }
+
+#training-bit-cover-form input[name=name], #training-bit-cover-form textarea {
+  border: none;
+  box-shadow: none; }
+#training-bit-cover-form button {
+  float: right; }
+
+#trainingbit-cover {
+  height: 7.5rem;
+  background-repeat: no-repeat;
+  position: relative; }
+  #trainingbit-cover h1 {
+    display: inline-block;
+    position: absolute;
+    left: 1.5625rem;
+    bottom: 0.625rem; }
 
 .icon {
   font-family: 'EntypoRegular';
@@ -6823,15 +6886,23 @@ a.button {
   background-color: #4B81BF;
   color: white; }
 
+#trainingbit-cover h1 {
+  background-color: #ED1C24;
+  color: white; }
+
+#trainer-dashboard div.trainer-trainingbit h3 a {
+  background-color: #373737;
+  color: white; }
+
 span {
   font-size: 16px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Allerta Stencil', sans-serif;
   text-transform: uppercase; }
 
-h1 {
+#training-bit-cover-form input[name=name], h1 {
   font-size: 1.625rem; }
+
 
 h3 {
   font-size: 0.875rem; }

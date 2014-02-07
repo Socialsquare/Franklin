@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="trainingbit-cover" style="background-image: url({{trainingbit.image.url}})">
+  <h1>{{ trainingbit.name }}</h1>
+</div>
+<p class="description">{{ trainingbit.description }}</p>
+{% if trainingbit.author == user %}
+<a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
+{% endif %}
+
+{% endblock %}

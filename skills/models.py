@@ -16,7 +16,7 @@ class TrainingBit(models.Model):
     author = models.ForeignKey(User)
     is_draft = models.BooleanField(default=True)
 
-    image = models.ImageField(upload_to='trainingbits', default='defaultimage')
+    image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
 
     def __str__(self):
         return self.name
