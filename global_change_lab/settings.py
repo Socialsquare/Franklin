@@ -76,9 +76,11 @@ WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 try:
     from .credentials import SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+    LOCALHOST = False
 except ImportError:
     import warnings
     warnings.warn('Credentials not found, using `localhost` default setup')
+    LOCALHOST = True
     SECRET_KEY = 'localhost-very-secret'
     DATABASES = {
         'default': {
@@ -90,6 +92,8 @@ except ImportError:
             #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+    MEDIA_ROOT = os.path.join(os.getcwd(), 'media')
+    MEDIA_URL = '/media/'
 
 
 # Internationalization
