@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'global_change_lab.views.front_page', name='front_page'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^skills/', include('skills.urls')),
+    url(r'^skills/', include('skills.urls', namespace='skills')),
 
     url(r'^shares$', 'global_change_lab.views.shares', name='shares'),
 
