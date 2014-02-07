@@ -28,15 +28,19 @@ def trainingbit_edit(request, trainingbit_id=None):
     trainingbit = None
     # If something has been uploaded
     if request.method == 'POST':
-        image_dict = {}
+
         if 'cover-image' in request.FILES:
-            image_dict = { 'image': request.FILES['cover-image'] }
+        # and request.FILES['cover-image'].size > 0:
+            image = request.FILES['cover-image']
+        else:
+            image = TrainingBit.objects.get(id__exact=trainingbit_id).image
+
         trainingbit = TrainingBit(
             id=trainingbit_id,
             author=request.user,
             name=request.POST['name'],
             description=request.POST['description'],
-            **image_dict
+            image=image
         )
         trainingbit.save()
         return HttpResponseRedirect(reverse('trainer_dashboard'))
