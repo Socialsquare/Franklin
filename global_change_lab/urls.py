@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 
     # django-allauth
     # url(r'^user/', include('allauth.urls', namespace='allauth', app_name='user')),
+    url(r'^user/dashboard', 'global_change_lab.views.trainer_dashboard', name='trainer_dashboard'),
     url(r'^user/', include('allauth.urls')),
 
     # url(r'^/', include(admin.site.urls)),

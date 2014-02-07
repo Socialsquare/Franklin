@@ -37,7 +37,14 @@
       {% endif %}
       </div>
 
+      {% block trainer_dashboard_button %}
+      {% if user.profile.is_trainer %}
+      <div id="trainer-dashboard-button">
+        <a href="{% url 'trainer_dashboard' %}" class="button">Trainer Dashboard</a>
+      </div>
       {% endif %}
+      {% endblock %}
+
 
       <section class="top-bar-section">
         {% if request.user.is_authenticated %}

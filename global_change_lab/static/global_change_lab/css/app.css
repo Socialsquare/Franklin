@@ -6700,9 +6700,9 @@ img#gcl-logo {
   margin-bottom: 1.25rem;
   height: 1.5625rem; }
 
-div#logged-in-menu {
+div#logged-in-menu, div#trainer-dashboard-button {
   float: right; }
-  div#logged-in-menu a.button {
+  div#logged-in-menu a.button, div#trainer-dashboard-button a.button {
     background-color: white;
     padding-left: 0.625rem;
     padding-right: 0.625rem;
@@ -6712,14 +6712,36 @@ div#logged-in-menu {
     color: #373737;
     text-transform: none; }
 
+div#trainer-dashboard-button {
+  margin-right: 0.625rem; }
+  div#trainer-dashboard-button a.button {
+    background-color: #4B81BF;
+    color: white; }
+
 .red {
   color: #ED1C24; }
+
+html, body {
+  height: 100%; }
+
+#sticky-footer-wrap {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -6.25rem; }
+  #sticky-footer-wrap #content {
+    height: 6.25rem; }
+
+footer {
+  clear: both;
+  position: relative;
+  height: 6.25rem; }
 
 footer {
   background-color: #E2E4DD;
   background-repeat: no-repeat;
-  background-position: 75% 0%;
-  height: 100%; }
+  background-position: 75% 0%; }
   @media only screen and (min-width:40.063em) {
     footer {
       padding-left: 16%;
@@ -6759,6 +6781,22 @@ footer {
         border-bottom-right-radius: 0.125rem;
         border-top-right-radius: 0.125rem; }
 
+#trainer-dashboard h1 {
+  display: inline-block;
+  color: white;
+  background-color: #ED1C24; }
+#trainer-dashboard h3 {
+  text-transform: none; }
+#trainer-dashboard a.button {
+  float: right;
+  margin-left: 0.625rem; }
+
+#new-training-bit-cover {
+  width: 100%;
+  height: 9.375rem;
+  border: 1px solid #E2E4DD;
+  margin-bottom: 0.5rem; }
+
 .icon {
   font-family: 'EntypoRegular';
   font-size: 2rem;
@@ -6772,9 +6810,18 @@ footer {
   color: #ED1C24; }
 
 a.button {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  padding-top: 0.4375rem;
+  padding-bottom: 0.4375rem;
+  font-size: 0.75rem;
   display: inline-block;
   text-transform: uppercase;
   background-color: #ED1C24; }
+
+#trainer-dashboard a.button {
+  background-color: #4B81BF;
+  color: white; }
 
 span {
   font-size: 16px; }
@@ -6782,6 +6829,12 @@ span {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Allerta Stencil', sans-serif;
   text-transform: uppercase; }
+
+h1 {
+  font-size: 1.625rem; }
+
+h3 {
+  font-size: 0.875rem; }
 
 #content {
   padding-top: 1.25rem; }
