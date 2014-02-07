@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 LABELS = (
     ('inspiration', 'Inspiration'),
@@ -10,9 +11,10 @@ LABELS = (
 # Create your models here.
 class TrainingBit(models.Model):
     name = models.CharField(max_length=30)
-    minute_duration = models.IntegerField()
     label = models.CharField(max_length=16, choices=LABELS)
     description = models.TextField()
+    author = models.ForeignKey(User)
+    is_draft = models.BooleanField(default=True)
 
     image = models.ImageField(upload_to='trainingbits', default='defaultimage')
 
