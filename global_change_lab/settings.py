@@ -77,7 +77,8 @@ WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 try:
     from .credentials import SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 except ImportError:
-    print('Credentials not found, using `localhost` default setup')
+    import warnings
+    warnings.warn('Credentials not found, using `localhost` default setup')
     SECRET_KEY = 'localhost-very-secret'
     DATABASES = {
         'default': {
@@ -107,7 +108,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(os.getcwd(), 'static')
 STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
