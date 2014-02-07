@@ -12,53 +12,60 @@
 </head>
 
 <body>
-  <nav class="top-bar" data-topbar>
-    <a href="/" title="Global Change Lab home"><img src="{% static 'images/gcl-logo.png' %}" id="gcl-logo" /></a>
+  {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
+  <div id="sticky-footer-wrap">
+    <nav class="top-bar" data-topbar>
+      <a href="/" title="Global Change Lab home"><img src="{% static 'images/gcl-logo.png' %}" id="gcl-logo" /></a>
 
-    <div id="logged-in-menu">
-    {% if user.is_authenticated %}
-      <a href="#" class="button" data-dropdown="drop">
-        <span class="icon user"></span>
-        {{ user.username }}
-        <span class="icon triangle-down red"></span>
-      </a>
-      <ul id="drop" class="f-dropdown" data-dropdown-content>
-        <li><a href="#">This is a link</a></li>
-        <li><a href="#">This is another</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign out</a></li>
-      </ul>
-    {% else %}
-      <a href="{% url 'account_login' %}" class="button">
-        Sign in
-        <span class="icon triangle-down red"></span>
-      </a>
-    {% endif %}
-    </div>
+      <div id="logged-in-menu">
+      {% if user.is_authenticated %}
+        <a href="#" class="button" data-dropdown="drop">
+          <span class="icon user"></span>
+          {{ user.username }}
+          <span class="icon triangle-down red"></span>
+        </a>
+        <ul id="drop" class="f-dropdown" data-dropdown-content>
+          <li><a href="#">This is a link</a></li>
+          <li><a href="#">This is another</a></li>
+          <li><a href="{% url 'account_logout' %}">Sign out</a></li>
+        </ul>
+      {% else %}
+        <a href="{% url 'account_login' %}" class="button">
+          Sign in
+          <span class="icon triangle-down red"></span>
+        </a>
+      {% endif %}
+      </div>
 
-
-    <section class="top-bar-section">
-      {% if request.user.is_authenticated %}
-      <!-- Left Nav Section -->
-      <ul class="left">
-        <li><a href="/skills">Skills</a></li>
-        <li><a href="/skills/trainingbits">Bits</a></li>
-        <li><a href="/user/updates">Updates <span class="update-count">6</span></a></li>
-      </ul>
       {% endif %}
 
-      <!-- Right Nav Section -->
-      {# <ul class="right"> #}
-      {#   <li class="active"><a href="#">Right Nav Button Active</a></li> #}
-      {#   <li class="has-dropdown"> #}
-      {#     <a href="#">Right Button with Dropdown</a> #}
-      {#     <ul class="dropdown"> #}
-      {#       <li><a href="#">First link in dropdown</a></li> #}
-      {#     </ul> #}
-      {#   </li> #}
-      {# </ul> #}
+      <section class="top-bar-section">
+        {% if request.user.is_authenticated %}
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li><a href="/skills">Skills</a></li>
+          <li><a href="/skills/trainingbits">Bits</a></li>
+          <li><a href="/user/updates">Updates <span class="update-count">6</span></a></li>
+        </ul>
+        {% endif %}
 
-    </section>
-  </nav>
+        <!-- Right Nav Section -->
+        {# <ul class="right"> #}
+        {#   <li class="active"><a href="#">Right Nav Button Active</a></li> #}
+        {#   <li class="has-dropdown"> #}
+        {#     <a href="#">Right Button with Dropdown</a> #}
+        {#     <ul class="dropdown"> #}
+        {#       <li><a href="#">First link in dropdown</a></li> #}
+        {#     </ul> #}
+        {#   </li> #}
+        {# </ul> #}
+
+      </section>
+    </nav>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+  </div>
   <!-- <header> -->
   <!--   {% block header %} -->
   <!--   <ul> -->
@@ -67,9 +74,6 @@
   <!--   </ul> -->
   <!--   {% endblock %} -->
   <!-- </header> -->
-  <div id="content">
-      {% block content %}{% endblock %}
-  </div>
   <footer>
     {% block footer %}
     <div class="row" id="footer-links">
