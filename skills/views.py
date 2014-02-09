@@ -26,6 +26,7 @@ def trainingbit_view(request, trainingbit_id):
 @csrf_protect
 def trainingbit_edit(request, trainingbit_id=None):
     trainingbit = None
+    tags = ''
     # If something has been uploaded
     if request.method == 'POST':
 
@@ -43,15 +44,21 @@ def trainingbit_edit(request, trainingbit_id=None):
             image=image
         )
         trainingbit.save()
+
+        tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
+        trainingbit.tags.set(*tags)
+
         # return HttpResponseRedirect(reverse('trainer_dashboard'))
         return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
             # return HttpResponseRedirect('/')
     elif trainingbit_id is not None:
         trainingbit = TrainingBit.objects.get(id__exact=trainingbit_id)
+        tags = ' '.join(trainingbit.tags.names())
 
     # By default show training bit form
     return render(request, 'skills/trainingbit_edit.html', {
         'trainingbit': trainingbit,
+        'tags': tags,
     })
 
 # TODO: this is a stub, that should be implemented

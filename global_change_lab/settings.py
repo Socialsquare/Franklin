@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     # django packages
     'south',
     'storages',
+    'taggit',
 
     'allauth',
     'allauth.account',

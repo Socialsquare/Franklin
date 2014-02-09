@@ -36,6 +36,18 @@
       Here you should write a short description of your .
     </div>
   </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      <input type="text" name="tags" placeholder="organisation politics planning ..." value="{{ tags }}">
+    </div>
+    <div class="help-text">
+      <h6>Tags</h6>
+      Here you can add tags to your training bit. Each tag is separated by a
+      space.
+      If your tag contains a space it should be wrapped in quotes, like this:
+      "political science"
+    </div>
+  </div>
   <button id="training-bit-submit" type="submit">
     {% if trainingbit %}
     Save training bit

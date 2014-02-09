@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from taggit.managers import TaggableManager
+
+
 LABELS = (
     ('inspiration', 'Inspiration'),
     ('background', 'Background'),
@@ -18,6 +21,8 @@ class TrainingBit(models.Model):
 
     image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
 
+    tags = TaggableManager()
+
     def __str__(self):
         return self.name
 
@@ -28,6 +33,8 @@ class Skill(models.Model):
     # training bit)
     training_bits = models.ManyToManyField(TrainingBit, blank=True, null=True)
     description = models.TextField()
+
+    tags = TaggableManager()
 
     def __str__(self):
         return self.name
