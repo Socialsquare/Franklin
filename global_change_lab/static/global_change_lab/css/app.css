@@ -6743,12 +6743,13 @@ html, body {
   height: auto !important;
   height: 100%;
   margin-bottom: -6.25rem; }
-  #sticky-footer-wrap #content {
-    height: 6.25rem; }
 
 footer {
   clear: both;
   position: relative;
+  height: 6.25rem; }
+
+#sticky-footer-push {
   height: 6.25rem; }
 
 footer {
@@ -6866,11 +6867,16 @@ footer.trainer-interface {
   font-weight: normal;
   line-height: 0;
   vertical-align: middle; }
-
-.icon.large {
-  font-size: 10rem;
-  line-height: 5rem;
-  color: #ED1C24; }
+  .icon.medium {
+    font-size: 4rem; }
+  .icon.large {
+    font-size: 10rem;
+    line-height: 5rem;
+    color: #ED1C24; }
+  .icon.black {
+    color: black; }
+  .icon.red {
+    color: #ED1C24; }
 
 a.button {
   padding-left: 0.625rem;
@@ -6908,7 +6914,8 @@ h3 {
   font-size: 0.875rem; }
 
 #content {
-  padding-top: 1.25rem; }
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem; }
   @media only screen and (min-width:40.063em) {
     #content {
       padding-left: 16%;

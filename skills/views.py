@@ -43,7 +43,8 @@ def trainingbit_edit(request, trainingbit_id=None):
             image=image
         )
         trainingbit.save()
-        return HttpResponseRedirect(reverse('trainer_dashboard'))
+        # return HttpResponseRedirect(reverse('trainer_dashboard'))
+        return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
             # return HttpResponseRedirect('/')
     elif trainingbit_id is not None:
         trainingbit = TrainingBit.objects.get(id__exact=trainingbit_id)
@@ -56,7 +57,9 @@ def trainingbit_edit(request, trainingbit_id=None):
 # TODO: this is a stub, that should be implemented
 @csrf_protect
 def trainingbit_edit_content(request, trainingbit_id=None):
-    return HttpResponseRedirect('/')
+    return render(request, 'skills/trainingbit_edit_content.html', {
+        'trainingbit': TrainingBit.objects.get(id__exact=trainingbit_id),
+    })
 
 def trainingbit_delete(request, trainingbit_id):
     trainingbit = TrainingBit.objects.filter(id__exact=trainingbit_id)
