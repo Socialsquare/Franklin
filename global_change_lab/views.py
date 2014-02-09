@@ -21,6 +21,7 @@ def shares(request):
 def trainer_dashboard(request):
     return render(request, 'trainer_dashboard.html', {
         'trainingbits': request.user.trainingbit_set.all(),
+        'skills': request.user.skill_set.all(),
         # TrainingBit.objects.l
         # 'shares': None, #Skill.objects.all(),
     })

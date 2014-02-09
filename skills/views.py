@@ -36,6 +36,7 @@ def trainingbit_edit(request, trainingbit_id=None):
         else:
             image = TrainingBit.objects.get(id__exact=trainingbit_id).image
 
+
         trainingbit = TrainingBit(
             id=trainingbit_id,
             author=request.user,
@@ -82,4 +83,33 @@ def skill(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
     return render(request, 'skills/skill.html', {
         'skill': skill,
+    })
+
+@csrf_protect
+def skill_edit(request, skill_id=None):
+    skill = None
+    tags = ''
+    # If something has been uploaded
+    if request.method == 'POST':
+
+        skill = Skill(
+            id=skill_id,
+            author=request.user,
+            name=request.POST['name'],
+            description=request.POST['description']
+        )
+        skill.save()
+
+        tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
+        skill.tags.set(*tags)
+
+        return HttpResponseRedirect(reverse('trainer_dashboard'))
+    elif skill_id is not None:
+        skill = Skill.objects.get(id__exact=skill_id)
+        tags = ' '.join(skill.tags.names())
+
+    # By default show skill form
+    return render(request, 'skills/skill_edit.html', {
+        'skill': skill,
+        'tags': tags,
     })

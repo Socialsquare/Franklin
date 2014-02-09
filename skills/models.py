@@ -33,6 +33,7 @@ class Skill(models.Model):
     # training bit)
     training_bits = models.ManyToManyField(TrainingBit, blank=True, null=True)
     description = models.TextField()
+    author = models.ForeignKey(User)
 
     tags = TaggableManager()
 

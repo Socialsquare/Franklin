@@ -6820,7 +6820,7 @@ footer.trainer-interface {
     border-top: 1px #E2E4DD solid; }
     #trainer-dashboard div.list-container > div:first-of-type {
       border-top: none; }
-#trainer-dashboard div.trainer-trainingbit {
+#trainer-dashboard div.trainer-item {
   padding-bottom: 0.625rem;
   padding-top: 0.625rem; }
 #trainer-dashboard a.button {
@@ -6896,7 +6896,7 @@ a.button {
   background-color: #ED1C24;
   color: white; }
 
-#trainer-dashboard div.trainer-trainingbit h3 a {
+#trainer-dashboard div.trainer-item h3 a {
   background-color: #373737;
   color: white; }
 

@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^trainingbit/(\d+)/delete$', 'skills.views.trainingbit_delete', name="trainingbit_delete"),
 
     # TODO: These are stubs, and must be implemented
-    url(r'^skill/new$', 'skills.views.skill', name='skill_new'),
+    url(r'^skill/new$', 'skills.views.skill_edit', name='skill_new'),
+    url(r'^skill/(\d+)/edit$', 'skills.views.skill_edit', name="skill_edit"),
     # url(r'^admin/', include(admin.site.urls)),
 )

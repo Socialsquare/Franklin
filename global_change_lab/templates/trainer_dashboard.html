@@ -18,13 +18,18 @@
       <h3>Your active training bits</h3>
       {# include 'partials/trainingbits_grid.html' #}
       <div class="list-container">
-      {% for trainingbit in trainingbits %}
-        {% include 'partials/trainer_trainingbit.html' %}
+      {% for item in trainingbits %}
+        {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
       {% endfor %}
       </div>
     </div>
     <div class="large-6 columns">
       <h3>Your active skills</h3>
+      <div class="list-container">
+      {% for item in skills %}
+        {% include 'partials/trainer_item.html' with url_name='skills:skill_edit' %}
+      {% endfor %}
+    </div>
     </div>
   </div>
 </div>

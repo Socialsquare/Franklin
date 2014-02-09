@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<form id="training-bit-cover-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="input-field-row">
+    <div class="input-field">
+      <input type="text" name="name" placeholder="Name the skill" value="{{ skill.name }}">
+    </div>
+    <div class="help-text">
+      <h6>Title</h6>
+      Here you should write the name of the skill.
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      <textarea name="description" placeholder="Describe the skill">{{skill.description}}</textarea>
+    </div>
+    <div class="help-text">
+      <h6>Description</h6>
+      Here you should write a short description of the skill.
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      <input type="text" name="tags" placeholder="organisation politics planning ..." value="{{ tags }}">
+    </div>
+    <div class="help-text">
+      <h6>Tags</h6>
+      Here you can add tags to the skill. Each tag is separated by a
+      space.
+      If the tag contains a space it should be wrapped in quotes, like this:
+      "political science"
+    </div>
+  </div>
+  <button id="trainingbit-submit" type="submit">
+    {% if skill %}
+    Save skill
+    {% else %}
+    Create new skill
+    {% endif %}
+  </button>
+</form>
+{{ form_errors }}
+<script src="{% static 'jquery.filedrop.js' %}"></script>
+<script type="text/javascript">
+  {# $('#new-training-bit-cover').filedrop({ }); #}
+</script>
+
+{% endblock %}
