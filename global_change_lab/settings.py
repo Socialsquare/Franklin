@@ -25,7 +25,9 @@ TEMPLATE_DEBUG = True
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
-TEMPLATE_CONTEXT_PROCESSORS = ()
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.debug',
+)
 
 ALLOWED_HOSTS = []
 
