@@ -33,18 +33,25 @@ def trainingbit_edit(request, trainingbit_id=None):
         if 'cover-image' in request.FILES:
         # and request.FILES['cover-image'].size > 0:
             image = request.FILES['cover-image']
-        else:
+        elif trainingbit_id is not None:
             image = TrainingBit.objects.get(id__exact=trainingbit_id).image
+        else:
+            image = None
 
+        if image is not None:
+            img_d = {'image': image}
+        else:
+            img_d = {}
 
         trainingbit = TrainingBit(
             id=trainingbit_id,
             author=request.user,
             name=request.POST['name'],
             description=request.POST['description'],
-            image=image
+            **img_d
         )
         trainingbit.save()
+        trainingbit_id = trainingbit.id
 
         tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
         trainingbit.tags.set(*tags)
