@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 try:
-    from .credentials import SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+    from .credentials import SITE_ID, SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
     LOCALHOST = False
 except ImportError:
     import warnings
