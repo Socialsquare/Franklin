@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
 )
 
 from S3 import CallingFormat
