@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+  {% if request.user == user %} <a href="{% url 'user_delete' user.id %}" class="button">Delete</a>{% endif%}
+</div>
+<h1>{{ user.username }}</h1>
+<h3>{{ user.first_name }} {{ user.last_name }}</h3>
+
+<dt>Joined on: </dt><dd>{{ user.date_joined }}</dd>
+
+
+{# http://stackoverflow.com/questions/8103584/linking-django-comments-with-django-users #}
+{# http://stackoverflow.com/questions/5292723/django-retrieve-all-comments-for-a-user #}
+
+<div id="dashboard">
+  <div class="row">
+    <div class="large-6 columns">
+      <h3>Latest comments</h3>
+      {# include 'partials/trainingbits_grid.html' #}
+      <div class="list-container">
+      {% for item in trainingbits %}
+        {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul>
+{% for comment in user.comment_comments.all %}
+<li>{{ comment.name }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for field in user_fields %}
+<li>{{ field }}</li>
+{% endfor %}
+</ul>
+<ul>
+{% for field in profile_fields %}
+<li>{{ field }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from global_change_lab.models import User, UserProfile
 from skills.models import Skill
 
 
@@ -24,4 +25,15 @@ def trainer_dashboard(request):
         'skills': request.user.skill_set.all(),
         # TrainingBit.objects.l
         # 'shares': None, #Skill.objects.all(),
+    })
+
+def profile(request, user_id=None):
+    if user_id is None:
+        user = request.user
+    else:
+        user = User.objects.get(id__exact=user_id)
+    return render(request, 'profile.html', {
+        'user': user,
+        'user_fields': User._meta.get_all_field_names(),
+        'profile_fields': UserProfile._meta.get_all_field_names(),
     })

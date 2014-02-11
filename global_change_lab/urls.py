@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # url(r'^user/', include('allauth.urls', namespace='allauth', app_name='user')),
     url(r'^user/dashboard', 'global_change_lab.views.trainer_dashboard', name='trainer_dashboard'),
     url(r'^user/', include('allauth.urls')),
+    url(r'^user/profile/(\d+)?', 'global_change_lab.views.profile', name='profile'),
 
     # django-comments-xtd
     url(r'^comments/', include('django_comments_xtd.urls')),
