@@ -19,9 +19,15 @@ class TrainingBit(models.Model):
     author = models.ForeignKey(User)
     is_draft = models.BooleanField(default=True)
 
+    tags = TaggableManager()
+
     image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
 
-    tags = TaggableManager()
+    def getImage(self):
+        if self.image:
+            return self.image.url
+        else:
+            return 'defaultimage'
 
     def __str__(self):
         return self.name

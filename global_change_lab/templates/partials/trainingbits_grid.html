@@ -3,7 +3,7 @@
   <li>
     <a href="{% url 'skills:trainingbit_view' trainingbit.id %}">
     {# <img src="/static/images/training-bit-cover.png" alt="Training Bit cover image"> #}
-    <img src="{{ trainingbit.image.url }}" alt="Training Bit cover image">
+    <img src="{{ trainingbit.getImage }}" alt="Training Bit cover image">
     {{trainingbit.name}}
     </a>
     <p>{{trainingbit.description}}</p>

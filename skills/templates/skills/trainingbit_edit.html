@@ -17,7 +17,7 @@
   <div class="input-field-row">
     <div class="input-field">
       {% if trainingbit.image %}
-      <img src="{{trainingbit.image.url}}" style="height: 5rem">
+      <img src="{{trainingbit.getImage}}" style="height: 5rem">
       {% endif %}
       <input id="new-training-bit-cover" type="file" name="cover-image">
     </div>
