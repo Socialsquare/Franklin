@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'django.contrib.sites', # requirement for django-allauth
+    'django.contrib.comments', # requirement for django-comments-xtd
 
     # our own stuff
     'global_change_lab',
@@ -52,6 +53,7 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'taggit',
+    'django_comments_xtd',
 
     'allauth',
     'allauth.account',
@@ -207,3 +209,7 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+# django-comments-xtd
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2

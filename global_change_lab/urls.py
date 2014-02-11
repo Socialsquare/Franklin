@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     url(r'^user/dashboard', 'global_change_lab.views.trainer_dashboard', name='trainer_dashboard'),
     url(r'^user/', include('allauth.urls')),
 
+    # django-comments-xtd
+    url(r'^comments/', include('django_comments_xtd.urls')),
+
     # url(r'^/', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
 )
