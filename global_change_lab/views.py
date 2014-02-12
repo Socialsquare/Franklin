@@ -33,7 +33,7 @@ def profile(request, user_id=None):
     else:
         user = User.objects.get(id__exact=user_id)
     return render(request, 'profile.html', {
-        'user': user,
+        'some_user': user,
         'user_fields': User._meta.get_all_field_names(),
         'profile_fields': UserProfile._meta.get_all_field_names(),
     })

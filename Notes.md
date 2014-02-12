@@ -69,11 +69,20 @@ picture, a link, a text?
 
 user.is_authenticated in templates
 ----------------------------------
-
 In order for user information to be available to a template a `RequestContext`
 must be passed to it.  The `render()` function does this by default, while
 `render_to_response()` does not.  Therefore you should always use `render()`.
 See: <https://docs.djangoproject.com/en/1.6/ref/templates/api/#subclassing-context-requestcontext>
+
+Furthermore you need to include `django.contrib.auth.context_processors.auth`
+in `TEMPLATE_CONTEXT_PROCESSORS`. This inject a template variable called `user`
+into all template contexts. `user` is the object representing the currently
+logged in user.  This means you should **not** use the template variable called
+`user` as it will override the logged in user object and thing will mess up.
+See: <https://docs.djangoproject.com/en/1.6/ref/templates/api/#django-contrib-auth-context-processors-auth>
+
+**TL;DR** Don't name your own template variables `user` and always use
+`render()` instead of `render_to_response()`.
 
 Getting south to work
 ---------------------

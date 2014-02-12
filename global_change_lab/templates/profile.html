@@ -2,12 +2,15 @@
 
 {% block content %}
 <div>
-  {% if request.user == user %} <a href="{% url 'user_delete' user.id %}" class="button">Delete</a>{% endif%}
+  {% if request.user == some_user %} <a href="{% url 'user_delete' user.id %}" class="button">Delete</a>{% endif%}
 </div>
-<h1>{{ user.username }}</h1>
-<h3>{{ user.first_name }} {{ user.last_name }}</h3>
+<h1>{{ some_user.username }}</h1>
 
-<dt>Joined on: </dt><dd>{{ user.date_joined }}</dd>
+<dl>
+<dt>Name:</dt> <dd>{{ some_user.first_name }} {{ some_user.last_name }}</dd>
+<dt>Joined on: </dt><dd>{{ some_user.date_joined }}</dd>
+<dt>Last seen: </dt><dd>{{ some_user.last_login }}</dd>
+</dl>
 
 
 {# http://stackoverflow.com/questions/8103584/linking-django-comments-with-django-users #}
@@ -28,7 +31,7 @@
 </div>
 
 <ul>
-{% for comment in user.comment_comments.all %}
+{% for comment in some_user.comment_comments.all %}
 <li>{{ comment.name }}</li>
 {% endfor %}
 </ul>
