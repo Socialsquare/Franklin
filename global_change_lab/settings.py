@@ -186,6 +186,10 @@ if DEBUG:
         'INTERCEPT_REDIRECTS': False,
     }
 
+# email
+if DEBUG:
+        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
 # allauth
 LOGIN_REDIRECT_URL = '/'
 TEMPLATE_CONTEXT_PROCESSORS += (
