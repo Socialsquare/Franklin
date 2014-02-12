@@ -83,7 +83,7 @@ module.exports = function(grunt) {
       },
 
       sass: {
-        files: 'global_change_lab/static/global_change_lab/scss/*.scss',
+        files: 'scss/*.scss',
         tasks: ['sass'],
         options: {
           livereload: true
