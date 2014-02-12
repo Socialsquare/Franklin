@@ -42,12 +42,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django.contrib.sites', # requirement for django-allauth
-    'django.contrib.comments', # requirement for django-comments-xtd
 
     # our own stuff
     'global_change_lab',
     'skills',
+
+    # requirements
+    'django.contrib.sites', # requirement for django-allauth
+    'django.contrib.comments', # requirement for django-comments-xtd
 
     # django packages
     'south',

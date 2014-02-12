@@ -9,22 +9,7 @@
   {% endif %}
 
 {# Comments section #}
-{% get_comment_list for trainingbit as comment_list %}
-<dl id="comments">
-  {% for comment in comment_list %}
-  <div style="margin-left:{{ comment.level }}00px; border-left:5px solid #ddd">
-    <dt id="c{{ comment.id }}" style="background-color: #ddd">
-    {{ comment.submit_date }}&nbsp;-&nbsp;<a href="{% url 'profile' comment.user.id %}">{{ comment.name }}
-      {% if comment.url %}</a>{% endif %}{% if comment.allow_thread %}&nbsp;-&nbsp;
-    <a href="{{ comment.get_reply_url }}">Reply</a>{% endif %}
-    </dt>
-    <dd>
-      <p>{{ comment.comment }}</p>
-    </dd>
-  </div>
-  {% endfor %}
-</dl>
-
+{% render_comment_list for trainingbit %}
 {% render_comment_form for trainingbit %}
 
 {% endblock %}
