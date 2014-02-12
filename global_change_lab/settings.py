@@ -27,6 +27,7 @@ TEMPLATE_LOADERS = (
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
+    'django.contrib.messages.context_processors.messages',
 )
 
 ALLOWED_HOSTS = []
@@ -207,3 +208,9 @@ AUTHENTICATION_BACKENDS = (
 # django-comments-xtd
 COMMENTS_APP = 'django_comments_xtd'
 COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+
+# django.contrib.messages
+import django.contrib.messages as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'alert' # foundation 5 uses 'alert' as its 'error'-class
+}

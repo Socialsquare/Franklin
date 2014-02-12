@@ -1,0 +1,47 @@
+
+#messages {
+  position: fixed;
+  right: 3em;
+  top: 2em;
+  z-index: 100;
+
+  .alert-box {
+
+    // LINE 65 in _settings.scss
+    // We use these as default colors throughout
+    // $primary-color: #008CBA;
+    // $secondary-color: #e7e7e7;
+    // $alert-color: #f04124;
+    // $success-color: #43AC6A;
+    // $warning-color: #f08a24;
+    // $info-color: #a0d3e8;
+
+    &.debug {
+    }
+    &.info {
+    }
+    &.success {
+      //background-color: $gcl-lightgray;
+    }
+    &.warning {
+    }
+    //&.error {
+    //  @extend .alert-box.alert
+    //}
+
+    // Make space for the close button
+    padding-right: 2rem;
+
+    a.close {
+      position: absolute;
+      top:0;
+      right:0;
+      line-height: 2rem;
+
+
+      margin-left: 2rem;
+      padding: rem-calc(4px);
+    }
+
+  }
+}

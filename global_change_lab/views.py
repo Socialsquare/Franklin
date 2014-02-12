@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render
 
+import django.contrib.messages as messages
 from global_change_lab.models import User, UserProfile
 from skills.models import Skill
 
@@ -46,5 +47,10 @@ def user_delete(request, user_id):
 
     if user == request.user:
         user.delete()
+        messages.success(request, 'Successfully deleted your user.')
+    else:
+        messages.error(request, 'You do not have permissions to delete this user.')
+
+
 
     return HttpResponseRedirect(reverse('front_page'))

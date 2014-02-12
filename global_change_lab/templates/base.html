@@ -15,6 +15,18 @@
 </head>
 
 <body class="{% block body-classes %}{% endblock %}">
+
+  {% if messages %}
+  <div id="messages">
+    {% for message in messages %}
+    <div class="alert-box {{ message.tags }}" data-alert>
+      {{ message }}
+      <a href="#" class="close">&times;</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
   <div id="sticky-footer-wrap">
     <header class="top-bar {% block header-classes %}{% endblock %}">
