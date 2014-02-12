@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
 
 from global_change_lab.models import User, UserProfile
@@ -27,6 +28,7 @@ def trainer_dashboard(request):
         # 'shares': None, #Skill.objects.all(),
     })
 
+
 def profile(request, user_id=None):
     if user_id is None:
         user = request.user
@@ -37,3 +39,12 @@ def profile(request, user_id=None):
         'user_fields': User._meta.get_all_field_names(),
         'profile_fields': UserProfile._meta.get_all_field_names(),
     })
+
+
+def user_delete(request, user_id):
+    user = User.objects.get(id__exact=user_id)
+
+    if user == request.user:
+        user.delete()
+
+    return HttpResponseRedirect(reverse('front_page'))
