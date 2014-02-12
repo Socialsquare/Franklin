@@ -1,0 +1,186 @@
+@import "foundation";
+@import "scss/settings";
+@import "scss/gcl-functions";
+@import "scss/entypo";
+@import "scss/front_page";
+@import "scss/base";
+@import "scss/trainer_dashboard";
+@import "scss/trainingbit_edit";
+@import "scss/trainingbit_view";
+
+.icon {
+  // font-family: Entypo;
+  font-family: 'EntypoRegular';
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 0;
+  vertical-align: middle;
+  // display: inline-block;
+  // padding-bottom: 10px;
+
+  &.medium {
+    font-size: 4rem;
+  }
+
+  &.large {
+    font-size: 10rem;
+    line-height: 5rem;
+    color: $gcl-red;
+  }
+  &.black {
+    color: black;
+  }
+  &.red {
+    color: $gcl-red;
+  }
+}
+
+a.button {
+
+  padding-left: rem-calc(10px);
+  padding-right: rem-calc(10px);
+  padding-top: rem-calc(7px);
+  padding-bottom: rem-calc(7px);
+  font-size: rem-calc(12px);
+
+  display: inline-block;
+  text-transform: uppercase;
+  background-color: $gcl-red;
+}
+
+%blue-button {
+  background-color: $gcl-blue;
+  color: white;
+}
+
+%white-on-red {
+  background-color: $gcl-red;
+  color: white;
+}
+.white-on-red {
+  @extend %white-on-red;
+}
+%white-on-gray {
+  background-color: $gcl-darkgray;
+  color: white;
+}
+
+
+$medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
+span {
+  font-size: $rem-base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @extend %stencil-font;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  &.white-on-red {
+    display: inline-block;
+  }
+}
+
+%h1 {
+  font-size: rem-calc(26px);
+}
+h1 {
+  @extend %h1;
+}
+
+h3 {
+  font-size: rem-calc(14px);
+}
+
+#content {
+  @include main-column();
+  padding-top: rem-calc(20px);
+  padding-bottom: rem-calc(20px);
+
+  ul li img {
+    display: block;
+  }
+}
+
+.top-bar {
+  @include main-column();
+
+  background-color: $gcl-lightgray;
+  // background-image: url(../../../static/images/top-football-guy-flattened.png);
+  background-image: url(../../../static/images/top-football-guy.png);
+  background-repeat: no-repeat;
+  background-position: 75% 0%;
+  // height: rem-calc(90px);
+  height: 100%;
+
+  img#gcl-logo {
+    margin-top: rem-calc(20px);
+    margin-bottom: rem-calc(20px);
+    height: rem-calc(25px);
+  }
+
+  .top-bar-section {
+    ul {
+      background: none;
+    }
+    li {
+      a {
+        @include rounded(rem-calc(2px));
+        font-weight: bold;
+        text-transform: uppercase;
+
+        .update-count {
+          display: inline-block;
+          background-color: $gcl-red;
+          margin-left: 10px;
+          margin-right: -15px;
+          padding-right: 15px;
+          padding-left: 15px;
+          @include rounded-right(rem-calc(2px));
+        }
+      }
+      margin-right: rem-calc(32px);
+      line-height: rem-calc(44px);
+    }
+  }
+}
+
+
+// Or selectively include components
+// @import
+//   "foundation/components/accordion",
+//   "foundation/components/alert-boxes",
+//   "foundation/components/block-grid",
+//   "foundation/components/breadcrumbs",
+//   "foundation/components/button-groups",
+//   "foundation/components/buttons",
+//   "foundation/components/clearing",
+//   "foundation/components/dropdown",
+//   "foundation/components/dropdown-buttons",
+//   "foundation/components/flex-video",
+//   "foundation/components/forms",
+//   "foundation/components/grid",
+//   "foundation/components/inline-lists",
+//   "foundation/components/joyride",
+//   "foundation/components/keystrokes",
+//   "foundation/components/labels",
+//   "foundation/components/magellan",
+//   "foundation/components/orbit",
+//   "foundation/components/pagination",
+//   "foundation/components/panels",
+//   "foundation/components/pricing-tables",
+//   "foundation/components/progress-bars",
+//   "foundation/components/reveal",
+//   "foundation/components/side-nav",
+//   "foundation/components/split-buttons",
+//   "foundation/components/sub-nav",
+//   "foundation/components/switch",
+//   "foundation/components/tables",
+//   "foundation/components/tabs",
+//   "foundation/components/thumbs",
+//   "foundation/components/tooltips",
+//   "foundation/components/top-bar",
+//   "foundation/components/type",
+//   "foundation/components/offcanvas",
+//   "foundation/components/visibility";

@@ -1,0 +1,65 @@
+div#front-page-greeter {
+  background-color : $gcl-darkgray;
+  padding-top: rem-calc(30px);
+  padding-left: rem-calc(42px);
+  padding-right: rem-calc(42px);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  h1, h2, p {
+    color: white;
+  }
+  h2 {
+    background-color: $gcl-red;
+    display: inline-block;
+  }
+  p {
+    font-family: 'Allerta Stencil', sans-serif;
+    font-size: 2rem;
+    margin-top: 0.8rem;
+    width: 50%;
+    line-height: 2.3rem;
+  }
+  a.button.join {
+    margin-top: 1rem;
+  }
+}
+
+div#front-page-cols {
+  margin-bottom: 2rem;
+
+  .columns:first-child {
+    border-left: none;
+  }
+  .columns {
+    border-left: 1px solid #eee;
+
+    text-align: center;
+    min-height: 23rem;
+    // position: relative;
+
+    .icon {
+      margin: 1rem;
+    }
+
+    h3 {
+      margin: 0 auto;
+      font-size: rem-calc(20px);
+      width: 60%;
+    }
+    p {
+      font-weight: 100;
+      font-size: 1.1rem;
+      line-height: 1.4rem;
+    }
+    .button {
+      // position: absolute;
+      bottom: 0;
+      margin: 0 auto;
+      font-size: 0.7rem;
+      // margin-bottom: 0;
+      // margin-left: auto;
+      // margin-right: auto;
+    }
+  }
+}

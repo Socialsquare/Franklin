@@ -1,0 +1,67 @@
+
+
+body.trainer-interface {
+  background-color: $gcl-lightgray;
+}
+header.trainer-interface {
+  background-color: $gcl-darkgray;
+}
+footer.trainer-interface {
+  background-color: $gcl-darkgray;
+  #footer-links {
+    a, h6 {
+      color: white;
+    }
+  }
+}
+
+#trainer-dashboard {
+
+  h1 {
+    display: inline-block;
+    color: white;
+    background-color: $gcl-red;
+  }
+  h3 {
+    text-transform: none;
+  }
+
+  div.list-container {
+    background-color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    >div {
+      border-top: 1px $gcl-lightgray solid;
+      &:first-of-type {
+        border-top: none;
+      }
+    }
+  }
+
+  div.trainer-item {
+    h3 a {
+      @extend %white-on-gray;
+    }
+    padding-bottom: rem-calc(10px);
+    padding-top: rem-calc(10px);
+  }
+
+  a.button {
+    @extend %blue-button;
+    float: right;
+    margin-right: rem-calc(10px);
+  }
+  ul.icon-list, ol.icon-list {
+    font-size: rem-calc(10px);
+    margin-left: 0;
+    margin-bottom: 0.3rem;
+    li {
+      display: inline;
+      list-style-type: none;
+      margin-right: rem-calc(10px);
+      .icon {
+        color: $gcl-red;
+      }
+    }
+  }
+}

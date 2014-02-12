@@ -1,0 +1,13 @@
+{
+  "name": "Global Change Lab",
+  "version": "0.0.1",
+  "authors": [
+    "Malthe Jørgensen <mj@bitblueprint.com>"
+  ],
+  "description": "An activist training platform for actionAid",
+  "license": "BSD 2-clause",
+  "private": true,
+  "devDependencies": {
+    "foundation": "5.1.1"
+  }
+}

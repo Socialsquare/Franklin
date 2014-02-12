@@ -1,0 +1,47 @@
+
+#new-training-bit-cover {
+  // width: 100%;
+  // height: rem-calc(150px);
+  // border: 1px solid $gcl-lightgray;
+  // margin-bottom: 0.5rem;
+}
+
+.input-field-row {
+  @extend .row;
+
+  // >  == direct child
+  // *  == any tag
+  // >* == all first children of .input-field-row
+  >* {
+    margin-bottom: rem-calc(30px);
+  }
+}
+.input-field {
+  @extend .large-8;
+  @extend .columns;
+  height: 100%;
+}
+.help-text {
+  @extend .large-4;
+  @extend .columns;
+  color: $gcl-midgray;
+  height: 100%;
+}
+
+#training-bit-cover-form {
+  input[name=name], textarea {
+    border: none;
+    box-shadow: none;
+  }
+
+  input[name=name] {
+    @extend %h1;
+    @extend %stencil-font;
+    // font-family: 'Allerta Stencil', sans-serif;
+  }
+
+  button {
+    float: right;
+  }
+
+}

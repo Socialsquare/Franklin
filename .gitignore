@@ -1,0 +1,6 @@
+.ropeproject
+__pycache__
+/components
+/node_modules
+/bower_components
+/static

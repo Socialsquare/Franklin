@@ -1,0 +1,118 @@
+img#gcl-logo {
+  margin-top: rem-calc(20px);
+  margin-bottom: rem-calc(20px);
+  height: rem-calc(25px);
+}
+
+div#logged-in-menu, div#trainer-dashboard-button {
+  float: right;
+
+  a.button {
+    background-color: white;
+    padding-left: rem-calc(10px);
+    padding-right: rem-calc(10px);
+    padding-top: rem-calc(7px);
+    padding-bottom: rem-calc(7px);
+    font-size: rem-calc(12px);
+    color: $gcl-darkgray;
+    text-transform: none;
+  }
+}
+div#trainer-dashboard-button {
+  margin-right: rem-calc(10px);
+
+  a.button {
+    background-color: $gcl-blue;
+    color: white;
+  }
+}
+
+
+.red {
+  color: $gcl-red;
+}
+
+
+// Sticky footer
+// http://compass-style.org/reference/compass/layout/sticky_footer/
+html, body {
+  height: 100%;
+}
+$footer-height: rem-calc(100px);
+#sticky-footer-wrap {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -$footer-height;
+  // #{$root-footer-selector} {
+  //   height: $footer-height;
+  // }
+}
+footer {
+  clear: both;
+  position: relative;
+  height: $footer-height;
+}
+#sticky-footer-push {
+  height: $footer-height;
+}
+
+footer {
+  @include main-column();
+
+  #footer-links {
+    width: 50%;
+    margin-left: 0;
+
+    font-size: 0.7rem;
+    // font-weight: 100;
+    a {
+      display: block;
+      color: $gcl-midgray;
+      font-family: arial, sans-serif;
+    }
+
+    h6 {
+      text-transform: none;
+      font-size: 0.7rem;
+      font-family: $body-font-family;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+  }
+
+  background-color: $gcl-lightgray;
+  // background-image: url(../../../static/images/top-football-guy-flattened.png);
+  // background-image: url(../../../static/images/top-football-guy.png);
+  background-repeat: no-repeat;
+  background-position: 75% 0%;
+  // height: rem-calc(90px);
+  // height: 100%;
+
+
+  .top-bar-section {
+    ul {
+      background: none;
+    }
+    li {
+      a {
+        @include rounded(rem-calc(2px));
+        font-weight: bold;
+        text-transform: uppercase;
+
+        .update-count {
+          display: inline-block;
+          background-color: $gcl-red;
+          margin-left: 10px;
+          margin-right: -15px;
+          padding-right: 15px;
+          padding-left: 15px;
+          @include rounded-right(rem-calc(2px));
+        }
+      }
+      margin-right: rem-calc(32px);
+      line-height: rem-calc(44px);
+    }
+  }
+}

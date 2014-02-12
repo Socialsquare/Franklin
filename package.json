@@ -1,0 +1,16 @@
+{
+  "name": "global-change-lab",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-processhtml": "~0.2.7",
+    "node-sass": "~0.7.0",
+    "grunt-sass": "~0.10.0",
+    "uncss": "https://github.com/giakki/uncss/tarball/master",
+    "grunt-uncss": "~0.1.9",
+    "bower": "~1.2.8",
+    "grunt-contrib-copy": "~0.5.0"
+  }
+}

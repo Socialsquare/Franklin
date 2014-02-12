@@ -6,6 +6,22 @@ Socialsquare for actionAid.
 The readme contains section explaining how to configure different parts of the
 project.
 
+Getting started
+---------------
+You need to have [node](adfsdf)
+
+If you don't already have `grunt` installed, install it:
+
+    npm install -g grunt-cli
+
+Install the node dependencies (package.json):
+
+    npm install
+
+Install the bower dependencies (bower.json):
+
+    bower install
+
 Database migrations (using South)
 ---------------------------------
 Initially (when you start your project) you should run the following commands:
