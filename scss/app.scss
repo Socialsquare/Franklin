@@ -36,6 +36,20 @@
   }
 }
 
+// Container for buttons
+//   positioned at the top right of the content box
+//   should contain button that regard an object (a user, a training bit, a skill)
+.page-buttons {
+  float: right;
+
+  a.button {
+    display: inline-block;
+  }
+  // position: absolute;
+  // top: rem-calc(10px);
+  // right: rem-calc(5px);
+}
+
 a.button {
 
   padding-left: rem-calc(10px);
