@@ -78,7 +78,7 @@ def trainingbit_edit_content(request, trainingbit_id=None):
 
 def trainingbit_delete(request, trainingbit_id):
     trainingbit = TrainingBit.objects.filter(id__exact=trainingbit_id)
-    if trainingbit.get().author == request.user or request.user.is_admin():
+    if trainingbit.get().author == request.user or request.user.profile.is_admin():
         trainingbit.delete()
         return HttpResponseRedirect(reverse('skills:trainingbits_overview'))
     else:
