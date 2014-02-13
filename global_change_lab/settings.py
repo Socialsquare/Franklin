@@ -85,7 +85,10 @@ WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 try:
-    from .credentials import SITE_ID, SECRET_KEY, DATABASES, DEFAULT_FILE_STORAGE, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+    from .credentials import SITE_ID, SECRET_KEY, DATABASES, \
+                             DEFAULT_FILE_STORAGE, \
+                             EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, \
+                             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
     LOCALHOST = False
 except ImportError:
     import warnings
@@ -104,6 +107,10 @@ except ImportError:
     }
     MEDIA_ROOT = os.path.join(os.getcwd(), 'media')
     MEDIA_URL = '/media/'
+
+    # email
+    if DEBUG:
+        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 
 # Internationalization
@@ -186,9 +193,6 @@ if DEBUG:
         'INTERCEPT_REDIRECTS': False,
     }
 
-# email
-if DEBUG:
-        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # allauth
 LOGIN_REDIRECT_URL = '/'

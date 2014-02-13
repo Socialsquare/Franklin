@@ -1,3 +1,16 @@
+Email service
+-------------
+The first thing is that I don't want to send emails myself. Sending emails is
+ ridiculously hard. [Jeff Atwood/codinghorror on email](http://www.codinghorror.com/blog/2010/04/so-youd-like-to-send-some-email-through-code.html)
+I have been burned, hard, before so I'm not gonna send emails myself.
+Luckily there are loads of services that offer sending emails for you.
+Amazon Web Services have SES (Simple Email Service). But `django-ses` which is
+the django module for using SES doesn't work with Python 3 _and_ it depends on
+`boto` which also doesn't work Python 3.
+
+`SendGrid`, which I'm using right now, just works.
+<http://sendgrid.com/docs/Integrate/Frameworks/django.html>
+
 Bower install via Grunt
 -----------------------
 In order to install as many packages locally in the project folder, we invoke
