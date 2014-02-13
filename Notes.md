@@ -1,3 +1,17 @@
+Bower install via Grunt
+-----------------------
+In order to install as many packages locally in the project folder, we invoke
+bower via grunt (`grunt bower`) instead of doing `bower install` which requires
+bower to be installed globally.
+
+There are basically two grunt packages for this (probably more):
+
+* <https://www.npmjs.org/package/grunt-bower>
+* <https://github.com/yatskevich/grunt-bower-task>
+
+I chose `grunt-bower-task`, for some reason, don't remember. Doesn't matter,
+probably.
+
 Training bit content editor
 ---------------------------
 The text of training bit has support for bold, italics and underline.

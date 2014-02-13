@@ -2,6 +2,24 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    bower: {
+      install: {
+        options: {
+          verbose: true,
+          // grunt-bower-task first downloads the bower packages into
+          // `bower_components` then copies the actual needed files into `lib`
+          // (because bower pulls from git, it gets tests, docs etc.)
+          // therefore this won't work:
+          // targetDir: 'bower_components',
+          install: true, // This true by default
+          // grunt-bower-task doesn't copy actually all scss-files from
+          // foundation to the `lib` directory, so don't do it.
+          copy: false,   // This true by default
+          layout: 'byComponent'
+        }
+      }
+    },
+
     sass: {
       options: {
         includePaths: ['bower_components/foundation/scss']
@@ -47,7 +65,7 @@ module.exports = function(grunt) {
       main: {
         files: [
           {
-            src: 'bower_components/jquery/jquery.min.js',
+            src:   'bower_components/jquery/jquery.min.js',
             dest: 'global_change_lab/static/jquery.min.js',
             filter: 'isFile',
           },
@@ -63,7 +81,6 @@ module.exports = function(grunt) {
           },
         ]
       }
-
     },
 
     watch: {
@@ -101,9 +118,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-bower-task');
 
   // grunt.registerTask('build', ['sass', 'processhtml', 'uncss']);
-  grunt.registerTask('build', ['sass', 'copy']);
+  grunt.registerTask('build', ['bower', 'sass', 'copy']);
   // grunt.registerTask('default', ['build','watch']);
   grunt.registerTask('default', ['build']);
 }

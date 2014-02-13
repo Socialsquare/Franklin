@@ -11,6 +11,7 @@
     "uncss": "https://github.com/giakki/uncss/tarball/master",
     "grunt-uncss": "~0.1.9",
     "bower": "~1.2.8",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-bower-task": "~0.3.4"
   }
 }

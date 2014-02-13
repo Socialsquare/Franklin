@@ -8,19 +8,25 @@ project.
 
 Getting started
 ---------------
-You need to have [node](adfsdf)
+You need to have [Node.js](http://nodejs.org/) installed.
 
-If you don't already have `grunt` installed, install it:
+Then if you don't already have `grunt` installed, install it:
 
-    npm install -g grunt-cli
+    > npm install -g grunt-cli
 
 Install the node dependencies (package.json):
 
-    npm install
+    > npm install
 
-Install the bower dependencies (bower.json):
+Build the project
 
-    bower install
+    > grunt
+
+Which does the following things:
+
+* Installs the the bower dependencies (bower.json)
+* Builds the CSS from SASS (.scss-files)
+
 
 Database migrations (using South)
 ---------------------------------
