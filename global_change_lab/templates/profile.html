@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-  {% if request.user == some_user %} <a href="{% url 'user_delete' user.id %}" class="button">Delete</a>{% endif%}
+<div class="page-buttons">
+
+  {# Upgrade user button (to trainer) #}
+  {% if user.profile.is_admin and not some_user.profile.is_trainer %}
+    <a href="{% url 'user_upgrade_to_trainer' user.id %}" class="button success">Upgrade to trainer</a>
+  {% endif %}
+
+  {# Delete user button #}
+  {% if request.user == some_user or request.user.profile.is_admin %}
+    <a href="{% url 'user_delete' user.id %}" class="button">Delete</a>
+  {% endif %}
 </div>
+
 <h1>{{ some_user.username }}</h1>
 
 <dl>

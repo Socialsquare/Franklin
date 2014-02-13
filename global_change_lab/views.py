@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render
 
 import django.contrib.messages as messages
+from django.contrib.auth.models import Group
+
 from global_change_lab.models import User, UserProfile
 from skills.models import Skill
 
@@ -54,3 +56,17 @@ def user_delete(request, user_id):
 
 
     return HttpResponseRedirect(reverse('front_page'))
+
+
+def user_upgrade_to_trainer(request, user_id):
+    user = User.objects.get(id__exact=user_id)
+
+    if request.user.profile.is_admin():
+        g = Group.objects.get(name='Trainers')
+        g.user_set.add(user)
+
+        messages.success(request, 'Successfully upgrade %s to be a trainer.' % user.username)
+    else:
+        messages.error(request, 'You do not have permissions to upgrade this user.')
+
+    return HttpResponseRedirect(reverse('profile', args=[user_id]))
