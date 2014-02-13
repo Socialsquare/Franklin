@@ -79,6 +79,11 @@ module.exports = function(grunt) {
             dest: 'global_change_lab/static/foundation/js/foundation/foundation.dropdown.js',
             filter: 'isFile',
           },
+          {
+            src:          'bower_components/jquery-form/jquery.form.js',
+            dest: 'global_change_lab/static/jquery-form/jquery.form.js',
+            filter: 'isFile',
+          },
         ]
       }
     },

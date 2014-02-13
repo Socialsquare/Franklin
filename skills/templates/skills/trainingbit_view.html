@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block scripts %}
+<script src="{% static 'jquery-form/jquery.form.js' %}"></script>
+{% endblock %}
 
 {% load comments %}
 
@@ -8,7 +13,10 @@
     <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
   {% endif %}
 
+<hr>
+
 {# Comments section #}
+<h3>Shared by others</h3>
 {% render_comment_list for trainingbit %}
 {% render_comment_form for trainingbit %}
 

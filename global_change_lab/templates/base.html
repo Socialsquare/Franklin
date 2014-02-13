@@ -10,6 +10,8 @@
   <script src="{% static 'jquery.min.js' %}"></script>
   <script src="{% static 'foundation/js/foundation.min.js' %}"></script>
   <script src="{% static 'foundation/js/foundation/foundation.dropdown.js' %}"></script>
+  {% block scripts %}
+  {% endblock %}
   <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}" />
   <title>{% block title %}Global Change Lab{% endblock %}</title>
 </head>

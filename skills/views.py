@@ -21,6 +21,7 @@ def trainingbits_overview(request):
 def trainingbit_view(request, trainingbit_id):
     return render(request, 'skills/trainingbit_view.html', {
         'trainingbit': TrainingBit.objects.get(id__exact=trainingbit_id),
+        'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
     })
 
 @csrf_protect

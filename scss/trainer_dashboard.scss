@@ -40,7 +40,7 @@ footer.trainer-interface {
 
   div.trainer-item {
     h3 a {
-      @extend %white-on-gray;
+      @extend %white-on-darkgray;
     }
     padding-bottom: rem-calc(10px);
     padding-top: rem-calc(10px);

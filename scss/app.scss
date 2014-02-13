@@ -8,6 +8,8 @@
 @import "scss/trainer_dashboard";
 @import "scss/trainingbit_edit";
 @import "scss/trainingbit_view";
+@import "scss/comments";
+
 
 .icon {
   // font-family: Entypo;
@@ -75,7 +77,7 @@ a.button {
 .white-on-red {
   @extend %white-on-red;
 }
-%white-on-gray {
+%white-on-darkgray {
   background-color: $gcl-darkgray;
   color: white;
 }

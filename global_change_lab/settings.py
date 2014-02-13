@@ -122,9 +122,14 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False # True
 
 USE_TZ = True
+
+# Date (how to display them)
+#   in order for these settings to actually take preference `USE_L10N` must be `FALSE`
+DATE_FORMAT = 'N jS Y'
+DATETIME_FORMAT = 'N jS Y'
 
 
 # Static files (CSS, JavaScript, Images)
