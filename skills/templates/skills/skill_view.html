@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body-classes %}skill-view{% endblock %}}
+
+{% block content %}
+<div id="skill-cover">
+  <img src="{{ skill.getImage }}">
+  <h1>{{skill.name}}</h1>
+  <p>{{skill.description}}</p>
+</div>
+
+<hr>
+hej
+{% for trainingbit in skill.trainingbits.all %}
+  {{ trainingbit.name }}
+hej
+{% endfor %}
+
+{% include 'partials/trainingbits_grid.html' with trainingbits=skill.trainingbits.all %}
+{% endblock %}

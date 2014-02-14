@@ -7,6 +7,16 @@ body.skills-overview {
   }
 }
 
+
+#skill-cover {
+
+  img {
+    float: left;
+    margin-right: 0.5rem;
+  }
+
+}
+
 .skill-list-view {
   $skill-height: rem-calc(160px);
 

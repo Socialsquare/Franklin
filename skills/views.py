@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 
 import django.contrib.messages as messages
+
 from skills.models import Skill, TrainingBit
 
 
@@ -14,7 +15,7 @@ def skills_overview(request):
 
 def skill_view(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
-    return render(request, 'skills/skill.html', {
+    return render(request, 'skills/skill_view.html', {
         'skill': skill,
     })
 
