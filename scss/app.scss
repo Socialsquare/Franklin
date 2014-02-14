@@ -91,11 +91,11 @@ span {
 h1, h2, h3, h4, h5, h6 {
   @extend %stencil-font;
   text-transform: uppercase;
+  display: inline-block;
 }
 
 h1, h2, h3, h4, h5, h6 {
   &.white-on-red {
-    display: inline-block;
   }
 }
 
