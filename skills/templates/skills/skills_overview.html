@@ -1,15 +1,37 @@
 {% extends "base.html" %}
 
-<h1>Skill overview</h1>
 
 {% block content %}
-Hello World from {{name}}!
-<table>
+<div class="page-buttons">
+  {# Topics #}
+  <a href="#" class="button info">All topics</a>
+
+  {# Sorting #}
+  <a href="#" class="button">Newest</a>
+
+</div>
+<h1 class="white-on-red">Skills</h1>
+
+<hr>
+
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 skill-list-view">
   {% for skill in skills %}
-  <tr>
-    <!-- <td><a href="skills/skill/{{skill.id}}">{{skill.name}}</a></td> -->
-    <td><a href="{{skill.id}}">{{skill.name}}</a></td>
-  </tr>
-  {% endfor %}
-</table>
+  <li class="row">
+    <div class="skill-icon small-3 columns">
+      <img src="{{ skill.getImage }}" alt="Skill image">
+    </div>
+    <div class="skill-description small-9 columns">
+      <a href="{% url 'skills:skill_view' skill.id %}"><h2>{{skill.name}}</h2></a>
+      <p>{{skill.description}}</p>
+      <div class="skill-info">
+        <span class="trainingbit-count">{{ skill.training_bits.count }} Training Bits</span>
+        <hr>
+        <span class="icon small heart red"></span> 23
+        <span class="icon small chat red"></span> 9
+      </div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+
 {% endblock %}
