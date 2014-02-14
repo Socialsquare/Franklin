@@ -52,7 +52,7 @@
   // right: rem-calc(5px);
 }
 
-a.button {
+.button {
 
   padding-left: rem-calc(10px);
   padding-right: rem-calc(10px);
@@ -63,6 +63,11 @@ a.button {
   display: inline-block;
   text-transform: uppercase;
   background-color: $gcl-red;
+}
+
+.button.info {
+  background-color: $info-color;
+  color: $gcl-darkgray;
 }
 
 %blue-button {
