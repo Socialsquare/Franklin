@@ -38,7 +38,7 @@ class Skill(models.Model):
     name = models.CharField(max_length=30)
     # optional relation to training bits (i.e. a skill does _have_ to have a
     # training bit)
-    training_bits = models.ManyToManyField(TrainingBit, blank=True, null=True)
+    trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
     description = models.TextField()
     author = models.ForeignKey(User)
 
