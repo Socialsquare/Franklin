@@ -17,6 +17,7 @@ class TrainingBit(models.Model):
     label = models.CharField(max_length=16, choices=LABELS)
     description = models.TextField()
     author = models.ForeignKey(User)
+    recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
 
     tags = TaggableManager()

@@ -3,12 +3,48 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 
+import django.contrib.messages as messages
 from skills.models import Skill, TrainingBit
 
 
 def skills_overview(request):
     return render(request, 'skills/skills_overview.html', {
         'skills': Skill.objects.all,
+    })
+
+def skill_view(request, skill_id):
+    skill = get_object_or_404(Skill, pk=skill_id)
+    return render(request, 'skills/skill.html', {
+        'skill': skill,
+    })
+
+@csrf_protect
+def skill_edit(request, skill_id=None):
+    skill = None
+    tags = ''
+    # If something has been uploaded
+    if request.method == 'POST':
+
+        skill = Skill(
+            id=skill_id,
+            author=request.user,
+            name=request.POST['name'],
+            description=request.POST['description']
+        )
+        skill.save()
+
+        tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
+        skill.tags.set(*tags)
+
+        return HttpResponseRedirect(reverse('trainer_dashboard'))
+    elif skill_id is not None:
+        skill = Skill.objects.get(id__exact=skill_id)
+        tags = ' '.join(skill.tags.names())
+
+    # By default show skill form
+    return render(request, 'skills/skill_edit.html', {
+        'skill': skill,
+        'tags': tags,
     })
 
 
@@ -85,39 +121,21 @@ def trainingbit_delete(request, trainingbit_id):
     else:
         return HttpResponseRedirect(reverse('skills:trainingbit_view', trainingbit_id))
 
-
-
-def skill(request, skill_id):
-    skill = get_object_or_404(Skill, pk=skill_id)
-    return render(request, 'skills/skill.html', {
-        'skill': skill,
-    })
-
 @csrf_protect
-def skill_edit(request, skill_id=None):
-    skill = None
-    tags = ''
-    # If something has been uploaded
-    if request.method == 'POST':
+def trainingbit_recommend(request, trainingbit_id):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+    if request.user.profile.is_admin():
+        if trainingbit.recommended:
+            trainingbit.recommended = False
+            messages.info(request, 'The training bit is no longer recommended')
+        else:
+            trainingbit.recommended = True
+            messages.success(request, 'Successfully recommended training bit')
+        trainingbit.save()
+        return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
+    else:
+        messages.error(request, 'You do not have permission to recommend this training bit')
+        return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
 
-        skill = Skill(
-            id=skill_id,
-            author=request.user,
-            name=request.POST['name'],
-            description=request.POST['description']
-        )
-        skill.save()
 
-        tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
-        skill.tags.set(*tags)
 
-        return HttpResponseRedirect(reverse('trainer_dashboard'))
-    elif skill_id is not None:
-        skill = Skill.objects.get(id__exact=skill_id)
-        tags = ' '.join(skill.tags.names())
-
-    # By default show skill form
-    return render(request, 'skills/skill_edit.html', {
-        'skill': skill,
-        'tags': tags,
-    })

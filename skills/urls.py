@@ -5,7 +5,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^$', 'skills.views.skills_overview', name="skills_overview"),
-    url(r'^(\d+)$', 'skills.views.skill', name='skill'),
+    url(r'^(\d+)$', 'skills.views.skill_view', name='skill_view'),
     url(r'^trainingbits$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
 
     url(r'^trainingbit/new$', 'skills.views.trainingbit_edit', name='trainingbit_new'),
@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^trainingbit/(\d+)/edit-content$', 'skills.views.trainingbit_edit_content', name="trainingbit_edit_content"),
     url(r'^trainingbit/(\d+)/view$', 'skills.views.trainingbit_view', name="trainingbit_view"),
     url(r'^trainingbit/(\d+)/delete$', 'skills.views.trainingbit_delete', name="trainingbit_delete"),
+    url(r'^trainingbit/(\d+)/recommend$', 'skills.views.trainingbit_recommend', name="trainingbit_recommend"),
 
     # TODO: These are stubs, and must be implemented
     url(r'^skill/new$', 'skills.views.skill_edit', name='skill_new'),

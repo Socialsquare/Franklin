@@ -44,6 +44,15 @@
 .page-buttons {
   float: right;
 
+  // To make sure the buttons are on top of e.g. trainingbit-cover
+  // See: https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Adding_z-index
+  //      https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Stacking_and_float
+  position: relative;
+  z-index: 1;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+
   a.button {
     display: inline-block;
   }
