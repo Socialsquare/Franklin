@@ -1,0 +1,7 @@
+87a88,93
+>     @media #{$xlarge-up} {
+>       @include block-grid-html-classes($size:xlarge,$include-spacing:false);
+>     }
+>     @media #{$xxlarge-up} {
+>       @include block-grid-html-classes($size:xxlarge,$include-spacing:false);
+>     }

@@ -1,20 +1,35 @@
 {% extends "base.html" %}
 
+{% block body-classes %}skills-overview{% endblock %}
 
 {% block content %}
 <div class="page-buttons">
   {# Topics #}
-  <a href="#" class="button info">All topics</a>
+  <a href="#" class="button info" data-dropdown="skill-all-topics">
+    All topics
+    <span class="icon triangle-down red"></span>
+  </a>
+  <ul id="skill-all-topics" class="f-dropdown" data-dropdown-content>
+    <li><a href="{% url 'profile' %}">View my profile</a></li>
+    <li><a href="{% url 'account_logout' %}">Sign out</a></li>
+  </ul>
 
   {# Sorting #}
-  <a href="#" class="button">Newest</a>
+  <a href="#" class="button info" data-dropdown="skill-sort">
+    Newest
+    <span class="icon triangle-down red"></span>
+  </a>
+  <ul id="skill-sort" class="f-dropdown" data-dropdown-content>
+    <li><a href="{% url 'profile' %}">Oldest</a></li>
+    <li><a href="{% url 'account_logout' %}">Most viewed</a></li>
+  </ul>
 
 </div>
 <h1 class="white-on-red">Skills</h1>
 
 <hr>
 
-<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 skill-list-view">
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 xlarge-block-grid-3 skill-list-view">
   {% for skill in skills %}
   <li class="row">
     <div class="skill-icon small-3 columns">
