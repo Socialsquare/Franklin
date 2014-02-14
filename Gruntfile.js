@@ -89,21 +89,21 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      // grunt: { files: ['Gruntfile.js'] },
-      //
-      //
+      // LiveReload when updating django templates
       django_templates: {
         files: [
-          'skills/templates/skills/*.html',
-          'skills/templates/skills/partials/*.html',
+          'skills/templates/*/*.html',
+          'skills/templates/*/*/*.html',
           'global_change_lab/templates/*.html',
-          'global_change_lab/templates/partials/*.html'
+          'global_change_lab/templates/*/*.html',
+          'global_change_lab/templates/*/*/*.html',
         ],
         options: {
           livereload: true
         }
       },
 
+      // Compile and LiveReload when updating SASS
       sass: {
         files: 'scss/*.scss',
         tasks: ['sass'],
