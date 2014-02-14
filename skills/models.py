@@ -44,5 +44,13 @@ class Skill(models.Model):
 
     tags = TaggableManager()
 
+    image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
+
+    def getImage(self):
+        if self.image:
+            return self.image.url
+        else:
+            return 'defaultimage'
+
     def __str__(self):
         return self.name

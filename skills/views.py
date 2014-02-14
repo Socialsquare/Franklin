@@ -25,11 +25,25 @@ def skill_edit(request, skill_id=None):
     # If something has been uploaded
     if request.method == 'POST':
 
+        if 'skill-icon' in request.FILES:
+        # and request.FILES['cover-image'].size > 0:
+            image = request.FILES['skill-icon']
+        elif skill_id is not None:
+            image = Skill.objects.get(id__exact=skill_id).image
+        else:
+            image = None
+
+        if image is not None:
+            img_d = {'image': image}
+        else:
+            img_d = {}
+
         skill = Skill(
             id=skill_id,
             author=request.user,
             name=request.POST['name'],
-            description=request.POST['description']
+            description=request.POST['description'],
+            **img_d
         )
         skill.save()
 
