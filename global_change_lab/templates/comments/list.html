@@ -9,7 +9,7 @@
 
       <div class="buttons">
         {# Delete comment button #}
-        {% if comment.user == request.user or request.user.profile.is_admin %}
+        {% if comment.user == request.user or request.user.is_admin %}
         <a href="{% url 'comments-delete' comment.id %}" class="button alert delete" data-dropdown="comment-delete-dropdown-{{comment.id}}">Delete</a>
         <div id="comment-delete-dropdown-{{comment.id}}" class="f-dropdown" data-dropdown-content>
           <h6>Really remove this comment?</h6>
