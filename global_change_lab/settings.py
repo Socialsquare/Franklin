@@ -170,6 +170,12 @@ LOGGING = {
     }
 }
 
+# django_extensions
+#   enables commands such as `python manage.py show_urls`
+if DEBUG:
+    INSTALLED_APPS += (
+        'django_extensions',
+    )
 
 # debug_toolbar settings
 if DEBUG:
