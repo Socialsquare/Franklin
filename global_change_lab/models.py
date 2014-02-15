@@ -17,7 +17,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=40, unique=True)
     email = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
-    date_joined = models.DateField()
+
+    # See: http://stackoverflow.com/questions/2771676/django-default-datetime-now-problem
+    # this:
+    #   from datetime import datetime
+    #   date_joined = models.DateField(default=datetime.now)
+    # or this:
+    date_joined = models.DateField(auto_now_add=True)
 
 
     def get_full_name(self):
