@@ -21,8 +21,8 @@
     <span class="icon triangle-down red"></span>
   </a>
   <ul id="skill-sort" class="f-dropdown" data-dropdown-content>
-    <li><a href="{% url 'profile' %}">Oldest</a></li>
-    <li><a href="{% url 'account_logout' %}">Most viewed</a></li>
+    <li><a href="?sort=created_at&dir=desc">Newest</a></li>
+    <li><a href="?sort=created_at&dir=asc">Oldest</a></li>
   </ul>
 
   {# View public #}

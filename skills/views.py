@@ -8,6 +8,8 @@ from permission.decorators import permission_required
 
 from skills.models import Skill, TrainingBit
 
+from django_sortable.helpers import sortable_helper
+
 
 def skills_overview(request, show_hidden=False):
 
@@ -16,6 +18,7 @@ def skills_overview(request, show_hidden=False):
     else:
         skills = Skill.objects.filter(is_public=True)
 
+    skills = sortable_helper(request, skills)
 
     return render(request, 'skills/skills_overview.html', {
         'skills': skills,

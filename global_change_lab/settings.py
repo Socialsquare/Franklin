@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'taggit',
     'django_comments_xtd',
     'permission',
+    'django_sortable',
 
     'allauth',
     'allauth.account',

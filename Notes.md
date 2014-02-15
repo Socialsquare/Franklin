@@ -1,3 +1,9 @@
+Sorting
+-------
+
+* [django-sortable](https://github.com/drewyeaton/django-sortable)
+* [django-sorter](http://django-sorter.readthedocs.org/en/latest/)
+
 Permissions management
 ----------------------
 According to <http://djangopackages.com> there are 3 permission-management

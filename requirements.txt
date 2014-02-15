@@ -8,3 +8,4 @@ https://github.com/coagulant/django-storages-py3/tarball/py3
 django-taggit
 django-comments-xtd==1.2f1
 https://github.com/lambdalisue/django-permission/tarball/master
+https://github.com/malthejorgensen/django-sortable/tarball/master
