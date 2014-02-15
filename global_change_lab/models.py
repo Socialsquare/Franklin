@@ -1,4 +1,6 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import UserManager
+
 from django.db import models
 from allauth.account.models import EmailAddress
 
@@ -9,15 +11,27 @@ from allauth.account.models import EmailAddress
 # )
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='profile')
+class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
+    USERNAME_FIELD = 'username'
+    username = models.CharField(max_length=40, unique=True)
+    email = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateField()
+
+
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    objects = UserManager()
 
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)
-
-    class Meta:
-        db_table = 'user_profile'
 
     def account_verified(self):
         if self.user.is_authenticated:
@@ -27,10 +41,18 @@ class UserProfile(models.Model):
         return False
 
     def is_trainer(self):
-        return self.user.groups.filter(name='Trainers')
+        return self.groups.filter(name='Trainers')
 
+    @property
     def is_admin(self):
-        return self.user.groups.filter(name='Admins')
+        # return self.groups.filter(name='Admins')
+        return self.is_staff()
+
+    # is_staff = models.BooleanField()
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_superuser
 
 
-User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

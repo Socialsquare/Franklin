@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 from taggit.managers import TaggableManager
 
@@ -16,7 +16,7 @@ class TrainingBit(models.Model):
     name = models.CharField(max_length=30)
     label = models.CharField(max_length=16, choices=LABELS)
     description = models.TextField()
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
 
@@ -40,7 +40,7 @@ class Skill(models.Model):
     # training bit)
     trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
     description = models.TextField()
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
     is_public = models.BooleanField(default=True)
 
     tags = TaggableManager()

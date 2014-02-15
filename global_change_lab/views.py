@@ -5,8 +5,9 @@ from django.shortcuts import render
 import django.contrib.messages as messages
 from django.contrib.auth.models import Group
 
-from global_change_lab.models import User, UserProfile
 from skills.models import Skill
+
+from global_change_lab.models import User
 
 
 def front_page(request):
@@ -40,7 +41,6 @@ def profile(request, user_id=None):
     return render(request, 'profile.html', {
         'some_user': user,
         'user_fields': User._meta.get_all_field_names(),
-        'profile_fields': UserProfile._meta.get_all_field_names(),
     })
 
 
