@@ -14,6 +14,15 @@ body.skills-overview {
   }
 }
 
+body.skill-view {
+  #content {
+    hr {
+      padding-top: 1rem;
+      border-top: none;
+      border-bottom: 1px $gcl-lightgray solid;
+    }
+  }
+}
 
 #skill-cover {
 
