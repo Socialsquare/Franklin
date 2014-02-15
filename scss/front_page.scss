@@ -9,9 +9,12 @@ div#front-page-greeter {
   h1, h2, p {
     color: white;
   }
-  h2 {
+  h1 {
     background-color: $gcl-red;
-    display: inline-block;
+    font-size: rem-calc(37);
+  }
+  h2 {
+    @extend %h1;
   }
   p {
     font-family: 'Allerta Stencil', sans-serif;

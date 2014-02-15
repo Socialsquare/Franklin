@@ -66,8 +66,9 @@
         {% if request.user.is_authenticated %}
         <!-- Left Nav Section -->
         <ul class="left">
-          <li><a href="/skills">Skills</a></li>
-          <li><a href="/skills/trainingbits">Bits</a></li>
+          <li><a href="{% url 'skills:skills_overview' %}">Skills</a></li>
+          <li><a href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
+          <li><a href="/user/list">Users</a></li>
           <li><a href="/user/updates">Updates <span class="update-count">6</span></a></li>
         </ul>
         {% endif %}

@@ -1,36 +1,5 @@
-img#gcl-logo {
-  margin-top: rem-calc(20px);
-  margin-bottom: rem-calc(20px);
-  height: rem-calc(25px);
-}
-
-div#logged-in-menu, div#trainer-dashboard-button {
-  float: right;
-
-  a.button {
-    background-color: white;
-    padding-left: rem-calc(10px);
-    padding-right: rem-calc(10px);
-    padding-top: rem-calc(7px);
-    padding-bottom: rem-calc(7px);
-    font-size: rem-calc(12px);
-    color: $gcl-darkgray;
-    text-transform: none;
-  }
-}
-div#trainer-dashboard-button {
-  margin-right: rem-calc(10px);
-
-  a.button {
-    background-color: $gcl-blue;
-    color: white;
-  }
-}
 
 
-.red {
-  color: $gcl-red;
-}
 
 
 // Sticky footer
@@ -56,6 +25,89 @@ footer {
 }
 #sticky-footer-push {
   height: $footer-height;
+}
+
+header.top-bar {
+  // Constrain to center column on large screens
+  @include main-column();
+
+  // Have some space
+  padding-bottom: 1rem;
+
+  // Background
+  background-color: $gcl-lightgray;
+  // background-image: url(../../../static/images/top-football-guy-flattened.png);
+  background-image: url(../../../static/images/top-football-guy.png);
+  background-repeat: no-repeat;
+  background-position: 75% 0%;
+  // height: rem-calc(90px);
+  height: 100%;
+
+  // Logo
+  img#gcl-logo {
+    margin-top: rem-calc(20px);
+    margin-bottom: rem-calc(20px);
+    height: rem-calc(25px);
+  }
+
+  // Nav buttons
+  .top-bar-section {
+    ul {
+      background: none;
+    }
+    li {
+      margin-right: rem-calc(18px);
+      a {
+        @include rounded(rem-calc(2px));
+        font-weight: bold;
+        text-transform: uppercase;
+
+        $horizontal-padding: rem-calc(22px);
+
+        &, & span {
+          font-size: 0.75rem; // gets overridden by <span> font-size
+        }
+        line-height: rem-calc(35px) !important;        // gets overidden by foundation weirdly specific top-bar settings
+        padding-right: $horizontal-padding !important; // gets overidden by foundation weirdly specific top-bar settings
+        padding-left:  $horizontal-padding !important; // gets overidden by foundation weirdly specific top-bar settings
+
+        .update-count {
+          display: inline-block;
+          background-color: $gcl-red;
+          margin-left: $horizontal-padding - rem-calc(5px);
+          margin-right: -$horizontal-padding;
+          padding-right: 15px;
+          padding-left: 15px;
+          @include rounded-right(rem-calc(2px));
+        }
+      }
+    }
+  }
+
+  // User buttons (logged in)
+  div#logged-in-menu, div#trainer-dashboard-button {
+    float: right;
+
+    a.button {
+      background-color: white;
+      padding-left: rem-calc(10px);
+      padding-right: rem-calc(10px);
+      padding-top: rem-calc(7px);
+      padding-bottom: rem-calc(7px);
+      font-size: rem-calc(12px);
+      color: $gcl-darkgray;
+      text-transform: none;
+    }
+  }
+  div#trainer-dashboard-button {
+    margin-right: rem-calc(10px);
+
+    a.button {
+      background-color: $gcl-blue;
+      color: white;
+    }
+  }
+
 }
 
 footer {
@@ -91,28 +143,4 @@ footer {
   // height: 100%;
 
 
-  .top-bar-section {
-    ul {
-      background: none;
-    }
-    li {
-      a {
-        @include rounded(rem-calc(2px));
-        font-weight: bold;
-        text-transform: uppercase;
-
-        .update-count {
-          display: inline-block;
-          background-color: $gcl-red;
-          margin-left: 10px;
-          margin-right: -15px;
-          padding-right: 15px;
-          padding-left: 15px;
-          @include rounded-right(rem-calc(2px));
-        }
-      }
-      margin-right: rem-calc(32px);
-      line-height: rem-calc(44px);
-    }
-  }
 }
