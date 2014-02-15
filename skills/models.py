@@ -24,7 +24,7 @@ class AutoDateTimeField(models.DateTimeField):
 
 # Create your models here.
 class TrainingBit(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = AutoDateTimeField()
 
