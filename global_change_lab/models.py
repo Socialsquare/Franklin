@@ -46,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_admin(self):
         # return self.groups.filter(name='Admins')
-        return self.is_staff()
+        return self.is_staff
 
     # is_staff = models.BooleanField()
     @property
