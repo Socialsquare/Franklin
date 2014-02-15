@@ -38,6 +38,24 @@
   </div>
   <div class="input-field-row">
     <div class="input-field">
+      <select name="label">
+        {% for label, name in labels %}
+        <option value="{{ label }}"{% if trainingbit.label == label %} selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="help-text">
+      <h6>Label</h6>
+      Choose the type of training this training bit provides:
+      <ul>
+        <li>Inspiration</li>
+        <li>Learning</li>
+        <li>Doing</li>
+      </ul>
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
       <input type="text" name="tags" placeholder="organisation politics planning ..." value="{{ tags }}">
     </div>
     <div class="help-text">

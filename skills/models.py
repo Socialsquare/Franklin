@@ -5,14 +5,6 @@ from taggit.managers import TaggableManager
 from datetime import datetime
 
 
-LABELS = (
-    ('inspiration', 'Inspiration'),
-    ('background', 'Background'),
-    ('doing', 'Doing'),
-)
-
-
-
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ['skills.models.AutoDateTimeField'])
 # Don't use `auto_now` and `auto_now_add`:
@@ -22,8 +14,15 @@ class AutoDateTimeField(models.DateTimeField):
     def pre_save(self, model_instance, add):
         return datetime.now()
 
+
 # Create your models here.
 class TrainingBit(models.Model):
+    LABELS = (
+        ('inspiration', 'Inspiration'),
+        ('background', 'Background'),
+        ('doing', 'Doing'),
+    )
+
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = AutoDateTimeField()

@@ -158,6 +158,7 @@ def trainingbit_edit(request, trainingbit_id=None):
     return render(request, 'skills/trainingbit_edit.html', {
         'trainingbit': trainingbit,
         'tags': tags,
+        'labels': TrainingBit.LABELS,
     })
 
 @csrf_protect
