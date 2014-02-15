@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^trainingbit/(\d+)/recommend$', 'skills.views.trainingbit_recommend', name="trainingbit_recommend"),
 
     url(r'^$', 'skills.views.skills_overview', name="skills_overview"),
+    url(r'^all/?$', 'skills.views.skills_overview', {'show_hidden':True}, name="skills_overview_all"),
     url(r'^(\d+)$', 'skills.views.skill_view', name='skill_view'),
     url(r'^skill/new$', 'skills.views.skill_edit', name='skill_new'),
     url(r'^skill/(\d+)/edit$', 'skills.views.skill_edit', name="skill_edit"),

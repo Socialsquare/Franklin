@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load permissionif %}
 
 {% block body-classes %}skills-overview{% endblock %}
 
@@ -23,6 +24,19 @@
     <li><a href="{% url 'profile' %}">Oldest</a></li>
     <li><a href="{% url 'account_logout' %}">Most viewed</a></li>
   </ul>
+
+  {# View public #}
+  {% if showing_hidden %}
+    <a href="{% url 'skills:skills_overview' %}" class="button info">
+      Hide hidden skills
+    </a>
+  {% else %}
+    {% permission request.user has 'skills.show_hidden' %}
+    <a href="{% url 'skills:skills_overview_all' show_hidden=True %}" class="button info">
+      View hidden skills
+    </a>
+    {% endpermission %}
+  {% endif %}
 
 </div>
 <h1 class="white-on-red">Skills</h1>
