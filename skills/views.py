@@ -20,6 +20,32 @@ def skill_view(request, skill_id):
     })
 
 @csrf_protect
+def skill_publicize(request, skill_id):
+    skill = get_object_or_404(Skill, pk=skill_id)
+    if request.user.profile.is_admin():
+        if skill.is_public:
+            skill.is_public = False
+            messages.info(request, 'The skill is no longer public')
+        else:
+            skill.is_public = True
+            messages.success(request, 'The skill is now public')
+        skill.save()
+        return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
+    else:
+        messages.error(request, 'You do not have permission to make this skill public')
+        return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
+
+def skill_delete(request, skill_id):
+    skill = get_object_or_404(Skill, pk=skill_id)
+    if  request.user.profile.is_admin():
+        skill.delete()
+        messages.success(request, 'The skill was deleted')
+        return HttpResponseRedirect(reverse('skills:skills_overview'))
+    else:
+        messages.error(request, 'You do not have permission to delete this skill')
+        return HttpResponseRedirect(reverse('skills:skill_view', skill_id))
+
+@csrf_protect
 def skill_edit(request, skill_id=None):
     skill = None
     tags = ''

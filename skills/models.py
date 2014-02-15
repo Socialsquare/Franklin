@@ -41,6 +41,7 @@ class Skill(models.Model):
     trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
     description = models.TextField()
     author = models.ForeignKey(User)
+    is_public = models.BooleanField(default=True)
 
     tags = TaggableManager()
 

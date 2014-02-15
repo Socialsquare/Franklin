@@ -17,5 +17,7 @@ urlpatterns = patterns('',
     url(r'^(\d+)$', 'skills.views.skill_view', name='skill_view'),
     url(r'^skill/new$', 'skills.views.skill_edit', name='skill_new'),
     url(r'^skill/(\d+)/edit$', 'skills.views.skill_edit', name="skill_edit"),
+    url(r'^skill/(\d+)/publicize$', 'skills.views.skill_publicize', name="skill_publicize"),
+    url(r'^skill/(\d+)/delete$', 'skills.views.skill_delete', name="skill_delete"),
     # url(r'^admin/', include(admin.site.urls)),
 )

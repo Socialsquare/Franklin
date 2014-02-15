@@ -3,6 +3,21 @@
 {% block body-classes %}skill-view{% endblock %}}
 
 {% block content %}
+<div class="page-buttons">
+  {# Mark as public #}
+  {% if request.user.profile.is_admin %}
+    {% if skill.is_public %}
+      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button info">Hide this skill</a>
+    {% else %}
+      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button success">Make this skill public</a>
+    {% endif %}
+  {% endif %}
+
+  {# Delete skill button #}
+  {% if request.user.profile.is_admin %}
+    <a href="{% url 'skills:skill_delete' skill.id %}" class="button">Delete skill</a>
+  {% endif %}
+</div>
 <div id="skill-cover">
   <img src="{{ skill.getImage }}">
   <h1>{{skill.name}}</h1>
