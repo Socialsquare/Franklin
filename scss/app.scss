@@ -124,6 +124,12 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   @extend %h1;
 }
+%h2 {
+  font-size: rem-calc(23px);
+}
+h2 {
+  @extend %h2;
+}
 
 h3 {
   font-size: rem-calc(14px);
