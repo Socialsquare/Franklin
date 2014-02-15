@@ -44,6 +44,18 @@ def profile(request, user_id=None):
     })
 
 
+def user_list(request):
+    # `date_joined`  means ascending
+    # `-date_joined` means descending
+    # `+date_joined` doesn't exist and will result in an error(!)
+    new_users = User.objects.all().order_by('-date_joined')
+    print(new_users)
+
+    return render(request, 'user_list.html', {
+        'new_users': new_users,
+    })
+
+
 def user_delete(request, user_id):
     user = User.objects.get(id__exact=user_id)
 

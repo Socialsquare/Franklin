@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Newcomers </h2><h6 style="margin-left: 0.5rem;">welcome :)</h6>
+<ul>
+{% for user in new_users %}
+  <li>{{ user.username }} - {{ user.date_joined }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
