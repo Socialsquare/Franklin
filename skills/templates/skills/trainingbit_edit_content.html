@@ -3,7 +3,14 @@
 
 {% block content %}
   {% include 'skills/partials/trainingbit_cover.html' %}
-  <div id="trainingbit-content-editor">
+  <h1 class="white-on-red">1. Learn</h1>
+  <div class="trainingbit-content-editor" id="learn-edit">
+  </div>
+  <h1 class="white-on-red">2. Act</h1>
+  <div class="trainingbit-content-editor" id="act-edit">
+  </div>
+  <h1 class="white-on-red">3. Share</h1>
+  <div class="trainingbit-content-editor" id="share-edit">
   </div>
 
 
@@ -16,26 +23,33 @@
   </div>
   <div id="modal-add-embed" class="reveal-modal" data-reveal>
     <h2>Add link</h2>
-    <label>Embed HTML: <textarea class="html"></textarea></label>
+    <label>Embed HTML: <textarea class="html" placeholder="Write some text here..."></textarea></label>
     <button>Add embed</button>
     <a class="close-reveal-modal">&#215;</a>
   </div>
 
-  <div id="trainingbit-content-editor-toolbar" class="row">
-    <div class="columns small-centered small-6" style="text-align: center">
-      <span class="icon medium circled-plus red" style="font-size: 7rem"></span>
-      <span class="icon medium language"></span>
-      <a href="#" data-reveal-id="modal-add-link" data-reveal><span class="icon medium link"></span></a>
-      <a href="#" data-reveal-id="modal-add-embed" data-reveal><span class="icon medium video"></span></a>
-      {# <span class="icon medium camera"></span> #}
-      {# <span class="icon medium attach"></span> #}
-    </div>
-  </div>
   <form id="trainingbit-content-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
     <input type="hidden" name="trainingbit_content_json">
     <button>Save training bit</button>
   </form>
+
+
+
+  <script type="text/template" id="section-template">
+    <div class="section-content">
+    </div>
+    <div class="row trainingbit-content-editor-toolbar">
+      <div class="columns small-centered small-12" style="text-align: center; height: 3rem">
+        <span class="icon medium circled-plus red" style="font-size: 7rem"></span>
+        <span class="icon medium language"></span>
+        <a href="#" data-reveal-id="modal-add-link" data-reveal><span class="icon medium link"></span></a>
+        <a href="#" data-reveal-id="modal-add-embed" data-reveal><span class="icon medium video"></span></a>
+        {# <span class="icon medium camera"></span> #}
+        {# <span class="icon medium attach"></span> #}
+      </div>
+    </div>
+  </script>
 
   <script type="text/template" id="link-template">
     <div class="input-field-row">
@@ -61,12 +75,17 @@
   </script>
   <script type="text/template" id="text-template">
     <div class="input-field-row">
-      <div class="input-field editor editable"> {#contentEditable>#}
+      <div class="input-field text editor editable"> {#contentEditable>#}
         <%= html %>
       </div>
       <div class="help-text">
         <h6>Text</h6>
         Here you can write text.
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-12 delete" style="text-align: right; color: red">
+      Delete
       </div>
     </div>
   </script>
@@ -150,9 +169,18 @@ var TextView = Backbone.View.extend({
   template: _.template($('#text-template').html()),
 
   events: {
-    'mousedown .editable': 'editableClick'
+    'mousedown .editable': 'editableClick',
+    'click .delete': 'delete'
   },
   editableClick: etch.editableInit,
+
+  delete: function() {
+    this.model.destroy();
+    $(this.el).remove();
+  },
+
+  // UI function which is automatically called on destroy
+  remove: function() {},
 
   render: function() {
     console.log('Rendering text');
@@ -171,7 +199,8 @@ Views['text'] = TextView;
 TbPartText = TbPart.extend({
   defaults: {
     type: 'text',
-    html: lorem_ipsum,
+    //html: '<span style="color: #AAA">Click here to start editing text</span>',
+    html: 'Click here to start editing text',
   },
 });
 
@@ -195,11 +224,6 @@ var TrainingBit = Backbone.Collection.extend({
       });
   }
 });
-var tb = new TrainingBit();
-tb.add(new TbPartText({html: lorem_ipsum}));
-tb.add(new TbPartLink({url: 'http://wikipedia.org', title: 'Wikipedia'}));
-tb.add(new TbPartLink({url: 'http://google.com', title: 'Google'}));
-tb.add(new TbPartEmbed({html: '<iframe width="560" height="315" src="//www.youtube.com/embed/sDF-e7X2Jcs" frameborder="0" allowfullscreen></iframe>'}));
 
 var TrainingBitView = Backbone.View.extend({
     // el: '#trainingbit-content-editor',
@@ -207,32 +231,82 @@ var TrainingBitView = Backbone.View.extend({
     //className: 'list-menu-item',
     model: TrainingBit,
 
+    template: _.template($('#section-template').html()),
+
     //template: _.template($('#'),
+    events: {
+      'click .trainingbit-content-editor-toolbar .icon': 'hideEmbeds',
+      'click .trainingbit-content-editor-toolbar .icon.language': 'addText',
+      'click .trainingbit-content-editor-toolbar .icon.link': 'addLink',
+      'click .trainingbit-content-editor-toolbar .icon.video': 'addLink',
+    },
+
+    hideEmbeds: function() {
+      $(this.el).find('iframe').hide();
+    },
+
+    addText: function() {
+      console.log('Adding a text...');
+      this.collection.add(new TbPartText());
+    },
+
+    addLink: function() {
+      var collection = this.collection;
+      var addLink = function() {
+        console.log('Adding a link...');
+        collection.add(new TbPartLink({url: $('#modal-add-link input.url').val(), title: $('#modal-add-link input.title').val()}));
+        $('#modal-add-link').foundation('reveal', 'close');
+      };
+      $('#modal-add-link button').on('click', addLink);
+
+      $('#modal-add-link').foundation('reveal', {
+        'closed': function() {
+          $('#modal-add-link button').off('click', addLink);
+        }
+      });
+      $('#modal-add-link').foundation('reveal', 'open');
+
+    },
+
 
     {# initialize: function() { #}
-    {#   this.model.on('change', this.render, this); #}
     {#   this.model.on('destroy', this.remove, this); #}
     {# }, #}
     initialize: function() {
-      this.render();
+      //this.collection.on('change', this.render, this);
 
       // re-render when an item is added to the collection
       this.listenTo( this.collection, 'add', this.render );
+
+      this.render();
     },
 
     render: function() {
       console.log('Rendering training bit');
       var $el = $(this.el);
-      $el.html('');
-      this.collection.each(function(tb_part) {
-        console.log(tb_part);
-        var view = Views[tb_part.get('type')];
-        var cview = new view({ model: tb_part });
-        $el.append( cview.render().el );
-      });
-      //$el.html(this.template(this.model.toJSON()));
+      $el.html(this.template);
+
+      this.addAll();
+      {# this.collection.each(function(tb_part) { #}
+      {#   console.log(tb_part); #}
+      {#   var view = Views[tb_part.get('type')]; #}
+      {#   var cview = new view({ model: tb_part }); #}
+      {#   $el.append( cview.render().el ); #}
+      {# }); #}
       return this;
     },
+
+    addAll: function() {
+      this.collection.each(this.addOne, this);
+    },
+    addOne: function(model) {
+      var class_view = Views[model.get('type')];
+      var view = new class_view({ 'model': model });
+      //view = new Views.Appointment({model: model});
+      view.render();
+      $(this.el).children('.section-content').append(view.el);
+      model.bind('remove', view.remove);
+    }
 
     {# open: function() { #}
     {#   var self = this; #}
@@ -241,33 +315,30 @@ var TrainingBitView = Backbone.View.extend({
 });
 
 _.extend(etch.config.buttonClasses, {
-  'default': ['bold', 'italic', 'underline'],
+  'default': ['bold', 'italic', 'underline', 'ordered-list', 'unordered-list'],
   'caption': ['bold', 'italic', 'underline', 'link', 'save']
 });
 
 
 $(document).ready(function() {
-  var tb_view = new TrainingBitView({el: $('#trainingbit-content-editor'), collection: tb});
+  var tb_learn = new TrainingBit();
+  var tb_learn_view = new TrainingBitView({el: $('#learn-edit'), collection: tb_learn});
+  tb_learn.add(new TbPartText());
 
-  $('#trainingbit-content-editor-toolbar .icon').click(function() {
-    $('iframe').hide();
-  });
+  var tb_act = new TrainingBit();
+  var tb_act_view = new TrainingBitView({el: $('#act-edit'), collection: tb_act});
+  {# tb_act.add(new TbPartText()); #}
 
-  $('#modal-add-link button').click(function() {
-    console.log('Adding a link...');
-    tb.add(new TbPartLink({url: $('#modal-add-link input.url').val(), title: $('#modal-add-link input.title').val()}));
-    $('#modal-add-link').foundation('reveal', 'close');
-  });
+  var tb_share = new TrainingBit();
+  var tb_share_view = new TrainingBitView({el: $('#share-edit'), collection: tb_share});
+  {# tb_share.add(new TbPartText()); #}
+
+
 
   $('#modal-add-embed button').click(function() {
     console.log('Adding an embed...');
     tb.add(new TbPartEmbed({html: $('#modal-add-embed textarea.html').val()}));
     $('#modal-add-embed').foundation('reveal', 'close');
-  });
-
-  $('#trainingbit-content-editor-toolbar .icon.language').click(function() {
-    console.log('Adding a text...');
-    tb.add(new TbPartText({html: lorem_ipsum}));
   });
 
   $('#trainingbit-content-form').submit(function(e) {
