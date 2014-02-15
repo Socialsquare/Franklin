@@ -1,3 +1,39 @@
+Permissions management
+----------------------
+According to <http://djangopackages.com> there are 3 permission-management
+packages compatible with Python 3:
+
+* django-authority
+* django-permission
+* django-permissionx
+
+### django-permission
+The documentation is lacking, and it doesn't seem as well-though-out as
+`django-authority` (caching, documentation).
+
+But it works.
+(Grab it from Github - not PyPi, the version on PyPi is old and doesn't work as
+the readthedocs documentation specifies)
+
+### django-authority
+The examples are for django 1.0 and 1.1 - WTF.
+The interface is nice and I think I got it to work for a minute or two. But in
+the end it just kept on refusing to work.
+
+**side note**:
+After having added `authority` to `INSTALLED_APPS` I got the following error
+
+    > python manage.py runserver
+
+    Traceback (most recent call last):
+      File "<OMITTED>/lib/python3.3/site-packages/django/core/urlresolvers.py", line 339, in urlconf_module
+        return self._urlconf_module
+    AttributeError: 'RegexURLResolver' object has no attribute '_urlconf_module'
+
+### django-permissionx
+Didn't like it. But maybe it deserves a revisit.
+
+
 Email service
 -------------
 The first thing is that I don't want to send emails myself. Sending emails is

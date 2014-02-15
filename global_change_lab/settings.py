@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'storages',
     'taggit',
     'django_comments_xtd',
+    'permission',
 
     'allauth',
     'allauth.account',
@@ -65,7 +66,6 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
 )
-AUTH_USER_MODEL = 'global_change_lab.User'
 
 from S3 import CallingFormat
 AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
@@ -200,6 +200,19 @@ if DEBUG:
     }
 
 
+# General auth
+AUTH_USER_MODEL = 'global_change_lab.User'
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+# django-permissions
+AUTHENTICATION_BACKENDS += (
+    'permission.backends.PermissionBackend',
+)
+
+
 # allauth
 LOGIN_REDIRECT_URL = '/'
 TEMPLATE_CONTEXT_PROCESSORS += (
@@ -211,10 +224,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'allauth.socialaccount.context_processors.socialaccount',
     'django.contrib.auth.context_processors.auth',
 )
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    "django.contrib.auth.backends.ModelBackend",
-
+AUTHENTICATION_BACKENDS += (
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 )

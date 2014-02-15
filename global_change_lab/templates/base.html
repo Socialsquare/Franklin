@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load permissionif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,11 +55,11 @@
       </div>
 
       {% block trainer_dashboard_button %}
-      {% if user.profile.is_trainer %}
+      {% permission 'trainingbit.create'  %}
       <div id="trainer-dashboard-button">
         <a href="{% url 'trainer_dashboard' %}" class="button">Trainer Dashboard</a>
       </div>
-      {% endif %}
+      {% endpermission %}
       {% endblock %}
 
 

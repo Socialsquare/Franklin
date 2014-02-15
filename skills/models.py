@@ -55,3 +55,24 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# apply AuthorPermissionLogic and CollaboratorsPermissionLogic
+from permission import add_permission_logic
+from permission.logics import PermissionLogic, AuthorPermissionLogic
+# from permission.logics import CollaboratorsPermissionLogic
+
+# Authors have full permission (edit, delete etc.) to their own skills and training bits
+add_permission_logic(Skill, AuthorPermissionLogic())
+add_permission_logic(TrainingBit, AuthorPermissionLogic())
+
+class AdminPermissionLogic(PermissionLogic):
+    def has_perm(user, permission_str, obj):
+        if user.is_admin():
+            return True
+        else:
+            return False
+
+# Admin always have full permission
+add_permission_logic(Skill, AdminPermissionLogic())
+add_permission_logic(TrainingBit, AdminPermissionLogic())

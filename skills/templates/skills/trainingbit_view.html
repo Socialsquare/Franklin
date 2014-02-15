@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load permissionif %}
 
 {% block scripts %}
 <script src="{% static 'jquery-form/jquery.form.js' %}"></script>
@@ -12,18 +13,18 @@
 <div class="page-buttons">
 
   {# Mark as recommended #}
-  {% if request.user.profile.is_admin %}
+  {% permission request.user has 'trainingbit.recommend' %}
     {% if trainingbit.recommended %}
       <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button info">Remove recommendation</a>
     {% else %}
       <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button success">Mark as recommended</a>
     {% endif %}
-  {% endif %}
+  {% endpermission %}
 
   {# Delete trainingbit button #}
-  {% if trainingbit.author == user %}
+  {% permission request.user has 'trainingbit.delete'  %}
     <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
-  {% endif %}
+  {% endpermission %}
 </div>
 {% include 'skills/partials/trainingbit_cover.html' %}
 

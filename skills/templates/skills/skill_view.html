@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 
+{% load permissionif %}
+
 {% block body-classes %}skill-view{% endblock %}}
 
 {% block content %}
 <div class="page-buttons">
   {# Mark as public #}
-  {% if request.user.profile.is_admin %}
+  {% permission request.user has 'skill.publicize' %}
     {% if skill.is_public %}
       <a href="{% url 'skills:skill_publicize' skill.id %}" class="button info">Hide this skill</a>
     {% else %}
       <a href="{% url 'skills:skill_publicize' skill.id %}" class="button success">Make this skill public</a>
     {% endif %}
-  {% endif %}
+  {% endpermission %}
 
   {# Delete skill button #}
-  {% if request.user.profile.is_admin %}
+  {% permission request.user has 'skill.delete' %}
     <a href="{% url 'skills:skill_delete' skill.id %}" class="button">Delete skill</a>
-  {% endif %}
+  {% endpermission %}
 </div>
 <div id="skill-cover">
   <img src="{{ skill.getImage }}">

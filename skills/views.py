@@ -4,13 +4,22 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 
 import django.contrib.messages as messages
+from permission.decorators import permission_required
 
 from skills.models import Skill, TrainingBit
 
 
-def skills_overview(request):
+def skills_overview(request, show_hidden=False):
+
+    if request.user.has_perm('skills.show_hidden') and show_hidden:
+        skills = Skill.objects.filter(is_public=False)
+    else:
+        skills = Skill.objects.filter(is_public=True)
+
+
     return render(request, 'skills/skills_overview.html', {
-        'skills': Skill.objects.all,
+        'skills': skills,
+        'showing_hidden': show_hidden,
     })
 
 def skill_view(request, skill_id):
@@ -20,9 +29,10 @@ def skill_view(request, skill_id):
     })
 
 @csrf_protect
+#@permission_required('skill.publicize')
 def skill_publicize(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
-    if request.user.profile.is_admin():
+    if request.user.has_perm('skill.publicize', skill):
         if skill.is_public:
             skill.is_public = False
             messages.info(request, 'The skill is no longer public')
@@ -37,7 +47,7 @@ def skill_publicize(request, skill_id):
 
 def skill_delete(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
-    if  request.user.profile.is_admin():
+    if  request.user.has_perm('skill.delete', skill):
         skill.delete()
         messages.success(request, 'The skill was deleted')
         return HttpResponseRedirect(reverse('skills:skills_overview'))
@@ -156,16 +166,23 @@ def trainingbit_edit_content(request, trainingbit_id=None):
 
 def trainingbit_delete(request, trainingbit_id):
     trainingbit = TrainingBit.objects.filter(id__exact=trainingbit_id)
-    if trainingbit.get().author == request.user or request.user.profile.is_admin():
+    if request.user.has_perm('trainingbit.delete', trainingbit):
         trainingbit.delete()
         return HttpResponseRedirect(reverse('skills:trainingbits_overview'))
     else:
         return HttpResponseRedirect(reverse('skills:trainingbit_view', trainingbit_id))
 
+# Using the django-permissions functions like this:
+# @permission_required('trainingbit.recommend')
+# def trainingbit_recommend(request, *args, **kwargs):
+#     trainingbit_id = kwargs['trainingbit_id']
+#
+# You have to name your capture groups in urls.py otherwise it will not work
+
 @csrf_protect
 def trainingbit_recommend(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
-    if request.user.profile.is_admin():
+    if request.user.has_perm('trainingbit.recommend', trainingbit):
         if trainingbit.recommended:
             trainingbit.recommended = False
             messages.info(request, 'The training bit is no longer recommended')
