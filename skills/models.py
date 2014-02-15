@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 
 from taggit.managers import TaggableManager
+from datetime import datetime
 
 
 LABELS = (
@@ -11,9 +12,22 @@ LABELS = (
 )
 
 
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ['skills.models.AutoDateTimeField'])
+# Don't use `auto_now` and `auto_now_add`:
+#   http://stackoverflow.com/questions/1737017/django-auto-now-and-auto-now-add/1737078#1737078
+#   https://groups.google.com/forum/#!topic/django-developers/TNYxwiXLTlI
+class AutoDateTimeField(models.DateTimeField):
+    def pre_save(self, model_instance, add):
+        return datetime.now()
+
 # Create your models here.
 class TrainingBit(models.Model):
     name = models.CharField(max_length=30)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = AutoDateTimeField()
+
     label = models.CharField(max_length=16, choices=LABELS)
     description = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -36,6 +50,8 @@ class TrainingBit(models.Model):
 
 class Skill(models.Model):
     name = models.CharField(max_length=30)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = AutoDateTimeField()
     # optional relation to training bits (i.e. a skill does _have_ to have a
     # training bit)
     trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
