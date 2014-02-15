@@ -1,3 +1,10 @@
+.skill-description {
+  font-weight: 200;
+  p {
+    font-weight: 200;
+  }
+}
+
 body.skills-overview {
   .page-buttons {
     .button {
@@ -22,6 +29,8 @@ body.skills-overview {
 
   li {
     height: $skill-height;
+    margin-bottom: 2rem;
+
 
     &>div.columns {
       height: $skill-height;
@@ -45,9 +54,6 @@ body.skills-overview {
       font-size: rem-calc(23px);
       color: $gcl-red;
       margin-bottom: 0;
-    }
-    p {
-      font-weight: 200;
     }
 
     div.skill-info {
