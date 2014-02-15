@@ -157,13 +157,13 @@ def trainingbit_edit(request, trainingbit_id=None):
         'tags': tags,
     })
 
-# TODO: this is a stub, that should be implemented
 @csrf_protect
 def trainingbit_edit_content(request, trainingbit_id=None):
     return render(request, 'skills/trainingbit_edit_content.html', {
         'trainingbit': TrainingBit.objects.get(id__exact=trainingbit_id),
     })
 
+@csrf_protect
 def trainingbit_delete(request, trainingbit_id):
     trainingbit = TrainingBit.objects.filter(id__exact=trainingbit_id)
     if request.user.has_perm('trainingbit.delete', trainingbit):
