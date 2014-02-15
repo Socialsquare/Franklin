@@ -55,7 +55,7 @@
       </div>
 
       {% block trainer_dashboard_button %}
-      {% permission 'trainingbit.create'  %}
+      {% permission request.user has 'trainingbit.create'  %}
       <div id="trainer-dashboard-button">
         <a href="{% url 'trainer_dashboard' %}" class="button">Trainer Dashboard</a>
       </div>
