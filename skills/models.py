@@ -18,16 +18,16 @@ class AutoDateTimeField(models.DateTimeField):
 # Create your models here.
 class TrainingBit(models.Model):
     LABELS = (
-        ('inspiration', 'Inspiration'),
-        ('background', 'Background'),
-        ('doing', 'Doing'),
+        ('I', 'Inspiration'),
+        ('B', 'Background'),
+        ('T', 'Tool'),
     )
 
     name = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = AutoDateTimeField()
 
-    label = models.CharField(max_length=16, choices=LABELS)
+    label = models.CharField(max_length=1, choices=LABELS, null=False, blank=False)
     description = models.TextField()
     json_content = models.TextField(default='{"learn":[],"act":[],"share":[]}')
     author = models.ForeignKey(settings.AUTH_USER_MODEL)

@@ -158,6 +158,7 @@ def trainingbit_edit(request, trainingbit_id=None):
         trainingbit.author      = request.user
         trainingbit.name        = request.POST['name']
         trainingbit.description = request.POST['description']
+        trainingbit.label       = request.POST['label']
 
         if 'cover-image' in request.FILES:
         # and request.FILES['cover-image'].size > 0:
