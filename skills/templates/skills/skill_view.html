@@ -15,6 +15,11 @@
     {% endif %}
   {% endpermission %}
 
+  {# Edit skill button #}
+  {% permission request.user has 'skill.edit' %}
+    <a href="{% url 'skills:skill_edit' skill.id %}" class="button info">Edit skill</a>
+  {% endpermission %}
+
   {# Delete skill button #}
   {% permission request.user has 'skill.delete' %}
     <a href="{% url 'skills:skill_delete' skill.id %}" class="button">Delete skill</a>
