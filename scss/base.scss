@@ -57,6 +57,11 @@ header.top-bar {
     }
     li {
       margin-right: rem-calc(18px);
+
+      @media #{$small-only} {
+        display: inline-block;
+      }
+
       a {
         @include rounded(rem-calc(2px));
         font-weight: bold;
@@ -66,6 +71,16 @@ header.top-bar {
 
         &, & span {
           font-size: 0.75rem; // gets overridden by <span> font-size
+        }
+
+        @media #{$small-only} {
+          $horizontal-padding: rem-calc(10px);
+          display: inline-block;
+          width: auto;
+          // HACK: foundation **adds** padding when going to small screens?
+          //       wtf?
+          padding-top: 0;
+          padding-bottom: 0;
         }
         line-height: rem-calc(35px) !important;        // gets overidden by foundation weirdly specific top-bar settings
         padding-right: $horizontal-padding !important; // gets overidden by foundation weirdly specific top-bar settings
