@@ -48,6 +48,8 @@
 .page-buttons {
   float: right;
 
+  @extend .hide-for-small-only;
+
   // To make sure the buttons are on top of e.g. trainingbit-cover
   // See: https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Adding_z-index
   //      https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Stacking_and_float
