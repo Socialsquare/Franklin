@@ -10,5 +10,12 @@
   "devDependencies": {
     "foundation": "5.1.1",
     "jquery-form": "3.46.0"
+  },
+  "resolutions": {
+    "jquery": ">= 2.0.0"
+  },
+  "dependencies": {
+    "backbone.collectionView": "~0.8.2",
+    "medium-editor": "~1.5.4"
   }
 }

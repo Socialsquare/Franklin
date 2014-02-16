@@ -84,6 +84,42 @@ module.exports = function(grunt) {
             dest: 'global_change_lab/static/jquery-form/jquery.form.js',
             filter: 'isFile',
           },
+          {
+            src:       'bower_components/jqueryui/ui/minified/jquery.ui.core.min.js',
+            dest: 'global_change_lab/static/jqueryui/jquery.ui.core.min.js',
+            filter: 'isFile',
+          },
+          {
+            src:       'bower_components/jqueryui/ui/minified/jquery.ui.widget.min.js',
+            dest: 'global_change_lab/static/jqueryui/jquery.ui.widget.min.js',
+            filter: 'isFile',
+          },
+          {
+            src:       'bower_components/jqueryui/ui/minified/jquery.ui.mouse.min.js',
+            dest: 'global_change_lab/static/jqueryui/jquery.ui.mouse.min.js',
+            filter: 'isFile',
+          },
+          {
+            src:       'bower_components/jqueryui/ui/jquery.ui.sortable.js',
+            //src: 'bower_components/jqueryui/ui/minified/jquery.ui.sortable.min.js',
+            dest: 'global_change_lab/static/jqueryui/jquery.ui.sortable.js',
+            filter: 'isFile',
+          },
+          {
+            src: 'bower_components/backbone.collectionView/dist/backbone.collectionView.min.js',
+            dest:            'global_change_lab/static/backbone/backbone.collectionView.min.js',
+            filter: 'isFile',
+          },
+          {
+            src:  'bower_components/medium-editor/dist/js/medium-editor.min.js',
+            dest: 'global_change_lab/static/medium-editor/medium-editor.min.js',
+            filter: 'isFile',
+          },
+          {
+            src: 'bower_components/medium-editor/dist/css/medium-editor.css',
+            dest: 'global_change_lab/static/medium-editor/medium-editor.css',
+            filter: 'isFile',
+          }
         ]
       }
     },

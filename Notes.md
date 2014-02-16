@@ -70,6 +70,7 @@ probably.
 Training bit content editor
 ---------------------------
 The text of training bit has support for bold, italics and underline.
+And by-the-way lists and headings
 There are loads of options:
 
 * [Medium Editor](https://github.com/daviferreira/medium-editor)
@@ -233,3 +234,16 @@ This means that if you put your custom admin templates in
 in `INSTALLED_APPS`.
 Otherwise the default templates in `django.contrib.admin` will be found first
 when searching for templates, and will be used instead of your custom templates.
+
+
+Irrelevant news
+===============
+
+GIMP fails to save .png
+-----------------------
+I cut out some of the (skill) icons and stencil from the design. But it wouldn't
+save the images as .png.  This is because of a new version of `libpng` and its
+default color profile.
+You can change that in GIMP under `Image > Mode > Assign color profile`.
+
+Reference: <https://wiki.archlinux.org/index.php/Libpng_errors>

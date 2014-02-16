@@ -21,6 +21,11 @@
     {% endif %}
   {% endpermission %}
 
+  {# Edit trainingbit button #}
+  {% permission request.user has 'trainingbit.edit'  %}
+    <a href="{% url 'skills:trainingbit_edit' trainingbit.id %}" class="button info">Edit training bit</a>
+  {% endpermission %}
+
   {# Delete trainingbit button #}
   {% permission request.user has 'trainingbit.delete'  %}
     <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
@@ -30,9 +35,189 @@
 
 <hr>
 
+<div class="trainingbit">
+  <h1>Learn</h1>
+  <div id="learn" class="trainingbit-section">
+    <ul></ul>
+  </div>
+  <h1>Act</h1>
+  <div id="act" class="trainingbit-section">
+    <ul></ul>
+  </div>
+  <h1>Share</h1>
+  <div id="share" class="trainingbit-section">
+    <ul></ul>
+  </div>
+</div>
+
 {# Comments section #}
 <h3>Shared by others</h3>
 {% render_comment_list for trainingbit %}
 {% render_comment_form for trainingbit %}
 
+{# TEMPLATES #}
+<script type="text/template" id="TbPart-template">
+  <div class="input-field-row">
+    <%= content %>
+  </div>
+</script>
+
+<script type="text/template" id="text-template">
+  <div class="text-field">
+    <%= html %>
+  </div>
+</script>
+<script type="text/template" id="link-template">
+  <span class="icon large link black"></span><a href="<%= url %>" title="<%= title %>"><%= title %></a>
+</script>
+
+<script type="text/template" id="embed-template">
+  <%= html %>
+</script>
+
+  <script src="{% static 'jquery/jquery.min.js' %}"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+  <script src="http://documentcloud.github.com/backbone/backbone.js"></script>
+  <script src="{% static 'backbone/backbone.collectionView.min.js' %}"></script>
+
+<script>
+
+{# BACKBONE MODELS #}
+TbPart = Backbone.Model.extend({});
+
+TbPartLink = TbPart.extend({
+  defaults: {
+    type: 'link',
+    url: 'http://example.org',
+    title: 'Example dot org'
+  },
+});
+
+TbPartEmbed = TbPart.extend({
+  defaults: {
+    type: 'embed',
+    html: '<embed>',
+  },
+});
+
+TbPartText = TbPart.extend({
+  defaults: {
+    type: 'text',
+    html: '',
+  },
+});
+var TrainingBit = Backbone.Collection.extend({
+  initialize: function(arr) {
+    console.log('Sometinhg is happening');
+    this.parse(arr);
+  },
+  model: TbPart,
+  parse: function (res) {
+    console.log('Parsing');
+    var self = this;
+    _.each(res, function (tb_part) {
+      console.log(tb_part.type);
+      switch(tb_part.type) {
+        case 'link':
+          self.add(new TbPartLink(tb_part));
+          break;
+        case 'embed':
+          self.add(new TbPartEmbed(tb_part));
+          break;
+        case 'text':
+          self.add(new TbPartText(tb_part));
+          break;
+        default:
+          console.log('Unrecognized training bit part');
+      }
+    });
+  }
+});
+
+{# BACKBONE VIEWS #}
+var TrainingBitPartView = Backbone.View.extend({
+
+  initialize: function() {
+    console.log('Initialized partview');
+    this.$el = $(this.el);
+  },
+
+  render: function() {
+
+    console.log('Rendering TrainingBitPart');
+
+    var type = this.model.get('type');
+    console.log('of type: ' + type);
+
+    // Render the content of the TrainingBitPart
+    var content   = _.template($('#' + type + '-template').html(), this.model.toJSON());
+
+    // Render the full view (with help text, drag handle, delete button ...)
+    var TbPart_template =  _.template($('#TbPart-template').html());
+    var rendered = TbPart_template({
+      'content'  : content,
+    });
+
+    this.$el.html(rendered);
+
+    return this;
+  }
+});
+
+var tb = {{ trainingbit.json_content|safe }};
+{# var tb = {{ trainingbit.json_content|escapejs }}; #}
+{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/#escapejs #}
+
+{# document load: document, ready, set, go! #}
+$(document).ready(function() {
+  var tb_learn = new TrainingBit(
+    tb['learn']
+  );
+  console.log(tb_learn.length);
+  console.log(tb_learn.at(0));
+
+  var element = $('#learn > ul');
+  {# element.html('HAJ'); #}
+  {# console.log(element); #}
+
+  //var tb_learn_view = new trainingbitview({el: $('#learn-edit'), collection: tb_learn});
+  var tb_learn_view = new Backbone.CollectionView({
+    el: element,
+    collection: tb_learn,
+    modelView: TrainingBitPartView,
+    selectable: false,
+    processKeyEvents: false,
+  });
+  tb_learn_view.render();
+
+
+  var tb_act = new TrainingBit(
+    tb['act']
+  );
+  var tb_act_view = new Backbone.CollectionView({
+    el: $('#act > ul'),
+    collection: tb_act,
+    modelView: TrainingBitPartView,
+    selectable: false,
+    processKeyEvents: false,
+  });
+  tb_act_view.render();
+
+  var tb_share = new TrainingBit(
+    tb['share']
+  );
+  var tb_share_view = new Backbone.CollectionView({
+    el: $('#share > ul'),
+    collection: tb_share,
+    modelView: TrainingBitPartView,
+    selectable: false,
+    processKeyEvents: false,
+  });
+  tb_share_view.render();
+
+});
+
+</script>
 {% endblock %}
+
+

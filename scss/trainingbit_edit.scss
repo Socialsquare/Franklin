@@ -7,25 +7,30 @@
 }
 
 .input-field-row {
-  @extend .row;
+  // @extend .row; // WILL NOT WORK
+  @include grid-row();
 
+  margin-bottom: rem-calc(30px);
   // >  == direct child
   // *  == any tag
   // >* == all first children of .input-field-row
-  >* {
-    margin-bottom: rem-calc(30px);
+  // >* {
+  //   margin-bottom: rem-calc(30px);
+  // }
+
+  .input-field {
+    // @extend .large-8; // WILL NOT WORK
+    // @extend .columns; // WILL NOT WORK
+    @include grid-column(8);
+    height: 100%;
   }
-}
-.input-field {
-  @extend .large-8;
-  @extend .columns;
-  height: 100%;
-}
-.help-text {
-  @extend .large-4;
-  @extend .columns;
-  color: $gcl-midgray;
-  height: 100%;
+  .help-text {
+    // @extend .large-4; // WILL NOT WORK
+    // @extend .columns; // WILL NOT WORK
+    @include grid-column(4);
+    color: $gcl-midgray;
+    height: 100%;
+  }
 }
 
 #training-bit-cover-form {

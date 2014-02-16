@@ -29,6 +29,7 @@ class TrainingBit(models.Model):
 
     label = models.CharField(max_length=16, choices=LABELS)
     description = models.TextField()
+    json_content = models.TextField(default='{"learn":[],"act":[],"share":[]}')
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)

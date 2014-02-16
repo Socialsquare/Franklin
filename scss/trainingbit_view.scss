@@ -14,3 +14,24 @@
   }
 
 }
+
+.trainingbit {
+  h1 {
+    @extend %white-on-red;
+  }
+
+  .trainingbit-section {
+    &>ul {
+      margin-left: 0;
+
+      &>li {
+        list-style: none;
+      }
+    }
+
+    &#act {
+      background-color: $gcl-lightgray;
+    }
+  }
+}
+// .text-field {

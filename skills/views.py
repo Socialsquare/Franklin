@@ -161,9 +161,22 @@ def trainingbit_edit(request, trainingbit_id=None):
     })
 
 @csrf_protect
-def trainingbit_edit_content(request, trainingbit_id=None):
+def trainingbit_edit_content(request, trainingbit_id):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+    # If a form has been submitted
+    if request.method == 'POST':
+
+        print(trainingbit.author)
+        print(request.POST['trainingbit_content_json'])
+        # Save the training bit
+        trainingbit.json_content = request.POST['trainingbit_content_json']
+        trainingbit.save()
+        messages.success(request, 'Saved training bit')
+
+    # If nothing has been POSTed just show the `edit_content` page
     return render(request, 'skills/trainingbit_edit_content.html', {
-        'trainingbit': TrainingBit.objects.get(id__exact=trainingbit_id),
+        'trainingbit': trainingbit,
     })
 
 @csrf_protect
