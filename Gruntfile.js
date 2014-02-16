@@ -125,11 +125,13 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      // LiveReload when updating django templates
+      // LiveReload when updating django templates and views.py
       django_templates: {
         files: [
+          'skills/views.py',
           'skills/templates/*/*.html',
           'skills/templates/*/*/*.html',
+          'global_change_lab/views.py',
           'global_change_lab/templates/*.html',
           'global_change_lab/templates/*/*.html',
           'global_change_lab/templates/*/*/*.html',
