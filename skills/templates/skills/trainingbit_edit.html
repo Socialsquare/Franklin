@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block body-classes %} trainer-interface {% endblock %}
+
 {% block content %}
 
 <form id="training-bit-cover-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">

@@ -33,7 +33,7 @@
   {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
   <div id="sticky-footer-wrap">
     <header class="top-bar {% block header-classes %}{% endblock %}">
-      <a href="/" title="Global Change Lab home"><img src="{% static 'images/gcl-logo.png' %}" id="gcl-logo" /></a>
+      <a href="/" title="Global Change Lab home" id="gcl-logo"></a>
 
       <div id="logged-in-menu">
       {% if user.is_authenticated %}

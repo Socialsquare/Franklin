@@ -27,6 +27,38 @@ footer {
   height: $footer-height;
 }
 
+body.trainer-interface {
+  background-color: $gcl-lightgray;
+
+  header {
+    background-color: $gcl-darkgray;
+
+    a#gcl-logo {
+      background-image: url(/static/images/gcl-logo-white.png);
+    }
+    .top-bar-section {
+      ul li a {
+        background-color: white !important;
+        color: $gcl-midgray;
+
+        .update-count {
+          color: white;
+        }
+      }
+
+    }
+
+  }
+  footer {
+    background-color: $gcl-darkgray;
+    #footer-links {
+      a, h6 {
+        color: white;
+      }
+    }
+  }
+}
+
 header.top-bar {
   // Constrain to center column on large screens
   @include main-column();
@@ -44,10 +76,20 @@ header.top-bar {
   height: 100%;
 
   // Logo
-  img#gcl-logo {
+  // img#gcl-logo {
+  a#gcl-logo {
+    display: inline-block;
+    line-height:0;
     margin-top: rem-calc(20px);
-    margin-bottom: rem-calc(20px);
+    // margin-bottom: rem-calc(20px); // Foundation 5 line-height on .top-bar messes with things
+
+    // PNG size: 190x43 (WxH)
+    width: rem-calc(110px);
     height: rem-calc(25px);
+
+    background-image: url(/static/images/gcl-logo.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
   }
 
   // Nav buttons
