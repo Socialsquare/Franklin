@@ -121,6 +121,15 @@ def trainingbit_edit(request, trainingbit_id=None):
     # If something has been uploaded
     if request.method == 'POST':
 
+        if trainingbit_id is None:
+            trainingbit = TrainingBit(id=trainingbit_id)
+        else:
+            trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+        trainingbit.author      = request.user
+        trainingbit.name        = request.POST['name']
+        trainingbit.description = request.POST['description']
+
         if 'cover-image' in request.FILES:
         # and request.FILES['cover-image'].size > 0:
             image = request.FILES['cover-image']
@@ -129,18 +138,8 @@ def trainingbit_edit(request, trainingbit_id=None):
         else:
             image = None
 
-        if image is not None:
-            img_d = {'image': image}
-        else:
-            img_d = {}
+        trainingbit.image = image
 
-        trainingbit = TrainingBit(
-            id=trainingbit_id,
-            author=request.user,
-            name=request.POST['name'],
-            description=request.POST['description'],
-            **img_d
-        )
         trainingbit.save()
         trainingbit_id = trainingbit.id
 
