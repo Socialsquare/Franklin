@@ -47,13 +47,39 @@
   <h1>Share</h1>
   <div id="share" class="trainingbit-section">
     <ul></ul>
+    <form id="project-form" action="{% url 'skills:trainingbit_view' trainingbit.id %}" method="POST"  enctype="multipart/form-data">
+      {% csrf_token %}
+      <input name="title" placeholder="Title" class="title">
+      <textarea name="content" placeholder="Write your thoughts about this training bit"></textarea>
+      <input type="file" name="image">
+      <button>Share</button>
+    </form>
   </div>
 </div>
 
+<hr>
+
+{# Projects section #}
+<h3 class="shared-by-others">Shared by others</h3>
+<div id="project-list">
+{% for project in projects %}
+  <div class="project">
+    <h6 class="title">{{ project.title }}</h6><span class="date">{{ project.created_at }}</span>
+    <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
+    <p>{{ project.content }}</p>
+    {% if project.image %}
+    <a href="{{ project.image.url }}"><img src="{{ project.image.url }}"></a>
+    {% endif %}
+  </div>
+{% endfor %}
+</div>
+
+{% comment %}
 {# Comments section #}
 <h3>Shared by others</h3>
 {% render_comment_list for trainingbit %}
 {% render_comment_form for trainingbit %}
+{% endcomment %}
 
 {# TEMPLATES #}
 <script type="text/template" id="TbPart-template">

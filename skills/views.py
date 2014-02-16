@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 import django.contrib.messages as messages
 from permission.decorators import permission_required
 
-from skills.models import Skill, TrainingBit
+from skills.models import Skill, TrainingBit, Project
 
 from django_sortable.helpers import sortable_helper
 
@@ -108,9 +108,36 @@ def trainingbits_overview(request):
     })
 
 
+@csrf_protect
 def trainingbit_view(request, trainingbit_id):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+    # If
+    if request.method == 'POST':
+        project = Project()
+
+        # Relations
+        project.author      = request.user
+        project.trainingbit = trainingbit
+
+        # Content
+        project.title   = request.POST['title']
+        project.content = request.POST['content']
+        if 'image' in request.FILES:
+            image = request.FILES['image']
+            print('awesome')
+        else:
+            image = None
+            print('not so a')
+        project.image = image
+
+        # Save
+        project.save()
+        messages.success(request, 'Project was successfully saved')
+
     return render(request, 'skills/trainingbit_view.html', {
-        'trainingbit': TrainingBit.objects.get(id__exact=trainingbit_id),
+        'trainingbit': trainingbit,
+        'projects': trainingbit.project_set.all(),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
     })
 

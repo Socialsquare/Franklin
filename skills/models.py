@@ -73,6 +73,33 @@ class Skill(models.Model):
         return self.name
 
 
+class Project(models.Model):
+    # Metadata
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = AutoDateTimeField()
+
+    # Content
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    image = models.ImageField(upload_to='trainingbits', null=True)
+
+    # Relations
+    trainingbit = models.ForeignKey(TrainingBit, null=False)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+    # Flags
+    is_public = models.BooleanField(default=True)
+
+    # def getImage(self):
+    #     if self.image:
+    #         return self.image.url
+    #     else:
+    #         return ''
+
+    def __str__(self):
+        return self.name
+
+
 # apply AuthorPermissionLogic and CollaboratorsPermissionLogic
 from permission import add_permission_logic
 from permission.logics import PermissionLogic, AuthorPermissionLogic
