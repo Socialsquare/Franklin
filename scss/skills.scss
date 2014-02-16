@@ -55,35 +55,39 @@ body.skill-view {
     }
   }
 
+  // Those big-ass fonts on skills
+  div.description h2 {
+    font-size: rem-calc(23px);
+  }
+}
 
-  div.skill-description {
-    position: relative;
+// Shared between training bits and skills
+.skill-list-view, li.trainingbit {
+  position: relative;
 
-    h2 {
-      font-size: rem-calc(23px);
-      color: $gcl-red;
-      margin-bottom: 0;
-    }
-
-    div.skill-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: white;
-
-      font-size: 0.6rem;
-
-      hr {
-        margin-top:    0.3rem;
-        margin-bottom: 0.3rem;
-      }
-
-      .trainingbit-count {
-        font-size: 0.7rem;
-        color: $gcl-lightgray;
-      }
-    }
+  h2, h6 {
+    color: $gcl-red;
+    margin-bottom: 0;
   }
 
+  div.info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: $gcl-darkgray;
+    background-color: white;
+
+    font-size: 0.6rem;
+
+    hr {
+      margin-top:    0.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .metadata {
+      font-size: 0.7rem;
+      color: #9E9E9E;
+    }
+  }
 }

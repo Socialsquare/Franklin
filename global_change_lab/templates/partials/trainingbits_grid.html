@@ -1,12 +1,30 @@
-<ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+{# <ul class="trainingbit-list-view small-block-grid-1 medium-block-grid-3 large-block-grid-4"> #}
+<ul class="trainingbit-list-view">
 {% for trainingbit in trainingbits %}
-  <li>
+  <li class="trainingbit">
     <a href="{% url 'skills:trainingbit_view' trainingbit.id %}">
-    {# <img src="/static/images/training-bit-cover.png" alt="Training Bit cover image"> #}
-    <img src="{{ trainingbit.getImage }}" alt="Training Bit cover image">
-    {{trainingbit.name}}
-    </a>
-    <p>{{trainingbit.description}}</p>
+    <div class="wrapper">
+      <div class="image" style="background-image: url({{ trainingbit.getImage }})">
+        <div class="label">{{ trainingbit.get_label_display }}</div>
+      </div>
+    </div>
+    <div class="description">
+      <h6> {{trainingbit.name}} </h6>
+      <p>{{trainingbit.description}}</p>
+      <div class="info">
+        <span class="metadata">
+        {% if trainingbit.skill_set.all %}
+        This Training Bit is part of the skills
+        {% for skill in trainingbit.skill_set.all %}
+          <strong>{{skill.name}}, </strong>
+        {% endfor %}
+        {% endif %}
+        </span>
+        <hr>
+        <span class="icon small heart red"></span> 23
+        <span class="icon small chat red"></span> 9
+      </div>
+    </div>
   </li>
 {% endfor %}
 </ul>

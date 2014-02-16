@@ -1,0 +1,76 @@
+
+$padding-size: rem-calc(6px);
+
+ul.trainingbit-list-view {
+  margin: 0; // Foundation 5 !%^^&&!%!^&%!^ (sets margin-left on <ul>s even
+             // thought they are block-grid
+
+  @media #{$small-up} {
+    @include block-grid(1, $padding-size, true);
+  }
+  @media #{$medium-up} {
+    @include block-grid(3, $padding-size, true);
+  }
+  @media #{$large-up} {
+    @include block-grid(4, $padding-size, true);
+  }
+  @media #{$xlarge-up} {
+    @include block-grid(5, $padding-size, true);
+  }
+}
+
+li.trainingbit {
+  margin-bottom: rem-calc(10px);
+
+  // Keep aspect ratio of div when resizing
+  // See: http://stackoverflow.com/a/12121309/118608
+  .wrapper {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+  }
+  .wrapper:after {
+    padding-top: 56.25%; /*16:9 ratio*/
+
+    // Mathies pictures were: WxH 227x152, which gives us:
+    // padding-top: 66.8%;
+    display: block;
+    content: '';
+  }
+  .image {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0; /*fill parent*/
+    background-repeat: no-repeat;
+  }
+
+  div.label {
+    display: inline-block;
+    float: left;
+    margin-top: rem-calc(15px);
+    font-size: rem-calc(12px);
+    $horisontal-padding: rem-calc(9px);
+    padding-left: $horisontal-padding;
+    padding-right: $horisontal-padding;
+    background-color: $gcl-red;
+    font-weight: bold;
+  }
+  div.description {
+    height: rem-calc(133px);
+    // width: $width;
+
+    h6 {
+      color: $gcl-red;
+      margin-bottom: 0;
+    }
+    p {
+      height: rem-calc(75px);
+      font-weight: 100;
+      font-size: rem-calc(12px);
+      color: black;
+    }
+    .info {
+      padding-left: $padding-size;
+      padding-right: $padding-size;
+    }
+  }
+}

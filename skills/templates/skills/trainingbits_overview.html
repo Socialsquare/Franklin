@@ -3,6 +3,29 @@
 <h1>Training Bit overview</h1>
 
 {% block content %}
+<div class="page-buttons">
+  {# Topics #}
+  <a href="#" class="button sorting" data-dropdown="skill-all-topics">
+    All topics
+    <span class="icon triangle-down red"></span>
+  </a>
+  <ul id="skill-all-topics" class="f-dropdown" data-dropdown-content>
+    <li>Topic 1</li>
+    <li>Topic 2</li>
+  </ul>
+
+  {# Sorting #}
+  <a href="#" class="button sorting" data-dropdown="skill-sort">
+    Newest
+    <span class="icon triangle-down red"></span>
+  </a>
+  <ul id="skill-sort" class="f-dropdown" data-dropdown-content>
+    <li><a href="?sort=created_at&dir=desc">Newest</a></li>
+    <li><a href="?sort=created_at&dir=asc">Oldest</a></li>
+  </ul>
+</div>
+<h1 class="white-on-red">Training Bits</h1>
+<hr>
 
   {% include 'partials/trainingbits_grid.html' %}
 

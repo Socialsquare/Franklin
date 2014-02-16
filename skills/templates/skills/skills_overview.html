@@ -6,17 +6,17 @@
 {% block content %}
 <div class="page-buttons">
   {# Topics #}
-  <a href="#" class="button info" data-dropdown="skill-all-topics">
+  <a href="#" class="button sorting" data-dropdown="skill-all-topics">
     All topics
     <span class="icon triangle-down red"></span>
   </a>
   <ul id="skill-all-topics" class="f-dropdown" data-dropdown-content>
-    <li><a href="{% url 'profile' %}">View my profile</a></li>
-    <li><a href="{% url 'account_logout' %}">Sign out</a></li>
+    <li>Topic 1</li>
+    <li>Topic 2</li>
   </ul>
 
   {# Sorting #}
-  <a href="#" class="button info" data-dropdown="skill-sort">
+  <a href="#" class="button sorting" data-dropdown="skill-sort">
     Newest
     <span class="icon triangle-down red"></span>
   </a>
@@ -49,11 +49,11 @@
     <div class="skill-icon small-3 columns">
       <img src="{{ skill.getImage }}" alt="Skill image">
     </div>
-    <div class="skill-description small-9 columns">
+    <div class="description small-9 columns">
       <a href="{% url 'skills:skill_view' skill.id %}"><h2>{{skill.name}}</h2></a>
       <p>{{skill.description}}</p>
-      <div class="skill-info">
-        <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>
+      <div class="info">
+        <span class="metadata">{{ skill.trainingbits.count }} Training Bits</span>
         <hr>
         <span class="icon small heart red"></span> 23
         <span class="icon small chat red"></span> 9

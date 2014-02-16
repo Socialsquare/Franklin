@@ -7,6 +7,7 @@
 @import "scss/messages";
 @import "scss/trainer_dashboard";
 @import "scss/trainingbit_view";
+@import "scss/trainingbit_grid";
 @import "scss/trainingbit_edit";
 @import "scss/trainingbit_edit_content";
 @import "scss/trainingbit_view";
@@ -61,6 +62,10 @@
 
   a.button {
     display: inline-block;
+
+    &.sorting {
+      background-color: $gcl-darkgray;
+    }
   }
   // position: absolute;
   // top: rem-calc(10px);

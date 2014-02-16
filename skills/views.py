@@ -103,8 +103,10 @@ def skill_edit(request, skill_id=None):
 
 
 def trainingbits_overview(request):
+    trainingbits = TrainingBit.objects.all()
+    trainingbits = sortable_helper(request, trainingbits)
     return render(request, 'skills/trainingbits_overview.html', {
-        'trainingbits': TrainingBit.objects.all,
+        'trainingbits': trainingbits,
     })
 
 
