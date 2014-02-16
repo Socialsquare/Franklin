@@ -1,3 +1,19 @@
+Forgot admin password?
+----------------------
+Here's a way to reset it:
+
+    $ ./manage.py shell
+    Python 3.3.3 (default, Nov 26 2013, 13:33:18)
+    [GCC 4.8.2] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    (InteractiveConsole)
+    >>> from global_change_lab.models import User
+    >>> User.objects.filter(username='malthe')
+    [<User: malthe>]
+    >>> m = User.objects.filter(username='malthe')[0]
+    >>> m.set_password('kodeord')
+    >>> m.save()
+
 Sorting
 -------
 
