@@ -36,9 +36,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    def __unicode__(self):
-        return "{}'s profile".format(self.user.username)
-
     def account_verified(self):
         if self.user.is_authenticated:
             result = EmailAddress.objects.filter(email=self.user.email)
