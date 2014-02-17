@@ -34,6 +34,10 @@
   </div>
   <h1 class="white-on-red">3. Share</h1>
   <div class="trainingbit-content-editor share-section" id="share-edit">
+    <ul>
+    </ul>
+    <div class="row trainingbit-content-editor-toolbar">
+    </div>
   </div>
 
 
@@ -358,7 +362,11 @@ var EditorToolbarView = Backbone.View.extend({
 
 {# DOCUMENT LOAD: document, ready, set, go! #}
 $(document).ready(function() {
+  {% if trainingbit.json_content == '' %}
+  var tb = { learn:[], act:[], share:[]};
+  {% else %}
   var tb = {{ trainingbit.json_content|safe }};
+  {% endif %}
   var tb_learn = new TrainingBit(
     tb['learn']
   );
@@ -409,15 +417,27 @@ $(document).ready(function() {
   tb_act_view.render();
   tb_act_toolbar.render();
 
-  var tb_share_text = new TbPartText({html: ''});
-  var tb_share_view = new TrainingBitPartView({
-    el: $('#share-edit'),
-    model: tb_share_text,
+  var tb_share = new TrainingBit(
+    tb['share']
+  );
+  var tb_share_view = new Backbone.CollectionView({
+    el: $('#share-edit > ul'),
+    collection: tb_share,
+    modelView: TrainingBitPartView,
+
+    sortable: true,
+    sortableOptions: {
+      handle: '.handle'
+    }
+  });
+  var tb_share_toolbar = new EditorToolbarView({
+    name: 'Add sharing', // this variable is passed into the views property
+                          // called `options` i.e. `this.options.name`
+    el: $('#share-edit .trainingbit-content-editor-toolbar'),
+    trainingbit: tb_share
   });
   tb_share_view.render();
-  {# var tb_share = new TrainingBit(); #}
-  {# var tb_share_view = new TrainingBitView({el: $('#share-edit'), collection: tb_share}); #}
-  {# tb_share.add(new TbPartText()); #}
+  tb_share_toolbar.render();
 
   $('#save-button a').click(function() {
       {# console.log(tb_learn.model.toJson()); #}
@@ -431,7 +451,7 @@ $(document).ready(function() {
     var tb = {
       learn: tb_learn.toJSON(),
       act: tb_act.toJSON(),
-      share: tb_share_text.toJSON(),
+      share: tb_share.toJSON(),
     };
     console.log(JSON.stringify(tb));
     $(this).children('input[name=trainingbit_content_json]').val(JSON.stringify(tb));

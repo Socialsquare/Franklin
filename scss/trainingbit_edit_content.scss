@@ -38,10 +38,10 @@
     background-color: $gcl-lightgray;
   }
 
-  &.share-section {
-    .handle { display: none; }
-    .delete { display: none; }
-  }
+  // &.share-section {
+  //   .handle { display: none; }
+  //   .delete { display: none; }
+  // }
 
   &>ul {
     margin-left: 0;
@@ -100,7 +100,7 @@
 
     .icon {
       font-size: 5rem;
-      color: $gcl-lightgray;
+      color: $gcl-midgray;
     }
   }
   .delete {
