@@ -87,17 +87,34 @@ def skill_edit(request, skill_id=None):
         )
         skill.save()
 
-        tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
-        skill.tags.set(*tags)
+        # Add trainingbits
+        items = []
+        for key, value in request.POST.items():
+            print(key, value)
+            if key[0:12] == 'trainingbit-':
+                trainingbit_id = int(key[12:])
+                items.append(trainingbit_id)
+        tbs = TrainingBit.objects.filter(id__in=items)
+        skill.trainingbits.add(*tbs)
+        #Publication.objects.filter(title__startswith='Science').delete()
 
-        return HttpResponseRedirect(reverse('trainer_dashboard'))
+        messages.success(request, 'Successfully saved skill')
+
+        # Add tags
+        # tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
+        # skill.tags.set(*tags)
+
+        # return HttpResponseRedirect(reverse('trainer_dashboard'))
     elif skill_id is not None:
         skill = Skill.objects.get(id__exact=skill_id)
         tags = ' '.join(skill.tags.names())
 
     # By default show skill form
+    print(list(map(lambda t: t.id, skill.trainingbits.all())))
     return render(request, 'skills/skill_edit.html', {
         'skill': skill,
+        'trainingbits': TrainingBit.objects.all().extra(order_by=['name']),
+        'skill_trainingbit_ids': list(map(lambda t: t.id, skill.trainingbits.all())),
         'tags': tags,
     })
 

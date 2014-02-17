@@ -119,7 +119,12 @@ module.exports = function(grunt) {
             src: 'bower_components/medium-editor/dist/css/medium-editor.css',
             dest: 'global_change_lab/static/medium-editor/medium-editor.css',
             filter: 'isFile',
-          }
+          },
+          {
+            src:     'bower_components/listjs/dist/list.min.js',
+            dest: 'global_change_lab/static/listjs/list.min.js',
+            filter: 'isFile',
+          },
         ]
       }
     },

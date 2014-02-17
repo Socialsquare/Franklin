@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "backbone.collectionView": "~0.8.2",
-    "medium-editor": "~1.5.4"
+    "medium-editor": "~1.5.4",
+    "listjs": "~1.1.0"
   }
 }

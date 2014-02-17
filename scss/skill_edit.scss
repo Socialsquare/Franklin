@@ -1,0 +1,26 @@
+
+#trainingbit-list {
+  // height: 10rem;
+
+
+  input.search {
+    font-size: 1rem;
+    border: 1px solid black;
+    margin-bottom: 0.3rem;
+  }
+  .container {
+    height: 6rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: $gcl-lightgray;
+
+    ul.list {
+        li { list-style: none; }
+        input {
+          margin-right: 0.6rem;
+          width: 1.7rem;
+          height: 1.7rem;
+        }
+    }
+  }
+}

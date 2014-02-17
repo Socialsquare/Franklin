@@ -38,6 +38,7 @@
       a file on your computer that will be the cover image of this training bit.
     </div>
   </div>
+  {% comment %}
   <div class="input-field-row">
     <div class="input-field">
       <input type="text" name="tags" placeholder="organisation politics planning ..." value="{{ tags }}">
@@ -50,6 +51,33 @@
       "political science"
     </div>
   </div>
+  {% endcomment %}
+  <div class="input-field-row">
+    <div class="input-field">
+      <div id="trainingbit-list">
+
+        <input class="search" placeholder="Search for training bit...">
+        <div class="container">
+          <ul class="list">
+          {% for trainingbit in trainingbits %}
+            <li>
+              <label>
+                <input type="checkbox" name="trainingbit-{{ trainingbit.id }}" {%if trainingbit.id in skill_trainingbit_ids %}checked{%endif%}>
+                <span class="name">{{ trainingbit.name }}</span>
+              </label>
+            </li>
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <div class="help-text">
+      <h6>Training Bits</h6>
+      Here you can add training bits to the skill.
+      These training are that are required in order to achieve the skill.
+    </div>
+  </div>
   <button id="trainingbit-submit" type="submit">
     {% if skill %}
     Save skill
@@ -59,7 +87,16 @@
   </button>
 </form>
 {{ form_errors }}
-<script src="{% static 'jquery.filedrop.js' %}"></script>
+<script src="{% static 'listjs/list.min.js' %}"></script>
+<script>
+{# $(document).ready(function() { #}
+var options = {
+  valueNames: ['name']
+};
+var trainingbitList = new List('trainingbit-list', options);
+{# }); #}
+</script>
+
 <script type="text/javascript">
   {# $('#new-training-bit-cover').filedrop({ }); #}
 </script>
