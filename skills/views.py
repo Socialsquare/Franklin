@@ -129,11 +129,16 @@ def skill_edit(request, skill_id=None):
         tags = ' '.join(skill.tags.names())
 
     # By default show skill form
-    print(list(map(lambda t: t.id, skill.trainingbits.all())))
+    # print(list(map(lambda t: t.id, skill.trainingbits.all())))
+    try:
+        training_bit_ids = list(map(lambda t: t.id, skill.trainingbits.all()))
+    except AttributeError:
+        training_bit_ids = []
+
     return render(request, 'skills/skill_edit.html', {
         'skill': skill,
         'trainingbits': TrainingBit.objects.all().extra(order_by=['name']),
-        'skill_trainingbit_ids': list(map(lambda t: t.id, skill.trainingbits.all())),
+        'skill_trainingbit_ids': training_bit_ids,
         'tags': tags,
     })
 
