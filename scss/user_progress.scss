@@ -1,0 +1,33 @@
+
+
+
+body.user_progress {
+  #content {
+    li {
+      height: 5rem;
+      // @include grid-column(
+
+      div.image {
+        margin: 0;
+        width: 33%;
+        float: left;
+      }
+      div.description {
+        margin: 0;
+        width: 66%;
+        float: left;
+
+        .progress {
+          height: 1rem;
+          background-color: $gcl-lightgray;
+          // span.meter { background-color: $gcl-red; }
+        }
+      }
+
+      img {
+        height: 5rem;
+        // width: 100%;
+      }
+    }
+  }
+}

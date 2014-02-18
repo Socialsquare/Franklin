@@ -33,6 +33,13 @@ def trainer_dashboard(request):
     })
 
 
+def user_progress(request):
+    if request.user.is_authenticated:
+        return render(request, 'user_progress.html', {})
+    else:
+        return HttpResponseRedirect(reverse('login'))
+
+
 def profile(request, user_id=None):
     if user_id is None:
         user = request.user
