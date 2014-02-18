@@ -65,7 +65,7 @@ module.exports = function(grunt) {
       main: {
         files: [
           {
-            src:   'bower_components/jquery/jquery.min.js',
+            src:   'bower_components/jquery/dist/jquery.min.js',
             dest: 'global_change_lab/static/jquery.min.js',
             filter: 'isFile',
           },
