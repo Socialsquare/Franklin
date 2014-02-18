@@ -21,13 +21,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
 
     skills_in_progress = models.ManyToManyField(Skill, related_name='sp')
-    skills_taken = models.ManyToManyField(Skill, related_name='st')
+    skills_completed = models.ManyToManyField(Skill, related_name='sc')
+    # maybe another name for skills_completed?: skills_taken, skills_done
 
     def is_taking_skill(self, skill):
         return skill in self.skills_in_progress.all()
 
-    def has_taken_skill(self, skill):
-        return skill in self.skills_taken.all()
+    def has_completed_skill(self, skill):
+        return skill in self.skills_completed.all()
 
     # See: http://stackoverflow.com/questions/2771676/django-default-datetime-now-problem
     # this:

@@ -8,9 +8,9 @@ register = template.Library()
 def is_taking_skill(user, skill):
     return user.is_taking_skill(skill)
 
-@register.filter(name='has_taken_skill')
-def has_taken_skill(user, skill):
-    return user.has_taken_skill(skill)
+@register.filter(name='has_completed_skill')
+def has_completed_skill(user, skill):
+    return user.has_completed_skill(skill)
 
 # Use it like this:
 #
@@ -20,6 +20,6 @@ def has_taken_skill(user, skill):
 #     You are currently taking the skill {{skill.name}}!
 #   {% endif %}
 #
-#   {% if user|has_taken_skill:skill %}
-#     You have taken the skill {{skill.name}}!
+#   {% if user|has_completed_skill:skill %}
+#     You have completed the skill {{skill.name}}!
 #   {% endif %}
