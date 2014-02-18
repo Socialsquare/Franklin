@@ -75,17 +75,6 @@
         </ul>
         {% endif %}
 
-        <!-- Right Nav Section -->
-        {# <ul class="right"> #}
-        {#   <li class="active"><a href="#">Right Nav Button Active</a></li> #}
-        {#   <li class="has-dropdown"> #}
-        {#     <a href="#">Right Button with Dropdown</a> #}
-        {#     <ul class="dropdown"> #}
-        {#       <li><a href="#">First link in dropdown</a></li> #}
-        {#     </ul> #}
-        {#   </li> #}
-        {# </ul> #}
-
       </section>
     </header>
     <div id="content" class="{% block content-classes %}{% endblock %}">
@@ -93,14 +82,8 @@
     </div>
     <div id="sticky-footer-push"></div>
   </div>
-  <!-- <header> -->
-  <!--   {% block header %} -->
-  <!--   <ul> -->
-  <!--     <li><a href="/">Home</a></li> -->
-  <!--     <li><a href="/blog/">Blog</a></li> -->
-  <!--   </ul> -->
-  <!--   {% endblock %} -->
-  <!-- </header> -->
+  {# End wrapper for content in "sticky footer"-scheme #}
+
   <footer class="{% block footer-classes %}{% endblock %}">
     {% block footer %}
     <div class="row" id="footer-links">
