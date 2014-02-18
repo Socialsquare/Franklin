@@ -142,7 +142,7 @@ header.top-bar {
   }
 
   // User buttons (logged in)
-  div#logged-in-menu, div#trainer-dashboard-button {
+  div#logged-in-menu, div#trainer-dashboard-button, div#admin-dashboard-button {
     float: right;
 
     a.button {
@@ -156,7 +156,7 @@ header.top-bar {
       text-transform: none;
     }
   }
-  div#trainer-dashboard-button {
+  div#trainer-dashboard-button, div#admin-dashboard-button{
     margin-right: rem-calc(10px);
 
     a.button {

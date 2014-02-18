@@ -8,7 +8,10 @@ from django.contrib.auth.models import Group
 from skills.models import Skill
 
 from global_change_lab.models import User
+from django.db.models import Q
+from datetime import datetime, timedelta
 
+import csv
 
 def front_page(request):
     return render(request, 'front_page.html', {
@@ -32,7 +35,46 @@ def trainer_dashboard(request):
         # 'shares': None, #Skill.objects.all(),
     })
 
+def admin_dashboard(request):
+    num_users = len(User.objects.distinct())
+    
+    one_month_ago = datetime.now() - timedelta(days=30)
+    num_users_last_month = len(User.objects.filter(date_joined__gt=one_month_ago  ).distinct())
+    
+    return render(request, 'admin_dashboard.html', {
+        "num_users": num_users,
+        "num_users_last_month": num_users_last_month,
+        })
 
+def admin_users_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="users.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(["username", "date_joined", "name", "email", ])
+
+    for user in User.objects.distinct():
+        writer.writerow([user.username, user.date_joined, user.get_full_name(), user.email, ])
+    
+    return response
+
+def admin_statistics_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="statistics.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(["num_users", "num_users_last_month"])
+
+    num_users = len(User.objects.distinct())
+    
+    one_month_ago = datetime.now() - timedelta(days=30)
+    num_users_last_month = len(User.objects.filter(date_joined__gt=one_month_ago  ).distinct())
+
+    writer.writerow([num_users, num_users_last_month])
+
+    return response
+    
+    
 def user_progress(request):
     if request.user.is_authenticated:
         return render(request, 'user_progress.html', {})

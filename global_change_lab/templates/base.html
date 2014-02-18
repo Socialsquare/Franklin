@@ -54,7 +54,7 @@
         </a>
       {% endif %}
       </div>
-
+      
       {% block trainer_dashboard_button %}
       {% permission request.user has 'trainingbit.create'  %}
       <div id="trainer-dashboard-button">
@@ -63,6 +63,13 @@
       {% endpermission %}
       {% endblock %}
 
+      {% block admin_dashboard_button %}
+      {% if request.user.is_admin  %}
+      <div id="admin-dashboard-button">
+        <a href="{% url 'admin_dashboard' %}" class="button">Admin Dashboard</a>
+      </div>
+      {% endif %}
+      {% endblock %}
 
       <section class="top-bar-section">
         {% if request.user.is_authenticated %}
