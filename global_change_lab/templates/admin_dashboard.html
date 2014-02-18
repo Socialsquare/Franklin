@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block admin_dashboard_button %}
+{% endblock %}
+
+{% block body-classes %} trainer-interface {% endblock %}
+
+{% block content %}
+<div id="admin-dashboard">
+  <h1>Administrator Dashboard</h1>
+  <hr>
+  <div class="row">
+    <div class="large-6 columns">
+      <h3>Current number of users</h3>
+      <div class="admin-datablock" id="admin-num-users">
+        <p>Currently there are {{ num_users }} users in GCL.</p>
+      </div>
+    </div>
+    <div class="large-6 columns">
+      <h3>Number of users signing up during last month</h3>
+      <div id="admin-datablock">
+        <p>Last month there were {{ num_users_last_month }} users signing up.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
