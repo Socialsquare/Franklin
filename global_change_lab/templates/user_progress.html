@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block body-classes %} user_progress {% endblock %}
+
+{% block content %}
+<h1>Skills you are currently working on</h1><br>
+
+<ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-6">
+{% for skill in request.user.skills_in_progress.all %}
+  <li>
+   <a href="{% url 'skills:skill_view' skill.id %}">
+   <div class="image">
+     <img src="{{ skill.image.url }}">
+   </div>
+   <div class="description">
+     <h3>{{ skill.name }}</h3>
+     <div class="progress success round">
+       <span class="meter" style="width: 35%"></span>
+     </div>
+   </div>
+    </a>
+  </li>
+{% endfor %}
+</ul>
+
+<br>
+<h1>Training Bits you are currently doing</h1><br>
+
+{% endblock %}
