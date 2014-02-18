@@ -4,7 +4,7 @@ from django.contrib.auth.models import UserManager
 from django.db import models
 from allauth.account.models import EmailAddress
 
-from skills.models import Skill
+from skills.models import Skill, TrainingBit
 
 # USERTYPES = (
 #     ('user', 'User'),
@@ -24,11 +24,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     skills_completed = models.ManyToManyField(Skill, related_name='sc')
     # maybe another name for skills_completed?: skills_taken, skills_done
 
+    # Keep these name consistent with the ones above
+    #   skills_completed <-> trainingbits_completed
+    trainingbits_in_progress = models.ManyToManyField(TrainingBit, related_name='tp')
+    trainingbits_completed = models.ManyToManyField(TrainingBit, related_name='tc')
+
     def is_taking_skill(self, skill):
         return skill in self.skills_in_progress.all()
 
     def has_completed_skill(self, skill):
         return skill in self.skills_completed.all()
+
+    def is_doing_trainingbit(self, trainingbit):
+        return trainingbit in self.trainingbits_in_progress.all()
+
+    def has_completed_trainingbit(self, trainingbit):
+        return trainingbit in self.trainingbits_completed.all()
 
     # See: http://stackoverflow.com/questions/2771676/django-default-datetime-now-problem
     # this:
