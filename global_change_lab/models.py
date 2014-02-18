@@ -4,6 +4,8 @@ from django.contrib.auth.models import UserManager
 from django.db import models
 from allauth.account.models import EmailAddress
 
+from skills.models import Skill
+
 # USERTYPES = (
 #     ('user', 'User'),
 #     ('trainer', 'Trainer'),
@@ -18,13 +20,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
 
+    skills_in_progress = models.ManyToManyField(Skill, related_name='sp')
+    skills_taken = models.ManyToManyField(Skill, related_name='st')
+
+    def is_taking_skill(self, skill):
+        return skill in self.skills_in_progress.all()
+
+    def has_taken_skill(self, skill):
+        return skill in self.skills_taken.all()
+
     # See: http://stackoverflow.com/questions/2771676/django-default-datetime-now-problem
     # this:
     #   from datetime import datetime
     #   date_joined = models.DateField(default=datetime.now)
     # or this:
     date_joined = models.DateField(auto_now_add=True)
-
 
     def get_full_name(self):
         # The user is identified by their email address
@@ -33,6 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         # The user is identified by their email address
         return self.email
+
 
     objects = UserManager()
 

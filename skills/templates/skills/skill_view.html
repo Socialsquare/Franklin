@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load permissionif %}
+{% load user_skills %}
 
 {% block body-classes %}skill-view{% endblock %}}
 
@@ -29,6 +30,14 @@
   <img src="{{ skill.getImage }}">
   <h1>{{skill.name}}</h1>
   <p class="skill-description">{{skill.description}}</p>
+  {% if request.user.is_authenticated %}
+    {# {% if skill in request.user.skills_in_progress.all %} #}
+    {% if request.user|is_taking_skill:skill %}
+      <a class="button" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
+    {% else %}
+      <a class="button" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
+    {% endif %}
+  {% endif %}
 </div>
 
 <hr>

@@ -20,5 +20,7 @@ urlpatterns = patterns('',
     url(r'^skill/(\d+)/edit$', 'skills.views.skill_edit', name="skill_edit"),
     url(r'^skill/(\d+)/publicize$', 'skills.views.skill_publicize', name="skill_publicize"),
     url(r'^skill/(\d+)/delete$', 'skills.views.skill_delete', name="skill_delete"),
+    url(r'^skill/(\d+)/start$', 'skills.views.skill_start', name="skill_start"),
+    url(r'^skill/(\d+)/stop$', 'skills.views.skill_stop', name="skill_stop"),
     # url(r'^admin/', include(admin.site.urls)),
 )
