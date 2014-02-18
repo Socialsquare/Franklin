@@ -1,9 +1,3 @@
-.skill-description {
-  font-weight: 200;
-  p {
-    font-weight: 200;
-  }
-}
 
 body.skills-overview {
   .page-buttons {
@@ -16,7 +10,7 @@ body.skills-overview {
 
 body.skill-view {
   #content {
-    hr {
+    &>hr {
       padding-top: 1rem;
       border-top: none;
       border-bottom: 1px $gcl-lightgray solid;
@@ -46,10 +40,15 @@ body.skill-view {
       float: left;
       padding:0;
 
-      &.skill-description {
+      &.description {
         padding-left: 0.5rem;
-        .skill-info {
+        font-weight: 200;
+        .info {
           padding-left: 0.5rem;
+        }
+
+        p {
+          font-weight: 200;
         }
       }
     }
