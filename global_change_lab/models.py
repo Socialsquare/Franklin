@@ -29,14 +29,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
 
-    skills_in_progress = models.ManyToManyField(Skill, related_name='sp')
-    skills_completed = models.ManyToManyField(Skill, related_name='sc')
+    skills_in_progress = models.ManyToManyField(Skill, related_name='users_in_progress')
+    skills_completed = models.ManyToManyField(Skill, related_name='users_completed')
     # maybe another name for skills_completed?: skills_taken, skills_done
 
     # Keep these name consistent with the ones above
     #   skills_completed <-> trainingbits_completed
-    trainingbits_in_progress = models.ManyToManyField(TrainingBit, related_name='tp')
-    trainingbits_completed = models.ManyToManyField(TrainingBit, related_name='tc')
+    trainingbits_in_progress = models.ManyToManyField(TrainingBit, related_name='users_in_progress')
+    trainingbits_completed = models.ManyToManyField(TrainingBit, related_name='users_completed')
 
     def is_taking_skill(self, skill):
         return skill in self.skills_in_progress.all()
