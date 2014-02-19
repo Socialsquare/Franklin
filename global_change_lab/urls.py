@@ -17,15 +17,15 @@ urlpatterns = patterns('',
     url(r'^user/', include('allauth.urls')),
 
     # global-change-lab
-    url(r'^user/list', 'global_change_lab.views.user_list', name='user_list'),
-    url(r'^user/me', 'global_change_lab.views.user_progress', name='user_progress'),
+    url(r'^user/list/?$', 'global_change_lab.views.user_list', name='user_list'),
+    url(r'^user/me/?$', 'global_change_lab.views.user_progress', name='user_progress'),
     url(r'^user/profile/(\d+)?', 'global_change_lab.views.profile', name='profile'),
-    url(r'^user/dashboard', 'global_change_lab.views.trainer_dashboard', name='trainer_dashboard'),
-    url(r'^admin/dashboard', 'global_change_lab.views.admin_dashboard', name='admin_dashboard'),
-    url(r'^admin/users.csv', 'global_change_lab.views.admin_users_csv', name='admin_users_csv'),
-    url(r'^admin/statistics.csv', 'global_change_lab.views.admin_statistics_csv', name='admin_statistics_csv'),
-    url(r'^user/delete/(\d+)', 'global_change_lab.views.user_delete', name='user_delete'),
-    url(r'^user/make_trainer/(\d+)', 'global_change_lab.views.user_upgrade_to_trainer', name='user_upgrade_to_trainer'),
+    url(r'^user/dashboard/?$', 'global_change_lab.views.trainer_dashboard', name='trainer_dashboard'),
+    url(r'^admin/dashboard/?$', 'global_change_lab.views.admin_dashboard', name='admin_dashboard'),
+    url(r'^admin/users.csv$', 'global_change_lab.views.admin_users_csv', name='admin_users_csv'),
+    url(r'^admin/statistics.csv$', 'global_change_lab.views.admin_statistics_csv', name='admin_statistics_csv'),
+    url(r'^user/delete/(\d+)/?$', 'global_change_lab.views.user_delete', name='user_delete'),
+    url(r'^user/make_trainer/(\d+)/?$', 'global_change_lab.views.user_upgrade_to_trainer', name='user_upgrade_to_trainer'),
 
     # django-comments-xtd
     url(r'^comments/', include('django_comments_xtd.urls')),
