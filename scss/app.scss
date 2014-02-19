@@ -148,7 +148,7 @@ h3 {
 }
 
 #content {
-  @include main-column();
+  @include grid-row();
   padding-top: rem-calc(20px);
   padding-bottom: rem-calc(20px);
 

@@ -10,12 +10,3 @@
   border-top-right-radius: $radius;
 }
 
-
-@mixin main-column() {
-  @media #{$medium-up} {
-    padding-left: 16%;
-    padding-right: 16%;
-    // width: rem-calc(1170px);
-    // margin: auto 0;
-  }
-}

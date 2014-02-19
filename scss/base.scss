@@ -60,8 +60,10 @@ body.trainer-interface {
 }
 
 header.top-bar {
-  // Constrain to center column on large screens
-  @include main-column();
+  .row {
+    max-width: $row-width; // row in <header> in Foundation 5 don't have the
+                           // default max-width, so we enforce it
+  }
 
   // Have some space
   padding-bottom: 1rem;
@@ -168,8 +170,6 @@ header.top-bar {
 }
 
 footer {
-  @include main-column();
-
   #footer-links {
     width: 50%;
     margin-left: 0;
