@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def has_completed_skill(self, skill):
         return skill in self.skills_completed.all()
 
-    def is_doing_trainingbit(self, trainingbit):
+    def is_taking_trainingbit(self, trainingbit):
         return trainingbit in self.trainingbits_in_progress.all()
 
     def has_completed_trainingbit(self, trainingbit):
