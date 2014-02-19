@@ -49,18 +49,20 @@
 //   positioned at the top right of the content box
 //   should contain button that regard an object (a user, a training bit, a skill)
 .page-buttons {
-  float: right;
 
   @extend .hide-for-small-only;
 
   // To make sure the buttons are on top of e.g. trainingbit-cover
   // See: https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Adding_z-index
   //      https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Stacking_and_float
-  position: relative;
   z-index: 1;
-  // position: absolute;
-  // top: 0;
-  // right: 0;
+  @if $page-buttons-overlay == 'floating' {
+    position: relative;
+    float: right;
+  } @else {
+    position: absolute;
+    right: 0;
+  }
 
   a.button {
     display: inline-block;
@@ -151,6 +153,8 @@ h3 {
   @include grid-row();
   padding-top: rem-calc(20px);
   padding-bottom: rem-calc(20px);
+
+  position: relative;
 
   ul li img {
     display: block;
