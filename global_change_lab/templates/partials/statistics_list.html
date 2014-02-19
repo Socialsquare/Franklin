@@ -1,0 +1,28 @@
+{% load static %}
+
+<table id="{{ table_id }}">
+  <thead>
+    <th class="sort" data-sort="name">Name</th>
+    <th class="sort" data-sort="in_progress">Started</th>
+    <th class="sort" data-sort="completed">Finished</th>
+  </thead>
+  <tbody class="list">
+{% for item in items %}
+    <tr>
+      <td class="name">{{ item.name }}</td>
+      <td class="in_progress">{{ item.users_in_progress.count }}</td>
+      <td class="completed">{{ item.users_completed.count }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+<script src="{% static 'listjs/list.min.js' %}"></script>
+<script>
+// List.js
+var options = {
+  valueNames: [ 'name', 'in_progress', 'completed' ]
+};
+
+var trainingbit_list = new List('{{ table_id }}', options);
+</script>

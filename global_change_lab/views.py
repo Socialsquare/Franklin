@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 import django.contrib.messages as messages
 from django.contrib.auth.models import Group
 
-from skills.models import Skill
+from skills.models import Skill, TrainingBit
 
 from global_change_lab.models import User
 from django.db.models import Q
@@ -33,6 +33,16 @@ def trainer_dashboard(request):
         'skills': request.user.skill_set.all(),
         # TrainingBit.objects.l
         # 'shares': None, #Skill.objects.all(),
+    })
+
+def trainingbit_statistics(request):
+    return render(request, 'trainingbit_statistics.html', {
+        'trainingbits': TrainingBit.objects.all(),
+    })
+
+def skill_statistics(request):
+    return render(request, 'skill_statistics.html', {
+        'skills': Skill.objects.all(),
     })
 
 def admin_dashboard(request):

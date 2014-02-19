@@ -8,6 +8,13 @@
   h3 {
     text-transform: none;
   }
+  a.stats-link {
+    font-size: 0.7rem;
+    // text-align: right;
+    line-height: $h3-font-size;
+    float: right;
+    // display: inline-block;
+  }
 
   div.list-container {
     background-color: white;

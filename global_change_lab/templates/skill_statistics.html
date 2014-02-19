@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body-classes %} trainer-interface {% endblock %}
+
+{% block content %}
+
+{% include 'partials/statistics_list.html' with items=skills table_id='skills' %}
+
+{% endblock %}

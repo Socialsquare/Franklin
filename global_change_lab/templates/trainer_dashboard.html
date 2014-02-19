@@ -13,7 +13,9 @@
   <hr>
   <div class="row">
     <div class="large-6 columns">
-      <h3>Your active training bits</h3>
+      {# <div class="headline"> #}
+        <h3>Your active training bits</h3><a class="stats-link" href="{% url 'trainingbit_statistics' %}">See training bit statistics <span class="icon line-graph"></span></a>
+      {# </div> #}
       {# include 'partials/trainingbits_grid.html' #}
       <div class="list-container">
       {% for item in trainingbits %}
@@ -22,7 +24,7 @@
       </div>
     </div>
     <div class="large-6 columns">
-      <h3>Your active skills</h3>
+      <h3>Your active skills</h3><a class="stats-link" href="{% url 'skill_statistics' %}">See skill statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
       {% for item in skills %}
         {% include 'partials/trainer_item.html' with url_name='skills:skill_edit' %}
