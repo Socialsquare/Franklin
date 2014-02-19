@@ -174,6 +174,9 @@ def trainingbit_view(request, trainingbit_id):
             print('not so a')
         project.image = image
 
+        request.user.trainingbits_in_progress.remove(trainingbit)
+        request.user.trainingbits_completed.add(trainingbit)
+
         # Save
         project.save()
         messages.success(request, 'Project was successfully saved')
@@ -282,5 +285,22 @@ def trainingbit_recommend(request, trainingbit_id):
         messages.error(request, 'You do not have permission to recommend this training bit')
         return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
 
+@csrf_protect
+def trainingbit_start(request, trainingbit_id):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+    request.user.trainingbits_in_progress.add(trainingbit)
+    messages.success(request, 'You are now taking this training bit')
+
+    return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
+
+@csrf_protect
+def trainingbit_stop(request, trainingbit_id):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+    request.user.trainingbits_in_progress.remove(trainingbit)
+    messages.info(request, 'You are no longer taking this training bit')
+
+    return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
 
 

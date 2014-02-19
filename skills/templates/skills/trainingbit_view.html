@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load permissionif %}
+{% load user_skills %}
 
 {% block scripts %}
 <script src="{% static 'jquery-form/jquery.form.js' %}"></script>
@@ -32,6 +33,18 @@
   {% endpermission %}
 </div>
 {% include 'skills/partials/trainingbit_cover.html' %}
+{% if request.user.is_authenticated %}
+  {% if request.user|has_completed_trainingbit:trainingbit %}
+    You have completed this training bit!
+  {% else %}
+    {# {% if skill in request.user.skills_in_progress.all %} #}
+    {% if request.user|is_taking_trainingbit:trainingbit %}
+      <a class="button" href="{% url 'skills:trainingbit_stop'  trainingbit.id %}">Stop taking this trainingbit</a>
+    {% else %}
+      <a class="button" href="{% url 'skills:trainingbit_start' trainingbit.id %}">Start this trainingbit</a>
+    {% endif %}
+  {% endif %}
+{% endif %}
 
 <hr>
 

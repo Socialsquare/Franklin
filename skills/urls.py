@@ -12,6 +12,8 @@ urlpatterns = patterns('',
     url(r'^trainingbit/(\d+)/view$', 'skills.views.trainingbit_view', name="trainingbit_view"),
     url(r'^trainingbit/(\d+)/delete$', 'skills.views.trainingbit_delete', name="trainingbit_delete"),
     url(r'^trainingbit/(\d+)/recommend$', 'skills.views.trainingbit_recommend', name="trainingbit_recommend"),
+    url(r'^skill/(\d+)/start$', 'skills.views.trainingbit_start', name="trainingbit_start"),
+    url(r'^skill/(\d+)/stop$', 'skills.views.trainingbit_stop', name="trainingbit_stop"),
 
     url(r'^skills/$', 'skills.views.skills_overview', name="skills_overview"),
     url(r'^skills/all/?$', 'skills.views.skills_overview', {'show_hidden':True}, name="skills_overview_all"),
