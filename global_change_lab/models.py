@@ -12,6 +12,15 @@ from skills.models import Skill, TrainingBit
 #     ('admin', 'Administrator'),
 # )
 
+class CustomUserManager(UserManager):
+
+    def create_superuser(self, username, password, **kwargs):
+        user = self.model(username=username, is_staff=True, is_superuser=True, **kwargs)
+        user.set_password(password)
+        user.save()
+        return user
+
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
@@ -57,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-    objects = UserManager()
+    objects = CustomUserManager()
 
     def account_verified(self):
         if self.user.is_authenticated:
