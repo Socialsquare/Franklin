@@ -2,15 +2,29 @@
 
 // icons: chevron-down, chevron-small-down, chevron-thin-down, triangle-down
 th.sort.asc:after, th.sort.desc:after {
-  @extend .icon;
-  margin-left: 0.5rem;
+    @extend .icon;
+    margin-left: 0.5rem;
 }
 
 th.sort.asc:after {
-  //@extend .triangle-up;
+    //@extend .triangle-up;
   content: '\25B4';
 }
 th.sort.desc:after {
-  // @extend .triangle-down;
+    // @extend .triangle-down;
   content: '\25BE';
+}
+
+tr.child>td {
+    font-size: 0.7em;
+    color: #555;
+}
+
+tr.child>td.name {
+    padding-left: 30px;
+}
+
+
+.tb_table {
+    display:none;
 }
