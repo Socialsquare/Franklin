@@ -19,6 +19,10 @@ def front_page(request):
         'skills': Skill.objects.all(),
     })
 
+def new_user(request):
+    return render(request, 'new_user.html', {
+    })
+
 
 # TODO: this page is a stub
 def shares(request):

@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'global_change_lab.views.front_page', name='front_page'),
+    url(r'^first/?$', 'global_change_lab.views.new_user', name='new_user'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^', include('skills.urls', namespace='skills')),
 

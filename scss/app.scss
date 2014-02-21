@@ -3,6 +3,7 @@
 @import "scss/gcl-functions";
 @import "scss/entypo";
 @import "scss/front_page";
+@import "scss/new_user";
 @import "scss/base";
 @import "scss/messages";
 @import "scss/trainer_dashboard";
@@ -39,9 +40,6 @@
   }
   &.black {
     color: black;
-  }
-  &.red {
-    color: $gcl-red;
   }
 }
 
@@ -96,6 +94,10 @@
 
 %blue-button {
   background-color: $gcl-blue;
+  color: white;
+}
+
+.white {
   color: white;
 }
 
