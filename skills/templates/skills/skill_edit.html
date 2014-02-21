@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+
 {% block body-classes %} trainer-interface {% endblock %}
+{% block scripts %}
+  <script src="{% static 'global_change_lab/trainer.min.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -87,18 +91,14 @@
   </button>
 </form>
 {{ form_errors }}
-<script src="{% static 'listjs/list.min.js' %}"></script>
 <script>
-{# $(document).ready(function() { #}
-var options = {
-  valueNames: ['name']
-};
-var trainingbitList = new List('trainingbit-list', options);
-{# }); #}
+$(document).ready(function() {
+  var options = {
+    valueNames: ['name']
+  };
+  var trainingbitList = new List('trainingbit-list', options);
+});
 </script>
 
-<script type="text/javascript">
-  {# $('#new-training-bit-cover').filedrop({ }); #}
-</script>
 
 {% endblock %}

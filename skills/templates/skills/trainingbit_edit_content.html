@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+
 {% block body-classes %} trainer-interface {% endblock %}
+
+{# Load dependencies #}
+{% block scripts %}
+  <link rel="stylesheet" href="{% static 'medium-editor/medium-editor.css' %}">
+  <script src="{% static 'global_change_lab/trainingbit_view.min.js' %}"></script>
+  <script src="{% static 'global_change_lab/trainer.min.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
 <div id="save-button" style="position:absolute; top: 20px; left: 30px;">
@@ -141,19 +150,6 @@
   </script>
 
 
-  {# Load dependencies #}
-  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-  <script src="http://documentcloud.github.com/backbone/backbone.js"></script>
-  {# <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script> #}
-  <script src="{% static 'jqueryui/jquery.ui.core.min.js' %}"></script>
-  <script src="{% static 'jqueryui/jquery.ui.widget.min.js' %}"></script>
-  <script src="{% static 'jqueryui/jquery.ui.mouse.min.js' %}"></script>
-  <script src="{% static 'jqueryui/jquery.ui.sortable.js' %}"></script>
-  <script src="{% static 'backbone/backbone.collectionView.min.js' %}"></script>
-  <script src="{% static 'medium-editor/medium-editor.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'medium-editor/medium-editor.css' %}">
-  {# <script src="{% static 'etch.js/scripts/etch.js' %}"></script> #}
-  {# <link rel="stylesheet" href="{% static 'etch.js/styles/etch.css' %}"> #}
 
   <script>
 {# BACKBONE MODELS #}

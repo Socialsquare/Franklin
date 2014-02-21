@@ -3,10 +3,6 @@
 {% load permissionif %}
 {% load user_skills %}
 
-{% block scripts %}
-<script src="{% static 'jquery-form/jquery.form.js' %}"></script>
-{% endblock %}
-
 {% load comments %}
 
 {% block content %}
@@ -114,11 +110,7 @@
   <%= html %>
 </script>
 
-  <script src="{% static 'jquery/jquery.min.js' %}"></script>
-  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-  <script src="http://documentcloud.github.com/backbone/backbone.js"></script>
-  <script src="{% static 'backbone/backbone.collectionView.min.js' %}"></script>
-
+<script src="{% static 'global_change_lab/trainingbit_view.min.js' %}"></script>
 <script>
 
 {# BACKBONE MODELS #}

@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
-{% block trainer_dashboard_button %}
+{% load staticfiles %}
+
+{% block trainer_dashboard_button %}{% endblock %}
+{% block body-classes %} trainer-interface {% endblock %}
+{% block scripts %}
+  <script src="{% static 'global_change_lab/trainer.min.js' %}"></script>
 {% endblock %}
 
-{% block body-classes %} trainer-interface {% endblock %}
 
 {% block content %}
 <div id="trainer-dashboard">

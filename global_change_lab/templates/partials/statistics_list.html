@@ -1,4 +1,5 @@
-{% load static %}
+{% load staticfiles %}
+
 <table id="{{ table_id }}" class="skills_table">
   <thead>
     <th class="sort" data-sort="name">Name</th>
@@ -36,7 +37,6 @@
 {% endfor %}
 
 
-<script src="{% static 'listjs/list.min.js' %}"></script>
 <script>
 // List.js
 var options = {

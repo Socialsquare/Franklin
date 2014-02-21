@@ -8,9 +8,10 @@
   {% if debug %}
   <script src="//localhost:35729/livereload.js"></script>
   {% endif %}
-  <script src="{% static 'jquery.min.js' %}"></script>
-  <script src="{% static 'foundation/js/foundation.min.js' %}"></script>
-  <script src="{% static 'foundation/js/foundation/foundation.dropdown.js' %}"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="{% static 'global_change_lab/user.min.js' %}"></script>
+
   {% block scripts %}
   {% endblock %}
   <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}" />

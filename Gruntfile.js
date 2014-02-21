@@ -65,67 +65,67 @@ module.exports = function(grunt) {
       main: {
         files: [
           {
-            src:   'bower_components/jquery/dist/jquery.min.js',
-            dest: 'global_change_lab/static/jquery.min.js',
-            filter: 'isFile',
-          },
-          {
-            src:          'bower_components/foundation/js/foundation.min.js',
-            dest: 'global_change_lab/static/foundation/js/foundation.min.js',
-            filter: 'isFile',
-          },
-          {
-            src:          'bower_components/foundation/js/foundation/foundation.dropdown.js',
-            dest: 'global_change_lab/static/foundation/js/foundation/foundation.dropdown.js',
-            filter: 'isFile',
-          },
-          {
-            src:          'bower_components/jquery-form/jquery.form.js',
-            dest: 'global_change_lab/static/jquery-form/jquery.form.js',
-            filter: 'isFile',
-          },
-          {
-            src:       'bower_components/jqueryui/ui/minified/jquery.ui.core.min.js',
-            dest: 'global_change_lab/static/jqueryui/jquery.ui.core.min.js',
-            filter: 'isFile',
-          },
-          {
-            src:       'bower_components/jqueryui/ui/minified/jquery.ui.widget.min.js',
-            dest: 'global_change_lab/static/jqueryui/jquery.ui.widget.min.js',
-            filter: 'isFile',
-          },
-          {
-            src:       'bower_components/jqueryui/ui/minified/jquery.ui.mouse.min.js',
-            dest: 'global_change_lab/static/jqueryui/jquery.ui.mouse.min.js',
-            filter: 'isFile',
-          },
-          {
-            src:       'bower_components/jqueryui/ui/jquery.ui.sortable.js',
-            //src: 'bower_components/jqueryui/ui/minified/jquery.ui.sortable.min.js',
-            dest: 'global_change_lab/static/jqueryui/jquery.ui.sortable.js',
-            filter: 'isFile',
-          },
-          {
-            src: 'bower_components/backbone.collectionView/dist/backbone.collectionView.min.js',
-            dest:            'global_change_lab/static/backbone/backbone.collectionView.min.js',
-            filter: 'isFile',
-          },
-          {
-            src:  'bower_components/medium-editor/dist/js/medium-editor.min.js',
-            dest: 'global_change_lab/static/medium-editor/medium-editor.min.js',
-            filter: 'isFile',
           },
           {
             src: 'bower_components/medium-editor/dist/css/medium-editor.css',
             dest: 'global_change_lab/static/medium-editor/medium-editor.css',
             filter: 'isFile',
           },
-          {
-            src:     'bower_components/listjs/dist/list.min.js',
-            dest: 'global_change_lab/static/listjs/list.min.js',
-            filter: 'isFile',
-          },
         ]
+      }
+    },
+
+    uglify: {
+      // The bare minimum for the site to function (front-page)
+      user: {
+        // sourceMap: true,
+        // sourceMapIncludeSources: true,
+        files: {
+          'global_change_lab/static/global_change_lab/user.min.js': [
+            // 'bower_components/jquery/dist/jquery.js',                                // 82 kb
+            'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 kb
+            'bower_components/foundation/js/foundation.js',                             // 16 kb
+            'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 kb
+          ]
+        }
+      },
+      // The needed things to view a training bit
+      trainingbit_view: {
+        sourceMap: true,
+        sourceMapIncludeSources: true,
+        files: {
+          'global_change_lab/static/global_change_lab/trainingbit_view.min.js': [
+            'bower_components/underscore/underscore.js',
+            'bower_components/backbone/backbone.js',
+            'bower_components/backbone.collectionView/dist/backbone.collectionView.js',
+          ]
+        }
+      },
+      // The needed things to upload images the "AJAX/HTML5"-way
+      fileupload: {
+        files: {
+          'global_change_lab/static/global_change_lab/fileupload.min.js': [
+            'bower_components/jqueryui/ui/jquery.ui.core.js',
+            'bower_components/jqueryui/ui/jquery.ui.widget.js',
+            'bower_components/jquery-file-upload/js/jquery.iframe-transport.js',
+            'bower_components/jquery-file-upload/js/jquery.fileupload.js',
+          ]
+        }
+      },
+      // For editing training bits and using the trainer interface
+      trainer: {
+        // sourceMap: true,
+        // sourceMapIncludeSources: true,
+        files: {
+          'global_change_lab/static/global_change_lab/trainer.min.js': [
+            'bower_components/listjs/dist/list.js',
+            'bower_components/medium-editor/dist/js/medium-editor.js',
+            'bower_components/jqueryui/ui/jquery.ui.core.js',
+            'bower_components/jqueryui/ui/jquery.ui.widget.js',
+            'bower_components/jqueryui/ui/jquery.ui.mouse.js',
+            'bower_components/jqueryui/ui/jquery.ui.sortable.js',
+          ]
+        }
       }
     },
 
@@ -167,9 +167,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // grunt.registerTask('build', ['sass', 'processhtml', 'uncss']);
-  grunt.registerTask('build', ['bower', 'sass', 'copy']);
+  grunt.registerTask('build', ['bower', 'sass', 'uglify', 'copy']);
   // grunt.registerTask('default', ['build','watch']);
   grunt.registerTask('default', ['build']);
 }
