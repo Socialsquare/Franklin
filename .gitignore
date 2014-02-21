@@ -4,6 +4,7 @@ __pycache__
 /node_modules
 /bower_components
 /static
+/migrations
 
 # bower_components that are moved to `global_change_lab/static/` as part of the
 # build process should not be tracked by git
@@ -14,3 +15,16 @@ global_change_lab/static/jqueryui/*
 global_change_lab/static/backbone/*
 global_change_lab/static/medium-editor/*
 global_change_lab/static/listjs/*
+global_change_lab/static/global_change_lab/css
+
+global_change_lab/template
+
+
+*.pyc
+/gcl.sqlite
+/media
+/.venv
+*~
+
+skills/migrations/
+
