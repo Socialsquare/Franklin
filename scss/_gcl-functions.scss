@@ -10,3 +10,31 @@
   border-top-right-radius: $radius;
 }
 
+
+
+// CSS animations
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin animation($type, $name) {
+  animation-#{$type}: $name;
+  -moz-animation-#{$type}: $name;
+  -webkit-animation-#{$type}: $name;
+}
+@mixin transition($what) {
+  transition: $what;
+  -moz-transition: $what;
+  -webkit-transition: $what;
+}
