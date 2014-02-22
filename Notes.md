@@ -166,6 +166,14 @@ https://github.com/yeoman/yeoman/wiki/Front-end-package-management-with-Bower
 Backend
 =======
 
+Debugging
+---------
+Check out this video: <http://www.youtube.com/watch?v=y_QrK3fBkWg&t=9m00s>
+
+    > pip install werkzeug
+    > python manage.py runserver_plus
+
+
 Forgot admin password?
 ----------------------
 Here's a way to reset it:
