@@ -27,7 +27,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
     username = models.CharField(max_length=40, unique=True)
     email = models.CharField(max_length=100)
-    is_active = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='trainingbits', null=True)
+    description = models.TextField(blank=True)
 
     skills_in_progress = models.ManyToManyField(Skill, blank=True, related_name='users_in_progress')
     skills_completed = models.ManyToManyField(Skill, blank=True, related_name='users_completed')
@@ -37,6 +38,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     #   skills_completed <-> trainingbits_completed
     trainingbits_in_progress = models.ManyToManyField(TrainingBit, blank=True, related_name='users_in_progress')
     trainingbits_completed = models.ManyToManyField(TrainingBit, blank=True, related_name='users_completed')
+
+    is_active = models.BooleanField(default=True)
 
     def is_taking_skill(self, skill):
         return skill in self.skills_in_progress.all()
@@ -92,6 +95,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.id])
+
+    def getImage(self):
+        if self.image:
+            return self.image.url
+        else:
+            return 'defaultimage'
+
 
 from solo.models import SingletonModel
 
