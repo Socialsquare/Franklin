@@ -70,18 +70,7 @@
 
 {# Projects section #}
 <h3 class="shared-by-others">Shared by others</h3>
-<div id="project-list">
-{% for project in projects %}
-  <div class="project">
-    <h6 class="title">{{ project.title }}</h6><span class="date">{{ project.created_at }}</span>
-    <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
-    <p>{{ project.content }}</p>
-    {% if project.image %}
-    <a href="{{ project.image.url }}"><img src="{{ project.image.url }}"></a>
-    {% endif %}
-  </div>
-{% endfor %}
-</div>
+{% include 'partials/project_list.html' with hide_links=True %}
 
 {% comment %}
 {# Comments section #}
