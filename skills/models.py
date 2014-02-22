@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from taggit.managers import TaggableManager
 from datetime import datetime
@@ -47,6 +48,9 @@ class TrainingBit(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('skills:trainingbit_view', args=[self.id])
+
 
 class Skill(models.Model):
     name = models.CharField(max_length=30)
@@ -71,6 +75,9 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('skills:skill_view', args=[self.id])
 
 
 class Project(models.Model):
@@ -99,6 +106,9 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('skills:trainingbit_view', args=[self.trainingbit.id]) + \
+               '#project-%u' % self.id
 
 # apply AuthorPermissionLogic and CollaboratorsPermissionLogic
 from permission import add_permission_logic

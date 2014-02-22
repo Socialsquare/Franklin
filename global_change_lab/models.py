@@ -90,6 +90,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Simplest possible answer: All admins are staff
         return self.is_superuser
 
+    def get_absolute_url(self):
+        return reverse('profile', args=[self.id])
 
 from solo.models import SingletonModel
 
