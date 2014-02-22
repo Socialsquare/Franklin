@@ -10,6 +10,8 @@ from skills.models import Skill, TrainingBit, Project
 
 from django_sortable.helpers import sortable_helper
 
+import json
+
 
 def skills_overview(request, show_hidden=False):
 
@@ -31,6 +33,23 @@ def skill_view(request, skill_id):
     return render(request, 'skills/skill_view.html', {
         'skill': skill,
     })
+
+def skill_trainingbits_json(request, skill_id):
+    skill = get_object_or_404(Skill, pk=skill_id)
+
+    trainingbits = []
+
+    for trainingbit in skill.trainingbits.all():
+        d = {
+            'id': trainingbit.id,
+            'name': trainingbit.name,
+            'in_progress': trainingbit.users_in_progress.count(),
+            'completed': trainingbit.users_completed.count(),
+        }
+        trainingbits.append(d)
+
+
+    return HttpResponse(json.dumps(trainingbits), content_type='application/json')
 
 @csrf_protect
 def skill_start(request, skill_id):

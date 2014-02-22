@@ -1,4 +1,8 @@
 
+div.help-text {
+
+  margin-bottom: 1rem;
+}
 
 // icons: chevron-down, chevron-small-down, chevron-thin-down, triangle-down
 th.sort.asc:after, th.sort.desc:after {
@@ -24,7 +28,6 @@ tr.child>td.name {
     padding-left: 30px;
 }
 
-
-.tb_table {
-    display:none;
+table#skill_trainingbits tbody tr:first-child {
+  // display: none;
 }

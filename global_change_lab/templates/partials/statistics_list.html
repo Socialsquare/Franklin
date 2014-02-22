@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<table id="{{ table_id }}" class="skills_table">
+<table id="{{ table_id }}">
   <thead>
     <th class="sort" data-sort="name">Name</th>
     <th class="sort" data-sort="in_progress">Started</th>
@@ -17,42 +17,12 @@
   </tbody>
 </table>
 
-{% for item in items %}
-<table id="subskill-{{ item.id }}" class="tb_table">
-  <thead>
-    <th>Name</th>
-    <th>Started</th>
-    <th>Finished</th>
-  </thead>
-  <tbody class="list">
-    {% for trainingbit in item.trainingbits.all %}
-    <tr class="parent">
-      <td class="name">{{trainingbit.name }}</td>
-      <td class="in_progress">{{trainingbit.users_in_progress.count}}</td>
-      <td class="completed">{{trainingbit.users_completed.count}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endfor %}
-
-
 <script>
 // List.js
 var options = {
   valueNames: [ 'name', 'in_progress', 'completed' ]
 };
 
-var trainingbit_list = new List('{{ table_id }}', options);
+var list = new List('{{ table_id }}', options);
 
-$(".skills_table tr").click(function() {
-  var $target = $("#subskill-"+$(this).data('id'));
-
-  if ($target.css('display') === 'table') {
-    $target.hide();
-  } else {
-    $(".tb_table").hide();
-    $target.show();
-  }
-});
 </script>

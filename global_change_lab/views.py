@@ -39,13 +39,9 @@ def trainer_dashboard(request):
         # 'shares': None, #Skill.objects.all(),
     })
 
-def trainingbit_statistics(request):
-    return render(request, 'trainingbit_statistics.html', {
+def statistics(request):
+    return render(request, 'statistics.html', {
         'trainingbits': TrainingBit.objects.all(),
-    })
-
-def skill_statistics(request):
-    return render(request, 'skill_statistics.html', {
         'skills': Skill.objects.all(),
     })
 

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body-classes %} trainer-interface {% endblock %}
+{% block scripts %}
+  <script src="{% static 'global_change_lab/trainer.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Statistcs</h1><br>
+
+<h2>Skills</h2>
+<div class="help-text row">
+  Click on a skill in the table on the left to see the statistics of the training
+  bits in the skill in the table on the right.
+</div>
+
+<div class="row">
+  <div class="medium-6 columns">
+    <div class="skills">
+    {% include 'partials/statistics_list.html' with items=skills table_id='skills' %}
+    </div>
+  </div>
+
+  <div class="medium-6 columns">
+    <table id="skill_trainingbits">
+      <thead>
+        <th class="sort" data-sort="name">Name</th>
+        <th class="sort" data-sort="in_progress">Started</th>
+        <th class="sort" data-sort="completed">Finished</th>
+      </thead>
+      <tbody class="list">
+        <tr class="template">
+          <td class="name">Empty</td>
+          <td class="in_progress">Empty</td>
+          <td class="completed">Empty</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="name">Sum</td>
+          <td class="in_progress">Empty</td>
+          <td class="completed">Empty</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<script>
+var options = {
+  valueNames: ['name', 'in_progress', 'completed'],
+};
+var skill_trainingbits_list = new List('skill_trainingbits', options);
+$(".skills tbody.list tr").click(function() {
+  var id = $(this).data('id');
+
+  $.getJSON('/skill/' + id + '/trainingbits.json').success(function(data) {
+    skill_trainingbits_list.clear();
+
+    var total_in_progress = 0;
+    var total_completed = 0;
+    for (i in data) {
+      var o = data[i];
+      skill_trainingbits_list.add(o);
+
+      total_in_progress += o.in_progress;
+      total_completed += o.completed;
+    }
+    {# var width = $('#skill_trainingbits tr td.name').outerWidth(); #}
+    {# $('#skill_trainingbits tfoot tr .name').css('width', width); #}
+
+    $('#skill_trainingbits tfoot tr .in_progress').text(total_in_progress);
+    $('#skill_trainingbits tfoot tr .completed').text(total_completed);
+  });
+});
+</script>
+
+<hr>
+
+<h2>Training Bits</h2>
+<div class="trainingbits">
+{% include 'partials/statistics_list.html' with items=trainingbits table_id='trainingbits' %}
+</div>
+
+{% endblock %}
