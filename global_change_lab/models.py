@@ -91,3 +91,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
 
+from solo.models import SingletonModel
+
+class SiteConfiguration(SingletonModel):
+    # site_name = models.CharField(max_length=255, default='Site Name')
+    # maintenance_mode = models.BooleanField(default=False)
+    analytics_code = models.TextField(help_text='Here you should paste the tracking code from Google Analytics, Clicky or another web traffic analysis platform. Including the &lt;script&gt; tags.')
+
+    def __unicode__(self):
+        return u"Site Configuration (Google Analytics)"
+
+    class Meta:
+        verbose_name = "Site Configuration"
+        verbose_name_plural = "Site Configuration"

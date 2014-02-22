@@ -27,3 +27,10 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
+
+
+from solo.admin import SingletonModelAdmin
+from global_change_lab.models import SiteConfiguration
+
+admin.site.register(SiteConfiguration, SingletonModelAdmin)
+

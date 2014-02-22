@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'django_comments_xtd',
     'permission',
     'django_sortable',
+    'solo',
 
     'allauth',
     'allauth.account',

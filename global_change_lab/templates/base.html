@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load permissionif %}
+{% load solo_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,5 +126,9 @@
     </div>
   </footer>
   <script>$(document).foundation();</script>
+
+  {% get_solo 'global_change_lab.SiteConfiguration' as site_config %}
+  {{ site_config.analytics_code|safe }}
+
 </body>
 </html>
