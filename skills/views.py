@@ -315,8 +315,16 @@ def trainingbit_recommend(request, trainingbit_id):
 def trainingbit_start(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
-    request.user.trainingbits_in_progress.add(trainingbit)
-    messages.success(request, 'You are now taking this training bit')
+    # if trainingbit in request.user.trainingbits_in_progress.all(): # Slow
+    if request.user.trainingbits_in_progress.filter(pk=trainingbit.id).exists():
+        messages.success(request, 'You are already taking this training bit ;)')
+
+    # elif trainingbit in request.user.trainingbits_completed.all(): # Slow
+    elif request.user.trainingbits_completed.filter(pk=trainingbit.id).exists():
+        messages.success(request, 'You have already taken this training bit ;)')
+    else:
+        request.user.trainingbits_in_progress.add(trainingbit)
+        messages.success(request, 'You are now taking this training bit')
 
     return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
 
