@@ -76,11 +76,12 @@
   </div>
   <div class="medium-6 columns">
     <h2>{{ some_user.username }}'s latest comments</h2>
-    {# include 'partials/trainingbits_grid.html' #}
+    {% comment %}
     <ul>
     {% for comment in some_user.comment_comments.all %}
     <li>{{ comment.name }}</li>
     {% endfor %}
+    {% endcomment %}
     </ul>
   </div>
 </div>
