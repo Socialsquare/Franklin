@@ -40,10 +40,9 @@
   }
 
   input[name=name] {
-    @extend %h1;
-    @extend %stencil-font;
-    height: $h1-font-size * 2; // + rem-calc(15px);
-    // font-family: 'Allerta Stencil', sans-serif;
+    height: $h1-font-size * 2;
+    font-family: $header-font-family;
+    font-size: $h1-font-size;
   }
 
   button {

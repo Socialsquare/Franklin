@@ -1,5 +1,5 @@
-@import "foundation";
 @import "scss/settings";
+@import "foundation";
 @import "scss/gcl-functions";
 @import "scss/entypo";
 @import "scss/front_page";
@@ -105,16 +105,30 @@
   color: $gcl-red;
 }
 
-%white-on-red {
+@mixin white-on-red {
   background-color: $gcl-red;
   color: white;
+}
+%white-on-red {
+  @include white-on-red;
 }
 .white-on-red {
   @extend %white-on-red;
 }
-%white-on-darkgray {
+%text-white-on-red {
+  @include white-on-red;
+  display: inline-block;
+}
+h1, h2, h3, h4, h5, h6 {
+  &.white-on-red {
+    display: inline-block;
+  }
+}
+
+%text-white-on-darkgray {
   background-color: $gcl-darkgray;
   color: white;
+  display: inline-block;
 }
 
 
@@ -124,32 +138,9 @@ span {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @extend %stencil-font;
   text-transform: uppercase;
-  display: inline-block;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  &.white-on-red {
-  }
-}
-
-%h1 {
-  font-size: rem-calc(26px);
-}
-h1 {
-  @extend %h1;
-}
-%h2 {
-  font-size: rem-calc(23px);
-}
-h2 {
-  @extend %h2;
-}
-
-h3 {
-  font-size: rem-calc(14px);
-}
 
 #content {
   @include grid-row();

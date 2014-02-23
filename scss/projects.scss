@@ -20,13 +20,6 @@
   }
 }
 
-.title {
-  @extend %stencil-font;
-
-  font-size: 1.3rem;
-  // font-size: $h6-font-size;
-}
-
 h3.shared-by-others {
   text-transform: none;
   font-size: 1.4rem;
@@ -35,7 +28,7 @@ h3.shared-by-others {
 
 .project {
   h6.title {
-    @extend %white-on-darkgray;
+    @extend %text-white-on-darkgray;
     margin-right: 0.5rem;
     text-transform: none;
     font-size: 1rem;

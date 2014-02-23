@@ -44,3 +44,12 @@ if settings.LOCALHOST:
     urlpatterns += patterns('',
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
+
+if settings.DEBUG:
+    style_view = lambda r: render(r, 'debug_styles.html')
+
+    from django.shortcuts import render
+
+    urlpatterns += patterns('',
+        url(r'^debug_styles/?$', style_view, name='debug_styles'),
+    )

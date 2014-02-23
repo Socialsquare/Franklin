@@ -237,7 +237,7 @@ $info-color: $gcl-lightgray;
 // $button-font-sml: rem-calc(13);
 // $button-font-med: rem-calc(16);
 // $button-font-lrg: rem-calc(20);
-$button-font-weight: bold;
+// $button-font-weight: bold;
 // $button-font-align: center;
 
 // We use these to control various hover effects.
@@ -1099,6 +1099,7 @@ $button-font-weight: bold;
 
 // We use these to control header font styles
 // $header-font-family: join("Open Sans", $body-font-family);
+$header-font-family: 'Allerta Stencil', sans-serif;
 // $header-font-weight: 300;
 // $header-font-style: normal;
 // $header-font-color: #222;
@@ -1109,11 +1110,11 @@ $button-font-weight: bold;
 
 // We use these to control header font sizes
 $h1-font-size: rem-calc(26px);
-$h2-font-size: rem-calc(23px); // THIS DOESN'T WORK (doesn't actually change the size of <h2>)
-// $h3-font-size: rem-calc(27);
-// $h4-font-size: rem-calc(23);
-// $h5-font-size: rem-calc(18);
-$h6-font-size: 0.75rem;
+$h2-font-size: rem-calc(24px);
+$h3-font-size: rem-calc(22px);
+$h4-font-size: rem-calc(20px);
+$h5-font-size: rem-calc(18px);
+$h6-font-size: rem-calc(16px);
 
 // These control how subheaders are styled.
 // $subheader-line-height: 1.4;
@@ -1150,7 +1151,7 @@ $h6-font-size: 0.75rem;
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
 // $hr-border-style: solid;
-$hr-border-color: $gcl-darkgray;
+$hr-border-color: $gcl-lightgray;
 // $hr-margin: rem-calc(20);
 
 // We use these to style lists
