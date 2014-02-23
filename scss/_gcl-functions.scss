@@ -15,7 +15,7 @@
 // CSS animations
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} {
-    @content; 
+    @content;
   }
   @-moz-keyframes #{$name} {
     @content;
@@ -25,16 +25,22 @@
   }
   @keyframes #{$name} {
     @content;
-  } 
+  }
 }
 
-@mixin animation($type, $name) {
-  animation-#{$type}: $name;
-  -moz-animation-#{$type}: $name;
-  -webkit-animation-#{$type}: $name;
+@mixin animation($type, $value) {
+  animation-#{$type}: $value;
+  -moz-animation-#{$type}: $value;
+  -webkit-animation-#{$type}: $value;
 }
 @mixin transition($what) {
   transition: $what;
   -moz-transition: $what;
   -webkit-transition: $what;
+}
+
+@mixin transform($value) {
+  transform: $value;
+  -moz-transform: $value;
+  -webkit-transform: $value;
 }
