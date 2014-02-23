@@ -77,9 +77,11 @@ module.exports = function(grunt) {
 
     uglify: {
       // The bare minimum for the site to function (front-page)
+      options: {
+        sourceMap: true,
+        sourceMapIncludeSources: true,
+      },
       user: {
-        // sourceMap: true,
-        // sourceMapIncludeSources: true,
         files: {
           'global_change_lab/static/global_change_lab/user.min.js': [
             // 'bower_components/jquery/dist/jquery.js',                                // 82 kb
@@ -91,8 +93,6 @@ module.exports = function(grunt) {
       },
       // The needed things to view a training bit
       trainingbit_view: {
-        sourceMap: true,
-        sourceMapIncludeSources: true,
         files: {
           'global_change_lab/static/global_change_lab/trainingbit_view.min.js': [
             'bower_components/underscore/underscore.js',
@@ -114,8 +114,6 @@ module.exports = function(grunt) {
       },
       // For editing training bits and using the trainer interface
       trainer: {
-        // sourceMap: true,
-        // sourceMapIncludeSources: true,
         files: {
           'global_change_lab/static/global_change_lab/trainer.min.js': [
             'bower_components/listjs/dist/list.js',
