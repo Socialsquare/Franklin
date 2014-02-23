@@ -8,9 +8,10 @@
   <div class="row">
     <div class="small-7 columns">
       <h3>Sign in</h3>
-      <form>
-        <input type="text" name="email" placeholder="example@example.org">
-        <input type="password" name="email">
+      <form action="{% url 'account_login' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="login" placeholder="username or email">
+        <input type="password" name="password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
         <button>Sign in</button>
       </form>
     </div>

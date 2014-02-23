@@ -222,7 +222,9 @@ AUTHENTICATION_BACKENDS += (
 
 
 # allauth
-LOGIN_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # you can login with either
+                                                 # username or email
+LOGIN_REDIRECT_URL = 'front_page'
 TEMPLATE_CONTEXT_PROCESSORS += (
     # Required by allauth template tags
     'django.core.context_processors.request',
