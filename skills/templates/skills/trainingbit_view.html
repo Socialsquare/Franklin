@@ -3,6 +3,10 @@
 {% load permissionif %}
 {% load user_skills %}
 
+{% block scripts %}
+<script src="{% static 'global_change_lab/js/trainingbit_view.min.js' %}"></script>
+{% endblock %}
+
 {% load comments %}
 
 {% block content %}
@@ -99,7 +103,6 @@
   <%= html %>
 </script>
 
-<script src="{% static 'global_change_lab/trainingbit_view.min.js' %}"></script>
 <script>
 
 {# BACKBONE MODELS #}

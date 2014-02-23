@@ -83,7 +83,7 @@ module.exports = function(grunt) {
       },
       user: {
         files: {
-          'global_change_lab/static/global_change_lab/user.min.js': [
+          'global_change_lab/static/global_change_lab/js/user.min.js': [
             // 'bower_components/jquery/dist/jquery.js',                                // 82 kb
             'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 kb
             'bower_components/foundation/js/foundation.js',                             // 16 kb
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
       // The needed things to view a training bit
       trainingbit_view: {
         files: {
-          'global_change_lab/static/global_change_lab/trainingbit_view.min.js': [
+          'global_change_lab/static/global_change_lab/js/trainingbit_view.min.js': [
             'bower_components/underscore/underscore.js',
             'bower_components/backbone/backbone.js',
             'bower_components/backbone.collectionView/dist/backbone.collectionView.js',
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
       // The needed things to upload images the "AJAX/HTML5"-way
       fileupload: {
         files: {
-          'global_change_lab/static/global_change_lab/fileupload.min.js': [
+          'global_change_lab/static/global_change_lab/js/fileupload.min.js': [
             'bower_components/jqueryui/ui/jquery.ui.core.js',
             'bower_components/jqueryui/ui/jquery.ui.widget.js',
             'bower_components/jquery-file-upload/js/jquery.iframe-transport.js',
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
       // For editing training bits and using the trainer interface
       trainer: {
         files: {
-          'global_change_lab/static/global_change_lab/trainer.min.js': [
+          'global_change_lab/static/global_change_lab/js/trainer.min.js': [
             'bower_components/listjs/dist/list.js',
             'bower_components/medium-editor/dist/js/medium-editor.js',
             'bower_components/jqueryui/ui/jquery.ui.core.js',

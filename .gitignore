@@ -6,17 +6,13 @@ __pycache__
 /static
 /migrations
 
-# bower_components that are moved to `global_change_lab/static/` as part of the
-# build process should not be tracked by git
-global_change_lab/static/jquery.min.js
-global_change_lab/static/foundation/*
-global_change_lab/static/jquery-form/*
-global_change_lab/static/jqueryui/*
-global_change_lab/static/backbone/*
-global_change_lab/static/medium-editor/*
-global_change_lab/static/listjs/*
-global_change_lab/static/global_change_lab/css
 
+# ignore generated .css and .js files
+global_change_lab/static/global_change_lab/css
+global_change_lab/static/global_change_lab/js
+global_change_lab/static/medium-editor
+
+# JC's symlink for less stress, more sanity and 0% rage
 global_change_lab/template
 
 
