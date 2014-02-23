@@ -4,7 +4,7 @@
   <a href="{% url 'skills:skill_view' skill.id %}">
   <div class="row">
     <div class="image-column"> <img src="{{ skill.getImage }}" alt="Skill image"> </div>
-    <div class="name-column"><h3>{{skill.name}}</h3></div>
+    <div class="name-column"><h3 class="skill-name">{{skill.name}}</h3></div>
   </div>
   </a>
   {# <p>{{skill.description}}</p> #}

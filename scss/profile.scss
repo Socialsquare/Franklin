@@ -95,32 +95,6 @@ body.user-profile {
   }
 }
 
-.skill-list-small {
-
-  $row-height: 4rem;
-
-  .row {
-    margin-bottom: rem-calc(5px);
-  }
-
-  .image-column {
-    @include grid-column(2);
-    text-align: center;
-
-    img {
-      height: $row-height;
-    }
-  }
-  .name-column {
-    @include grid-column(10);
-    line-height: $row-height;
-  }
-
-  .count {
-    text-align: center;
-    font-size: 0.75rem;
-  }
-}
 
 #wordcloud {
   height: 100%;

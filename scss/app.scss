@@ -156,6 +156,20 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.skill-name {
+  text-transform: none;
+}
+
+
+// The .message-missing is for messages like
+// "No submitted projects yet", "No one has commented"
+.message-missing {
+  text-align: center;
+  color: $gcl-midgray;
+
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
 
 // Or selectively include components
 // @import

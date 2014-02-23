@@ -1,5 +1,6 @@
 
 <div id="project-list">
+{% if projects %}
 {% for project in projects %}
   <div class="project" id="project-{{ project.id }}">
     {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
@@ -15,4 +16,7 @@
     {% endif %}
   </div>
 {% endfor %}
+{% else %}
+  <div class="message-missing">No projects yet</div>
+{% endif %}
 </div>
