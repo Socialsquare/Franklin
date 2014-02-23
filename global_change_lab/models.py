@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import UserManager
+from django.core.urlresolvers import reverse
 
 from django.db import models
 from allauth.account.models import EmailAddress
