@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_protect
 
 import django.contrib.messages as messages
 from django.contrib.auth.models import Group
@@ -11,7 +12,7 @@ from global_change_lab.models import User
 from django.db.models import Q
 from datetime import datetime, timedelta
 
-import csv
+import csv, json
 
 def front_page(request):
     return render(request, 'front_page.html', {
@@ -47,10 +48,10 @@ def statistics(request):
 
 def admin_dashboard(request):
     num_users = len(User.objects.distinct())
-    
+
     one_month_ago = datetime.now() - timedelta(days=30)
     num_users_last_month = len(User.objects.filter(date_joined__gt=one_month_ago  ).distinct())
-    
+
     return render(request, 'admin_dashboard.html', {
         "num_users": num_users,
         "num_users_last_month": num_users_last_month,
@@ -59,32 +60,32 @@ def admin_dashboard(request):
 def admin_users_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="users.csv"'
-    
+
     writer = csv.writer(response)
     writer.writerow(["username", "date_joined", "name", "email", ])
 
     for user in User.objects.distinct():
         writer.writerow([user.username, user.date_joined, user.get_full_name(), user.email, ])
-    
+
     return response
 
 def admin_statistics_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="statistics.csv"'
-    
+
     writer = csv.writer(response)
     writer.writerow(["num_users", "num_users_last_month"])
 
     num_users = len(User.objects.distinct())
-    
+
     one_month_ago = datetime.now() - timedelta(days=30)
     num_users_last_month = len(User.objects.filter(date_joined__gt=one_month_ago  ).distinct())
 
     writer.writerow([num_users, num_users_last_month])
 
     return response
-    
-    
+
+
 def user_progress(request):
     if request.user.is_authenticated:
         return render(request, 'user_progress.html', {})
@@ -92,14 +93,46 @@ def user_progress(request):
         return HttpResponseRedirect(reverse('login'))
 
 
+# @csrf_protect
+def upload_profile_picture(request):
+    print('did recieve')
+    if request.method == 'POST':
+        print('did post')
+        request.user.image = request.FILES['profile-picture']
+        request.user.save()
+        print('did save')
+
+        #generating json response array
+        result = [
+            {
+                # "name"          : request.user.image.filename,
+                # "size"          : file_size,
+                "url"           : request.user.image.url,
+                # "thumbnail_url" : thumb_url,
+                # "delete_url"    : file_delete_url+str(image.pk)+'/',
+                # "delete_type"   : "POST",
+            },
+        ]
+        response_data = json.dumps(result)
+        return HttpResponse(response_data, mimetype='application/json')
+
+    return HttpResponseRedirect(reverse('profile'))
+
+
 def profile(request, user_id=None):
     if user_id is None:
         user = request.user
     else:
         user = get_object_or_404(User, pk=user_id)
+
+    newest_skills = user.skills_completed.all()[:3]
+    other_skills_count = user.skills_completed.count() - 3
+
     return render(request, 'profile.html', {
         'some_user': user,
         'user_fields': User._meta.get_all_field_names(),
+        'newest_skills': newest_skills,
+        'other_skills_count': other_skills_count,
     })
 
 

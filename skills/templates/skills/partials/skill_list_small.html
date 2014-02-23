@@ -1,0 +1,15 @@
+
+<div class="skill-list-small">
+{% for skill in skills %}
+  <a href="{% url 'skills:skill_view' skill.id %}">
+  <div class="row">
+    <div class="image-column"> <img src="{{ skill.getImage }}" alt="Skill image"> </div>
+    <div class="name-column"><h3>{{skill.name}}</h3></div>
+  </div>
+  </a>
+  {# <p>{{skill.description}}</p> #}
+  {% endfor %}
+  {% if non_shown_skill_count %}
+  <div class="count">and {{ non_shown_skill_count }} other skill(s)</div>
+  {% endif %}
+</div>

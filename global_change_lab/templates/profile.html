@@ -1,60 +1,253 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block scripts %}
+<script src="{% static 'global_change_lab/js/fileupload.min.js' %}"></script>
+{% endblock %}
+
+{% block body-classes %}user-profile{% endblock %}
+
 {% block content %}
 <div class="page-buttons">
 
   {# Upgrade user button (to trainer) #}
-  {% if request.user.profile.is_admin and not some_user.profile.is_trainer %}
+  {% if request.user.is_admin %}
+    {% if not some_user.is_trainer and not some_user.is_admin %}
     <a href="{% url 'user_upgrade_to_trainer' some_user.id %}" class="button success">Upgrade to trainer</a>
+    {% endif %}
   {% endif %}
 
   {# Delete user button #}
-  {% if request.user == some_user or request.user.profile.is_admin %}
+  {% if request.user == some_user or request.user.is_admin %}
     <a href="{% url 'user_delete' some_user.id %}" class="button">Delete</a>
   {% endif %}
 </div>
 
-<h1>{{ some_user.username }}</h1>
 
-<dl>
-<dt>Name:</dt> <dd>{{ some_user.first_name }} {{ some_user.last_name }}</dd>
-<dt>Joined on: </dt><dd>{{ some_user.date_joined }}</dd>
-<dt>Last seen: </dt><dd>{{ some_user.last_login }}</dd>
-</dl>
 
+<div class="row" id="profile-bar">
+  <div class="large-2 columns">
+    <div id="profile-picture"{% if some_user == request.user %} class="dropzone"{% endif %}>
+      {% if some_user == request.user %}
+        <input id="fileupload" type="file" name="profile-picture">
+        <div class="hover-visual"><span class="icon circled-plus"></span></div>
+      {% endif %}
+      <img src="{{ some_user.getImage }}" class="profile-picture">
+    </div>
+  </div>
+  <div class="large-10 columns">
+    <h1>{{ some_user.username }}</h1>
+    <h1>{{ some_user.first_name }} {{ some_user.last_name }}</h1>
+      {% if some_user == request.user %}
+    <p class="description edit">
+        {{ some_user.description }}
+      {% else %}
+    <p class="description">
+        {{ some_user.description }}
+      {% endif %}
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-6 columns">
+    <h2>{{ some_user.username }}'s completed training bits</h2>
+    <div class="trainingbit-count">{{ some_user.trainingbits_completed.count }} in total</div>
+    <div id="wordcloud">
+      <div class="centering">
+        {% for trainingbit in some_user.trainingbits_completed.all %}
+        <a href="{{ trainingbit.get_absolute_url }}">{{ trainingbit.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="medium-6 columns">
+    <h2>{{ some_user.username }}' s skills</h2>
+    {% include 'skills/partials/skill_list_small.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="medium-6 columns">
+    <h2>{{ some_user.username }} have shared</h2>
+    {% include 'partials/project_list.html' with projects=some_user.project_set.all hide_user=True %}
+  </div>
+  <div class="medium-6 columns">
+    <h2>{{ some_user.username }}'s latest comments</h2>
+    {# include 'partials/trainingbits_grid.html' #}
+    <ul>
+    {% for comment in some_user.comment_comments.all %}
+    <li>{{ comment.name }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+
+{# <dt>Joined on: </dt><dd>{{ some_user.date_joined }}</dd> #}
+{# <dt>Last seen: </dt><dd>{{ some_user.last_login }}</dd> #}
 
 {# http://stackoverflow.com/questions/8103584/linking-django-comments-with-django-users #}
 {# http://stackoverflow.com/questions/5292723/django-retrieve-all-comments-for-a-user #}
 
-<div id="dashboard">
-  <div class="row">
-    <div class="large-6 columns">
-      <h3>Latest comments</h3>
-      {# include 'partials/trainingbits_grid.html' #}
-      <div class="list-container">
-      {% for item in trainingbits %}
-        {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
-      {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
 
-<ul>
-{% for comment in some_user.comment_comments.all %}
-<li>{{ comment.name }}</li>
-{% endfor %}
-</ul>
 
-<ul>
-{% for field in user_fields %}
-<li>{{ field }}</li>
-{% endfor %}
-</ul>
-<ul>
-{% for field in profile_fields %}
-<li>{{ field }}</li>
-{% endfor %}
-</ul>
+
+<script>
+{# // Set by django #}
+{# var csrftoken = $.cookie('csrftoken'); #}
+
+$('#fileupload').fileupload({
+  url: '{% url 'upload_profile_picture' %}',
+  dataType: 'json',
+  // Enable image resizing, except for Android and Opera,
+  // which actually support image resizing, but fail to
+  // send Blob objects via XHR requests:
+  disableImageResize: /Android(?!.*Chrome)|Opera/
+      .test(window.navigator && navigator.userAgent),
+
+  imageMaxWidth: 200,
+  imageMaxHeight: 200,
+
+  formData: [
+      { name: "uid", value: "{{ uid }}"},
+      { name: "csrfmiddlewaretoken", value: "{{ csrf_token }}"}
+  ],
+  {# maxFileSize: {{ maxfilesize }}, #}
+  sequentialUploads: true,
+  //imageCrop: true // Force cropped images
+
+  dropZone: $('.dropzone'),
+
+  add: function (e, data) {
+    $.each(data.files, function (index, file) {
+      console.log('Selected file: ' + file.name);
+    });
+    data.submit();
+    var progressbar = $('<div class="progress success round"> <span class="meter" style="width: 0%"></span> </div>');
+    $('#profile-picture div').html('');
+    $('#profile-picture div').append(progressbar);
+  },
+  progressall: function (e, data) {
+    var progress = parseInt(data.loaded / data.total * 100, 10);
+    $('#profile-picture div div.progress span.meter').css( 'width', progress + '%');
+  },
+  done: function (e, data) {
+    $('#profile-picture').html('');
+    $img = $('<img>');
+    $img.attr('src', data.result[0].url);
+    $('#profile-picture').append($img);
+
+    {# $.each(data.result.files, function (index, file) { #}
+    {#   console.log('Done uploading.'); #}
+    {#   $('header').text(file.name); #}
+    {# }); #}
+
+  }
+  {# change: function (e, data) { #}
+  {#   $.each(data.files, function (index, file) { #}
+  {#     alert('Selected file: ' + file.name); #}
+  {#   }); #}
+  {# }, #}
+
+}).prop('disabled', !$.support.fileInput)
+  .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+</script>
+
+<script>
+{# https://github.com/blueimp/jQuery-File-Upload/wiki/Drop-zone-effects #}
+$(document).ready(function() {
+  var $hover_visual = $('#profile-picture .hover-visual');
+  // dragenter
+  $('.dropzone').on('mouseenter dragenter', null, null, function(e) {
+    {# e.preventDefault(); #}
+    {# e.stopPropagation(); #}
+
+    console.log('hovering');
+    $hover_visual.addClass('hover');
+  });
+  // dragleave
+  $('.dropzone').on('mouseleave dragleave', null, null, function(e) {
+    console.log('unhovering');
+    $hover_visual.removeClass('hover');
+  });
+});
+</script>
+
+<script>
+// Simple and dumb wordcloud
+
+var charwidth = 40;
+var totalchars = 0;
+var words = [];
+
+$('#wordcloud a').each(function() {
+  var length = $(this).text().length;
+  totalchars += length;
+  words.push({ obj: $(this), length: length});
+});
+
+words.sort(function (a, b) {
+  if (a.length > b.length) {
+      return 1;
+  } else if (a.length < b.length) {
+      return -1;
+  } else {
+    return 0;
+  }
+});
+
+var pi = 3.1415;
+var area = totalchars;
+var radius = Math.sqrt(area/pi);
+
+var height = 2 * radius / 2;
+var width = 2 * radius * 2;
+
+$('#wordcloud .centering').css('height', height + 'rem');
+
+var front = true;
+var lines = [];
+for (var i = 0; i < height; i++) {
+  var $line = $('<div />').css('text-align','center');
+  lines.push({ obj: $line, length: 0 });
+  if (front) {
+    $('#wordcloud .centering').prepend($line); 
+  } else {
+    $('#wordcloud .centering').append($line);
+  }
+  front = !front;
+}
+
+var iterations = 0;
+var current_line = 0;
+while (words.length > 0) {
+  while (lines[current_line].length < width) {
+    var word = words.pop();
+    lines[current_line].length += word.length;
+    lines[current_line].obj.append(word.obj);
+    //console.log(word.length, line_len, width);
+  }
+  if (current_line == height) {
+    current_line = 0;
+    width += 10;
+  } else {
+    current_line++;
+  }
+  if (iterations > 100) {
+    break;
+  }
+  iterations++;
+}
+
+var $column = $('#wordcloud').parent();
+var height = Math.max($column.height(), $column.next().height())
+$column.css('height', height);
+
+</script>
 
 {% endblock %}
