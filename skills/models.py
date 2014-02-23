@@ -49,7 +49,7 @@ class TrainingBit(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('skills:trainingbit_view', args=[self.id])
+        return reverse('skills:trainingbit_cover', args=[self.id])
 
 
 class Skill(models.Model):

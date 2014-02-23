@@ -2,7 +2,7 @@
 <ul class="trainingbit-list-view">
 {% for trainingbit in trainingbits %}
   <li class="trainingbit">
-    <a href="{% url 'skills:trainingbit_view' trainingbit.id %}">
+    <a href="{{ trainingbit.get_absolute_url }}">
     <div class="wrapper">
       <div class="image" style="background-image: url({{ trainingbit.getImage }})">
         <div class="label">{{ trainingbit.get_label_display }}</div>

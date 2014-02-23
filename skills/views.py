@@ -169,6 +169,13 @@ def trainingbits_overview(request):
         'trainingbits': trainingbits,
     })
 
+def trainingbit_cover(request, trainingbit_id):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+    return render(request, 'skills/trainingbit_cover.html', {
+        'trainingbit': trainingbit,
+        'projects': trainingbit.project_set.all(),
+    })
 
 @csrf_protect
 def trainingbit_view(request, trainingbit_id):

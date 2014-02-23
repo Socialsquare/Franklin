@@ -41,7 +41,7 @@
     {% if request.user|is_taking_trainingbit:trainingbit %}
       <a class="button" href="{% url 'skills:trainingbit_stop'  trainingbit.id %}">Stop taking this trainingbit</a>
     {% else %}
-      <a class="button" href="{% url 'skills:trainingbit_start' trainingbit.id %}">Start this trainingbit</a>
+      {# <a class="button" href="{% url 'skills:trainingbit_start' trainingbit.id %}">Start this trainingbit</a> #}
     {% endif %}
   {% endif %}
 {% endif %}

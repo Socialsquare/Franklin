@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+{% include 'skills/partials/trainingbit_cover.html' %}
+{# {% include 'partials/trainingbits_grid.html' %} #}
+<div class="start-trainingbit-container">
+  <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button success small">Start this training bit</a>
+</div>
+
+<hr>
+<div class="row">
+  <div class="medium-7 columns">
+    <h2>Shared projects</h2>
+    {% include 'partials/project_list.html' %}
+  </div>
+  <div class="medium-5 columns">
+    <h3>In skills</h3>
+    {% include 'skills/partials/skill_list_small.html' with skills=trainingbit.skill_set.all %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
