@@ -12,10 +12,39 @@
 {% endblock %}
 
 
-{% block content %}
-<div id="save-button" style="position:absolute; top: 20px; left: 30px;">
-  <a class="button"><span class="icon save"></span>Save</a>
+{% block permanent-messages %}
+<div id="save-button">
+  <a class="button"><span class="icon save"></span><span class="status"></span></a>
 </div>
+<div class="alert-box info" id="connection-status">
+  <span class="icon signal"></span><span class="status">You are currently <strong>not</strong> connected to the internet</span>
+</div>
+<script>
+Offline.options = {
+  // Should we monitor AJAX requests to help decide if we have a connection.
+  interceptRequests: true,
+
+  // Should we automatically retest periodically when the connection is down (set to false to disable).
+  //reconnect: {
+    // How many seconds should we wait before rechecking.
+    //initialDelay: 3,
+
+    // How long should we wait between retries.
+    // delay: (1.5 * last delay, capped at 1 hour)
+  //},
+};
+Offline.on('down', function() {
+  console.log('Not connected to the internet');
+  $('#connection-status').fadeIn(500);
+});
+Offline.on('up', function() {
+  console.log('Now connected to the internet');
+  $('#connection-status').fadeOut(500);
+});
+</script>
+{% endblock %}
+
+{% block content %}
 
 
 <div class="page-buttons">
@@ -200,9 +229,68 @@ var TrainingBit = Backbone.Collection.extend({
   }
 });
 
+
 // an EditorToolbar takes a TrainingBit
 var EditorToolbar = Backbone.Model.extend({
   trainingbit: null
+});
+
+
+{# INSTANTIATE MODELS #}
+{% if trainingbit.json_content == '' %}
+var tb = { learn:[], act:[], share:[]};
+{% else %}
+var tb = {{ trainingbit.json_content|safe }};
+{% endif %}
+var tb_learn = new TrainingBit(
+  tb['learn']
+);
+var tb_act = new TrainingBit(
+  tb['act']
+);
+var tb_share = new TrainingBit(
+  tb['share']
+);
+
+if (tb_learn.length < 1) {
+  tb_learn.add(new TbPartText());
+}
+
+{# AUTO-SAVE #}
+// Check out: http://benalman.com/projects/jquery-throttle-debounce-plugin/
+// Right now we update the model of the text field on every keypress, but only
+// update the form contents every 3000 ms.
+var $save_spinner = $('<div id="save-spinner"><span class="icon cycle"></span></div>');
+var saveTrainingBit = $.throttle(3000, function() {
+  $('#save-button .status').text('Saving...')
+  $('#save-button .status').fadeIn(1000);
+  {# $('#save-button').append($save_spinner); #}
+
+  // Grab data from the backbone models
+  var tb = {
+    learn: tb_learn.toJSON(),
+    act: tb_act.toJSON(),
+    share: tb_share.toJSON(),
+  };
+
+  // Insert it into the form
+  $('#trainingbit-content-form').children('input[name=trainingbit_content_json]').val(JSON.stringify(tb));
+  {# console.log(JSON.stringify(tb)); #}
+
+  // Save it
+  $('#trainingbit-content-form').ajaxSubmit({
+    error: function() {
+      {# $save_spinner.remove(); #}
+      $('#save-button .status').text(' Could not save')
+      .delay(3000).fadeOut(1000);
+    },
+    success: function() {
+      {# $save_spinner.remove(); #}
+      $('#save-button .status').append(' Successfully saved training bit')
+      .delay(3000).fadeOut(1000);
+    }
+  });
+
 });
 
 {# BACKBONE VIEWS #}
@@ -220,7 +308,10 @@ var TrainingBitPartView = Backbone.View.extend({
   //tagName: 'div',
   events: {
     'click .delete': 'deleteTbPart',
-    // 'keypress .text-editor': 'saveText',
+    // There may be smarter ways to do this, rather than just listening for
+    // keypresses.
+    // See: http://stackoverflow.com/questions/7802784/listening-to-events-of-a-contenteditable-html-element/7804973#7804973
+    'keypress .text-editor': 'saveText',
     'blur .text-editor': 'saveText',
   },
 
@@ -232,9 +323,9 @@ var TrainingBitPartView = Backbone.View.extend({
 
   saveText: function() {
     if (this.model.get('type') == 'text') {
-      console.log('Saving text field.');
       this.model.attributes.html = this.$el.find('.text-editor').html();
     }
+    saveTrainingBit();
   },
 
   render: function() {
@@ -269,7 +360,7 @@ var TrainingBitPartView = Backbone.View.extend({
       var editor = new MediumEditor(text_editor, {
           anchorInputPlaceholder: 'Type a link',
           placeholder: 'Type your text here',
-          buttons: ['bold', 'italic', 'quote', 'h1', 'h2'],
+          buttons: ['bold', 'italic', 'header1', 'header2', 'orderedlist', 'unorderedlist'],
           diffLeft: 0,
           diffTop: -10,
           firstHeader: 'h1',
@@ -281,9 +372,9 @@ var TrainingBitPartView = Backbone.View.extend({
 
     // Setup save timer
     var self = this;
-    this.saveTimer = window.setInterval(function() {
-      self.saveText();
-    }, 5000);
+    {# this.saveTimer = window.setInterval(function() { #}
+    {#   self.saveText(); #}
+    {# }, 5000); #}
 
     return this;
   }
@@ -315,6 +406,8 @@ var EditorToolbarView = Backbone.View.extend({
   addText: function(e) {
     this.options.trainingbit.add(new TbPart({type: 'text', html: ''}));
     e.preventDefault();
+
+    saveTrainingBit();
   },
 
   addLink: function() {
@@ -323,7 +416,9 @@ var EditorToolbarView = Backbone.View.extend({
       console.log('Adding a link...');
       self.options.trainingbit.add(new TbPartLink({url: $('#modal-add-link input.url').val(), title: $('#modal-add-link input.title').val()}));
       $('#modal-add-link').foundation('reveal', 'close');
-        $('#modal-add-link button').off('click', addLink);
+      $('#modal-add-link button').off('click', addLink);
+
+      saveTrainingBit();
     };
     $('#modal-add-link button').on('click', addLink);
 
@@ -344,6 +439,8 @@ var EditorToolbarView = Backbone.View.extend({
       self.options.trainingbit.add(new TbPartEmbed({html: value}));
       $('#modal-add-embed').foundation('reveal', 'close');
       $('#modal-add-embed button').off('click', addEmbed);
+
+      saveTrainingBit();
     };
     $('#modal-add-embed button').on('click', addEmbed);
 
@@ -358,18 +455,6 @@ var EditorToolbarView = Backbone.View.extend({
 
 {# DOCUMENT LOAD: document, ready, set, go! #}
 $(document).ready(function() {
-  {% if trainingbit.json_content == '' %}
-  var tb = { learn:[], act:[], share:[]};
-  {% else %}
-  var tb = {{ trainingbit.json_content|safe }};
-  {% endif %}
-  var tb_learn = new TrainingBit(
-    tb['learn']
-  );
-
-  if (tb_learn.length < 1) {
-    tb_learn.add(new TbPartText());
-  }
 
   //var tb_learn_view = new TrainingBitView({el: $('#learn-edit'), collection: tb_learn});
   var tb_learn_view = new Backbone.CollectionView({
@@ -391,9 +476,6 @@ $(document).ready(function() {
   tb_learn_view.render();
   tb_learn_toolbar.render();
 
-  var tb_act = new TrainingBit(
-    tb['act']
-  );
   var tb_act_view = new Backbone.CollectionView({
     el: $('#act-edit > ul'),
     collection: tb_act,
@@ -413,9 +495,6 @@ $(document).ready(function() {
   tb_act_view.render();
   tb_act_toolbar.render();
 
-  var tb_share = new TrainingBit(
-    tb['share']
-  );
   var tb_share_view = new Backbone.CollectionView({
     el: $('#share-edit > ul'),
     collection: tb_share,

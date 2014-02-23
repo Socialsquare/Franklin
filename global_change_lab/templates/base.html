@@ -32,6 +32,12 @@
   </div>
   {% endif %}
 
+  <div id="permanent-messages">
+    {% block permanent-messages %}
+    {% endblock %}
+  </div>
+
+
   {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
   <div id="sticky-footer-wrap">
     <header class="top-bar {% block header-classes %}{% endblock %}">
