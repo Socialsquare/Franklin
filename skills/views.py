@@ -239,7 +239,7 @@ def trainingbit_view(request, trainingbit_id):
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.all(),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
-        'suggested_trainingbits': suggested_trainingbits,
+        'suggested_trainingbits': suggested_trainingbits[:3],
     })
 
 @csrf_protect
