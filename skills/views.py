@@ -135,8 +135,10 @@ def skill_edit(request, skill_id=None):
                 trainingbit_id = int(key[12:])
                 items.append(trainingbit_id)
         tbs = TrainingBit.objects.filter(id__in=items)
+
+        # Set the training bits to only the ones chosen on the page
+        skill.trainingbits.clear()
         skill.trainingbits.add(*tbs)
-        #Publication.objects.filter(title__startswith='Science').delete()
 
         messages.success(request, 'Successfully saved skill')
 
