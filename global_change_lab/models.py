@@ -26,20 +26,27 @@ class CustomUserManager(UserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
     USERNAME_FIELD = 'username'
+
+    # Metadata
+    date_joined = models.DateField(auto_now_add=True)
+
+    # Content
     username = models.CharField(max_length=40, unique=True)
     email = models.CharField(max_length=100)
     image = models.ImageField(upload_to='trainingbits', null=True)
     description = models.TextField(blank=True)
 
+    # Relations
     skills_in_progress = models.ManyToManyField(Skill, blank=True, related_name='users_in_progress')
     skills_completed = models.ManyToManyField(Skill, blank=True, related_name='users_completed')
-    # maybe another name for skills_completed?: skills_taken, skills_done
+    #   maybe another name for skills_completed?: skills_taken, skills_done
 
-    # Keep these name consistent with the ones above
-    #   skills_completed <-> trainingbits_completed
+    #   Keep these names consistent with the ones above:
+    #     skills_completed <-> trainingbits_completed
     trainingbits_in_progress = models.ManyToManyField(TrainingBit, blank=True, related_name='users_in_progress')
     trainingbits_completed = models.ManyToManyField(TrainingBit, blank=True, related_name='users_completed')
 
+    # Flags
     is_active = models.BooleanField(default=True)
 
     def is_taking_skill(self, skill):
@@ -59,7 +66,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     #   from datetime import datetime
     #   date_joined = models.DateField(default=datetime.now)
     # or this:
-    date_joined = models.DateField(auto_now_add=True)
 
     def get_full_name(self):
         # The user is identified by their email address

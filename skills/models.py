@@ -24,20 +24,25 @@ class TrainingBit(models.Model):
         ('T', 'Tool'),
     )
 
-    name = models.CharField(max_length=100)
+    # Metadata
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = AutoDateTimeField()
 
-    label = models.CharField(max_length=1, choices=LABELS, null=False, blank=False)
+    # Content
+    name = models.CharField(max_length=100)
     description = models.TextField()
+    image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
+    label = models.CharField(max_length=1, choices=LABELS, null=False, blank=False)
     json_content = models.TextField(default='{"learn":[],"act":[],"share":[]}')
+
+    # Relations
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+    # Flags
     recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
 
     tags = TaggableManager()
-
-    image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
 
     def getImage(self):
         if self.image:
@@ -53,19 +58,25 @@ class TrainingBit(models.Model):
 
 
 class Skill(models.Model):
-    name = models.CharField(max_length=30)
+    # Metadata
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = AutoDateTimeField()
-    # optional relation to training bits (i.e. a skill does _have_ to have a
-    # training bit)
-    trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
+
+    # Content
+    name = models.CharField(max_length=30)
     description = models.TextField()
+    image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
+
+    # Relations
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    # + optional relation to training bits (i.e. a skill does _have_ to have a
+    #   training bit)
+    trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
+
+    # Flags
     is_public = models.BooleanField(default=True)
 
     tags = TaggableManager()
-
-    image = models.ImageField(upload_to='trainingbits', default='defaultimage', null=False)
 
     def getImage(self):
         if self.image:
