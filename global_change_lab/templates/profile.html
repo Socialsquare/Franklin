@@ -210,6 +210,7 @@ var height = 2 * radius / 2;
 var width = 2 * radius * 2;
 
 $('#wordcloud .centering').css('height', height + 'rem');
+$('#wordcloud').css('height', height * 1.3 + 'rem');
 
 var front = true;
 var lines = [];
@@ -245,9 +246,11 @@ while (words.length > 0) {
   iterations++;
 }
 
-var $column = $('#wordcloud').parent();
+var $wordcloud = $('#wordcloud');
+var $column = $wordcloud.parent();
 var height = Math.max($column.height(), $column.next().height())
 $column.css('height', height);
+$wordcloud.css('height', height);
 
 </script>
 
