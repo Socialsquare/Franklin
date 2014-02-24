@@ -83,11 +83,15 @@ module.exports = function(grunt) {
       },
       user: {
         files: {
-          'global_change_lab/static/global_change_lab/js/user.min.js': [                // 79 KiB
+          'global_change_lab/static/global_change_lab/js/user.min.js': [                // 90 KiB
             // 'bower_components/jquery/dist/jquery.js',                                // 82 KiB
             'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 KiB
             'bower_components/foundation/js/foundation.js',                             // 76 KiB
             'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
+            // modernizr in conjunction with
+            // <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            // in <head> is need for resizing the page for iPhone, Android etc.
+            'bower_components/foundation/js/vendor/modernizr.js',                       // 11 KiB
           ]
         }
       },
