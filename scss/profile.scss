@@ -97,7 +97,9 @@ body.user-profile {
 
 
 #wordcloud {
+  position: relative;
   height: 100%;
+
   .centering {
     @extend %dead-center;
     div {
@@ -112,6 +114,9 @@ body.user-profile {
 }
 
 .trainingbit-count {
-  text-align: center;
+  position: absolute;
+  right: 0; //rem-calc(5px);
+  bottom: 0; //rem-calc(2px);
+  // text-align: center;
   color: $gcl-midgray;
 }

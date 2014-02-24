@@ -86,9 +86,9 @@ class Project(models.Model):
     updated_at = AutoDateTimeField()
 
     # Content
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    image = models.ImageField(upload_to='trainingbits', null=True)
+    title = models.CharField(max_length=100, null=False, blank=False)
+    content = models.TextField(null=False, blank=False)
+    image = models.ImageField(upload_to='trainingbits', null=True, blank=True)
 
     # Relations
     trainingbit = models.ForeignKey(TrainingBit, null=False)

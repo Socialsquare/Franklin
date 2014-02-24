@@ -34,4 +34,21 @@
     }
   }
 }
+
+.share-button {
+  float: right;
+  font-size: rem-calc(15px);
+}
+
+#trainingbit-completed-modal {
+  h2, h3 {
+    text-transform: none;
+    display: inline-block;
+  }
+  .trainingbit-title {
+    @extend %text-white-on-red;
+    margin-left: rem-calc(7px);
+    margin-right: rem-calc(7px);
+  }
+}
 // .text-field {

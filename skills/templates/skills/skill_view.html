@@ -41,5 +41,5 @@
 </div>
 
 <hr>
-{% include 'partials/trainingbits_grid.html' with trainingbits=skill.trainingbits.all %}
+{% include 'partials/trainingbits_grid.html' with trainingbits=skill.trainingbits.all get_query=skill_id_get_query %}
 {% endblock %}

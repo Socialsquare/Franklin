@@ -3,7 +3,7 @@ $padding-size: rem-calc(6px);
 
 ul.trainingbit-list-view {
   margin: 0; // Foundation 5 !%^^&&!%!^&%!^ (sets margin-left on <ul>s even
-             // thought they are block-grid
+             // though they are block-grid
 
   @media #{$small-up} {
     @include block-grid(1, $padding-size, true);
@@ -16,6 +16,23 @@ ul.trainingbit-list-view {
   }
   @media #{$xlarge-up} {
     @include block-grid(5, $padding-size, true);
+  }
+
+  &.medium {
+    // display: inline-block !important;
+    // width: 20rem;
+    @media #{$small-up} {
+      @include block-grid(1, $padding-size, true);
+    }
+    @media #{$medium-up} {
+      @include block-grid(3, $padding-size, true);
+    }
+    @media #{$large-up} {
+      @include block-grid(3, $padding-size, true);
+    }
+    @media #{$xlarge-up} {
+      @include block-grid(3, $padding-size, true);
+    }
   }
 }
 

@@ -7,6 +7,7 @@ import django.contrib.messages as messages
 from permission.decorators import permission_required
 
 from skills.models import Skill, TrainingBit, Project
+from skills.forms import ProjectForm
 
 from django_sortable.helpers import sortable_helper
 
@@ -32,6 +33,7 @@ def skill_view(request, skill_id):
 
     return render(request, 'skills/skill_view.html', {
         'skill': skill,
+        'skill_id_get_query': '?skill_id=%u' % skill.id,
     })
 
 def skill_trainingbits_json(request, skill_id):
@@ -172,6 +174,13 @@ def trainingbits_overview(request):
 def trainingbit_cover(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
+    try:
+        skill_id = request.GET['skill_id']
+        request.session['current_skill_id'] = skill_id
+    except KeyError:
+        pass
+
+
     return render(request, 'skills/trainingbit_cover.html', {
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.all(),
@@ -181,36 +190,54 @@ def trainingbit_cover(request, trainingbit_id):
 def trainingbit_view(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
-    # If
     if request.method == 'POST':
-        project = Project()
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Save
+            project = form.save(commit=False)
+            project.author = request.user
+            project.trainingbit = trainingbit
+            project.save()
+            messages.success(request, 'Project was successfully saved')
 
-        # Relations
-        project.author      = request.user
-        project.trainingbit = trainingbit
+            request.user.trainingbits_in_progress.remove(trainingbit)
+            request.user.trainingbits_completed.add(trainingbit)
 
-        # Content
-        project.title   = request.POST['title']
-        project.content = request.POST['content']
-        if 'image' in request.FILES:
-            image = request.FILES['image']
-            print('awesome')
+            if request.is_ajax():
+                d = {
+                    'id': project.id,
+                    'title': project.title,
+                    'content': project.content,
+                    'author': project.author.username,
+                }
+                # The 201 HTTP status code is from my reading of the standard
+                # the # correct response to a POST which successfully created a
+                # new object.
+                # See: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2
+                return HttpResponse(json.dumps(d), content_type='application/json', status=201)
         else:
-            image = None
-            print('not so a')
-        project.image = image
+            if request.is_ajax():
+                return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
 
-        request.user.trainingbits_in_progress.remove(trainingbit)
-        request.user.trainingbits_completed.add(trainingbit)
 
-        # Save
-        project.save()
-        messages.success(request, 'Project was successfully saved')
+    try:
+        skill_id = request.session['current_skill_id']
+        skill = Skill.objects.get(pk=skill_id)
+        # get only trainingbits from the current skill
+        trainingbits = TrainingBit.objects.filter(skill__id__exact=skill_id)
+        print(trainingbits)
+    except KeyError:
+        # If we're not currently doing any skill just pick some trainingbits
+        # we haven't already taken
+        trainingbits = TrainingBit.objects.all()
+
+    suggested_trainingbits = trainingbits.exclude(id__in=request.user.trainingbits_completed.all())
 
     return render(request, 'skills/trainingbit_view.html', {
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.all(),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
+        'suggested_trainingbits': suggested_trainingbits,
     })
 
 @csrf_protect

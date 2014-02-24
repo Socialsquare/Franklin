@@ -98,6 +98,7 @@ module.exports = function(grunt) {
             'bower_components/underscore/underscore.js',
             'bower_components/backbone/backbone.js',
             'bower_components/backbone.collectionView/dist/backbone.collectionView.js',
+            'bower_components/jquery-form/jquery.form.js',                              // 14 KiB
           ]
         }
       },
@@ -123,7 +124,6 @@ module.exports = function(grunt) {
             'bower_components/jqueryui/ui/jquery.ui.mouse.js',
             'bower_components/jqueryui/ui/jquery.ui.sortable.js',
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
-            'bower_components/jquery-form/jquery.form.js',
             'bower_components/offline/offline.min.js',
           ]
         }
