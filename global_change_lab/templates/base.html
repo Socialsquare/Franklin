@@ -13,6 +13,16 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="{% static 'global_change_lab/js/user.min.js' %}"></script>
 
+  <script>
+    window.GCL = {
+    {% if is_logged_in %}
+      logged_in: true
+    {% else %}
+      logged_in: false
+    {% endif %}
+    }
+  </script>
+  
   {% block scripts %}
   {% endblock %}
   <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}" />
