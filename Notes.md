@@ -1,6 +1,17 @@
 Frontend
 ========
 
+HTML5 LocalStorage
+------------------
+The auto-save functionality when editing a training bit could be extended such
+that the data would be saved locally as well for when the browser crashes, the
+internet connections breaks...
+
+There are two nice frameworks for this (probably more):
+
+* [Garlicjs](http://garlicjs.org)
+* [Sisyphus.js](http://sisyphus-js.herokuapp.com/)
+
 Javascript management
 ---------------------
 I don't want to include Javascript dependencies like jQuery and Backbone in the

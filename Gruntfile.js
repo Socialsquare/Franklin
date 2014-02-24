@@ -83,11 +83,11 @@ module.exports = function(grunt) {
       },
       user: {
         files: {
-          'global_change_lab/static/global_change_lab/js/user.min.js': [
-            // 'bower_components/jquery/dist/jquery.js',                                // 82 kb
-            'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 kb
-            'bower_components/foundation/js/foundation.js',                             // 16 kb
-            'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 kb
+          'global_change_lab/static/global_change_lab/js/user.min.js': [                // 79 KiB
+            // 'bower_components/jquery/dist/jquery.js',                                // 82 KiB
+            'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 KiB
+            'bower_components/foundation/js/foundation.js',                             // 76 KiB
+            'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
           ]
         }
       },

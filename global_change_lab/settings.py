@@ -36,13 +36,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
 
     # our own stuff
     'global_change_lab',
@@ -67,6 +60,15 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+
+    # django's own packages
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
 )
 
 from S3 import CallingFormat
