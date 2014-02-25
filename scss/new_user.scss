@@ -15,4 +15,16 @@ div#new-user-greeter {
   p {
     color: white;
   }
+  .carousel {
+    h2 {
+      @extend .red;
+    }
+    li {
+      $pad: rem-calc(30px);
+      padding-left: $pad;
+      padding-right: $pad;
+    }
+    height: rem-calc(230px);
+  }
 }
+

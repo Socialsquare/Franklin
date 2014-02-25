@@ -95,6 +95,15 @@ module.exports = function(grunt) {
           ]
         }
       },
+      // For `new_user` page (welcome page): Just minify foundation.orbit.js and
+      // put it in the right place.
+      foundation_orbit: {
+        files: {
+          'global_change_lab/static/global_change_lab/js/foundation.orbit.min.js': [
+            'bower_components/foundation/js/foundation/foundation.orbit.js',
+          ]
+        }
+      },
       // The needed things to view a training bit
       trainingbit_view: {
         files: {

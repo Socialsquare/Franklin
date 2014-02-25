@@ -2,21 +2,50 @@
 
 {% load socialaccount %}
 
+{% block scripts %}
+<script src="/static/global_change_lab/js/foundation.orbit.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 
 <div id="new-user-greeter">
   <div class="row">
     <div class="columns medium-5">
-      <h1 class="white">Hi {{ request.user.username }}!</h1><br>
-      <h1 class="red">Welcome to Global Change Lab</h1>
+      <h1 class="white">Hi {{ request.user.username }},</h1>
+      <h1 class="red">Welcome to Global Change Lab!</h1>
     </div>
     <div class="columns medium-7">
-      <p>
-        In the bar above you can choose between "Skills" and "Training Bits".
-        Training Bits are....<br>
-        Skills are...<br>
-      </p>
+      <ul class="carousel" data-orbit
+          data-options="slide_number: false; timer: false">
+        <li>
+          <h2>Skills</h2>
+          <p>
+            Skill are collections of Training Bit that you should complete in
+            Skill are collections of Training Bit that you should complete in
+            Skill are collections of Training Bit that you should complete in
+            Skill are collections of Training Bit that you should complete in
+            order to obtain a certain skill
+            order to obtain a certain skill
+            order to obtain a certain skill
+            order to obtain a certain skill
+          </p>
+        </li>
+        <li>
+          <h2>Training Bits</h2>
+          <p>
+            Training Bit are small bits of action, inspiration and knowledge
+            that helps you understand a subject.
+          </p>
+        </li>
+        <li>
+          <h2>Sharing is Caring!</h2>
+          <p>
+            In order to complete a Training Bit you must share your actions or
+            thoughts with all of us :)
+          </p>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
@@ -39,7 +68,7 @@
     <h3>Share with others</h3>
     <div class="icon large chat"></div>
     <p>Share what you do and learn from other activists</p>
-    <a href="{% url 'shares' %}" class="button join">See all shares</a>
+    <a href="{#{% url 'shares' %}#}" class="button join">See all shares</a>
   </div>
 </div>
 {# {% endcomment %} #}
