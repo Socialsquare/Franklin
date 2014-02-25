@@ -22,7 +22,28 @@ def front_page(request):
 
 def new_user(request):
     return render(request, 'new_user.html', {
+      'topics': Topic.objects.all(),
     })
+
+@csrf_protect
+def new_user_suggestions(request):
+    if request.method == 'POST':
+        topic_ids = [int(pk) for pk in request.POST.getlist('topic_ids[]')]
+        topics = Topic.objects.filter(id__in=topic_ids)
+        print(topics)
+
+        trainingbits = []
+        skills = []
+        for topic in topics[:4]:
+            trainingbits += topic.trainingbits.all()[:2]
+            skills += topic.skills.all()[:2]
+
+        return render(request, 'new_user_suggestions.html', {
+            'trainingbits': trainingbits,
+            'skills': skills,
+        })
+    else:
+        return HttpResponseRedirect(reverse('new_user'))
 
 
 # TODO: this page is a stub

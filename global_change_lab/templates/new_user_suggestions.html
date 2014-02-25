@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load socialaccount %}
+
+{% block scripts %}
+<script src="/static/global_change_lab/js/foundation.orbit.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="new-user-greeter">
+  <div class="row">
+    <div class="centered-message columns small-12 medium-6 small-centered">
+      <h1 class="red">Great! Now check out these skills and training bits</h1>
+    </div>
+  </div>
+</div>
+
+<div id="new-user-suggestions">
+  <h1>You might start with these training bits</h1>
+  <div class="row">
+  {% include 'partials/trainingbits_grid.html' %}
+  </div>
+  <h1>or get going with these skills</h1>
+  {% include 'skills/partials/skill_list_large.html' %}
+</div>
+
+
+{% endblock %}

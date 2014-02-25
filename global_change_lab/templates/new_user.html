@@ -50,28 +50,22 @@
   </div>
 </div>
 
-{# {% comment %} #}
-<div class="row" id="front-page-cols">
+<div class="row" id="topics-select">
   <div class="medium-4 columns">
-    <h3>Get activist skills</h3>
-    <div class="icon large trophy"></div>
-    <p>Skills are sets of training bits you need to change the world</p>
-    <a href="{% url 'skills:skills_overview' %}" class="button join">See all skills</a>
+    <h1> START BY CHOOSING YOUR TOPICS OF INTEREST </h1>
   </div>
-  <div class="medium-4 columns">
-    <h3>Do training bits</h3>
-    <div class="icon large tools"></div>
-    <p>Training bits are small pieces of inspiration, tools or background in activism and social change</p>
-    <a href="{% url 'skills:trainingbits_overview' %}" class="button join">See all bits</a>
-  </div>
-  <div class="medium-4 columns">
-    <h3>Share with others</h3>
-    <div class="icon large chat"></div>
-    <p>Share what you do and learn from other activists</p>
-    <a href="{#{% url 'shares' %}#}" class="button join">See all shares</a>
+  <div class="medium-8 columns">
+    <form method="POST" action="{% url 'new_user_suggestions' %}">
+    {% csrf_token %}
+    <ul>
+    {% for topic in topics %}
+      <li><label><input type="checkbox" name="topic_ids[]" value="{{ topic.id }}"> {{ topic.name }}</label></li>
+    {% endfor %}
+    </ul>
+    <button>Start</button>
+    </form>
   </div>
 </div>
-{# {% endcomment %} #}
 
 
 {% endblock %}
