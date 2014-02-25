@@ -1,0 +1,19 @@
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 xlarge-block-grid-3 skill-list-view">
+  {% for skill in skills %}
+  <li class="row">
+    <div class="skill-icon small-3 columns">
+      <img src="{{ skill.getImage }}" alt="Skill image">
+    </div>
+    <div class="description small-9 columns">
+      <a href="{% url 'skills:skill_view' skill.id %}"><h2>{{skill.name}}</h2></a>
+      <p>{{skill.description}}</p>
+      <div class="info">
+        <span class="metadata">{{ skill.trainingbits.count }} Training Bits</span>
+        <hr>
+        <span class="icon small heart red"></span> 23
+        <span class="icon small chat red"></span> 9
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
