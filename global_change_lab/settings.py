@@ -48,7 +48,6 @@ INSTALLED_APPS = (
     # django packages
     'south',
     'storages',
-    'taggit',
     'django_comments_xtd',
     'permission',
     'django_sortable',

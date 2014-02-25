@@ -57,3 +57,19 @@
     }
   }
 }
+
+ul.topic-list {
+  list-style: none;
+  font-size: rem-calc(11px);
+
+  li {
+    display: inline-block;
+    padding-left: rem-calc(2px);
+    padding-right: rem-calc(2px);
+    margin-right: rem-calc(2px);
+    margin-bottom: rem-calc(2px);
+
+    background-color: $gcl-darkgray;
+    color: white;
+  }
+}

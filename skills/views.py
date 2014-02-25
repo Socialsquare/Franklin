@@ -6,8 +6,8 @@ from django.views.decorators.csrf import csrf_protect
 import django.contrib.messages as messages
 from permission.decorators import permission_required
 
-from skills.models import Skill, TrainingBit, Project
-from skills.forms import ProjectForm
+from skills.models import Skill, TrainingBit, Project, Topic
+from skills.forms import ProjectForm, TopicForm
 
 from django_sortable.helpers import sortable_helper
 
@@ -100,8 +100,7 @@ def skill_delete(request, skill_id):
 
 @csrf_protect
 def skill_edit(request, skill_id=None):
-    skill = None
-    tags = ''
+
     # If something has been uploaded
     if request.method == 'POST':
 
@@ -127,32 +126,45 @@ def skill_edit(request, skill_id=None):
         )
         skill.save()
 
-        # Add trainingbits (ORDER IS IMPORTANT HERE)
-        ids_ugly = request.POST['trainingbit_ids'].split(',')
-        ids = [int(tb_id.strip()) for tb_id in ids_ugly]
-        tbs = TrainingBit.objects.filter(pk__in=ids)
-        tb_dict = dict([(tb.pk, tb) for tb in tbs])
 
-        # Set the training bits to only the ones chosen on the page
-        skill.trainingbits.clear()
+
+        # Add trainingbits (ORDER IS IMPORTANT HERE)
+        selected_trainingbit_pos_pk = request.POST.getlist('trainingbit-pos-pk[]')
+        pos_pk = [v.split(',') for v in selected_trainingbit_pos_pk]
+        pos = [int(p[0].strip()) for p in pos_pk]
+        pks = [int(p[1].strip()) for p in pos_pk]
+        tb_dict = TrainingBit.objects.in_bulk(pks)
+
+        # - Sort trainingbit primary keys by position
+        sorted_pos_pk_list = sorted(zip(pos,pks))
+
+        # - Make an ordered list of trainingbits
         tbs = []
-        for id in ids: # restore the submitted order
-            tbs.append(tb_dict[id])
+        for pos, pk in sorted_pos_pk_list:
+            tbs.append(tb_dict[pk])
+
+        # - Set the training bits to only the ones chosen on the page
+        skill.trainingbits.clear()
         skill.trainingbits.add(*tbs)
+
+        # Add topics
+        selected_topic_pks = request.POST.getlist('topic-pks[]')
+        selected_topic_pks = [int(s) for s in selected_topic_pks]
+        print(selected_topic_pks)
+        topics = Topic.objects.filter(pk__in=selected_topic_pks)
+        print(topics)
+        skill.topic_set.clear()
+        skill.topic_set.add(*topics)
 
         messages.success(request, 'Successfully saved skill')
 
-        # Add tags
-        # tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
-        # skill.tags.set(*tags)
-
-        # return HttpResponseRedirect(reverse('trainer_dashboard'))
     elif skill_id is not None:
         skill = Skill.objects.get(id__exact=skill_id)
-        tags = ' '.join(skill.tags.names())
+        selected_topic_pks = [t.pk for t in skill.topic_set.all()]
+    else:
+        skill = None
+        selected_topic_pks = []
 
-    # By default show skill form
-    # print(list(map(lambda t: t.id, skill.trainingbits.all())))
     try:
         training_bit_ids = list(map(lambda t: t.id, skill.trainingbits.all()))
     except AttributeError:
@@ -166,7 +178,8 @@ def skill_edit(request, skill_id=None):
         'skill': skill,
         'trainingbits_chosen': trainingbits_chosen,
         'trainingbits_available': trainingbits_available,
-        'tags': tags,
+        'topics': Topic.objects.all(),
+        'selected_topic_pks': selected_topic_pks,
     })
 
 
@@ -248,8 +261,7 @@ def trainingbit_view(request, trainingbit_id):
 
 @csrf_protect
 def trainingbit_edit(request, trainingbit_id=None):
-    trainingbit = None
-    tags = ''
+
     # If something has been uploaded
     if request.method == 'POST':
 
@@ -276,20 +288,28 @@ def trainingbit_edit(request, trainingbit_id=None):
         trainingbit.save()
         trainingbit_id = trainingbit.id
 
-        tags = list(map(lambda s: s.strip('"'), request.POST['tags'].split(' ')))
-        trainingbit.tags.set(*tags)
+        selected_topic_pks = request.POST.getlist('topic-pks[]')
+        selected_topic_pks = [int(s) for s in selected_topic_pks]
+        topics = Topic.objects.filter(pk__in=selected_topic_pks)
+        trainingbit.topic_set.clear()
+        trainingbit.topic_set.add(*topics)
 
         # return HttpResponseRedirect(reverse('trainer_dashboard'))
         return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
             # return HttpResponseRedirect('/')
     elif trainingbit_id is not None:
         trainingbit = TrainingBit.objects.get(id__exact=trainingbit_id)
-        tags = ' '.join(trainingbit.tags.names())
+        selected_topic_pks = [t.pk for t in trainingbit.topic_set.all()]
+    else:
+        trainingbit = None
+        selected_topic_pks = []
+
 
     # By default show training bit form
     return render(request, 'skills/trainingbit_edit.html', {
         'trainingbit': trainingbit,
-        'tags': tags,
+        'topics': Topic.objects.all(),
+        'selected_topic_pks': selected_topic_pks,
         'labels': TrainingBit.LABELS,
     })
 
@@ -371,3 +391,45 @@ def trainingbit_stop(request, trainingbit_id):
     return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
 
 
+@csrf_protect
+def topic_new(request):
+
+    if request.method == 'POST':
+        form = TopicForm(request.POST)
+        if form.is_valid():
+            # Save
+            topic = form.save()
+            # messages.success(request, 'Project was successfully saved')
+
+            if request.is_ajax():
+                d = {'name': topic.name, 'deleteURL': reverse('skills:topic_delete', args=[topic.pk])}
+                return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+            else:
+                messages.success(request, 'Topic was successfully saved')
+        else:
+            if request.is_ajax():
+                return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
+
+    return HttpResponseRedirect(reverse('trainer_dashboard'))
+
+@csrf_protect
+def topic_delete(request, topic_pk):
+    topic = get_object_or_404(Topic, pk=topic_pk)
+
+    # if request.method == 'POST':
+
+    if request.user.has_perm('topic.delete', topic):
+        topic.delete()
+        if request.is_ajax():
+            d = {'message': 'Topic was deleted'}
+            return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+        else:
+            messages.success(request, 'Topic was successfully deleted')
+            return HttpResponseRedirect(reverse('trainer_dashboard'))
+    else:
+        # User doesn't have permission
+        if request.is_ajax():
+            return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
+        else:
+            messages.error(request, 'You don\'t have permission to delete this topic')
+            return HttpResponseRedirect(reverse('trainer_dashboard'))

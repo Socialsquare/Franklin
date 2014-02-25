@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 
 from sortedm2m.fields import SortedManyToManyField
 
-from taggit.managers import TaggableManager
 from datetime import datetime
 
 
@@ -44,8 +43,6 @@ class TrainingBit(models.Model):
     recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
 
-    tags = TaggableManager()
-
     def getImage(self):
         if self.image:
             return self.image.url
@@ -77,8 +74,6 @@ class Skill(models.Model):
 
     # Flags
     is_public = models.BooleanField(default=True)
-
-    tags = TaggableManager()
 
     def getImage(self):
         if self.image:
@@ -122,6 +117,27 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('skills:trainingbit_view', args=[self.trainingbit.id]) + \
                '#project-%u' % self.id
+
+
+class Topic(models.Model):
+    # Metadata
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = AutoDateTimeField()
+
+    # Content
+    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
+
+    # Relations
+    trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
+    skills = models.ManyToManyField(Skill, blank=True, null=True)
+
+    def clean(self):
+        # always be lowercase
+        self.name = self.name.lower()
+
+    def __str__(self):
+        return self.name
+
 
 # apply AuthorPermissionLogic and CollaboratorsPermissionLogic
 from permission import add_permission_logic

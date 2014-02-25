@@ -14,6 +14,7 @@
   <h1>Trainer Dashboard</h1>
   <a class="button" href="{% url 'skills:trainingbit_new' %}">Add new training bit</a>
   <a class="button" href="{% url 'skills:skill_new' %}">Add new skill</a>
+  <a class="button" href="#" data-reveal-id="topic-new-modal" data-reveal>Add new topic</a>
   <hr>
   <div class="row">
     <div class="large-6 columns">
@@ -36,5 +37,103 @@
     </div>
     </div>
   </div>
+  <div class="row">
+    <div class="medium-6 columns">
+    <h3>Topics</h3>
+      <ul id="topic-list" class="topic-list">
+      {% for topic in topics %}
+        <li class="gcl-object">{{ topic.name }} <a href="{% url 'skills:topic_delete' topic.pk %}" class="delete delete-topic" data-id="{{ topic.pk }}">&#215;</a></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
 </div>
+
+<div id="topic-new-modal" class="reveal-modal small" data-reveal>
+  <form method="POST" id="topic-new-form" action="{% url 'skills:topic_new' %}">
+    {% csrf_token %}
+    <h3>Add a new topic</h3>
+      <div id="topic-list">
+        <input class="search" type="text" name="name" placeholder="Name your topic">
+        <div class="container">
+          {% comment %}
+          {% if topics %}
+          <strong>Similar topics</strong>
+          <ul class="list">
+          {% for topic in topics %}
+            <li>
+              <span class="name">{{ topic.name }}</span>
+            </li>
+          {% endfor %}
+          </ul>
+          <script>
+          $(document).ready(function() {
+            var options = {
+              valueNames: ['name']
+            };
+            var topicsList = new List('topic-list', options);
+          });
+          </script>
+          {% endif %}
+          {% endcomment %}
+        </div>
+      </div>
+      <div id="topic-new-errors">
+        <ul></ul>
+      </div>
+
+    <button>Add topic</button>
+
+  </form>
+
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<script>
+$(document).ready(function() {
+  var $form = $('#topic-new-form');
+  var $modal = $('#topic-new-modal');
+
+  var submitForm = $.throttle(1000, function() {
+    console.log('submitting');
+    $('#topic-new-errors').append('Sending...');
+    $form.ajaxSubmit({
+      error: function(response) {
+        console.log(response);
+        var j = JSON.parse(response.responseText);
+        console.log(j);
+        $('#topic-new-errors ul').html('');
+        $('#topic-new-errors ul').append('<h3>Failed to add topic</h3>');
+        for (name in j) {
+          var $li = $('<li />').html('<strong>' + name + '</strong>:' + j[name]);
+          $('#topic-new-errors ul').append($li);
+        }
+      },
+      success: function(topic) {
+        console.log(topic);
+        {# $('#project-form').clearForm(); #}
+        sendMessage('Successfully added topic');
+        $('#topic-list').append('<li class="gcl-object">' + topic.name + '<a href="' + topic.deleteURL + '" class="delete delete-topic">&#215;</a></li>');
+
+        $modal.foundation('reveal', 'close');
+      },
+    });
+
+  });
+
+  $form.submit(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log('submit event');
+    submitForm();
+  });
+
+  $modal.on('closed', function () {
+    $('#topic-new-errors ul').html('');
+  });
+
+});
+</script>
+
 {% endblock %}

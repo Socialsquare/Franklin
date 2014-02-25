@@ -29,9 +29,7 @@ module.exports = function(grunt) {
           //outputStyle: 'compressed'
         },
         files: {
-          'global_change_lab/static/global_change_lab/css/app.css': [
-            'scss/app.scss'
-          ]
+          'global_change_lab/static/global_change_lab/css/app.css': [ 'scss/app.scss' ],
         }
       }
     },
@@ -65,8 +63,6 @@ module.exports = function(grunt) {
       main: {
         files: [
           {
-          },
-          {
             src: 'bower_components/medium-editor/dist/css/medium-editor.css',
             dest: 'global_change_lab/static/medium-editor/medium-editor.css',
             filter: 'isFile',
@@ -88,6 +84,7 @@ module.exports = function(grunt) {
             'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 KiB
             'bower_components/foundation/js/foundation.js',                             // 76 KiB
             'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
+            'bower_components/foundation/js/foundation/foundation.alert.js',            //  ? KiB
             // modernizr in conjunction with
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.
@@ -138,6 +135,8 @@ module.exports = function(grunt) {
             'bower_components/jqueryui/ui/jquery.ui.sortable.js',
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
             'bower_components/offline/offline.min.js',
+            'bower_components/jquery-form/jquery.form.js',
+            'js/utils.js'
           ]
         }
       }
@@ -155,6 +154,15 @@ module.exports = function(grunt) {
           'global_change_lab/templates/*/*.html',
           'global_change_lab/templates/*/*/*.html',
         ],
+        options: {
+          livereload: true
+        }
+      },
+
+      // Compile and LiveReload when updating .js-files
+      uglify: {
+        files: 'js/*.js',
+        tasks: ['uglify'],
         options: {
           livereload: true
         }

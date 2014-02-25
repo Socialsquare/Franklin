@@ -1,0 +1,22 @@
+
+// skills/partials/topic_selector.html
+#topic-list {
+  height: 8rem;
+  overflow-y: auto;
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+
+    li {
+      display: inline-block;
+      margin-right: rem-calc(7px);
+
+      input[type="checkbox"] {
+        margin: 0;
+      }
+    }
+
+  }
+
+}

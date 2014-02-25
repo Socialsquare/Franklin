@@ -1,0 +1,26 @@
+
+<div id="topic-list">
+
+  <input type="text" class="search" placeholder="Search for a topic...">
+  <div class="container">
+    <ul class="list">
+    {% for topic in topics %}
+      <li>
+        <label>
+          <input type="checkbox" name="topic-pks[]" value="{{ topic.pk }}"{%if topic.pk in selected_topic_pks %} checked{% endif %}>
+          <span class="name">{{ topic.name }}</span>
+        </label>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+</div>
+<script>
+$(document).ready(function() {
+  var options = {
+    valueNames: ['name']
+  };
+  var topicList = new List('topic-list', options);
+});
+</script>

@@ -42,20 +42,16 @@
       a file on your computer that will be the cover image of this training bit.
     </div>
   </div>
-  {% comment %}
+
   <div class="input-field-row">
     <div class="input-field">
-      <input type="text" name="tags" placeholder="organisation politics planning ..." value="{{ tags }}">
+      {% include 'skills/partials/topic_selector.html' %}
     </div>
     <div class="help-text">
-      <h6>Tags</h6>
-      Here you can add tags to the skill. Each tag is separated by a
-      space.
-      If the tag contains a space it should be wrapped in quotes, like this:
-      "political science"
+      <h6>Topics</h6>
+      Here you can add topics to the skill.
     </div>
   </div>
-  {% endcomment %}
   <div class="input-field-row">
     <div class="input-field">
       <div id="trainingbit-list">
@@ -81,6 +77,11 @@
               </li>
             {% endfor %}
             </ul>
+            <div id="trainingbit_ids">
+              {% for trainingbit in trainingbits_chosen %}
+              <input type="hidden" name="trainingbit-pos-pk[]" value="{{forloop.counter}},{{trainingbit.pk}}">
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
@@ -95,7 +96,6 @@
       skill page.
     </div>
   </div>
-  <input type="hidden" id="trainingbit_ids" name="trainingbit_ids">
   <button id="trainingbit-submit" type="submit">
     {% if skill %}
     Save skill
@@ -128,20 +128,21 @@ $(document).ready(function() {
   });
 
   var $trainingbit_ids = $('#trainingbit_ids');
+  var $input_base = $('<input type="hidden" name="trainingbit-pos-pk[]">');
 
   $("#trainingbits-available-list, #trainingbits-chosen-list").sortable({
     placeholder: "show-drag-position",
     connectWith: ".trainingbits-chooser-list",
     update: function() {
-      $trainingbit_ids.val('');
-      var trainingbit_ids = '';
+
+      // Clear <div> element
+      $trainingbit_ids.empty();
 
       $("#trainingbits-chosen-list li").each(function(i, el) {
-        if (i !== 0) { trainingbit_ids += ','; }
-        trainingbit_ids += $(el).data('id');
+        var $input = $input_base.clone();
+        $input.val(i + ',' + $(el).data('id'));
+        $trainingbit_ids.append($input);
       });
-      $trainingbit_ids.val(trainingbit_ids);
-      console.log(trainingbit_ids);
     },
   }).disableSelection();
 });

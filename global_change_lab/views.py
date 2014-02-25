@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 import django.contrib.messages as messages
 from django.contrib.auth.models import Group
 
-from skills.models import Skill, TrainingBit
+from skills.models import Skill, TrainingBit, Topic
 
 from global_change_lab.models import User
 from django.db.models import Q
@@ -36,6 +36,7 @@ def trainer_dashboard(request):
     return render(request, 'trainer_dashboard.html', {
         'trainingbits': request.user.trainingbit_set.all(),
         'skills': request.user.skill_set.all(),
+        'topics': Topic.objects.all(),
         # TrainingBit.objects.l
         # 'shares': None, #Skill.objects.all(),
     })
