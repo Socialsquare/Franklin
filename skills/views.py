@@ -127,17 +127,17 @@ def skill_edit(request, skill_id=None):
         )
         skill.save()
 
-        # Add trainingbits
-        items = []
-        for key, value in request.POST.items():
-            print(key, value)
-            if key[0:12] == 'trainingbit-':
-                trainingbit_id = int(key[12:])
-                items.append(trainingbit_id)
-        tbs = TrainingBit.objects.filter(id__in=items)
+        # Add trainingbits (ORDER IS IMPORTANT HERE)
+        ids_ugly = request.POST['trainingbit_ids'].split(',')
+        ids = [int(tb_id.strip()) for tb_id in ids_ugly]
+        tbs = TrainingBit.objects.filter(pk__in=ids)
+        tb_dict = dict([(tb.pk, tb) for tb in tbs])
 
         # Set the training bits to only the ones chosen on the page
         skill.trainingbits.clear()
+        tbs = []
+        for id in ids: # restore the submitted order
+            tbs.append(tb_dict[id])
         skill.trainingbits.add(*tbs)
 
         messages.success(request, 'Successfully saved skill')
@@ -158,10 +158,14 @@ def skill_edit(request, skill_id=None):
     except AttributeError:
         training_bit_ids = []
 
+    trainingbits_chosen    = skill.trainingbits.all() #.extra(order_by=['sort_value'])
+    trainingbits_available = TrainingBit.objects.exclude(id__in=trainingbits_chosen.values('id')).extra(order_by=['name'])
+    # suggested_trainingbits = trainingbits.exclude(id__in=request.user.trainingbits_completed.all())
+
     return render(request, 'skills/skill_edit.html', {
         'skill': skill,
-        'trainingbits': TrainingBit.objects.all().extra(order_by=['name']),
-        'skill_trainingbit_ids': training_bit_ids,
+        'trainingbits_chosen': trainingbits_chosen,
+        'trainingbits_available': trainingbits_available,
         'tags': tags,
     })
 

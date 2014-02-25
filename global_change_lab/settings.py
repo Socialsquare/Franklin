@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'permission',
     'django_sortable',
     'solo',
+    'sortedm2m',
 
     'allauth',
     'allauth.account',

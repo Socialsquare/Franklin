@@ -60,18 +60,28 @@
     <div class="input-field">
       <div id="trainingbit-list">
 
-        <input class="search" placeholder="Search for training bit...">
-        <div class="container">
-          <ul class="list">
-          {% for trainingbit in trainingbits %}
-            <li>
-              <label>
-                <input type="checkbox" name="trainingbit-{{ trainingbit.id }}" {%if trainingbit.id in skill_trainingbit_ids %}checked{%endif%}>
+        <input id="trainingbits-chooser-search" class="search" placeholder="Search for training bit...">
+        <div class="row">
+          <div class="medium-6 columns">
+            <h6>Find training bits</h6>
+            <ul class="trainingbits-chooser-list" id="trainingbits-available-list">
+            {% for trainingbit in trainingbits_available %}
+              <li data-id="{{ trainingbit.id }}">
                 <span class="name">{{ trainingbit.name }}</span>
-              </label>
-            </li>
-          {% endfor %}
-          </ul>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="medium-6 columns">
+            <h6>Selected training bits</h6>
+            <ul class="trainingbits-chooser-list" id="trainingbits-chosen-list">
+            {% for trainingbit in trainingbits_chosen %}
+              <li data-id="{{ trainingbit.id }}">
+                <span class="name">{{ trainingbit.name }}</span>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -79,9 +89,13 @@
     <div class="help-text">
       <h6>Training Bits</h6>
       Here you can add training bits to the skill.
-      These training are that are required in order to achieve the skill.
+      {# Drag the training bit into the order you want them to show in s #}
+      Drag training bits from the list on the left to the list on the right.
+      The order of the training bits here is the order they will show on the
+      skill page.
     </div>
   </div>
+  <input type="hidden" id="trainingbit_ids" name="trainingbit_ids">
   <button id="trainingbit-submit" type="submit">
     {% if skill %}
     Save skill
@@ -92,11 +106,44 @@
 </form>
 {{ form_errors }}
 <script>
+// From: http://stackoverflow.com/a/15252131/118608
+String.prototype.fuzzy = function (s) {
+    var hay = this.toLowerCase(), i = 0, n = -1, l;
+    s = s.toLowerCase();
+    for (; l = s[i++] ;) if (!~(n = hay.indexOf(l, n + 1))) return false;
+    return true;
+};
+
 $(document).ready(function() {
-  var options = {
-    valueNames: ['name']
-  };
-  var trainingbitList = new List('trainingbit-list', options);
+  $("#trainingbits-chooser-search").on('input', function() {
+    var search_term = $(this).val();
+    $("#trainingbits-available-list li").each(function(i, el) {
+      var $el = $(el);
+      if ($el.text().fuzzy(search_term)) {
+        $el.show();
+      } else {
+        $el.hide();
+      }
+    });
+  });
+
+  var $trainingbit_ids = $('#trainingbit_ids');
+
+  $("#trainingbits-available-list, #trainingbits-chosen-list").sortable({
+    placeholder: "show-drag-position",
+    connectWith: ".trainingbits-chooser-list",
+    update: function() {
+      $trainingbit_ids.val('');
+      var trainingbit_ids = '';
+
+      $("#trainingbits-chosen-list li").each(function(i, el) {
+        if (i !== 0) { trainingbit_ids += ','; }
+        trainingbit_ids += $(el).data('id');
+      });
+      $trainingbit_ids.val(trainingbit_ids);
+      console.log(trainingbit_ids);
+    },
+  }).disableSelection();
 });
 </script>
 

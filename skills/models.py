@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from sortedm2m.fields import SortedManyToManyField
+
 from taggit.managers import TaggableManager
 from datetime import datetime
 
@@ -71,7 +73,7 @@ class Skill(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
     # + optional relation to training bits (i.e. a skill does _have_ to have a
     #   training bit)
-    trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
+    trainingbits = SortedManyToManyField(TrainingBit, blank=True, null=True)
 
     # Flags
     is_public = models.BooleanField(default=True)

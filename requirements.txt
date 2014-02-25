@@ -11,3 +11,4 @@ https://github.com/lambdalisue/django-permission/tarball/master
 https://github.com/malthejorgensen/django-sortable/tarball/master
 django-extensions==1.3.3
 https://github.com/malthejorgensen/django-solo/tarball/master
+django-sortedm2m==0.7.0
