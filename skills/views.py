@@ -14,18 +14,29 @@ from django_sortable.helpers import sortable_helper
 import json
 
 
-def skills_overview(request, show_hidden=False):
-
-    if request.user.has_perm('skills.show_hidden') and show_hidden:
-        skills = Skill.objects.filter(is_public=False)
+def skills_overview(request, topic_name=None, show_hidden=False):
+    # Show from topic
+    if topic_name is not None:
+        topic = get_object_or_404(Topic, name=topic_name)
+        skills = topic.skills.all()
     else:
-        skills = Skill.objects.filter(is_public=True)
+        topic = None
+        skills = Skill.objects.all()
 
+    # Show public/hidden
+    if request.user.has_perm('skills.show_hidden') and show_hidden:
+        skills = skills.filter(is_public=False)
+    else:
+        skills = skills.filter(is_public=True)
+
+    # Sort
     skills = sortable_helper(request, skills)
 
     return render(request, 'skills/skills_overview.html', {
         'skills': skills,
         'showing_hidden': show_hidden,
+        'topics': Topic.objects.all(),
+        'topic_chosen': topic,
     })
 
 def skill_view(request, skill_id):
@@ -183,11 +194,19 @@ def skill_edit(request, skill_id=None):
     })
 
 
-def trainingbits_overview(request):
-    trainingbits = TrainingBit.objects.all()
+def trainingbits_overview(request, topic_name=None):
+    if topic_name is not None:
+        topic = get_object_or_404(Topic, name=topic_name)
+        trainingbits = topic.trainingbits.all()
+    else:
+        topic = None
+        trainingbits = TrainingBit.objects.all()
+
     trainingbits = sortable_helper(request, trainingbits)
     return render(request, 'skills/trainingbits_overview.html', {
         'trainingbits': trainingbits,
+        'topics': Topic.objects.all(),
+        'topic_chosen': topic,
     })
 
 def trainingbit_cover(request, trainingbit_id):

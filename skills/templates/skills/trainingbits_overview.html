@@ -5,13 +5,26 @@
 {% block content %}
 <div class="page-buttons">
   {# Topics #}
-  <a href="#" class="button sorting" data-dropdown="skill-all-topics">
-    All topics
-    <span class="icon triangle-down red"></span>
-  </a>
+    {% if topic_chosen %}
+      <a href="{% url 'skills:trainingbits_overview' topic_chosen.name %}" class="button sorting" data-dropdown="skill-all-topics">
+        {{ topic_chosen.name }}
+        <span class="icon triangle-down red"></span>
+      </a>
+    {% else %}
+      <a href="{% url 'skills:trainingbits_overview' %}" class="button sorting" data-dropdown="skill-all-topics">
+        All topics
+        <span class="icon triangle-down red"></span>
+      </a>
+    {% endif %}
   <ul id="skill-all-topics" class="f-dropdown" data-dropdown-content>
-    <li>Topic 1</li>
-    <li>Topic 2</li>
+    {% for topic in topics %}
+      {# {% if topic != topic_chosen %} #}
+      <li><a href="{% url 'skills:trainingbits_overview' topic.name %}">{{ topic.name }}</a></li>
+      {# {% endif %} #}
+    {% endfor %}
+    {# {% if topic_chosen %} #}
+      <li><a href="{% url 'skills:trainingbits_overview' %}">All topics</a></li>
+    {# {% endif %} #}
   </ul>
 
   {# Sorting #}

@@ -5,6 +5,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Training Bit URLs
+    url(r'^trainingbits/(\w+)/?$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
     url(r'^trainingbits$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
     url(r'^trainingbit/new$', 'skills.views.trainingbit_edit', name='trainingbit_new'),
     url(r'^trainingbit/(\d+)/edit$', 'skills.views.trainingbit_edit', name="trainingbit_edit"),
@@ -19,6 +20,8 @@ urlpatterns = patterns('',
     # Skill URLs
     url(r'^skills/$', 'skills.views.skills_overview', name="skills_overview"),
     url(r'^skills/all/?$', 'skills.views.skills_overview', {'show_hidden':True}, name="skills_overview_all"),
+    url(r'^skills/(\w+)/?$', 'skills.views.skills_overview', name="skills_overview"),
+    url(r'^skills/(\w+)/all/?$', 'skills.views.skills_overview', {'show_hidden':True}, name="skills_overview_all"),
     url(r'^skill/(\d+)$', 'skills.views.skill_view', name='skill_view'),
     url(r'^skill/new$', 'skills.views.skill_edit', name='skill_new'),
     url(r'^skill/(\d+)/edit$', 'skills.views.skill_edit', name="skill_edit"),
