@@ -33,7 +33,6 @@
 
 <body class="{% block body-classes %}{% endblock %}">
 
-  {% if messages %}
   <div id="messages">
     {% for message in messages %}
     <div class="alert-box {{ message.tags }}" data-alert>
@@ -42,7 +41,6 @@
     </div>
     {% endfor %}
   </div>
-  {% endif %}
 
   <div id="permanent-messages">
     {% block permanent-messages %}
