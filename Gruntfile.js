@@ -89,6 +89,7 @@ module.exports = function(grunt) {
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.
             'bower_components/foundation/js/vendor/modernizr.js',                       // 11 KiB
+            'js/utils.js',
           ]
         }
       },
@@ -136,7 +137,6 @@ module.exports = function(grunt) {
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
             'bower_components/offline/offline.min.js',
             'bower_components/jquery-form/jquery.form.js',
-            'js/utils.js'
           ]
         }
       }

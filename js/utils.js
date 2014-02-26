@@ -20,33 +20,54 @@ var sendMessage = function(msg, class_attr, duration) {
 
 
 $(document).ready(function() {
-  // $('a.delete').click(function(e) {
+
+  // Make django message disappear after a while
+  var $messages = $('#messages');
+  $messages.children().each(function(i, el) {
+    $(el).delay( (3 + i) * 1000).fadeOut({
+      duration: 1000,
+      complete: function() { this.remove(); }
+    });
+  });
+
+
+  // Add utility delete event handler that prompts the user to write "delete"
+  // in order delete the object. All <a>'s with class="delete ..." will get this
+  // handler
   $('body #content').on('click', 'a.delete', function(e) {
-    e.preventDefault();
     $a = $(this);
 
     console.log('deleting...');
+    console.log($a.data('dynamic'));
 
     if (prompt('Please write "delete" to accept deleting this object') === 'delete') {
-      console.log('AJAX getting:', $a.attr('href'));
 
-      $.ajax({
-        url: $a.attr('href'),
+      console.log($a.data('dynamic'));
+      if ($a.data('dynamic') === false) {
+        return true;
+      } else {
+        console.log('AJAX getting:', $a.attr('href'));
+        e.preventDefault();
 
-        error: function() {
-          sendMessage('Object could not be deleted');
-        },
+        $.ajax({
+          url: $a.attr('href'),
 
-        success: function() {
-          // Unfortunately we need to use a class because the jQuery selector
-          // syntax doesn't support `data-...` attributes
-          $a.closest('.gcl-object').remove();
-          sendMessage('Object was deleted');
-        }
-      });
+          error: function() {
+            sendMessage('Object could not be deleted');
+          },
+
+          success: function() {
+            // Unfortunately we need to use a class because the jQuery selector
+            // syntax doesn't support `data-...` attributes
+            $a.closest('.gcl-object').remove();
+            sendMessage('Object was deleted');
+          }
+        });
+      }
 
     } else {
       sendMessage('Object was not deleted, write <strong>delete</strong> to delete', 'alert');
     }
+    e.preventDefault();
   });
 });
