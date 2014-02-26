@@ -94,10 +94,11 @@ WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 try:
     from .credentials import SITE_ID, SECRET_KEY, DATABASES, \
-                             DEFAULT_FILE_STORAGE, \
+                             INSTALLED_APPS_EXTRA, DEFAULT_FILE_STORAGE, \
                              EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, \
                              AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
     LOCALHOST = False
+    INSTALLED_APPS += INSTALLED_APPS_EXTRA
 except ImportError:
     import warnings
     warnings.warn('Credentials not found, using `localhost` default setup')
