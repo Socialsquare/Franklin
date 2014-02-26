@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     url(r'^admin/dashboard/?$', 'global_change_lab.views.admin_dashboard', name='admin_dashboard'),
     url(r'^admin/users.csv$', 'global_change_lab.views.admin_users_csv', name='admin_users_csv'),
     url(r'^admin/statistics.csv$', 'global_change_lab.views.admin_statistics_csv', name='admin_statistics_csv'),
+    #   flatpages
+    url(r'^page/new/?$', 'global_change_lab.views.page_new', name='page_new'),
+    url(r'^page/delete/(\d+)/?$', 'global_change_lab.views.page_delete', name='page_delete'),
 
     # skills
     url(r'^', include('skills.urls', namespace='skills')),
@@ -38,6 +41,13 @@ urlpatterns = patterns('',
 
     # django.contrib.admin
     url(r'^admin/', include(admin.site.urls)),
+
+    # django.contrib.flatpages
+    url(r'^pages', include('django.contrib.flatpages.urls')),
+    # In reality this creates URLs like this:
+    #   r'^pages<page.url>'
+    # but flatpages enforce `page.url` to have leading and trailing slashes
+    # therefore the flatpages base URL _must not_ have a trailing slash!
 )
 
 urlpatterns += staticfiles_urlpatterns()

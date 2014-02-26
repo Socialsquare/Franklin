@@ -57,6 +57,11 @@
     }
   }
 }
+#flatpage-new-modal {
+  #content-medium-editor {
+    min-height: rem-calc(200px);
+  }
+}
 
 ul.topic-list {
   list-style: none;

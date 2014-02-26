@@ -5,6 +5,7 @@
 {% block trainer_dashboard_button %}{% endblock %}
 {% block body-classes %} trainer-interface {% endblock %}
 {% block scripts %}
+  <link rel="stylesheet" href="{% static 'medium-editor/medium-editor.css' %}">
   <script src="{% static 'global_change_lab/js/trainer.min.js' %}"></script>
 {% endblock %}
 
@@ -15,6 +16,7 @@
   <a class="button" href="{% url 'skills:trainingbit_new' %}">Add new training bit</a>
   <a class="button" href="{% url 'skills:skill_new' %}">Add new skill</a>
   <a class="button" href="#" data-reveal-id="topic-new-modal" data-reveal>Add new topic</a>
+  <a class="button" href="#" data-reveal-id="flatpage-new-modal" data-reveal>Add new page</a>
   <hr>
   <div class="row">
     <div class="large-6 columns">
@@ -86,6 +88,51 @@
 
   </form>
 
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="flatpage-new-modal" class="reveal-modal small" data-reveal>
+  <form method="POST" id="flatpage-new-form" action="{% url 'page_new' %}">
+    {% csrf_token %}
+    <h3>Page title</h3>
+    <input type="text" name="title" placeholder"Page Title">
+
+    <h3>Page content</h3>
+    <div>
+    <textarea name="content" id="content-editor-textarea" rows="10" cols="80" placeholder="Write the page content here"></textarea>
+    {# The script below is pretty much a copy of #}
+    {# @pixeline's comment this on GitHub isse (https://github.com/daviferreira/medium-editor/issues/103) #}
+    <script>
+      var $this = $('#content-editor-textarea');
+      var styles = $this.attr('style');
+      if (typeof styles != 'undefined') {
+          styles = ' style="' + styles + '"';
+      }
+
+      $this.wrap('<div class="editable-wrapper"/>');
+      var $w = $this.parent();
+      $w.prepend('<div id="content-medium-editor" class="editable" ' + styles + ' data-placeholder="'+$this.attr('placeholder')+'">' + $this.val()+'</div>');
+      $this.hide();
+      var editor = new MediumEditor('.editable', {
+        anchorInputPlaceholder: 'Type a link',
+        placeholder: 'Type your text here',
+        buttons: ['bold', 'italic', 'header1', 'header2', 'orderedlist', 'unorderedlist'],
+        diffLeft: 0,
+        diffTop: -10,
+        firstHeader: 'h1',
+        secondHeader: 'h2',
+        delay: 300,
+        targetBlank: true
+      });
+      $('#flatpage-new-form').submit(function(){
+        $(this).find('textarea').val($('#content-medium-editor').html());
+      });
+
+    </script>
+    </div>
+
+    <button>Add page</button>
+  </form>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 

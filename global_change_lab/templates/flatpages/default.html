@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load permissionif %}
+
+{% block content %}
+{# Edit skill button #}
+<div class="page-buttons">
+  {% permission request.user has 'page.edit' %}
+    {#<a href="{% url 'skills:skill_edit' skill.id %}" class="button info">Edit skill</a>#}
+  {% endpermission %}
+
+  {# Delete skill button #}
+  {% permission request.user has 'page.delete' %}
+    <a href="{% url 'page_delete' flatpage.pk %}" class="button delete" data-dynamic="false">Delete page</a>
+  {% endpermission %}
+</div>
+
+{{ flatpage.content }}
+{% endblock %}

@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 
 import django.contrib.messages as messages
+from django.contrib.flatpages.models import FlatPage
+from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 
 from skills.models import Skill, TrainingBit, Topic
@@ -196,3 +198,29 @@ def user_upgrade_to_trainer(request, user_id):
         messages.error(request, 'You do not have permissions to upgrade this user.')
 
     return HttpResponseRedirect(reverse('profile', args=[user_id]))
+
+@csrf_protect
+def page_new(request):
+
+    if request.method == 'POST':
+        flatpage = FlatPage()
+        flatpage.url = '/' + request.POST['title'].replace(' ', '-').lower() + '/'
+        flatpage.title = request.POST['title']
+        flatpage.content = request.POST['content']
+        flatpage.save()
+        flatpage.sites.add(*Site.objects.all())
+        messages.success(request, 'Successfully created page "%s"' % flatpage.title)
+
+        return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', args=[flatpage.url]))
+    else:
+        return HttpResponseRedirect(reverse('trainer_dashboard'))
+
+@csrf_protect
+def page_delete(request, page_pk):
+
+    page = get_object_or_404(FlatPage, pk=page_pk)
+    page.delete()
+    messages.success(request, 'Successfully deleted page "%s"' % page.title)
+    return HttpResponseRedirect(reverse('trainer_dashboard'))
+
+    # return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', args=[flatpage.url]))
