@@ -15,10 +15,11 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
 
     exclude_fields = ['id', 'date_joined']
-    print('user fields', exclude_fields)
 
     _all_fields = [f.name for f in User._meta.fields]
     _fields = list(set(_all_fields) - set(exclude_fields))
+    _fields += ['groups', 'user_permissions'] # check: print(UserAdmin.fieldsets)
+
 
     # List comprehensions and lambdas in the class definition cannot use class
     # variables from the class definition. This is due to their scope rules.
@@ -26,9 +27,11 @@ class CustomUserAdmin(UserAdmin):
     # This means that the following will _not_ work:
     # _all_fields = [f.name for f in User._meta.fields if f.name not in exclude_fields]
 
+    # Adds non-existent fields (last_name...):
+    #   fieldsets = UserAdmin.fieldsets + (
     fieldsets = (
         (None, { 'fields':
-            _fields
+            _fields,
         }),
     )
 
