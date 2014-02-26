@@ -24,3 +24,6 @@ global_change_lab/template
 
 skills/migrations/
 
+# who needs this anyway?!
+global_change_lab/static/
+global_change_lab/migrations/
