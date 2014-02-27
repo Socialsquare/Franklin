@@ -176,13 +176,18 @@ def skill_edit(request, skill_id=None):
         skill = None
         selected_topic_pks = []
 
+    if skill is None:
+        trainingbits_chosen    = []
+        trainingbits_available = TrainingBit.objects.all()
+    else:
+        trainingbits_chosen    = skill.trainingbits.all() #.extra(order_by=['sort_value'])
+        trainingbits_available = TrainingBit.objects.exclude(id__in=trainingbits_chosen.values('id')).extra(order_by=['name'])
+
     try:
         training_bit_ids = list(map(lambda t: t.id, skill.trainingbits.all()))
     except AttributeError:
         training_bit_ids = []
 
-    trainingbits_chosen    = skill.trainingbits.all() #.extra(order_by=['sort_value'])
-    trainingbits_available = TrainingBit.objects.exclude(id__in=trainingbits_chosen.values('id')).extra(order_by=['name'])
     # suggested_trainingbits = trainingbits.exclude(id__in=request.user.trainingbits_completed.all())
 
     return render(request, 'skills/skill_edit.html', {
