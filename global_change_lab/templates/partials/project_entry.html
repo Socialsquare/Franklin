@@ -1,3 +1,5 @@
+{% load comments %}
+
 <div class="project" id="project-{{ project.id }}">
   {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
     <h6 class="title">{{ project.title }}</h6><span class="date">{{ project.created_at }}</span>
@@ -9,5 +11,10 @@
   <p>{{ project.content }}</p>
   {% if project.image %}
   <a href="{{ project.image.url }}"><img src="{{ project.image.url }}"></a>
+  {% endif %}
+  {% if not hide_comments %}
+    {# Comments section #}
+    {% render_comment_list for project %}
+    {% render_comment_form for project %}
   {% endif %}
 </div>
