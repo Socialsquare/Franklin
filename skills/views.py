@@ -330,7 +330,7 @@ def trainingbit_view(request, trainingbit_id):
 
     return render(request, 'skills/trainingbit_view.html', {
         'trainingbit': trainingbit,
-        'projects': trainingbit.project_set.all(),
+        'projects': trainingbit.project_set.prefetch_related('author'),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
     })
 
