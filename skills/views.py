@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 
@@ -229,8 +230,55 @@ def trainingbit_cover(request, trainingbit_id):
         'projects': trainingbit.project_set.all(),
     })
 
+def get_suggested_trainingbits(user, session):
+    # documentation on `values_list`: https://docs.djangoproject.com/en/1.6/ref/models/querysets/#values-list
+
+    # If we're currently in a skill use that for suggestions, otherwise just
+    # give any suggestion
+    try:
+        skill_id = session['current_skill_id']
+        skill = Skill.objects.get(pk=skill_id)
+        # get only trainingbits from the current skill
+        trainingbits = skill.trainingbits #TrainingBit.objects.filter(skill__id__exact=skill_id)
+    except KeyError:
+        # If we're not currently doing any skill just pick some trainingbits
+        # we haven't already taken
+        trainingbits = TrainingBit.objects.all()
+
+    # Don't suggest training bits the user has already completed, including the
+    # one he is about to complete. (Because when we show the suggestions he
+    # will have completed this training bit)
+    completed_trainingbits = list(user.trainingbits_completed.all().values_list('id', flat=True))
+    suggested_trainingbits = trainingbits.exclude(id__in=completed_trainingbits)
+    # 3 SQL queries
+
+    return suggested_trainingbits
+
+def get_completed_skills(user, trainingbit):
+    completed_trainingbits = list(user.trainingbits_completed.all().values_list('id', flat=True))
+    completed_skills = set([])
+    possibly_completed_skills = trainingbit.skill_set.all().prefetch_related('trainingbits')
+
+    # The query below saves us 1 SQL query by merging the user skills query
+    # (in the line `completed_skills -= set(request.user.skills_completed.all())`)
+    # with the training bit skills query, but it's almost unreadble
+    #
+    #    possibly_completed_skills = trainingbit.skill_set.exclude(pk__in=request.user.skills_completed.all().values('pk')).prefetch_related('trainingbits')
+
+    for skill in possibly_completed_skills:
+        skill_tbs =  skill.trainingbits.all() #cvalues_list('id', flat=True)).issubset(completed_trainingbits):
+        # if set(skill.trainingbits.values_list('id', flat=True)).issubset(completed_trainingbits):
+        if set(map(lambda t: t.pk, skill_tbs)).issubset(completed_trainingbits):
+            completed_skills.add(skill)
+    # 2 SQL queries
+    completed_skills -= set(user.skills_completed.all())
+    # 1 SQL query
+
+    return completed_skills
+
 @csrf_protect
 def trainingbit_view(request, trainingbit_id):
+    trainingbit_id = int(trainingbit_id)
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
     if request.method == 'POST':
@@ -243,15 +291,31 @@ def trainingbit_view(request, trainingbit_id):
             project.save()
             messages.success(request, 'Project was successfully saved')
 
-            request.user.trainingbits_in_progress.remove(trainingbit)
-            request.user.trainingbits_completed.add(trainingbit)
+            # complete trainingbit
+            request.user.complete_trainingbit(trainingbit)
+
+            suggested_trainingbits = get_suggested_trainingbits(request.user, request.session)
+            completed_skills = get_completed_skills(request.user, trainingbit)
+            print(completed_skills)
+
+            # complete skills
+            request.user.complete_skills(completed_skills)
 
             if request.is_ajax():
+                modal_html = render_to_string('skills/partials/trainingbit_completed_modal.html', {
+                    'trainingbit': trainingbit,
+                    'suggested_trainingbits': suggested_trainingbits[:3],
+                    'completed_skills': completed_skills,
+                })
+                project_html = render_to_string('partials/project_entry.html', {
+                    'project': project,
+                })
+                # return rendered:
+                # * completion dialog (modal_html)
+                # * project for shared/projects section
                 d = {
-                    'id': project.id,
-                    'title': project.title,
-                    'content': project.content,
-                    'author': project.author.username,
+                    'modal_html': modal_html,
+                    'project_html': project_html,
                 }
                 # The 201 HTTP status code is from my reading of the standard
                 # the # correct response to a POST which successfully created a
@@ -263,24 +327,11 @@ def trainingbit_view(request, trainingbit_id):
                 return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
 
 
-    try:
-        skill_id = request.session['current_skill_id']
-        skill = Skill.objects.get(pk=skill_id)
-        # get only trainingbits from the current skill
-        trainingbits = TrainingBit.objects.filter(skill__id__exact=skill_id)
-        print(trainingbits)
-    except KeyError:
-        # If we're not currently doing any skill just pick some trainingbits
-        # we haven't already taken
-        trainingbits = TrainingBit.objects.all()
-
-    suggested_trainingbits = trainingbits.exclude(id__in=request.user.trainingbits_completed.all())
 
     return render(request, 'skills/trainingbit_view.html', {
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.all(),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
-        'suggested_trainingbits': suggested_trainingbits[:3],
     })
 
 @csrf_protect

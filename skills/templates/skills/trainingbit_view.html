@@ -71,17 +71,6 @@
 </div>
 
 <div id="trainingbit-completed-modal" class="reveal-modal medium" data-reveal>
-  <h3>Awesome, you have completed</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2><h3>!</h3>
-  <p>Checkout these other training bits that may be of interest</p>
-  {% if suggested_trainingbits %}
-    <div style="width: 30rem; margin-left: auto; margin-right: auto;">
-    {% include 'partials/trainingbits_grid.html' with trainingbits=suggested_trainingbits hide_part_of=True extra_classes='medium' %}
-    </div>
-  {% else %}
-    <p>Sorry! We have no suggestions for you at the moment.
-    Maybe you have already completed all Training Bits?</p>
-  {% endif %}
-  <a class="close-reveal-modal">&#215;</a>
 </div>
 
 <div id="trainingbit-failed-submit-modal" class="reveal-modal tiny" data-reveal>
@@ -276,10 +265,15 @@ $(document).ready(function() {
         }
         $modal.foundation('reveal', 'open');
       },
-      success: function() {
+      success: function(data) {
+        $('#trainingbit-completed-modal').html(data.modal_html);
         $('#trainingbit-completed-modal').foundation('reveal', 'open');
-        $('#project-form').resetForm();
+
+        var $project = $(data.project_html).fadeIn(1000);
+        $('#project-list').prepend($project);
+
         {# $('#project-form').clearForm(); #}
+        $('#project-form').resetForm();
       },
     });
   });

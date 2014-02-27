@@ -52,11 +52,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_taking_skill(self, skill):
         return skill in self.skills_in_progress.all()
 
+    def complete_skill(self, completed_skill):
+        skills = self.complete_skills([complete_skill])
+        return skills[0]
+
+    def complete_skills(self, completed_skills):
+        self.skills_in_progress.remove(*completed_skills)
+        self.skills_completed.add(*completed_skills)
+        return completed_skills
+
     def has_completed_skill(self, skill):
         return skill in self.skills_completed.all()
 
     def is_taking_trainingbit(self, trainingbit):
         return trainingbit in self.trainingbits_in_progress.all()
+
+    def complete_trainingbit(self, completed_trainingbit):
+        tbs = self.complete_trainingbits([completed_trainingbit])
+        return tbs[0]
+
+    def complete_trainingbits(self, completed_trainingbits):
+        self.trainingbits_in_progress.remove(*completed_trainingbits)
+        self.trainingbits_completed.add(*completed_trainingbits)
+        return completed_trainingbits
 
     def has_completed_trainingbit(self, trainingbit):
         return trainingbit in self.trainingbits_completed.all()
