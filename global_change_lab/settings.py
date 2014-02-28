@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'django_sortable',
     'solo',
     'sortedm2m',
+    'inplaceeditform',
 
     'allauth',
     'allauth.account',
@@ -254,3 +255,8 @@ import django.contrib.messages as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'alert' # foundation 5 uses 'alert' as its 'error'-class
 }
+
+# django-inplacedit
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.request',
+)

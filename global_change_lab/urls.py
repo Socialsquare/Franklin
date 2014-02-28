@@ -39,6 +39,9 @@ urlpatterns = patterns('',
     # django-comments-xtd
     url(r'^comments/', include('django_comments_xtd.urls')),
 
+    # django-inplaceedit
+    (r'^inplaceeditform/', include('inplaceeditform.urls')),
+
     # django.contrib.admin
     url(r'^admin/', include(admin.site.urls)),
 

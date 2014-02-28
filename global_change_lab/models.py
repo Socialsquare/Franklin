@@ -32,8 +32,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Content
     username = models.CharField(max_length=40, unique=True)
-    email = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='trainingbits', null=True)
+    email = models.CharField(max_length=100, blank=True)
+    image = models.ImageField(upload_to='trainingbits', null=True, blank=True)
     description = models.TextField(blank=True)
 
     # Relations

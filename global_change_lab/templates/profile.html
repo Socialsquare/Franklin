@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% load static %}
+  {% load inplace_edit %}
+
+
 {% block scripts %}
 <script src="{% static 'global_change_lab/js/fileupload.min.js' %}"></script>
 {% endblock %}
@@ -37,10 +40,9 @@
   </div>
   <div class="large-10 columns">
     <h1>{{ some_user.username }}</h1>
-    <h1>{{ some_user.first_name }} {{ some_user.last_name }}</h1>
       {% if some_user == request.user %}
-    <p class="description edit">
-        {{ some_user.description }}
+    <p class="description inplaceedit">
+        {% inplace_edit 'some_user.description' edit_empty_value="Write about your self here" %}
       {% else %}
     <p class="description">
         {{ some_user.description }}
@@ -85,6 +87,8 @@
     </ul>
   </div>
 </div>
+
+<hr>
 
 
 {# <dt>Joined on: </dt><dd>{{ some_user.date_joined }}</dd> #}

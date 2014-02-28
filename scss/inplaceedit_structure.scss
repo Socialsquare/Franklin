@@ -1,0 +1,98 @@
+@import "foundation";
+
+form.inplaceeditform {
+  button {
+    padding: rem-calc(3px);
+  }
+}
+
+/* @import "scss/entypo"; */
+/* @import "scss/_settings"; */
+/*  */
+/*  */
+/*  */
+/* button.apply, button.applyFile, button.cancel { */
+/*   font-family: 'EntypoRegular'; */
+/*   font-size: 2rem; */
+/*   padding: 0; */
+/*   background-color: transparent !important; */
+/*   margin: 0; */
+/* } */
+/*  */
+/* button.apply, button.applyFile { */
+/*   &:before { */
+/*     content:'\2713'; */
+/*   } */
+/*   color: green; */
+/* } */
+/* button.cancel { */
+/*   &:before { content:'\274C'; } */
+/*   color: $gcl-red; */
+/* } */
+/*  */
+/*  */
+/* button.cancel span, */
+/* button.apply span, */
+/* button.applyFile span { */
+/*   visibility: hidden; */
+/* } */
+/*  */
+/* .errors  { */
+/*     list-style: none; */
+/*     list-style-image: none !important; */
+/*     padding: 0; */
+/*     margin: 0; */
+/*     margin-bottom: 5px; */
+/* } */
+/*  */
+/* .errors li { */
+/*     border: 1px solid #f57901; */
+/*     margin: 0; */
+/*     padding: 5px 5px 5px 5px; */
+/*     background-color: #fbe8d5; */
+/*     vertical-align: middle; */
+/* } */
+/*  */
+/* .errors img { */
+/*     text-decoration: none; */
+/*     border: none; */
+/*     vertical-align: bottom; */
+/* } */
+/*  */
+/* .success  { */
+/*     list-style: none; */
+/*     list-style-image: none !important; */
+/*     padding: 0; */
+/*     margin: 0; */
+/*     margin-bottom: 5px; */
+/* } */
+/*  */
+/* .success li { */
+/*     border: 1px solid #118811; */
+/*     margin: 0; */
+/*     padding: 5px 5px 5px 5px; */
+/*     background-color: #BAFFB2; */
+/*     color: #118811; */
+/*     vertical-align: middle; */
+/* } */
+/*  */
+/* .success img { */
+/*     text-decoration: none; */
+/*     border: none; */
+/*     vertical-align: bottom; */
+/* } */
+/*  */
+/* .missing-translation { */
+/*     display: block; */
+/*     color: red; */
+/*     text-align: center; */
+/* } */
+/*  */
+/* form.inplaceeditform input[type=file] { */
+/*     margin-right: 100px; */
+/* } */
+/*  */
+/* form.inplaceeditform { */
+/*     display: inline; */
+/* } */
+/*  */

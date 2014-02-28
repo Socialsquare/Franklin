@@ -25,6 +25,11 @@
     }
   </script>
   
+
+  {# {% django-inplaceedit %} #}
+  {% load inplace_edit %}
+  {% inplace_static %}
+
   {% block scripts %}
   {% endblock %}
   <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}" />
