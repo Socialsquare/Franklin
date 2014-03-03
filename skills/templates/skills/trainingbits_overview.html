@@ -6,7 +6,7 @@
 <div class="page-buttons">
   {# Topics #}
     {% if topic_chosen %}
-      <a href="{% url 'skills:trainingbits_overview' topic_chosen.name %}" class="button sorting" data-dropdown="skill-all-topics">
+      <a href="{% url 'skills:trainingbits_overview' topic_chosen.slug %}" class="button sorting" data-dropdown="skill-all-topics">
         {{ topic_chosen.name }}
         <span class="icon triangle-down red"></span>
       </a>
@@ -19,7 +19,7 @@
   <ul id="skill-all-topics" class="f-dropdown" data-dropdown-content>
     {% for topic in topics %}
       {# {% if topic != topic_chosen %} #}
-      <li><a href="{% url 'skills:trainingbits_overview' topic.name %}">{{ topic.name }}</a></li>
+      <li><a href="{% url 'skills:trainingbits_overview' topic.slug %}">{{ topic.name }}</a></li>
       {# {% endif %} #}
     {% endfor %}
     {# {% if topic_chosen %} #}

@@ -9,6 +9,7 @@ from datetime import datetime
 
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ['skills.models.AutoDateTimeField'])
+
 # Don't use `auto_now` and `auto_now_add`:
 #   http://stackoverflow.com/questions/1737017/django-auto-now-and-auto-now-add/1737078#1737078
 #   https://groups.google.com/forum/#!topic/django-developers/TNYxwiXLTlI
@@ -19,6 +20,8 @@ class AutoDateTimeField(models.DateTimeField):
 
 # Create your models here.
 class TrainingBit(models.Model):
+
+
     LABELS = (
         ('I', 'Inspiration'),
         ('B', 'Background'),
@@ -130,6 +133,9 @@ class Topic(models.Model):
     # Relations
     trainingbits = models.ManyToManyField(TrainingBit, blank=True, null=True)
     skills = models.ManyToManyField(Skill, blank=True, null=True)
+
+    # Semantic URLs
+    slug = models.CharField(max_length=100, blank=False, unique=True)
 
     def clean(self):
         # always be lowercase

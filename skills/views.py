@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
+from django.utils.text import slugify
 
 import django.contrib.messages as messages
 from permission.decorators import permission_required
@@ -15,10 +16,10 @@ from django_sortable.helpers import sortable_helper
 import json
 
 
-def skills_overview(request, topic_name=None, show_hidden=False):
+def skills_overview(request, topic_slug=None, show_hidden=False):
     # Show from topic
-    if topic_name is not None:
-        topic = get_object_or_404(Topic, name=topic_name)
+    if topic_slug is not None:
+        topic = get_object_or_404(Topic, slug=topic_slug)
         skills = topic.skills.all()
     else:
         topic = None
@@ -200,9 +201,9 @@ def skill_edit(request, skill_id=None):
     })
 
 
-def trainingbits_overview(request, topic_name=None):
-    if topic_name is not None:
-        topic = get_object_or_404(Topic, name=topic_name)
+def trainingbits_overview(request, topic_slug=None):
+    if topic_slug is not None:
+        topic = get_object_or_404(Topic, slug=topic_slug)
         trainingbits = topic.trainingbits.all()
     else:
         topic = None
@@ -473,7 +474,9 @@ def topic_new(request):
         form = TopicForm(request.POST)
         if form.is_valid():
             # Save
-            topic = form.save()
+            topic = form.save(commit=False)
+            topic.slug = slugify(topic.name)
+            topic.save()
             # messages.success(request, 'Project was successfully saved')
 
             if request.is_ajax():
