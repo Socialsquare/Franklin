@@ -16,6 +16,15 @@ from django_sortable.helpers import sortable_helper
 import json
 
 
+
+def shares_overview(request):
+
+    return render(request, 'skills/shares_overview.html', {
+        'projects': Project.objects.all().order_by('-created_at')[:5],
+        'comments': Comment.objects.all().order_by('-created_at')[:9],
+    })
+
+
 def skills_overview(request, topic_slug=None, show_hidden=False):
     # Show from topic
     if topic_slug is not None:

@@ -101,8 +101,7 @@
           <ul class="left">
             <li><a href="{% url 'skills:skills_overview' %}">Skills</a></li>
             <li><a href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
-            <li><a href="/user/list">Users</a></li>
-            <li><a href="/user/updates">Updates <span class="update-count">6</span></a></li>
+            <li><a href="{% url 'skills:shares_overview' %}">Shares</a></li>
           </ul>
           {% endif %}
 

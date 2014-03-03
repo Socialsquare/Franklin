@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block body-classes %}shares-overview{% endblock %}
+
+{% block content %}
+<div class="columns medium-6">
+  <h1 class="white-on-red">Latest projects</h1>
+
+  <!-- <hr> -->
+
+  {% include 'partials/project_list.html' %}
+</div>
+<div class="columns medium-6">
+  <h1 class="white-on-red">Latest projects</h1>
+
+  <!-- <hr> -->
+
+  {% include 'skills/partials/comment_list.html' %}
+</div>
+{% endblock %}
