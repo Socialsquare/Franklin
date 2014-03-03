@@ -1,12 +1,17 @@
 
+body.trainingbit-view {
+  overflow-x: hidden; // HACK #fullwidth-bg
 }
 
 .trainingbit {
   h1 {
-    @extend %text-white-on-red;
+    @extend %text-white-on-darkgray;
   }
 
   .trainingbit-section {
+    padding-top: rem-calc(20px);
+    padding-bottom: rem-calc(20px);
+
     &>ul {
       margin-left: 0;
 
@@ -17,6 +22,10 @@
 
     &#act {
       background-color: $gcl-lightgray;
+      margin-left:-100%;   // HACK #fullwidth-bg
+      padding-left: 100%;  // HACK #fullwidth-bg
+      margin-right:-100%;  // HACK #fullwidth-bg
+      padding-right: 100%; // HACK #fullwidth-bg
     }
   }
 }

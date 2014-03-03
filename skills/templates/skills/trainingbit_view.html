@@ -8,6 +8,8 @@
 {% endblock %}
 
 
+{% block body-classes %}trainingbit-view{% endblock %}
+
 {% block content %}
 
 <div class="page-buttons">
@@ -37,6 +39,9 @@
   <h1>{{ trainingbit.name }}</h1>
 </div>
 
+
+
+{% comment %}
 {% if request.user.is_authenticated %}
   {% if request.user|has_completed_trainingbit:trainingbit %}
     You have completed this training bit!
@@ -49,20 +54,22 @@
     {% endif %}
   {% endif %}
 {% endif %}
+{% endcomment %}
 
 <hr>
 
 <div class="trainingbit">
-  <h1>Learn</h1>
+  <p class="trainingbit-description">{{ trainingbit.description }}</p>
   <div id="learn" class="trainingbit-section">
+    <h1>1. Learn</h1>
     <ul></ul>
   </div>
-  <h1>Act</h1>
   <div id="act" class="trainingbit-section">
+    <h1>2. Act</h1>
     <ul></ul>
   </div>
-  <h1>Share</h1>
   <div id="share" class="trainingbit-section">
+    <h1>3. Share</h1>
     <ul></ul>
     <form id="project-form" action="{% url 'skills:trainingbit_view' trainingbit.id %}" method="POST"  enctype="multipart/form-data">
       {% csrf_token %}
