@@ -1,18 +1,4 @@
 
-#trainingbit-cover {
-
-  height: rem-calc(120px);
-  background-repeat: no-repeat;
-  position: relative;
-
-  h1 {
-    @extend %white-on-red;
-    display: inline-block;
-    position: absolute;
-    left: rem-calc(25px);
-    bottom: rem-calc(10px);
-  }
-
 }
 
 .trainingbit {

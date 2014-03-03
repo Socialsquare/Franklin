@@ -31,7 +31,12 @@
     <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
   {% endpermission %}
 </div>
-{% include 'skills/partials/trainingbit_cover.html' %}
+
+{# Training Bit COVER #}
+<div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
+  <h1>{{ trainingbit.name }}</h1>
+</div>
+
 {% if request.user.is_authenticated %}
   {% if request.user|has_completed_trainingbit:trainingbit %}
     You have completed this training bit!

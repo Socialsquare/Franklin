@@ -52,29 +52,36 @@ Offline.on('up', function() {
     <a href="{% url 'skills:trainingbit_view' trainingbit.id %}" class="button info">View training bit</a>
 </div>
 
-  {% include 'skills/partials/trainingbit_cover.html' %}
-  <h1 class="white-on-red">1. Learn</h1>
-  <div class="trainingbit-content-editor learn-section" id="learn-edit">
-    <ul>
-    </ul>
-
-    <div class="row trainingbit-content-editor-toolbar">
-    </div>
+  {# Training Bit COVER #}
+  <div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
+    <h1>{{ trainingbit.name }}</h1>
   </div>
+  <p class="trainingbit-description">{{ trainingbit.description }}</p>
 
-  <h1 class="white-on-red">2. Act</h1>
-  <div class="trainingbit-content-editor act-section" id="act-edit">
-    <ul>
-    </ul>
+  <div class="trainingbit">
+    <h1>1. Learn</h1>
+    <div class="trainingbit-content-editor learn-section" id="learn-edit">
+      <ul>
+      </ul>
 
-    <div class="row trainingbit-content-editor-toolbar">
+      <div class="row trainingbit-content-editor-toolbar">
+      </div>
     </div>
-  </div>
-  <h1 class="white-on-red">3. Share</h1>
-  <div class="trainingbit-content-editor share-section" id="share-edit">
-    <ul>
-    </ul>
-    <div class="row trainingbit-content-editor-toolbar">
+
+    <h1>2. Act</h1>
+    <div class="trainingbit-content-editor act-section" id="act-edit">
+      <ul>
+      </ul>
+
+      <div class="row trainingbit-content-editor-toolbar">
+      </div>
+    </div>
+    <h1>3. Share</h1>
+    <div class="trainingbit-content-editor share-section" id="share-edit">
+      <ul>
+      </ul>
+      <div class="row trainingbit-content-editor-toolbar">
+      </div>
     </div>
   </div>
 

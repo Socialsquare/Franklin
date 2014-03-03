@@ -1,3 +1,49 @@
+#trainingbit-cover {
+
+  height: rem-calc(300px);
+  background-repeat: no-repeat;
+  background-position: 0% 30%;
+  background-size: cover;
+
+  position: relative;
+
+
+  h1 {
+    @extend %white-on-red;
+    display: inline-block;
+    position: absolute;
+    left: rem-calc(25px);
+    bottom: rem-calc(100px);
+  }
+
+  margin-bottom: rem-calc(30px);
+
+}
+
+p.trainingbit-description {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+
+.main-column {
+  padding-left: rem-calc(40px);
+  padding-right: rem-calc(40px);
+
+}
+
+.sidebar {
+  padding-left: rem-calc(30px);
+  padding-right: rem-calc(30px);
+  border-left: 1px solid $gcl-lightgray;
+
+  ul {
+    font-size: rem-calc(12px);
+    line-height: 1.8;
+    font-weight: 500;
+    color: $gcl-lightgray !important;
+  }
+}
+
 
 .start-trainingbit-container {
   text-align: center;

@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
-{% include 'skills/partials/trainingbit_cover.html' %}
-{# {% include 'partials/trainingbits_grid.html' %} #}
-<div class="start-trainingbit-container">
-  <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button success small">Start this training bit</a>
+<div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
+  <h1>{{ trainingbit.name }}</h1>
 </div>
-
-<hr>
 <div class="row">
-  <div class="medium-7 columns">
-    <h2>Shared projects</h2>
+  <div class="columns medium-9 main-column">
+    <p class="trainingbit-description">{{ trainingbit.description }}</p>
+    <div class="start-trainingbit-container">
+      <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button success small">Start this training bit</a>
+    </div>
+    <hr>
+    <h2>Shared by others</h2>
     {% include 'partials/project_list.html' %}
   </div>
-  <div class="medium-5 columns">
-    <h3>In skills</h3>
-    {% include 'skills/partials/skill_list_small.html' with skills=trainingbit.skill_set.all %}
+  <div class="columns medium-3 sidebar">
+    <h5>Included in these skills</h5>
+    <ul class="no-bullet">
+      {% for skill in trainingbit.skill_set.all %}
+      <li><a href="{{ skill.get_absolute_url }}">{{ skill.name }}</a></li>
+      {% endfor %}
     </ul>
   </div>
+</div>
+<div class="row">
+  <h2>Related training bits</h2>
+  {#{% include 'skills/partials/trainingbit_grid.html' with
+  skills=trainingbit.skill_set.all %}#}
 </div>
 
 {% endblock %}
