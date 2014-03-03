@@ -1,0 +1,10 @@
+
+<div id="comment-list">
+{% if comments %}
+{% for comment in comments %}
+  {% include 'skills/partials/comment_entry.html' %}
+{% endfor %}
+{% else %}
+  <div class="message-missing">No comments yet</div>
+{% endif %}
+</div>

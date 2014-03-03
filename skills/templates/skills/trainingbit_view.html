@@ -73,7 +73,7 @@
     <ul></ul>
     <form id="project-form" action="{% url 'skills:trainingbit_view' trainingbit.id %}" method="POST"  enctype="multipart/form-data">
       {% csrf_token %}
-      <input name="title" placeholder="Title" class="title">
+      <input name="name" placeholder="Title" class="title">
       <textarea name="content" placeholder="Write your thoughts about this training bit"></textarea>
       <input type="file" name="image">
       <button class="share-button">Share, and complete training bit</button>

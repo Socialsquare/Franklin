@@ -8,8 +8,8 @@ from django.utils.text import slugify
 import django.contrib.messages as messages
 from permission.decorators import permission_required
 
-from skills.models import Skill, TrainingBit, Project, Topic
-from skills.forms import ProjectForm, TopicForm
+from skills.models import Skill, TrainingBit, Topic, Project, Comment
+from skills.forms import ProjectForm, CommentForm, TopicForm
 
 from django_sortable.helpers import sortable_helper
 
@@ -475,6 +475,7 @@ def topic_new(request):
         if form.is_valid():
             # Save
             topic = form.save(commit=False)
+            topic.author = request.user
             topic.slug = slugify(topic.name)
             topic.save()
             # messages.success(request, 'Project was successfully saved')
@@ -489,6 +490,7 @@ def topic_new(request):
                 return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
 
     return HttpResponseRedirect(reverse('trainer_dashboard'))
+
 
 @csrf_protect
 def topic_delete(request, topic_pk):
@@ -511,3 +513,37 @@ def topic_delete(request, topic_pk):
         else:
             messages.error(request, 'You don\'t have permission to delete this topic')
             return HttpResponseRedirect(reverse('trainer_dashboard'))
+
+
+@csrf_protect
+def comment_post(request):
+    if request.method == 'POST': # If the form has been submitted...
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            # Save
+            comment = form.save(commit=False)
+            comment.author = request.user
+            project = comment.project
+            # comment.project = project
+            comment.save()
+            messages.success(request, 'Comment was successfully saved')
+        else:
+            messages.success(request, 'Comment could not be saved: %s' % form.errors)
+
+        try:
+            return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[project.trainingbit.pk]))
+        except UnboundLocalError:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    return HttpResponseRedirect(reverse('front_page'))
+
+
+@csrf_protect
+def comment_delete(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    comment.is_deleted = True
+    comment.save()
+    messages.success(request, 'Comment was successfully deleted')
+
+    return HttpResponseRedirect(reverse('front_page'))
+

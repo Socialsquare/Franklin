@@ -34,4 +34,11 @@ urlpatterns = patterns('',
     # Topic URLs
     url(r'^topic/new/?$', 'skills.views.topic_new', name='topic_new'),
     url(r'^topic/delete/(\d+)/?$', 'skills.views.topic_delete', name='topic_delete'),
+
+    # Comment URLs (projects, comments)
+    url(r'^comment/post/?$', 'skills.views.comment_post', name="comment_post"),
+    url(r'^comment/delete/(\d+)/?$', 'skills.views.comment_delete', name="comment_delete"),
+
+    # Share URLs (projects, comments)
+    url(r'^shares/?$', 'skills.views.shares_overview', name="shares_overview"),
 )

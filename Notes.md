@@ -243,6 +243,17 @@ After having added `authority` to `INSTALLED_APPS` I got the following error
 ### django-permissionx
 Didn't like it. But maybe it deserves a revisit.
 
+Comments
+--------
+Originally is was using django-comments-xtd on top of django.contrib.commments.
+But the `django.contrib.commments` is very "flat" and has an deprecated way of
+doing things which just doesn't play well if you want do almost any kind of
+customization. It has "just put this in your template and you will have some
+simple comments" mindset, which doesn't have a good support system for
+customizing how the user interacts with the system and how to display the
+comments in different situations.
+
+_So I rolled my own_. Sorry, about that, I hope it doesn't bite too much.
 
 Email service
 -------------

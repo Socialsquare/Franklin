@@ -43,12 +43,10 @@ INSTALLED_APPS = (
 
     # requirements
     'django.contrib.sites', # requirement for django-allauth
-    'django.contrib.comments', # requirement for django-comments-xtd
 
     # django packages
     'south',
     'storages',
-    'django_comments_xtd',
     'permission',
     'django_sortable',
     'solo',
@@ -245,10 +243,6 @@ AUTHENTICATION_BACKENDS += (
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend",
 )
-
-# django-comments-xtd
-COMMENTS_APP = 'django_comments_xtd'
-COMMENTS_XTD_MAX_THREAD_LEVEL = 2
 
 # django.contrib.messages
 import django.contrib.messages as messages

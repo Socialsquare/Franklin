@@ -1,8 +1,7 @@
-{% load comments %}
 
 <div class="project" id="project-{{ project.id }}">
   {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
-    <h6 class="title">{{ project.title }}</h6><span class="date">{{ project.created_at }}</span>
+    <h6 class="title">{{ project.name }}</h6><span class="date">{{ project.created_at }}</span>
   {% if not hide_links %}</a>{% endif %}
 
   {% if not hide_user %}
@@ -14,7 +13,15 @@
   {% endif %}
   {% if not hide_comments %}
     {# Comments section #}
-    {% render_comment_list for project %}
-    {% render_comment_form for project %}
+    {% include 'skills/partials/comment_list.html' with comments=project.comment_set.all %}
+    <a href="#">Comment on this project</a>
+    <div >
+      <form action="{% url 'skills:comment_post' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="project" value="{{ project.pk }}">
+        <textarea name="text"></textarea>
+        <button>Comment</button>
+      </form>
+    </div>
   {% endif %}
 </div>

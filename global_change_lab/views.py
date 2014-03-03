@@ -59,26 +59,11 @@ from django.contrib import comments
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 def trainer_dashboard(request):
-    dem_comments = []
-    for trainingbit in request.user.trainingbit_set.all():
-        #comments += trainingbit.comments_comment.all()
-        #print(trainingbit.comments_comment.CommentFlag)
-
-        dem_comments += comments.get_model().objects.filter(
-                    content_type = ContentType.objects.get_for_model(trainingbit),
-                    object_pk = trainingbit.pk,
-                    site__pk = settings.SITE_ID,
-                    flags=True
-               )
 
     return render(request, 'trainer_dashboard.html', {
         'trainingbits': request.user.trainingbit_set.all(),
         'skills': request.user.skill_set.all(),
         'topics': Topic.objects.all(),
-
-        # comments
-        'comments': dem_comments,
-        'comment_count': len(dem_comments),
     })
 
 def statistics(request):
