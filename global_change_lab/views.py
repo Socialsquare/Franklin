@@ -87,26 +87,39 @@ def statistics(request):
         'skills': Skill.objects.all(),
     })
 
+def get_user_statistics():
+    one_week_ago  = datetime.now() - timedelta(days = 7)
+    one_month_ago = datetime.now() - timedelta(days = 30)
+    one_year_ago  = datetime.now() - timedelta(days = 365)
+    num_users_last_week  = len(User.objects.filter(datetime_joined__gt = one_week_ago  ).distinct())
+    num_users_last_month = len(User.objects.filter(datetime_joined__gt = one_month_ago ).distinct())
+    num_users_last_year  = len(User.objects.filter(datetime_joined__gt = one_year_ago  ).distinct())
+
+    return {
+        "num_users_last_week": num_users_last_week,
+        "num_users_last_month": num_users_last_month,
+        "num_users_last_year": num_users_last_year,
+    }
+
+
 def admin_dashboard(request):
     num_users = len(User.objects.distinct())
-
-    one_month_ago = datetime.now() - timedelta(days=30)
-    num_users_last_month = len(User.objects.filter(date_joined__gt=one_month_ago  ).distinct())
-
-    return render(request, 'admin_dashboard.html', {
+    template_dict = {
         "num_users": num_users,
-        "num_users_last_month": num_users_last_month,
-        })
+    }
+    template_dict.update(get_user_statistics())
+
+    return render(request, 'admin_dashboard.html', template_dict)
 
 def admin_users_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="users.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(["username", "date_joined", "name", "email", ])
+    writer.writerow(["username", "datetime_joined", "name", "email", ])
 
     for user in User.objects.distinct():
-        writer.writerow([user.username, user.date_joined, user.get_full_name(), user.email, ])
+        writer.writerow([user.username, user.datetime_joined, user.get_full_name(), user.email, ])
 
     return response
 
@@ -115,14 +128,13 @@ def admin_statistics_csv(request):
     response['Content-Disposition'] = 'attachment; filename="statistics.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(["num_users", "num_users_last_month"])
+    writer.writerow(["num_users", 'num_users_last_week', 'num_users_last_month', 'num_users_last_year'])
 
     num_users = len(User.objects.distinct())
 
-    one_month_ago = datetime.now() - timedelta(days=30)
-    num_users_last_month = len(User.objects.filter(date_joined__gt=one_month_ago  ).distinct())
+    d = get_user_statistics()
 
-    writer.writerow([num_users, num_users_last_month])
+    writer.writerow([num_users, d['num_users_last_week'], d['num_users_last_month'], d['num_users_last_year']])
 
     return response
 
@@ -178,10 +190,10 @@ def profile(request, user_id=None):
 
 
 def user_list(request):
-    # `date_joined`  means ascending
-    # `-date_joined` means descending
-    # `+date_joined` doesn't exist and will result in an error(!)
-    new_users = User.objects.all().order_by('-date_joined')
+    # `datetime_joined`  means ascending
+    # `-datetime_joined` means descending
+    # `+datetime_joined` doesn't exist and will result in an error(!)
+    new_users = User.objects.all().order_by('-datetime_joined')
     print(new_users)
 
     return render(request, 'user_list.html', {

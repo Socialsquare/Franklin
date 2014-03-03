@@ -7,6 +7,8 @@ from allauth.account.models import EmailAddress
 
 from skills.models import Skill, TrainingBit
 
+from datetime import datetime
+
 # USERTYPES = (
 #     ('user', 'User'),
 #     ('trainer', 'Trainer'),
@@ -22,13 +24,12 @@ class CustomUserManager(UserManager):
         return user
 
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
     USERNAME_FIELD = 'username'
 
     # Metadata
-    date_joined = models.DateField(auto_now_add=True)
+    datetime_joined = models.DateTimeField(default=datetime.now)
 
     # Content
     username = models.CharField(max_length=40, unique=True)
