@@ -36,12 +36,18 @@ body.skill-view {
   li {
     height: $skill-height;
     margin-bottom: 2rem;
-
+    // padding-right: 1rem;
 
     &>div.columns {
       height: $skill-height;
       float: left;
       padding:0;
+
+      img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
 
       &.description {
         padding-left: 0.5rem;
@@ -60,6 +66,10 @@ body.skill-view {
   // Those big-ass fonts on skills
   div.description h2 {
     font-size: rem-calc(23px);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: rem-calc(3px);
   }
 }
 
