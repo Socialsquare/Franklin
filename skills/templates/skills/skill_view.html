@@ -2,6 +2,7 @@
 
 {% load permissionif %}
 {% load user_skills %}
+{% load staticfiles %}
 
 {% block body-classes %}skill-view{% endblock %}
 
@@ -27,7 +28,11 @@
   {% endpermission %}
 </div>
 <div id="skill-cover">
-  <img src="{{ skill.getImage }}">
+  {% if skill in request.user.skills_completed.all %}
+  <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
+  {% else %}
+  <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
+  {% endif %}
   <h1>{{skill.name}}</h1>
   <p class="skill-description">{{skill.description}}</p>
   {% if request.user.is_authenticated %}

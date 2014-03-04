@@ -126,7 +126,6 @@ class Skill(TimedModel, AuthoredModel):
     # Content
     name = models.CharField(max_length=30)
     description = models.TextField()
-    image = models.ImageField(upload_to='trainingbits', default='defaultimage')
 
     # Relations
     #   optional relation to training bits (i.e. a skill does _have_ to have a
@@ -135,12 +134,6 @@ class Skill(TimedModel, AuthoredModel):
 
     # Flags
     is_public = models.BooleanField(default=True)
-
-    def getImage(self):
-        if self.image:
-            return self.image.url
-        else:
-            return 'defaultimage'
 
     def __str__(self):
         return self.name

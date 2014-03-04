@@ -1,9 +1,16 @@
+{% load staticfiles %}
 
 <div class="skill-list-small">
 {% for skill in skills %}
   <a href="{% url 'skills:skill_view' skill.id %}">
   <div class="row">
-    <div class="image-column"> <img src="{{ skill.getImage }}" alt="Skill image"> </div>
+    <div class="image-column">
+      {% if skill in request.user.skills_completed.all %}
+      <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
+      {% else %}
+      <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
+      {% endif %}
+    </div>
     <div class="name-column"><h3 class="skill-name">{{skill.name}}</h3></div>
   </div>
   </a>
