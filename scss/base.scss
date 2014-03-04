@@ -106,6 +106,10 @@ header.top-bar {
         display: inline-block;
       }
 
+      &.current a {
+        background-color: $gcl-midgray !important;
+      }
+
       a {
         @include rounded(rem-calc(2px));
         font-weight: bold;

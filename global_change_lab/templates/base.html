@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load permissionif %}
 {% load solo_tags %}
+{% load current from navigation %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,9 +100,9 @@
           {% if request.user.is_authenticated %}
           <!-- Left Nav Section -->
           <ul class="left">
-            <li><a href="{% url 'skills:skills_overview' %}">Skills</a></li>
-            <li><a href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
-            <li><a href="{% url 'skills:shares_overview' %}">Shares</a></li>
+            <li class="{% current 'skills:skills_overview' %}"><a href="{% url 'skills:skills_overview' %}">Skills</a></li>
+            <li class="{% current 'skills:trainingbits_overview' %}"><a href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
+            <li class="{% current 'skills:shares_overview' %}"><a href="{% url 'skills:shares_overview' %}">Shares</a></li>
           </ul>
           {% endif %}
 
