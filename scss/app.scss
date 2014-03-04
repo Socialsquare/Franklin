@@ -173,6 +173,40 @@ h1 {
   margin-bottom: 1rem;
 }
 
+#info-box {
+  background-color: $gcl-browngray;
+  padding-top: rem-calc(22px);
+  padding-bottom: rem-calc(22px);
+  padding-left: rem-calc(30px);
+
+  p {
+    max-width: rem-calc(600px);
+    font-weight: 200;
+
+    &:last-of-type { margin-bottom: 0; }
+  }
+
+  a.close {
+    position: absolute;
+    top: rem-calc(10px);
+    right: rem-calc(10px);
+    margin-top: 1rem;
+
+    padding-left: rem-calc(5px);
+    padding-right: rem-calc(5px);
+    padding-top: 0;
+    padding-bottom: 0.35rem;
+
+    @include rounded(3px);
+
+    line-height: 0.8;
+    font-size: 1.9rem;
+
+    background-color: $gcl-red;
+    color: white;
+  }
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

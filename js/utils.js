@@ -70,4 +70,9 @@ $(document).ready(function() {
     }
     e.preventDefault();
   });
+
+  $('#info-box a.close').click(function(e) {
+    e.preventDefault();
+    $('#info-box').fadeOut(1300);
+  });
 });
