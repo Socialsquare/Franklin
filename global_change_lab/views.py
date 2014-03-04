@@ -37,12 +37,24 @@ def new_user_suggestions(request):
         trainingbits = []
         skills = []
         for topic in topics[:4]:
-            trainingbits += topic.trainingbits.all()[:2]
-            skills += topic.skills.all()[:2]
+            trainingbit_pks = [t.pk for t in trainingbits]
+            trainingbits += topic.trainingbits.exclude(pk__in=trainingbit_pks)[:2]
+            skill_pks = [t.pk for t in skills]
+            skills += topic.skills.exclude(pk__in=skill_pks)[:2]
+            # trainingbits += topic.trainingbits.all()[:2].distinct()
+            # skills += topic.skills.all()[:2].distinct()
+
+        if len(trainingbits) < 4:
+            missing_count = 4 - len(trainingbits)
+            trainingbits += TrainingBit.objects.all()[:missing_count]
+
+        if len(skills) < 4:
+            missing_count = 4 - len(skills)
+            skills += Skill.objects.all()[:missing_count]
 
         return render(request, 'new_user_suggestions.html', {
-            'trainingbits': trainingbits,
-            'skills': skills,
+            'trainingbits': trainingbits[:4],
+            'skills': skills[:4],
         })
     else:
         return HttpResponseRedirect(reverse('new_user'))
