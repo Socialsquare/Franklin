@@ -127,6 +127,10 @@ h1, h2, h3, h4, h5, h6 {
   &.white-on-red {
     display: inline-block;
   }
+
+  span {
+    font-size: inherit;
+  }
 }
 
 %text-white-on-darkgray {
