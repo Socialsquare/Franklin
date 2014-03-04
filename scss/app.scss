@@ -109,9 +109,15 @@
   color: $gcl-red;
 }
 
+@mixin text-colored-background {
+  padding-left: rem-calc(5px);
+  padding-right: rem-calc(5px);
+}
+
 @mixin white-on-red {
   background-color: $gcl-red;
   color: white;
+  @include text-colored-background;
 }
 %white-on-red {
   @include white-on-red;
@@ -133,12 +139,17 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
 %text-white-on-darkgray {
   background-color: $gcl-darkgray;
   color: white;
   display: inline-block;
+  @include text-colored-background;
 }
 
+.white-on-darkgray {
+  @extend %text-white-on-darkgray;
+}
 
 $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
 span {
