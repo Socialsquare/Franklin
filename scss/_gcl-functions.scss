@@ -44,3 +44,13 @@
   -moz-transform: $value;
   -webkit-transform: $value;
 }
+
+@mixin gradient($color_start, $color_stop) {
+  background: #1e5799; /* Old browsers */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $color_start), color-stop(100%, $color_stop)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, $color_start 0%, $color_stop 100%); /* Chrome10+,Safari5.1+ */
+  background: -moz-linear-gradient(top,    $color_start 0%, $color_stop 100%); /* FF3.6+ */
+  background: -o-linear-gradient(top,      $color_start 0%, $color_stop 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,     $color_start 0%, $color_stop 100%); /* IE10+ */
+  background: linear-gradient(to bottom,   $color_start 0%, $color_stop 100%); /* W3C */
+}

@@ -7,7 +7,11 @@
   {% if not hide_user %}
     <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
   {% endif %}
-  <p>{{ project.content }}</p>
+  <div class="content">
+    <p>{{ project.content }}</p>
+    <div class="shower"><a href="#" class="expand">Expand text</a></div>
+    <div class="hider"><a href="#" class="collapse">Collapse text</a></div>
+  </div>
   {% if project.image %}
   <ul class="clearing-thumbs" data-clearing>
     <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>

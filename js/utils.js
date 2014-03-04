@@ -75,4 +75,35 @@ $(document).ready(function() {
     e.preventDefault();
     $('#info-box').fadeOut(1300);
   });
+
+  $('.project div.content').each(function() {
+    var $this = $(this);
+    var $p = $this.children('p');
+    console.log($p.css('height'), $this.css('max-height'));
+    if ($p.height() < $this.height()) {
+      $this.children('.shower').hide();
+    }
+  });
+
+  $('.project a.expand').click(function(e) {
+    e.preventDefault();
+    var $project_content = $(this).parent().parent();
+    var $shower = $project_content.children('.shower');
+    var $hider = $project_content.children('.hider');
+
+    $project_content.data('previous-max-height', $project_content.css('max-height'));
+    $project_content.css('max-height', 'none');
+    $shower.hide();
+    $hider.show();
+  });
+  $('.project a.collapse').click(function(e) {
+    e.preventDefault();
+    var $project_content = $(this).parent().parent();
+    var $shower = $project_content.children('.shower');
+    var $hider = $project_content.children('.hider');
+
+    $project_content.css('max-height', $project_content.data('previous-max-height'));
+    $hider.hide();
+    $shower.show();
+  });
 });
