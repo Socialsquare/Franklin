@@ -54,8 +54,14 @@ div#new-user-greeter {
   @include grid-row();
 
   h1 {
-    text-align: center;
-    margin-top: 1.5rem;
+    // text-align: center;
+    font-size: 2rem;
+    margin-top: 0.5rem;
     margin-bottom: 1.5rem;
+  }
+
+  div.see-more {
+    text-align: center;
+    padding-top: rem-calc(10px);
   }
 }

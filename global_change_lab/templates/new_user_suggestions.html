@@ -9,21 +9,27 @@
 {% block content %}
 
 
-<div id="new-user-greeter">
-  <div class="row">
-    <div class="centered-message columns small-12 medium-6 small-centered">
-      <h1 class="red">Great! Now check out these skills and training bits</h1>
-    </div>
-  </div>
+<div id="info-box">
+  <p>Front page help text. Skills are different trainings where you practice different skillsets as an activist.</p>
+  <p>Each training consists of a number of Training Bits. Each time you finish a training bit you'll get one step closer to finishing a skill.</p>
+  <a href="#" class="close">&times;</a>
 </div>
 
 <div id="new-user-suggestions">
-  <h1>You might start with these training bits</h1>
+  <h1>You might start with these <span class="white-on-red">training bits</span></h1>
   <div class="row">
-  {% include 'partials/trainingbits_grid.html' %}
+    {% include 'partials/trainingbits_grid.html' %}
+    <div class="see-more">
+      <a class="button" href="{% url 'skills:trainingbits_overview' %}">See more bits</a>
+    </div>
   </div>
-  <h1>or get going with these skills</h1>
-  {% include 'skills/partials/skill_list_large.html' %}
+  <div>
+    <h1>or get going with these <span class="white-on-red">skills</span></h1>
+    {% include 'skills/partials/skill_list_large.html' %}
+    <div class="see-more">
+      <a class="button" href="{% url 'skills:skills_overview' %}">See more skills</a>
+    </div>
+  </div>
 </div>
 
 
