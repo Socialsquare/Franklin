@@ -43,15 +43,19 @@ for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
     <label for="id_password">Password:</label>
     <input id="id_password" type="password" placeholder="Password" name="password"></input>
   </p>
-  <p>
-    <label for="id_remember">Remember me:</label>
-    <input id="id_remember" type="checkbox" name="remember"></input>
-  </p>
+  <div class="bottom">
+    {# <div class="columns medium-6"> #}
+      <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+    {# </div> #}
+    {# <div class="columns medium-6"> #}
+      <input id="id_remember" type="checkbox" name="remember"></input>
+      <label for="id_remember">Remember me</label>{#<br>#}
+      <a class="forgot-password" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    {# </div> #}
+  </div>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
 </form>
 
 {% endblock %}

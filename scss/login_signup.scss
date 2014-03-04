@@ -4,4 +4,35 @@ form.login {
   input[type=text], input[type=password] {
     max-width: rem-calc(270px);
   }
+
+  button {
+    float: left;
+    margin-right: 1rem;
+  }
+
+  input[type=checkbox] {
+    margin: 0 !important; // inplaceedit_structure has some stuff
+    width: 10px;
+  }
+
+  label[for=id_remember] {
+    display: inline;
+    margin: 0 !important; // inplaceedit_structure has some stuff
+  }
+
+  a.forgot-password {
+    margin-left: 0.5rem;
+    color: $primary-color;
+  }
+
+  div.bottom {
+    line-height: 3.5rem;
+    // padding-top: 1rem;
+    // max-width: rem-calc(330px);
+
+    br {
+      // height: 20px;
+      line-height: 0.5;
+    }
+  }
 }
