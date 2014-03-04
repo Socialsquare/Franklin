@@ -43,9 +43,10 @@ h3.shared-by-others {
     font-weight: bold;
     color: $gcl-darkgray;
   }
-  img {
-    max-width:  rem-calc(250px);
-    max-height: rem-calc(250px);
+  img.project-image {
+    // max-width:  rem-calc(250px);
+    // max-height: rem-calc(250px);
+    width: 100%;
   }
   div.profile-image {
     display: inline-block;

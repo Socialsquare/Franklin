@@ -87,6 +87,7 @@ module.exports = function(grunt) {
             'bower_components/foundation/js/foundation.js',                             // 76 KiB
             'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
             'bower_components/foundation/js/foundation/foundation.alert.js',            //  ? KiB
+            'bower_components/foundation/js/foundation/foundation.clearing.js',         //  ? KiB
             // modernizr in conjunction with
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.

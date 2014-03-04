@@ -9,7 +9,9 @@
   {% endif %}
   <p>{{ project.content }}</p>
   {% if project.image %}
-  <a href="{{ project.image.url }}"><img src="{{ project.image.url }}"></a>
+  <ul class="clearing-thumbs" data-clearing>
+    <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
+  </ul>
   {% endif %}
   {% if not hide_comments %}
     {# Comments section #}
