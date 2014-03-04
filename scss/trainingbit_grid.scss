@@ -81,9 +81,10 @@ li.trainingbit {
     }
     p {
       height: rem-calc(75px);
-      font-weight: 100;
-      font-size: rem-calc(12px);
-      color: black;
+      font-weight: 200;
+      // font-size: rem-calc(12px);
+      font-size: 0.85rem;
+      color: $gcl-midgray;
     }
     .info {
       padding-left: $padding-size;

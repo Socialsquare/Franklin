@@ -10,8 +10,9 @@
     </div>
     <div class="description">
       <h6> {{trainingbit.name}} </h6>
-      <p>{{trainingbit.description}}</p>
+      <p>{{trainingbit.description|truncatechars:125}}</p>
       <div class="info">
+        {% comment %}
         {% if not hide_part_of %}
         <span class="metadata">
         {% if trainingbit.skill_set.all %}
@@ -22,6 +23,7 @@
         {% endif %}
         </span>
         {% endif %}
+        {% endcomment %}
         <hr>
         <span class="icon small heart red"></span> 23
         <span class="icon small chat red"></span> 9
