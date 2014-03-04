@@ -20,10 +20,15 @@
   }
 }
 
+
 h3.shared-by-others {
   text-transform: none;
   font-size: 1.4rem;
   margin-bottom: 1.5rem;
+}
+
+#project-list {
+  max-width: rem-calc(650px);
 }
 
 .project {
