@@ -20,11 +20,6 @@
 
 }
 
-p.trainingbit-description {
-  font-size: 1.4rem;
-  font-weight: 300;
-}
-
 .main-column {
   padding-left: rem-calc(40px);
   padding-right: rem-calc(40px);
@@ -44,7 +39,7 @@ p.trainingbit-description {
   }
 }
 
-
-.start-trainingbit-container {
-  text-align: center;
+a.begin {
+  // @extend .button;
+  // @extend .button.large;
 }

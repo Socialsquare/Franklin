@@ -40,7 +40,7 @@
     {% if request.user|is_taking_skill:skill %}
       <a class="button" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
     {% else %}
-      <a class="button" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
+      <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
     {% endif %}
   {% endif %}
 </div>
