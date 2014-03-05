@@ -28,12 +28,14 @@
   {% endpermission %}
 </div>
 <div id="skill-cover">
-  {% if skill in request.user.skills_completed.all %}
-  <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
-  {% else %}
-  <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
-  {% endif %}
-  <h1>{{skill.name}}</h1>
+  <div class="skill-headline">
+    {% if skill in request.user.skills_completed.all %}
+    <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
+    {% else %}
+    <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
+    {% endif %}
+    <h1>{{skill.name}}</h1>
+  </div>
   <p class="skill-description">{{skill.description}}</p>
   {% if request.user.is_authenticated %}
     {# {% if skill in request.user.skills_in_progress.all %} #}

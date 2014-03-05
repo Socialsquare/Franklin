@@ -20,9 +20,18 @@ body.skill-view {
 
 #skill-cover {
 
-  img {
-    float: left;
-    margin-right: 0.5rem;
+
+  .skill-headline{
+    $height: 6.3rem;
+    img {
+      display: inline-block;
+      height: $height;
+      margin-right: 0.5rem;
+    }
+    h1 {
+      display: inline-block;
+      line-height: $height;
+    }
   }
 
 }
@@ -99,6 +108,7 @@ body.skill-view {
     }
   }
 }
+
 
 .skill-list-small {
 
