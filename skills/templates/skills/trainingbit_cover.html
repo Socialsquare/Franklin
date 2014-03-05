@@ -15,6 +15,7 @@
     <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
   {% endpermission %}
 </div>
+
 <div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
   <h1>{{ trainingbit.name }}</h1>
 </div>
@@ -33,6 +34,12 @@
     <ul class="no-bullet">
       {% for skill in trainingbit.skill_set.all %}
       <li><a href="{{ skill.get_absolute_url }}">{{ skill.name }}</a></li>
+      {% endfor %}
+    </ul>
+    <h5>Related topics</h5>
+    <ul class="no-bullet">
+      {% for topic in trainingbit.topic_set.all %}
+      <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
       {% endfor %}
     </ul>
   </div>
