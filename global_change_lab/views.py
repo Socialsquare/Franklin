@@ -215,7 +215,7 @@ def user_delete(request, user_id):
 def user_upgrade_to_trainer(request, user_id):
     user = User.objects.get(id__exact=user_id)
 
-    if request.user.profile.is_admin():
+    if request.user.is_admin():
         g = Group.objects.get(name='Trainers')
         g.user_set.add(user)
 
