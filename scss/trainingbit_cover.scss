@@ -1,3 +1,5 @@
+$left-margin: rem-calc(40px);
+
 #trainingbit-cover {
 
   height: rem-calc(300px);
@@ -12,7 +14,7 @@
     @extend %white-on-red;
     display: inline-block;
     position: absolute;
-    left: rem-calc(25px);
+    left: $left-margin;
     bottom: rem-calc(100px);
   }
 
@@ -21,9 +23,8 @@
 }
 
 .main-column {
-  padding-left: rem-calc(40px);
+  padding-left: $left-margin;
   padding-right: rem-calc(40px);
-
 }
 
 .sidebar {
