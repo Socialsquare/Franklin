@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 
+{% load permissionif %}
+
 {% block content %}
+
+<div class="page-buttons">
+  {# Edit trainingbit button #}
+  {% permission request.user has 'trainingbit.edit'  %}
+    <a href="{% url 'skills:trainingbit_edit' trainingbit.id %}" class="button info">Edit training bit</a>
+  {% endpermission %}
+
+  {# Delete trainingbit button #}
+  {% permission request.user has 'trainingbit.delete'  %}
+    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
+  {% endpermission %}
+</div>
 <div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
   <h1>{{ trainingbit.name }}</h1>
 </div>

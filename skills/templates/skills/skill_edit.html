@@ -9,6 +9,11 @@
 
 {% block content %}
 
+<div class="page-buttons">
+  {# View trainingbit button #}
+    <a href="{% url 'skills:skill_view' skill.id %}" class="button info">View skill</a>
+</div>
+
 <form id="training-bit-cover-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="input-field-row">
