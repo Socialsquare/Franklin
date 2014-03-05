@@ -87,6 +87,9 @@ li.trainingbit {
       color: $gcl-midgray;
     }
     .info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
       padding-left: $padding-size;
       padding-right: $padding-size;
     }
