@@ -36,9 +36,9 @@ body.trainer-interface {
     a#gcl-logo {
       background-image: url(/static/images/gcl-logo-white.png);
     }
-    .top-bar-section {
+    nav {
       ul li a {
-        background-color: white !important;
+        background-color: white;
         color: $gcl-midgray;
 
         .update-count {
@@ -59,13 +59,14 @@ body.trainer-interface {
   }
 }
 
-header.top-bar {
+header {
   .row {
     max-width: $row-width; // row in <header> in Foundation 5 don't have the
                            // default max-width, so we enforce it
   }
 
   // Have some space
+  padding-top: 1rem;
   padding-bottom: 1rem;
 
   // Background
@@ -80,10 +81,9 @@ header.top-bar {
   // Logo
   // img#gcl-logo {
   a#gcl-logo {
-    display: inline-block;
-    line-height:0;
-    margin-top: rem-calc(20px);
-    // margin-bottom: rem-calc(20px); // Foundation 5 line-height on .top-bar messes with things
+    img { visibility: hidden; }
+    display: block;
+    float: left;
 
     // PNG size: 190x43 (WxH)
     width: rem-calc(110px);
@@ -95,53 +95,67 @@ header.top-bar {
   }
 
   // Nav buttons
-  .top-bar-section {
+  nav {
+    clear: both;
+    width: 100%;
+    padding-top: 0.7rem;
     ul {
-      background: none;
-    }
-    li {
-      margin-right: rem-calc(18px);
+      list-style: none;
+      margin-bottom: 0; // override Foundation 5
 
-      @media #{$small-only} {
+      li {
+        margin-right: rem-calc(18px);
         display: inline-block;
-      }
-
-      &.current a {
-        background-color: $gcl-midgray !important;
-      }
-
-      a {
-        @include rounded(rem-calc(2px));
-        font-weight: bold;
-        text-transform: uppercase;
-
-        $horizontal-padding: rem-calc(22px);
-
-        &, & span {
-          font-size: 0.75rem; // gets overridden by <span> font-size
-        }
 
         @media #{$small-only} {
-          $horizontal-padding: rem-calc(10px);
-          display: inline-block;
-          width: auto;
-          // HACK: foundation **adds** padding when going to small screens?
-          //       wtf?
-          padding-top: 0;
-          padding-bottom: 0;
+          display: block;
         }
-        line-height: rem-calc(35px) !important;        // gets overidden by foundation weirdly specific top-bar settings
-        padding-right: $horizontal-padding !important; // gets overidden by foundation weirdly specific top-bar settings
-        padding-left:  $horizontal-padding !important; // gets overidden by foundation weirdly specific top-bar settings
 
-        .update-count {
-          display: inline-block;
-          background-color: $gcl-red;
-          margin-left: $horizontal-padding - rem-calc(5px);
-          margin-right: -$horizontal-padding;
-          padding-right: 15px;
-          padding-left: 15px;
-          @include rounded-right(rem-calc(2px));
+
+        a {
+          color: white;
+          background-color: $gcl-darkgray;
+          display: block;
+
+          // Highlight current page
+          &.current, &:hover {
+            background-color: $gcl-midgray !important;
+            color: white;
+          }
+
+          @include rounded(rem-calc(2px));
+          font-weight: bold;
+          text-transform: uppercase;
+
+          $vertical-padding: rem-calc(22px);
+          $horizontal-padding: rem-calc(22px);
+
+          &, & span {
+            font-size: 0.75rem; // gets overridden by <span> font-size
+          }
+
+          @media #{$small-only} {
+            $horizontal-padding: rem-calc(10px);
+            display: inline-block;
+            width: auto;
+            // HACK: foundation **adds** padding when going to small screens?
+            //       wtf?
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          line-height: rem-calc(35px);
+          padding-right: $horizontal-padding;
+          padding-left:  $horizontal-padding;
+
+          .update-count {
+            display: inline-block;
+            background-color: $gcl-red;
+            margin-left: $horizontal-padding - rem-calc(5px);
+            margin-right: -$horizontal-padding;
+            padding-right: 15px;
+            padding-left: 15px;
+            @include rounded-right(rem-calc(2px));
+          }
         }
       }
     }
@@ -160,6 +174,7 @@ header.top-bar {
       font-size: rem-calc(12px);
       color: $gcl-darkgray;
       text-transform: none;
+      margin-bottom: 0;
     }
   }
   div#trainer-dashboard-button, div#admin-dashboard-button{

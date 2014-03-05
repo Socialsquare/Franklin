@@ -56,9 +56,9 @@
 
   {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
   <div id="sticky-footer-wrap">
-    <header class="top-bar {% block header-classes %}{% endblock %}">
+    <header class="{% block header-classes %}{% endblock %}">
       <div class="row">
-        <a href="/" title="Global Change Lab home" id="gcl-logo"></a>
+        <a href="/" title="Global Change Lab home" id="gcl-logo"><img src="{% static 'images/gcl-logo.png' %}"></a>
 
         <div id="logged-in-menu">
         {% if user.is_authenticated %}
@@ -96,17 +96,17 @@
         {% endif %}
         {% endblock %}
 
-        <section class="top-bar-section">
+        <nav>
           {% if request.user.is_authenticated %}
           <!-- Left Nav Section -->
-          <ul class="left">
-            <li class="{% current 'skills:skills_overview' %}"><a href="{% url 'skills:skills_overview' %}">Skills</a></li>
-            <li class="{% current 'skills:trainingbits_overview' %}"><a href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
-            <li class="{% current 'skills:shares_overview' %}"><a href="{% url 'skills:shares_overview' %}">Shares</a></li>
+          <ul>
+            <li><a class="{% current 'skills:skills_overview' %}" href="{% url 'skills:skills_overview' %}">Skills</a></li>
+            <li><a class="{% current 'skills:trainingbits_overview' %}" href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
+            <li><a class="{% current 'skills:shares_overview' %}" href="{% url 'skills:shares_overview' %}">Shares</a></li>
           </ul>
           {% endif %}
 
-        </section>
+        </nav>
       </div>
     </header>
     <div id="content" class="{% block content-classes %}{% endblock %}">
