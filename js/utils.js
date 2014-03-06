@@ -137,6 +137,7 @@ $(document).ready(function() {
     $reply_form.append('<input type="hidden" name="parent_pk" value="' + $this.data('parent-pk') + '">');
     $reply_form.children('input[name=project]').val($this.data('project-pk'));
     $new_div.appendTo($this);
+    $new_div.hide();
   });
 
   $('.comment a.reply').click(function(e) {
