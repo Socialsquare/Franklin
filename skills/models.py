@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from sortedm2m.fields import SortedManyToManyField
+from embed_video.fields import EmbedVideoField
+
 
 from datetime import datetime
 
@@ -82,6 +84,7 @@ class Project(TimedModel, AuthoredModel):
     content = models.TextField(blank=False)
     image = models.ImageField(upload_to='trainingbits', blank=True)
     link = models.URLField(blank=True)
+    video = EmbedVideoField(blank=True, null=True)
 
     # Relations
     trainingbit = models.ForeignKey(TrainingBit, blank=False)

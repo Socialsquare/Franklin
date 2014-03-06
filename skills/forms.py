@@ -6,7 +6,7 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = Project
-        fields = ['name', 'content', 'image']
+        fields = ['name', 'content', 'image', 'link', 'video']
 
 
 class CommentForm(ModelForm):

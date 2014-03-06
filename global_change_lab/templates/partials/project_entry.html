@@ -1,3 +1,4 @@
+{% load embed_video_tags %}
 
 <div class="project" id="project-{{ project.id }}">
   {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
@@ -16,6 +17,14 @@
   <ul class="clearing-thumbs" data-clearing>
     <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
   </ul>
+  {% endif %}
+
+  {% if project.link %}
+  <a href="{{ project.link }}">Hello</a>
+  {% endif %}
+
+  {% if project.video %}
+    {% video project.video '800x600' %}
   {% endif %}
   {% if not hide_comments %}
     {# Comments section #}

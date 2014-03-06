@@ -172,13 +172,49 @@
     <ul></ul>
     <form id="project-form" action="{% url 'skills:trainingbit_view' trainingbit.id %}" method="POST"  enctype="multipart/form-data">
       {% csrf_token %}
-      <input name="name" placeholder="Title" class="title">
+      <input type="text" name="name" placeholder="Title" class="title">
       <textarea name="content" placeholder="Write your thoughts about this training bit"></textarea>
-      <input type="file" name="image">
-      <button class="share-button">Share, and complete training bit</button>
+      <div class="buttons">
+        <div class="upload-button">
+          <a href="#" class="button">Upload image</a>
+          <input type="file" name="image">
+        </div>
+        <input type="hidden" name="link" value="" id="link-hidden-field">
+        <input type="hidden" name="video" value="" id="video-hidden-field">
+        <a href="#" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a>
+        <a href="#" class="button" data-reveal-id="modal-add-video" data-reveal>Attach video</a>
+      </div>
+      <button class="share-button small">Share, and complete training bit</button>
     </form>
   </div>
 </div>
+
+<div id="modal-add-link" class="reveal-modal medium" data-reveal>
+  <h1>Share link</h1>
+  <input type="text" placeholder="http://example.org" id="link-input-field">
+  <a href="#" id="share-link-accept" class="button" data-reveal-id="modal-add-video" data-reveal>Share link</a>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<script>
+$('#share-link-accept').click(function(e) {
+  e.preventDefault();
+  $('#link-hidden-field').val($('#link-input-field').val());
+  $('#modal-add-link').foundation('reveal', 'close');
+});
+</script>
+<div id="modal-add-video" class="reveal-modal medium" data-reveal>
+  <h1>Share video</h1>
+  <input type="text" placeholder="http://example.org" id="video-input-field">
+  <a href="#" id="share-video-accept" class="button" data-reveal-id="modal-add-video" data-reveal>Share video</a>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+<script>
+$('#share-video-accept').click(function(e) {
+  e.preventDefault();
+  $('#video-hidden-field').val($('#video-input-field').val());
+  $('#modal-add-video').foundation('reveal', 'close');
+});
+</script>
 
 <div id="trainingbit-completed-modal" class="reveal-modal medium" data-reveal>
 </div>

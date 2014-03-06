@@ -2,7 +2,7 @@
 #project-form {
   input.title, textarea {
     // border: none;
-    border: 1px $gcl-midgray solid;
+    // border: 1px $gcl-midgray solid;
   }
   input.title {
     margin-bottom: 1rem;
@@ -12,12 +12,43 @@
   }
   @media #{$medium-up} {
     input.title {
-      width: 45%;
+      // width: 45%;
     }
     textarea {
-      width: 60%;
+      // width: 60%;
     }
   }
+
+  .share-button {
+    // float: right;
+    font-size: rem-calc(15px);
+    background-color: $gcl-red;
+    margin-top: rem-calc(15px);
+  }
+
+  div.buttons {
+    a.button {
+      vertical-align: top;
+    }
+
+    .upload-button {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .upload-button input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+    }
+  }
+
 }
 
 

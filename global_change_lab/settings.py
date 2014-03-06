@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'solo',
     'sortedm2m',
     'inplaceeditform',
+    'embed_video',
 
     'allauth',
     'allauth.account',
