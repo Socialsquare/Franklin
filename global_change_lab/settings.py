@@ -54,6 +54,8 @@ INSTALLED_APPS = (
     'sortedm2m',
     'inplaceeditform',
     'embed_video',
+    # 'rosetta',
+    # 'translations',
 
     'allauth',
     'allauth.account',
@@ -82,6 +84,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -253,3 +256,8 @@ MESSAGE_TAGS = {
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
 )
+
+# yawd-translations
+# LOCALE_PATHS = [
+#     'locale'
+# ]
