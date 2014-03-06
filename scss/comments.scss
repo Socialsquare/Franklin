@@ -43,12 +43,24 @@
     border-bottom: 1px solid $gcl-lightgray;
   }
 
-  .author, .date {
-    display: inline-block;
-  }
-  .author {
+
+  div.headline {
+    img {
+      display: inline-block;
+      height: rem-calc(20px);
+    }
+    .date {
+      line-height: $h6-font-size;
+      display: inline-block;
+    }
+    .author {
+      font-weight: bold;
+      display: inline-block;
+      color: $gcl-darkgray;
     margin-right: 0.5rem;
+    }
   }
+
   p.content {
     font-size: rem-calc(13px);
     font-weight: 200;

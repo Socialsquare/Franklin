@@ -1,7 +1,6 @@
 
 <div class="comment-list">
 {% if comments %}
-  <h3>Comments</h3>
 {% for comment in comments %}
   {% include 'skills/partials/comment_entry.html' %}
   <div class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
