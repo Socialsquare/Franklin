@@ -30,9 +30,20 @@ body.trainingbit-view {
   }
 }
 
-.share-button {
+.info-icon {
+  @extend %entypo;
+  font-size: 2.5rem;
   float: right;
-  font-size: rem-calc(15px);
+  color: white;
+  background-color: $gcl-red;
+  display: inline-block;
+  padding: rem-calc(5px);
+  line-height: 1rem;
+  @include rounded(rem-calc(3px));
+
+  &:hover {
+    color: white;
+  }
 }
 
 #trainingbit-completed-modal {
