@@ -22,10 +22,13 @@
 @import "scss/profile";
 @import "scss/user_progress";
 
+%entypo {
+  font-family: 'EntypoRegular';
+}
 
 .icon {
+  @extend %entypo;
   // font-family: Entypo;
-  font-family: 'EntypoRegular';
   font-size: 2rem;
   font-weight: normal;
   line-height: 0;
