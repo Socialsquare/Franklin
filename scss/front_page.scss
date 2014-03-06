@@ -6,6 +6,10 @@ div#front-page-greeter {
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 
+  background-image: url('/static/images/front-page-people.png');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+
   h1, h2, p {
     color: white;
     margin: 0;
@@ -41,21 +45,25 @@ div#front-page-cols {
 
     text-align: center;
     min-height: 23rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     // position: relative;
 
     .icon {
       margin: 1rem;
     }
 
-    h3 {
+    h1 {
       margin: 0 auto;
-      font-size: rem-calc(20px);
       width: 60%;
     }
     p {
       font-weight: 100;
       font-size: 1.1rem;
       line-height: 1.4rem;
+      max-width: 15rem;
+      margin-left: auto;
+      margin-right: auto;
     }
     .button {
       // position: absolute;
