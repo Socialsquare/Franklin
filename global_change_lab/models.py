@@ -126,7 +126,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.image:
             return self.image.url
         else:
-            return 'defaultimage'
+            return '/static/images/profile-picture-placeholder.png'
 
 
 from solo.models import SingletonModel
