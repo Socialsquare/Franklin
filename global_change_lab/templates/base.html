@@ -122,40 +122,8 @@
   {# End wrapper for content in "sticky footer"-scheme #}
 
   <footer class="{% block footer-classes %}{% endblock %}">
-    <div class="fat-footer">
-      <div class="row">
-        <div class="medium-6 columns recently-shared">
-          <h6>Recently shared</h6>
-          {% for project in recent_projects %}
-          <div class="row">
-            <div class="columns small-2">
-              <img src="{{ project.author.getImage }}">
-            </div>
-            <div class="columns small-10 text">
-              <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a>
-              shared
-              <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
-              in the bit
-              <a href="{% url 'skills:trainingbit_cover' project.trainingbit.pk %}">{{ project.trainingbit.name }}</a>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="medium-6 columns likes-n-comments">
-          <h6>Recent likes and comments</h6>
-          <ul>
-          {% for comment in recent_comments %}
-            <li>
-              <span class="icon chat red"></span>
-              <a href="{% url 'profile' comment.author.pk %}">{{ comment.author.username }}</a>
-              commented on
-              <a href="{{ comment.project.get_absolute_url }}">{{ comment.project.name }}</a>
-            </li>
-          {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
+    {% block fat_footer %}{% endblock %}
+
     <div class="row">
       {% block footer %}
       <div class="row" id="footer-links">
