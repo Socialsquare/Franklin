@@ -63,21 +63,27 @@ h3.shared-by-others {
 }
 
 .project {
+  margin-bottom: 1rem;
+
   h6.title {
     @extend %text-white-on-darkgray;
     margin-right: 0.5rem;
     text-transform: none;
     font-size: 1rem;
   }
-  .date {
-    line-height: $h6-font-size;
-    // font-size: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 100;
-  }
-  .author {
-    font-weight: bold;
-    color: $gcl-darkgray;
+
+  div.headline {
+    img {
+      display: inline-block;
+      height: rem-calc(20px);
+    }
+    .date {
+      line-height: $h6-font-size;
+    }
+    .author {
+      font-weight: bold;
+      color: $gcl-darkgray;
+    }
   }
 
   div.content {
@@ -108,6 +114,13 @@ h3.shared-by-others {
       @include gradient(rgba(255,255,255,0), rgba(255,255,255,1.0));
 
       a { color: $gcl-red; }
+    }
+  }
+
+  // override Foundation 5
+  div.carousel {
+    li {
+      margin-right: 0;
     }
   }
 
