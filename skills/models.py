@@ -105,6 +105,8 @@ class Project(TimedModel, AuthoredModel):
         return reverse('skills:trainingbit_view', args=[self.trainingbit.id]) + \
                '#project-%u' % self.id
 
+    def root_comments(self):
+        return self.comment_set.filter(parent=None)
 
 class Comment(TimedModel, AuthoredModel):
 
@@ -122,6 +124,10 @@ class Comment(TimedModel, AuthoredModel):
     is_flagged = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
     is_hidden  = models.BooleanField(default=False)
+
+    # only allow threading to one level
+    def allow_thread(self):
+        return self.parent is None
 
 
 class Skill(TimedModel, AuthoredModel):
