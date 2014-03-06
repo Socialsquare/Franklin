@@ -15,14 +15,14 @@
 
   {# Upgrade user button (to trainer) #}
   {% if request.user.is_admin %}
-    {% if not some_user.is_trainer and not some_user.is_admin %}
-    <a href="{% url 'user_upgrade_to_trainer' some_user.id %}" class="button success">Upgrade to trainer</a>
+    {% if not profile_user.is_trainer and not profile_user.is_admin %}
+    <a href="{% url 'user_upgrade_to_trainer' profile_user.id %}" class="button success">Upgrade to trainer</a>
     {% endif %}
   {% endif %}
 
   {# Delete user button #}
-  {% if request.user == some_user or request.user.is_admin %}
-    <a href="{% url 'user_delete' some_user.id %}" class="button">Delete</a>
+  {% if request.user == profile_user or request.user.is_admin %}
+    <a href="{% url 'user_delete' profile_user.id %}" class="button">Delete</a>
   {% endif %}
 </div>
 
@@ -30,69 +30,122 @@
 
 <div class="row" id="profile-bar">
   <div class="large-2 columns">
-    <div id="profile-picture"{% if some_user == request.user %} class="dropzone"{% endif %}>
-      {% if some_user == request.user %}
+    <div id="profile-picture"{% if profile_user == request.user %} class="dropzone"{% endif %}>
+      {% if profile_user == request.user %}
         <input id="fileupload" type="file" name="profile-picture">
         <div class="hover-visual"><span class="icon circled-plus"></span></div>
       {% endif %}
-      <img src="{{ some_user.getImage }}" class="profile-picture">
+      <img src="{{ profile_user.getImage }}" class="profile-picture">
     </div>
   </div>
   <div class="large-10 columns">
-    <h1>{{ some_user.username }}</h1>
-      {% if some_user == request.user %}
+    <h1>{{ profile_user.username }}</h1>
+      {% if profile_user == request.user %}
     <p class="description inplaceedit">
-        {% inplace_edit 'some_user.description' edit_empty_value="Write about your self here" %}
+        {% inplace_edit 'profile_user.description' edit_empty_value="Write about your self here" %}
       {% else %}
     <p class="description">
-        {{ some_user.description }}
+        {{ profile_user.description }}
       {% endif %}
     </p>
   </div>
 </div>
 
-<div class="row">
-  <div class="medium-6 columns">
-    <h2>{{ some_user.username }}'s completed training bits</h2>
-    <div class="trainingbit-count">{{ some_user.trainingbits_completed.count }} in total</div>
-    <div id="wordcloud">
-      <div class="centering">
-        {% for trainingbit in some_user.trainingbits_completed.all %}
-        <a href="{{ trainingbit.get_absolute_url }}">{{ trainingbit.name }}</a>
-        {% endfor %}
+{% if own_profile %}
+<div>
+  <h1>Your progress</h1>
+  <hr class="large">
+
+  <div class="columns medium-4 skill-progress">
+    <h6 class="progress-small-headline">Skills you are working on</h6><br>
+
+    {# {% for skill, percentage in skills_in_progress_w_percentage %} #}
+    {% if skills_in_progress %}
+    {% for skill in skills_in_progress %}
+    <div class="row">
+      <div class="columns medium-6">
+        <a href="{% url 'skills:skill_view' skill.id %}">
+          <h6>{{ skill.name }}</h6>
+        </a>
+      </div>
+      <div class="columns medium-6">
+          <div class="progress success round">
+            <span class="meter" style="width: {{ skill.percentage }}%"></span>
+          </div>
       </div>
     </div>
+    {% endfor %}
+    {% else %}
+      <div class="empty-message"><div>Not doing anything right now</div></div>
+    {% endif %}
   </div>
-  <div class="medium-6 columns">
-    <h2>{{ some_user.username }}' s skills</h2>
-    {% include 'skills/partials/skill_list_small.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
+
+  <div class="columns medium-8">
+    <h6 class="progress-small-headline">Training Bits you haven't finished yet</h6><br>
+    {% if trainingbits_in_progress %}
+    {% include 'partials/trainingbits_grid.html' with trainingbits=trainingbits_in_progress extra_classes='medium' hide_description=True hide_part_of=True %}
+    {% else %}
+      <div class="empty-message"><div>Not doing anything right now</div></div>
+    {% endif %}
   </div>
 </div>
+{% endif %}
+
+<hr class="large">
+
+<div>
+  <h5>Completed skills</h5>
+  {% include 'skills/partials/skill_list_small.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
+</div>
+
+<hr>
+
+  <h5>Recently shared</h5>
+
+
+{% comment %}
+  <div class="row">
+    <div class="medium-6 columns">
+      <h2>{{ profile_user.username }}'s completed training bits</h2>
+      <div class="trainingbit-count">{{ profile_user.trainingbits_completed.count }} in total</div>
+      <div id="wordcloud">
+        <div class="centering">
+          {% for trainingbit in profile_user.trainingbits_completed.all %}
+          <a href="{{ trainingbit.get_absolute_url }}">{{ trainingbit.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="medium-6 columns">
+      <h2>{{ profile_user.username }}' s skills</h2>
+    </div>
+  </div>
 
 <hr>
 
 <div class="row">
   <div class="medium-6 columns">
-    <h2>{{ some_user.username }} have shared</h2>
-    {% include 'partials/project_list.html' with projects=some_user.project_set.all hide_user=True %}
+    <h2>{{ profile_user.username }} have shared</h2>
+    {% include 'partials/project_list.html' with projects=projects hide_user=True %}
   </div>
   <div class="medium-6 columns">
-    <h2>{{ some_user.username }}'s latest comments</h2>
-    {% comment %}
+    <h2>{{ profile_user.username }}'s latest comments</h2>
+    {# {% comment %} #}
     <ul>
-    {% for comment in some_user.comment_comments.all %}
+    {% for comment in profile_user.comment_comments.all %}
     <li>{{ comment.name }}</li>
     {% endfor %}
-    {% endcomment %}
+    {# {% endcomment %} #}
     </ul>
   </div>
 </div>
 
 <hr>
+{% endcomment %}
 
 
-{# <dt>Joined on: </dt><dd>{{ some_user.date_joined }}</dd> #}
-{# <dt>Last seen: </dt><dd>{{ some_user.last_login }}</dd> #}
+{# <dt>Joined on: </dt><dd>{{ profile_user.date_joined }}</dd> #}
+{# <dt>Last seen: </dt><dd>{{ profile_user.last_login }}</dd> #}
 
 {# http://stackoverflow.com/questions/8103584/linking-django-comments-with-django-users #}
 {# http://stackoverflow.com/questions/5292723/django-retrieve-all-comments-for-a-user #}

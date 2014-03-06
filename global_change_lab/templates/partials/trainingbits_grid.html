@@ -8,9 +8,12 @@
         <div class="label">{{ trainingbit.get_label_display }}</div>
       </div>
     </div>
+    {% if hide_description %}
+      <h6> {{trainingbit.name}} </h6>
+    {% else %}
     <div class="description">
       <h6> {{trainingbit.name}} </h6>
-      <p>{{trainingbit.description|truncatechars:125}}</p>
+        <p>{{trainingbit.description|truncatechars:125}}</p>
       <div class="info">
         {% comment %}
         {% if not hide_part_of %}
@@ -25,10 +28,13 @@
         {% endif %}
         {% endcomment %}
         <hr>
+        {% if hide_metadata %}
         <span class="icon small heart red"></span> 23
         <span class="icon small chat red"></span> 9
+        {% endif %}
       </div>
     </div>
+    {% endif %}
     </a>
   </li>
 {% endfor %}

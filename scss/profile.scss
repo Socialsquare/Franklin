@@ -1,9 +1,7 @@
 
 body.user-profile {
-  h1, h2, h3, h4, h5, h6 {
-    text-transform: none;
-  }
 }
+
 
 #profile-bar {
   background-color: $gcl-darkgray;
@@ -43,6 +41,7 @@ body.user-profile {
     input#fileupload {
       display: none;
     }
+
 
     div.progress {
       @extend %dead-center;
@@ -119,4 +118,40 @@ body.user-profile {
   bottom: 0; //rem-calc(2px);
   // text-align: center;
   color: $gcl-midgray;
+}
+
+
+
+.progress-small-headline {
+  text-transform: uppercase;
+}
+
+hr.large {
+  margin-bottom: rem-calc(3px);
+  border-bottom: rem-calc(3px) solid $gcl-lightgray;
+}
+
+.empty-message {
+  height: 3rem;
+  width: 100%;
+  position: relative;
+
+  div {
+    @extend %dead-center;
+    width: 100%;
+    text-align:center;
+    height: 2rem;
+    color: $gcl-midgray;
+  }
+}
+
+.skill-progress {
+  // @extend %dead-center;
+  padding-left: rem-calc(1px);
+
+  .progress {
+    height: 1rem;
+    background-color: $gcl-lightgray;
+    // span.meter { background-color: $gcl-red; }
+  }
 }

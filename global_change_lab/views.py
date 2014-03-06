@@ -136,13 +136,6 @@ def admin_statistics_csv(request):
     return response
 
 
-def user_progress(request):
-    if request.user.is_authenticated:
-        return render(request, 'user_progress.html', {})
-    else:
-        return HttpResponseRedirect(reverse('login'))
-
-
 # @csrf_protect
 def upload_profile_picture(request):
     print('did recieve')
@@ -171,19 +164,55 @@ def upload_profile_picture(request):
 
 def profile(request, user_id=None):
     if user_id is None:
-        user = request.user
+        profile_user = request.user
     else:
-        user = get_object_or_404(User, pk=user_id)
+        profile_user = get_object_or_404(User, pk=user_id)
 
-    newest_skills = user.skills_completed.all()[:3]
-    other_skills_count = user.skills_completed.count() - 3
+    newest_skills = profile_user.skills_completed.all()[:3]
+    other_skills_count = profile_user.skills_completed.count() - 3
 
-    return render(request, 'profile.html', {
-        'some_user': user,
+    if request.user == profile_user:
+        own_profile = True
+
+        trainingbits_completed = request.user.trainingbits_completed.values_list('pk', flat=True)
+
+        skills_in_progress_w_percentage = []
+        skills_in_progress = request.user.skills_in_progress.prefetch_related('trainingbits').all()
+        for skill in skills_in_progress:
+            tbs = skill.trainingbits.all()
+            incompleted_count = len(set([t.pk for t in tbs]) - set(trainingbits_completed))
+            total_count = len(tbs)
+            if total_count == 0:
+                percentage = 0
+            else:
+                percentage = 1.0 - (incompleted_count / total_count)
+                percentage *= 100
+            skill.percentage = percentage
+            skills_in_progress_w_percentage.append((skill, int(percentage)))
+
+        trainingbits_in_progress = request.user.trainingbits_in_progress.all()
+
+        in_progress_dict = {
+            'skills_in_progress_w_percentage': skills_in_progress_w_percentage,
+            'skills_in_progress': skills_in_progress,
+            'trainingbits_in_progress': trainingbits_in_progress,
+        }
+    else:
+        own_profile = False
+        in_progress_dict = {}
+
+    template_dict = {
+        'own_profile': own_profile,
+        'profile_user': profile_user,
         'user_fields': User._meta.get_all_field_names(),
         'newest_skills': newest_skills,
         'other_skills_count': other_skills_count,
-    })
+        'projects': profile_user.project_set.select_related('trainingbit').prefetch_related('comment_set').all(),
+        'hide_comments': True,
+    }
+    template_dict.update(in_progress_dict)
+
+    return render(request, 'profile.html', template_dict)
 
 
 def user_list(request):

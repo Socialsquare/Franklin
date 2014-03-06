@@ -13,7 +13,6 @@ urlpatterns = patterns('',
     url(r'^welcome/suggestions/?$', 'global_change_lab.views.new_user_suggestions', name='new_user_suggestions'),
     #   users
     url(r'^user/list/?$', 'global_change_lab.views.user_list', name='user_list'),
-    url(r'^user/me/?$', 'global_change_lab.views.user_progress', name='user_progress'),
     url(r'^user/profile/(\d+)?$', 'global_change_lab.views.profile', name='profile'),
     url(r'^user/profile/upload/?$', 'global_change_lab.views.upload_profile_picture', name='upload_profile_picture'),
     url(r'^user/delete/(\d+)/?$', 'global_change_lab.views.user_delete', name='user_delete'),
