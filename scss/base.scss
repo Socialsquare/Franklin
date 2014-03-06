@@ -7,24 +7,23 @@
 html, body {
   height: 100%;
 }
-$footer-height: rem-calc(100px);
+// $fat-footer-height: rem-calc(300px);
+// $static-footer-height: rem-calc(200px);
+// $footer-height: $fat-footer-height + $static-footer-height;
 #sticky-footer-wrap {
   clear: both;
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin-bottom: -$footer-height;
-  // #{$root-footer-selector} {
-  //   height: $footer-height;
-  // }
+  // margin-bottom: -$footer-height;
 }
 footer {
   clear: both;
   position: relative;
-  height: $footer-height;
+  // height: $static-footer-height;
 }
 #sticky-footer-push {
-  height: $footer-height;
+  // height: $footer-height;
 }
 
 body.trainer-interface {
@@ -49,7 +48,13 @@ body.trainer-interface {
     }
 
   }
+
   footer {
+    .fat-footer {
+      background-color: $gcl-midgray;
+      color: white;
+    }
+
     background-color: $gcl-darkgray;
     #footer-links {
       a, h6 {
@@ -189,6 +194,41 @@ header {
 }
 
 footer {
+  .fat-footer {
+    // height: 10rem;
+    background-color: #F1F2EE;
+    padding-top: rem-calc(15px);
+
+    font-size: rem-calc(12px);
+
+    a { font-weight: bold; }
+
+    .text {
+      padding-top: rem-calc(5px);
+    }
+    .likes-n-comments {
+      ul {
+        list-style: none;
+        font-size: rem-calc(12px);
+        margin-left: 0;
+        li {
+          margin-bottom: rem-calc(5px);
+        }
+      }
+    }
+    .recently-shared {
+      div.row {
+        div:first-child {
+          height: 3.5rem;
+          line-height: 3.5rem;
+          // vertical-align: center;
+        }
+        margin-bottom: rem-calc(10px);
+        height: 3.5rem;
+      }
+    }
+  }
+
   #footer-links {
     width: 50%;
     margin-left: 0;

@@ -94,6 +94,10 @@ ROOT_URLCONF = 'global_change_lab.urls'
 
 WSGI_APPLICATION = 'global_change_lab.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'global_change_lab.context_processors.fatfooter_data',
+)
+
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 try:
@@ -251,11 +255,6 @@ import django.contrib.messages as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'alert' # foundation 5 uses 'alert' as its 'error'-class
 }
-
-# django-inplacedit
-TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.request',
-)
 
 # yawd-translations
 # LOCALE_PATHS = [
