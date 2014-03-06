@@ -11,7 +11,9 @@
 
 <div class="page-buttons">
   {# View trainingbit button #}
+  {% if skill %}
     <a href="{% url 'skills:skill_view' skill.id %}" class="button success">View skill</a>
+  {% endif %}
 </div>
 
 <form id="training-bit-cover-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
