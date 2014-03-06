@@ -7,12 +7,12 @@
 <div class="page-buttons">
   {# Edit trainingbit button #}
   {% permission request.user has 'trainingbit.edit'  %}
-    <a href="{% url 'skills:trainingbit_edit' trainingbit.id %}" class="button info">Edit training bit</a>
+    <a href="{% url 'skills:trainingbit_edit' trainingbit.id %}" class="button info admin-button">Edit training bit</a>
   {% endpermission %}
 
   {# Delete trainingbit button #}
   {% permission request.user has 'trainingbit.delete'  %}
-    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
+    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button admin-button">Delete training bit</a>
   {% endpermission %}
 </div>
 
@@ -23,7 +23,17 @@
   <div class="columns medium-9 main-column">
     <p class="trainingbit-description">{{ trainingbit.description }}</p>
     <div class="start-trainingbit-container">
-      <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>
+      {% if request.user.is_authenticated %}
+        {% if trainingbit in request.user.trainingbits_in_progress.all %}
+          <a href="{% url 'skills:trainingbit_view' trainingbit.id %}" class="button small begin">Continue training bit</a>
+        {% elif trainingbit in request.user.trainingbits_completed.all %}
+          <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Do this training bit again</a>
+        {% else %}
+          <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>
+      {% endif %}
     </div>
     <hr>
     <h2>Shared by others</h2>
