@@ -11,7 +11,7 @@
 
 <div class="page-buttons">
   {# View trainingbit button #}
-    <a href="{% url 'skills:skill_view' skill.id %}" class="button info">View skill</a>
+    <a href="{% url 'skills:skill_view' skill.id %}" class="button success">View skill</a>
 </div>
 
 <form id="training-bit-cover-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
@@ -48,10 +48,10 @@
     <div class="input-field">
       <div id="trainingbit-list">
 
-        <input id="trainingbits-chooser-search" class="search" placeholder="Search for training bit...">
         <div class="row">
           <div class="medium-6 columns">
             <h6>Find training bits</h6>
+            <input type="text" id="trainingbits-chooser-search" class="search" placeholder="Search for training bits...">
             <ul class="trainingbits-chooser-list" id="trainingbits-available-list">
             {% for trainingbit in trainingbits_available %}
               <li data-id="{{ trainingbit.id }}">
