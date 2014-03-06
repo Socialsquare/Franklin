@@ -1,0 +1,126 @@
+
+{# TEMPLATES #}
+<script type="text/template" id="TbPart-template">
+  <div class="input-field-row">
+    <%= content %>
+  </div>
+</script>
+
+<script type="text/template" id="text-template">
+  <div class="text-field">
+    <%= html %>
+  </div>
+</script>
+<script type="text/template" id="link-template">
+  <div class="link">
+    <div class="icon-wrapper">
+      <span class="icon medium link black"></span>
+    </div>
+    <a href="<%= url %>" title="<%= title %>" style="display: inline-block; float: left">
+      <span class="title"><%= title %></span>
+      <p><%= description %></p>
+    </a>
+  </div>
+</script>
+
+<script type="text/template" id="embed-template">
+  <%= html %>
+</script>
+
+<script>
+
+{# BACKBONE MODELS #}
+TbPart = Backbone.Model.extend({});
+
+TbPartLink = TbPart.extend({
+  defaults: {
+    type: 'link',
+    url: 'http://example.org',
+    title: 'Example dot org',
+    description: 'Example.org was made by W3C as a placeholder domain for in educational contexts.'
+  },
+});
+
+TbPartEmbed = TbPart.extend({
+  defaults: {
+    type: 'embed',
+    html: '<embed>',
+  },
+});
+
+TbPartText = TbPart.extend({
+  defaults: {
+    type: 'text',
+    html: '',
+  },
+});
+var TrainingBit = Backbone.Collection.extend({
+  initialize: function(arr) {
+    this.parse(arr);
+  },
+  model: TbPart,
+  parse: function (res) {
+    var self = this;
+    _.each(res, function (tb_part) {
+      switch(tb_part.type) {
+        case 'link':
+          tb_part.description = 'This is some description';
+          self.add(new TbPartLink(tb_part));
+          break;
+        case 'embed':
+          self.add(new TbPartEmbed(tb_part));
+          break;
+        case 'text':
+          self.add(new TbPartText(tb_part));
+          break;
+        default:
+          console.log('Unrecognized training bit part');
+      }
+    });
+  }
+});
+
+console.log('window.GCL: ');
+console.log(window.GCL);
+window.GCL = window.GCL || {};
+console.log(window.GCL.trainingbit_editable);
+window.GCL.trainingbit_editable = window.GCL.trainingbit_editable || false;
+
+{# BACKBONE VIEWS #}
+var TrainingBitPartView = Backbone.View.extend({
+
+  initialize: function() {
+    console.log('Initialized partview');
+    this.$el = $(this.el);
+  },
+
+  render: function() {
+
+    console.log('Rendering TrainingBitPart of type: ' + type);
+
+    var type = this.model.get('type');
+
+    // Render the content of the TrainingBitPart
+    var content = _.template($('#' + type + '-template').html(), this.model.toJSON());
+
+    var TbPart_template = null;
+    if (GCL.trainingbit_editable === true) {
+      console.log('Editable');
+      // Render the full view (with help text, drag handle, delete button ...)
+      TbPart_template =  _.template($('#TbPart-editable-template').html());
+    } else {
+      console.log('Non-editable');
+      TbPart_template =  _.template($('#TbPart-template').html());
+
+    }
+
+    var rendered = TbPart_template({
+      'content'  : content,
+    });
+    this.$el.html(rendered);
+
+
+    return this;
+  }
+});
+</script>

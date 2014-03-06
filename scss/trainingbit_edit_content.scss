@@ -116,6 +116,18 @@
     color: $gcl-midgray;
   }
 
+  .icon-container {
+    margin: 0 auto;
+
+    ul {
+      list-style: none;
+      li {
+        display: inline-block;
+        margin-left: rem-calc(15px);
+      }
+    }
+  }
+
   .large-indicator {
     position: absolute;
     top: 0;

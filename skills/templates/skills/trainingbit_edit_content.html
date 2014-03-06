@@ -110,12 +110,7 @@ Offline.on('up', function() {
 
 
   {# TEMPLATES #}
-  <script type="text/template" id="section-template">
-    <div class="section-content"></div>
-
-  </script>
-
-  <script type="text/template" id="TbPart-template">
+  <script type="text/template" id="TbPart-editable-template">
     <div class="input-field-row">
       <div class="handle"><span class="icon arrow-combo"></span></div>
       <div class="input-field">
@@ -130,17 +125,26 @@ Offline.on('up', function() {
     </div>
   </script>
 
-  <script type="text/template" id="link-template">
-    <span class="icon large link black"></span><a href="<%= url %>" title="<%= title %>"><%= title %></a>
+  <script>
+  window.GCL = window.GCL || {};
+  window.GCL.trainingbit_editable = true;
+  console.log('window.GCL: ');
+  console.log(window.GCL);
   </script>
+
+  {% include 'skills/partials/trainingbit_parts.html' %}
+
+  <script type="text/template" id="section-template">
+    <div class="section-content"></div>
+
+  </script>
+
+
   <script type="text/template" id="link-help-text">
     <h6>Link</h6>
     Links to external websites
   </script>
 
-  <script type="text/template" id="embed-template">
-    <%= html %>
-  </script>
   <script type="text/template" id="embed-help-text">
     <h6>Embed</h6>
     Videos from Youtube, Vimeo etc.
@@ -161,81 +165,35 @@ Offline.on('up', function() {
       <div class="add-text"><span class="icon circled-plus"></span><%= name %>
       </div>
     </div>
-    <ul class="small-block-grid-3 medium-block-grid-6 large-block-grid-9 small-centered">
-      <li>
-        <a class="add-text" href="#">
-          <span class="icon medium language"></span>
-          <p>Add text</p>
-        </a>
-      </li>
-      <li>
-        <a class="add-link" href="#" data-reveal-id="modal-add-link" data-reveal>
-        <span class="icon medium link"></span><br>
-        Add link
-        </a>
-      </li>
-      <li>
-        <a class="add-embed" href="#" data-reveal-id="modal-add-embed" data-reveal>
-        <span class="icon medium video"></span>
-        <p>Add embed</p>
-        </a>
-      </li>
-        {# <span class="icon medium camera"></span> #}
-        {# <span class="icon medium attach"></span> #}
-    </ul>
+    <div class="icon-container">
+      <ul>
+        <li>
+          <a class="add-text" href="#">
+            <span class="icon medium language"></span>
+            <p>Add text</p>
+          </a>
+        </li>
+        <li>
+          <a class="add-link" href="#" data-reveal-id="modal-add-link" data-reveal>
+          <span class="icon medium link"></span><br>
+          Add link
+          </a>
+        </li>
+        <li>
+          <a class="add-embed" href="#" data-reveal-id="modal-add-embed" data-reveal>
+          <span class="icon medium video"></span>
+          <p>Add embed</p>
+          </a>
+        </li>
+          {# <span class="icon medium camera"></span> #}
+          {# <span class="icon medium attach"></span> #}
+      </ul>
+    </div>
   </script>
 
 
 
   <script>
-{# BACKBONE MODELS #}
-TbPart = Backbone.Model.extend({});
-
-TbPartLink = TbPart.extend({
-  defaults: {
-    type: 'link',
-    url: 'http://example.org',
-    title: 'Example dot org'
-  },
-});
-
-TbPartEmbed = TbPart.extend({
-  defaults: {
-    type: 'embed',
-    html: '<embed>',
-  },
-});
-
-
-//var lorem_ipsum = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-TbPartText = TbPart.extend({
-  defaults: {
-    type: 'text',
-    {# html: 'Click here to start editing text', #}
-    html: '',
-  },
-});
-
-// a TrainingBit is a collection of TbParts
-var TrainingBit = Backbone.Collection.extend({
-  model: TbPart,
-  parse: function (res) {
-      var self = this;
-      _.each(res, function (tb_part) {
-        switch(tb_part.type) {
-          case 'link':
-            self.add(new TbPartLink(tb_part));
-          case 'embed':
-            self.add(new TbPartEmbed(tb_part));
-          case 'text':
-            self.add(new TbPartText(tb_part));
-          default:
-            alert('Unrecognized training bit part');
-        }
-      });
-  }
-});
-
 
 // an EditorToolbar takes a TrainingBit
 var EditorToolbar = Backbone.Model.extend({
@@ -350,7 +308,7 @@ var TrainingBitPartView = Backbone.View.extend({
     var help_text = $('#' + type + '-help-text').html()
 
     // Render the full view (with help text, drag handle, delete button ...)
-    var TbPart_template =  _.template($('#TbPart-template').html());
+    var TbPart_template =  _.template($('#TbPart-editable-template').html());
     var rendered = TbPart_template({
       'content'  : content,
       'help_text': help_text
