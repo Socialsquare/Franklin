@@ -1,3 +1,10 @@
+<script>
+console.log('window.GCL: ');
+console.log(window.GCL);
+window.GCL = window.GCL || {};
+console.log(window.GCL.trainingbit_editable);
+window.GCL.trainingbit_editable = window.GCL.trainingbit_editable || false;
+</script>
 
 {# TEMPLATES #}
 <script type="text/template" id="TbPart-template">
@@ -7,7 +14,7 @@
 </script>
 
 <script type="text/template" id="text-template">
-  <div class="text-field">
+  <div class="text-field <%= editable_class %>">
     <%= html %>
   </div>
 </script>
@@ -52,8 +59,12 @@ TbPartText = TbPart.extend({
   defaults: {
     type: 'text',
     html: '',
+    editable_class: '',
   },
 });
+
+
+
 var TrainingBit = Backbone.Collection.extend({
   initialize: function(arr) {
     this.parse(arr);
@@ -71,6 +82,9 @@ var TrainingBit = Backbone.Collection.extend({
           self.add(new TbPartEmbed(tb_part));
           break;
         case 'text':
+          if (window.GCL.trainingbit_editable) {
+            tb_part.editable_class = 'text-editor';
+          }
           self.add(new TbPartText(tb_part));
           break;
         default:
@@ -80,11 +94,6 @@ var TrainingBit = Backbone.Collection.extend({
   }
 });
 
-console.log('window.GCL: ');
-console.log(window.GCL);
-window.GCL = window.GCL || {};
-console.log(window.GCL.trainingbit_editable);
-window.GCL.trainingbit_editable = window.GCL.trainingbit_editable || false;
 
 {# BACKBONE VIEWS #}
 var TrainingBitPartView = Backbone.View.extend({
