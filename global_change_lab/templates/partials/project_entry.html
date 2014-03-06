@@ -26,16 +26,16 @@
   {% if project.video %}
     {% video project.video '800x600' %}
   {% endif %}
+
   {% if not hide_comments %}
     {# Comments section #}
-    {% include 'skills/partials/comment_list.html' with comments=project.comment_set.all %}
-    <a href="#">Comment on this project</a>
-    <div >
+    {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
+    <div class="comment-form">
       <form action="{% url 'skills:comment_post' %}" method="POST">
         {% csrf_token %}
         <input type="hidden" name="project" value="{{ project.pk }}">
-        <textarea name="text"></textarea>
-        <button>Comment</button>
+        <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
+        <button class="small">Comment</button>
       </form>
     </div>
   {% endif %}

@@ -88,6 +88,9 @@ $(document).ready(function() {
     $info_box.fadeOut(1300);
   });
 
+
+  /****************** PROJECTS *******************/
+
   $('.project div.content').each(function() {
     var $this = $(this);
     var $p = $this.children('p');
@@ -118,4 +121,36 @@ $(document).ready(function() {
     $hider.hide();
     $shower.show();
   });
+
+  /****************** COMMENTS *******************/
+
+  // jQuery Autosize on comment fields
+  // www.jacklmoore.com/autosize/
+  $('textarea.comment').autosize();
+
+  var $div = $('.comment-form').first();
+  $('.replies').each(function() {
+    var $this = $(this);
+    var $new_div = $div.clone();
+    var $reply_form = $new_div.children('form').first();
+    // $reply_form.attr('action', $this.attr('href'));
+    $reply_form.append('<input type="hidden" name="parent_pk" value="' + $this.data('parent-pk') + '">');
+    $reply_form.children('input[name=project]').val($this.data('project-pk'));
+    $new_div.appendTo($this);
+  });
+
+  $('.comment a.reply').click(function(e) {
+    e.preventDefault();
+
+    var $a = $(this);
+    var $comment = $a.closest('.comment');
+
+    var $div = $('.comment-form').first().clone();
+
+
+    console.log('clicked reply');
+    $comment.append($div);
+
+  });
+
 });

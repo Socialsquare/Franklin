@@ -1,6 +1,6 @@
 
 
-.comment-list {
+#comment-list {
   .headline {
     h6 {
       @extend %white-on-darkgray;
@@ -12,17 +12,6 @@
       font-size: 0.75rem;
       font-weight: 100;
     }
-    .buttons {
-      margin-left: 1rem;
-      display: inline-block;
-      div { display: inline-block; }
-      a.button.flag {
-        background-color: $gcl-midgray;
-      }
-      a.button.delete {
-        background-color: $gcl-darkgray;
-      }
-    }
   }
   .f-dropdown {
     h6 {
@@ -32,4 +21,70 @@
 
   }
 
+
+}
+
+.comment-list {
+  .replies {
+    // background-color: $gcl-lightgray;
+    margin-left: rem-calc(50px);
+
+    .comment {
+      background-color: #EEE;
+      margin-bottom: rem-calc(8px);
+      margin: 0;
+    }
+  }
+}
+
+.comment {
+  border-top: 1px solid $gcl-lightgray;
+  &:last-child {
+    border-bottom: 1px solid $gcl-lightgray;
+  }
+
+  .author, .date {
+    display: inline-block;
+  }
+  .author {
+    margin-right: 0.5rem;
+  }
+  p.content {
+    font-size: rem-calc(13px);
+    font-weight: 200;
+    margin-bottom: 0;
+  }
+
+  .moderation {
+    float: right;
+    display: inline-block;
+    font-size: rem-calc(12px);
+
+    a { color: $gcl-lightgray; }
+  }
+
+  a.reply {
+    display: block;
+    text-align: right;
+    color: $gcl-darkgray;
+    padding-right: rem-calc(3px);
+    padding-bottom: rem-calc(3px);
+    font-size: rem-calc(14px);
+  }
+}
+
+.comment-form {
+  margin-top: 1rem;
+
+  textarea, button {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  textarea {
+    width: 85%;
+  }
+  button {
+    vertical-align: bottom;
+    padding: rem-calc(7px);
+  }
 }

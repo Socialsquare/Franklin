@@ -1,43 +1,19 @@
 {% load permissionif %}
 
-<div style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
-  <div class="headline">
-    <h6>{{ comment.name }}</h6><span class="date">{{ comment.submit_date }}</span>
-    {% if comment.is_deleted %}<span class="icon block"></span>
-      This comment has been removed.
-    {% else %}
+<div class="comment" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
 
-    <div class="buttons">
+  <div class="headline">
+    <img src="{{ comment.author.getImage }}">
+    <h6 class="author">{{ comment.author.username }}</h6><span class="date">{{ comment.created_at }}</span>
+
+    <div class="moderation">
       {# Delete comment button #}
-      {# {% if comment.author == request.user or request.user.is_admin %} #}
       {% permission request.user has 'skills.delete_comment' of comment %}
-      <a href="{% url 'comments-delete' comment.id %}" class="button alert adelete" data-dropdown="comment-delete-dropdown-{{comment.id}}">Delete</a>
-      <div id="comment-delete-dropdown-{{comment.id}}" class="f-dropdown" data-dropdown-content>
-        <h6>Really remove this comment?</h6>
-        <form id="comment-delete-from-{{comment.id}}" action="{% url 'skills:comment_delete' comment.id %}" method="post">{% csrf_token %}
-          {#{% if next %}<div><input type="hidden" name="next" value="{{ next }}" id="next" /></div>{% endif %}#}
-          <p class="submit">
-            <input type="submit" name="submit" class="button" value="Remove" />
-            <a href="{{ comment.get_absolute_url }}" class="button close info">cancel</a>
-          </p>
-        </form>
-      </div>
-      <script>
-      $('#comment-delete-dropdown-{{comment.id}} a.close').click(function(event) {
-        event.preventDefault();
-        $('#comment-delete-dropdown-{{comment.id}}').foundation('dropdown', 'close', $('#comment-delete-dropdown-{{comment.id}}'));
-      });
-      $("#comment-delete-from-{{comment.id}}").ajaxForm({
-        success: function() {
-          $("#comment-{{comment.id}}").remove();
-        }
-      });
-      </script>
-      {# {% endif %} #}
+      <a href="{% url 'comments-delete' comment.id %}" class="alert adelete" data-dropdown="comment-delete-dropdown-{{comment.id}}">Delete</a>
       {% endpermission %}
 
       {# Flag comment button #}
-      <a href="{% url 'comments-flag' comment.id %}" class="button flag" data-dropdown="comment-flag-dropdown-{{comment.id}}">Flag comment</a>
+      <a href="{% url 'comments-flag' comment.id %}" class="flag" data-dropdown="comment-flag-dropdown-{{comment.id}}">Flag comment</a>
       <div id="comment-flag-dropdown-{{comment.id}}" class="f-dropdown" data-dropdown-content>
         <h6>Really flag this comment?</h6>
         <form action="{% url 'comments-flag' comment.id %}" method="post">{% csrf_token %}
@@ -59,19 +35,19 @@
         }
       });
       </script>
-
-
-
-
-
-      {# Reply to comment button #}
-      {% if comment.allow_thread %}<a href="{{ comment.get_reply_url }}" class="button">Reply</a>{% endif %}
     </div>
   </div>
 
-  <p>{{ comment.text }}</p>
+    {% if comment.is_deleted %}
+    <span class="icon block"></span>
+    {% else %}
+    <p class="content">{{ comment.text }}</p>
+    {% endif %}
 
-  <a href="{% url 'profile' comment.user.id %}" class="reply">{{ comment.user.name }}</a>
-  {% endif %}
+
+    {# Reply to comment button #}
+    {% if comment.allow_thread %}<a href="{% url 'skills:comment_post' %}" data-project-pk="{{ project.pk }}" data-parent-pk="{{ comment.pk }}" class="reply">Reply</a>{% endif %}
+  <!-- </div> -->
+
 
 </div>

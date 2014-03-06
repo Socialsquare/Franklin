@@ -21,7 +21,7 @@ def shares_overview(request):
 
     return render(request, 'skills/shares_overview.html', {
         'projects': Project.objects.all().order_by('-created_at')[:5],
-        'comments': Comment.objects.all().order_by('-created_at')[:9],
+        'comments': Comment.objects.exclude(is_deleted__exact=True).order_by('-created_at')[:9],
     })
 
 
@@ -237,7 +237,7 @@ def trainingbit_cover(request, trainingbit_id):
 
     return render(request, 'skills/trainingbit_cover.html', {
         'trainingbit': trainingbit,
-        'projects': trainingbit.project_set.all(),
+        'projects': trainingbit.project_set.all().prefetch_related('comment_set'),
     })
 
 def get_suggested_trainingbits(user, session):
@@ -533,6 +533,9 @@ def comment_post(request):
             comment = form.save(commit=False)
             comment.author = request.user
             project = comment.project
+            print(request.POST)
+            if 'parent_pk' in request.POST:
+                comment.parent = Comment.objects.get(pk__exact=request.POST['parent_pk'])
             # comment.project = project
             comment.save()
             messages.success(request, 'Comment was successfully saved')
