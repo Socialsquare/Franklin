@@ -33,19 +33,6 @@
   }
 }
 
-// Horizontal + vertical centering
-// Position an element at the center (vertical and horizontal) of its container
-// * assumes that the element has a _specified_ height and width (not dynamic)
-//
-// See: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/
-%dead-center {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
 
 .input-field-row {
   position: relative;
