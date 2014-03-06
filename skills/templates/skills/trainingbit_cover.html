@@ -30,6 +30,17 @@
     {% include 'partials/project_list.html' %}
   </div>
   <div class="columns medium-3 sidebar">
+    <div class="metadata">
+      {# <span class="icon small heart red"></span> {{ trainingbit.users_in_progress.count }} #}
+      <span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span>
+      <span class="icon chat red"></span><span class="count">{{ trainingbit.project_set.count }}</span>
+    </div>
+    <div class="author-info">
+      <img src="{{ trainingbit.author.getImage }}">
+      {{ trainingbit.author.username }}<br>
+      <span class="date">{{ trainingbit.created_at|date }}</span>
+    </div>
+    <hr>
     <h5>Included in these skills</h5>
     <ul class="no-bullet">
       {% for skill in trainingbit.skill_set.all %}
