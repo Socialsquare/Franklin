@@ -9,10 +9,13 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def current(context, url_name, return_value=' current', **kwargs):
-    print(url_name)
     matches = current_url_equals(context, url_name, **kwargs)
-    print(matches)
     return return_value if matches else ''
+
+
+@register.simple_tag(takes_context=True)
+def current_url_name(context, **kwargs):
+    return urlresolvers.resolve(context.get('request').path).url_name
 
 
 def current_url_equals(context, url_name, **kwargs):

@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load permissionif %}
 {% load solo_tags %}
-{% load current from navigation %}
+{% load navigation %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,6 +110,12 @@
       </div>
     </header>
     <div id="content" class="{% block content-classes %}{% endblock %}">
+
+    <div id="info-box" data-url-name="{% current_url_name %}">
+      <div class="text">{% block info %}{% endblock %}</div>
+      <a href="#" class="close">&times;</a>
+    </div>
+
         {% block content %}{% endblock %}
     </div>
     <div id="sticky-footer-push"></div>

@@ -189,16 +189,24 @@ h1 {
 }
 
 #info-box {
+  // Hide by default, shown by Javascript
+  display: none;
+
   background-color: $gcl-browngray;
   padding-top: rem-calc(22px);
   padding-bottom: rem-calc(22px);
   padding-left: rem-calc(30px);
 
-  p {
-    max-width: rem-calc(600px);
-    font-weight: 200;
+  font-weight: 200;
+  margin-bottom: rem-calc(20px);
 
+  p {
+    font-weight: 200;
     &:last-of-type { margin-bottom: 0; }
+  }
+
+  div.text {
+    max-width: rem-calc(600px);
   }
 
   a.close {

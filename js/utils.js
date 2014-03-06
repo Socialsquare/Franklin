@@ -71,9 +71,21 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $('#info-box a.close').click(function(e) {
+  /************ INFO BOX ************/
+  // don't show it if the user already closed it previously
+  var $info_box = $('#info-box');
+  var url_name = $info_box.data('url-name');
+  var cookie = $.cookie('GCL.info_box_closed.' + url_name);
+  if (cookie !== 'closed' && $info_box.children('.text').text() !== '') {
+    $info_box.slideDown();
+  }
+
+  $info_box.children('a.close').click(function(e) {
     e.preventDefault();
-    $('#info-box').fadeOut(1300);
+
+    $.cookie('GCL.info_box_closed.' + url_name, 'closed');
+
+    $info_box.fadeOut(1300);
   });
 
   $('.project div.content').each(function() {
