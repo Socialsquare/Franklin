@@ -105,9 +105,14 @@ var TrainingBitPartView = Backbone.View.extend({
 
   render: function() {
 
-    console.log('Rendering TrainingBitPart of type: ' + type);
-
     var type = this.model.get('type');
+    console.log('Rendering TrainingBitPart of type: ' + type);
+    if (GCL.trainingbit_editable === true) {
+      this.model.set('editable_class', 'text-editor');
+    } else {
+      this.model.set('editable_class', '');
+    }
+
 
     // Render the content of the TrainingBitPart
     var content = _.template($('#' + type + '-template').html(), this.model.toJSON());
