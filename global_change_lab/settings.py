@@ -239,6 +239,7 @@ AUTHENTICATION_BACKENDS += (
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # you can login with either
                                                  # username or email
 LOGIN_REDIRECT_URL = 'front_page'
+LOGIN_URL = '/user/login'
 TEMPLATE_CONTEXT_PROCESSORS += (
     # allauth specific context processors
     'allauth.account.context_processors.account',

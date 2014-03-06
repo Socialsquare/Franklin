@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
 import django.contrib.messages as messages
@@ -286,6 +287,7 @@ def get_completed_skills(user, trainingbit):
 
     return completed_skills
 
+@login_required
 @csrf_protect
 def trainingbit_view(request, trainingbit_id):
     trainingbit_id = int(trainingbit_id)
@@ -449,6 +451,7 @@ def trainingbit_recommend(request, trainingbit_id):
         messages.error(request, 'You do not have permission to recommend this training bit')
         return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
 
+@login_required
 @csrf_protect
 def trainingbit_start(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
