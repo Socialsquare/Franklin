@@ -4,8 +4,32 @@ body.trainingbit-view {
 }
 
 .trainingbit {
+  max-width: rem-calc(800px);
+  margin-left: auto;
+  margin-right: auto;
+
   h1 {
     @extend %text-white-on-darkgray;
+  }
+
+  div.link {
+    .icon-wrapper {
+      display: inline-block;
+      float: left;
+
+      .icon {
+        line-height: rem-calc(50px); margin-right: 10px;
+      }
+    }
+    span.title {
+      font-size: rem-calc(13px);
+      color: $gcl-red;
+      margin-bottom: 0; //rem-calc(5px);
+    }
+    p {
+      font-size: rem-calc(12px);
+      font-weight: 200;
+    }
   }
 
   .trainingbit-section {
