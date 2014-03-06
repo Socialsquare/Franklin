@@ -176,13 +176,13 @@
       <textarea name="content" placeholder="Write your thoughts about this training bit"></textarea>
       <div class="buttons">
         <div class="upload-button">
-          <a href="#" class="button">Upload image</a>
-          <input type="file" name="image">
+          <a href="#" id="image-upload-button" class="button">Upload image</a>
+          <input type="file" name="image" id="image-file-input">
         </div>
         <input type="hidden" name="link" value="" id="link-hidden-field">
         <input type="hidden" name="video" value="" id="video-hidden-field">
-        <a href="#" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a>
-        <a href="#" class="button" data-reveal-id="modal-add-video" data-reveal>Attach video</a>
+        <a href="#" id="link-button" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a>
+        <a href="#" id="video-button" class="button" data-reveal-id="modal-add-video" data-reveal>Attach video</a>
       </div>
       <button class="share-button small">Share, and complete training bit</button>
     </form>
@@ -199,6 +199,7 @@
 $('#share-link-accept').click(function(e) {
   e.preventDefault();
   $('#link-hidden-field').val($('#link-input-field').val());
+  $('#link-button').addClass('success');
   $('#modal-add-link').foundation('reveal', 'close');
 });
 </script>
@@ -209,9 +210,14 @@ $('#share-link-accept').click(function(e) {
   <a class="close-reveal-modal">&#215;</a>
 </div>
 <script>
+$('#image-file-input').on('change', function() {
+    console.log('hi');
+  $('#image-upload-button').addClass('success');
+});
 $('#share-video-accept').click(function(e) {
   e.preventDefault();
   $('#video-hidden-field').val($('#video-input-field').val());
+  $('#video-button').addClass('success');
   $('#modal-add-video').foundation('reveal', 'close');
 });
 </script>
