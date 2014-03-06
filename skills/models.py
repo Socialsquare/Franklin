@@ -68,7 +68,7 @@ class TrainingBit(TimedModel, AuthoredModel):
         if self.image:
             return self.image.url
         else:
-            return 'defaultimage'
+            return '/static/images/trainingbit-cover-placeholder.png'
 
     def __str__(self):
         return self.name
