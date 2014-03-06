@@ -3,27 +3,58 @@
   // height: 10rem;
 
 
-  input.search {
-    font-size: 1rem;
-    border: 1px solid black;
-    margin-bottom: 0.3rem;
-  }
+  // input.search {
+  //   font-size: 1rem;
+  //   border: 1px solid black;
+  //   margin-bottom: 0.3rem;
+  // }
+
   ul.trainingbits-chooser-list {
-    height: 6rem;
+    $drag-icon-size: 1.2em;
+    list-style: none;
+    padding-left: $drag-icon-size;
+    // text-indent: -$drag-icon-size;
+    margin-left: 0;
+
+
+    height: 12rem;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: $gcl-lightgray;
+    border: 1px black solid;
 
     &#trainingbits-available-list {
       color: $gcl-midgray;
+      background-color: #CCC;
+    }
+    &#trainingbits-chosen-list {
+      background-color: white;
+      margin-top: 3.9rem;
     }
 
     li {
-      list-style: none;
       &.show-drag-position {
         // background-color: white;
-        border: 1px solid black;
+        border: 1px $gcl-midgray solid;
       }
+    }
+    li:before {
+      display: block;
+      width: $drag-icon-size;
+      float: left;
+      margin-left: -$drag-icon-size;
+      // padding-left: -$drag-icon-size;
+      content: ' ';
+      color: $gcl-midgray;
+      // margin: 0;
+      text-align: center;
+    }
+
+    li:hover:before {
+      content: '\2195';
+      // 0x2195
+      // 0x21d5
+      // 0x21f3
     }
   }
 }

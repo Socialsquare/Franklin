@@ -10,7 +10,7 @@
   // @extend .row; // WILL NOT WORK
   @include grid-row();
 
-  margin-bottom: rem-calc(30px);
+  // margin-bottom: rem-calc(30px);
   // >  == direct child
   // *  == any tag
   // >* == all first children of .input-field-row
@@ -23,6 +23,10 @@
     // @extend .columns; // WILL NOT WORK
     @include grid-column(8);
     height: 100%;
+
+    textarea {
+      height: 8rem;
+    }
   }
   .help-text {
     // @extend .large-4; // WILL NOT WORK
@@ -30,6 +34,7 @@
     @include grid-column(4);
     color: $gcl-midgray;
     height: 100%;
+    font-size: rem-calc(12px);
   }
 }
 
