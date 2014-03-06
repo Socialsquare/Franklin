@@ -40,6 +40,11 @@ body.trainer-interface {
         background-color: white;
         color: $gcl-midgray;
 
+        &:hover {
+          background-color: $gcl-midgray;
+          color: white;
+        }
+
         .update-count {
           color: white;
         }
@@ -53,6 +58,10 @@ body.trainer-interface {
     .fat-footer {
       background-color: $gcl-midgray;
       color: white;
+
+      h6, a {
+        color: white;
+      }
     }
 
     background-color: $gcl-darkgray;
