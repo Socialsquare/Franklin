@@ -90,6 +90,18 @@
       skill page.
     </div>
   </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      <label>
+        <input type="checkbox" name="is_public" {% if skill.is_public %}checked{% endif %}>
+        Is public
+      </label>
+    </div>
+    <div class="help-text">
+      <h6>Public</h6>
+      Check this when you are ready to show this skill to the world.
+    </div>
+  </div>
   <button id="trainingbit-submit" type="submit">
     {% if skill %}
     Save skill

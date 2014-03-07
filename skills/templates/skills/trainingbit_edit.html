@@ -31,7 +31,7 @@
       {% if trainingbit.image %}
       <img src="{{trainingbit.getImage}}" style="height: 5rem">
       {% endif %}
-      <input id="new-training-bit-cover" type="file" name="cover-image">
+      <input id="new-training-bit-cover" type="file" name="image">
     </div>
     <div class="help-text">
       <h6>Cover Image</h6>
@@ -73,6 +73,18 @@
     <div class="help-text">
       <h6>Topics</h6>
       Here you can add topics to the training bit.
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      <label>
+        <input type="checkbox" name="is_draft" {% if not trainingbit or trainingbit.is_draft %}checked{% endif %}>
+        Is draft
+      </label>
+    </div>
+    <div class="help-text">
+      <h6>Draft</h6>
+      Only uncheck this when you are ready to show this training bit to the world.
     </div>
   </div>
   <button id="training-bit-submit" type="submit">

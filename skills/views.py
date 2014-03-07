@@ -10,7 +10,7 @@ import django.contrib.messages as messages
 from permission.decorators import permission_required
 
 from skills.models import Skill, TrainingBit, Topic, Project, Comment
-from skills.forms import ProjectForm, CommentForm, TopicForm
+from skills.forms import SkillForm, TrainingBitForm, ProjectForm, CommentForm, TopicForm
 
 from django_sortable.helpers import sortable_helper
 
@@ -133,59 +133,46 @@ def skill_edit(request, skill_id=None):
     # If something has been uploaded
     if request.method == 'POST':
 
-        if 'skill-icon' in request.FILES:
-        # and request.FILES['cover-image'].size > 0:
-            image = request.FILES['skill-icon']
-        elif skill_id is not None:
-            image = Skill.objects.get(id__exact=skill_id).image
+        form = SkillForm(request.POST)
+        if form.is_valid():
+
+            skill = form.save(commit=False)
+            skill.author = request.user
+            skill.pk = skill_id
+
+            skill.save()
+
+            # Add trainingbits (ORDER IS IMPORTANT HERE)
+            selected_trainingbit_pos_pk = request.POST.getlist('trainingbit-pos-pk[]')
+            pos_pk = [v.split(',') for v in selected_trainingbit_pos_pk]
+            pos = [int(p[0].strip()) for p in pos_pk]
+            pks = [int(p[1].strip()) for p in pos_pk]
+            tb_dict = TrainingBit.objects.in_bulk(pks)
+
+            # - Sort trainingbit primary keys by position
+            sorted_pos_pk_list = sorted(zip(pos,pks))
+
+            # - Make an ordered list of trainingbits
+            tbs = []
+            for pos, pk in sorted_pos_pk_list:
+                tbs.append(tb_dict[pk])
+
+            # - Set the training bits to only the ones chosen on the page
+            skill.trainingbits.clear()
+            skill.trainingbits.add(*tbs)
+
+            # Add topics
+            selected_topic_pks = request.POST.getlist('topic-pks[]')
+            selected_topic_pks = [int(s) for s in selected_topic_pks]
+            print(selected_topic_pks)
+            topics = Topic.objects.filter(pk__in=selected_topic_pks)
+            print(topics)
+            skill.topic_set.clear()
+            skill.topic_set.add(*topics)
+
+            messages.success(request, 'Successfully saved skill')
         else:
-            image = None
-
-        if image is not None:
-            img_d = {'image': image}
-        else:
-            img_d = {}
-
-        skill = Skill(
-            id=skill_id,
-            author=request.user,
-            name=request.POST['name'],
-            description=request.POST['description'],
-            **img_d
-        )
-        skill.save()
-
-
-
-        # Add trainingbits (ORDER IS IMPORTANT HERE)
-        selected_trainingbit_pos_pk = request.POST.getlist('trainingbit-pos-pk[]')
-        pos_pk = [v.split(',') for v in selected_trainingbit_pos_pk]
-        pos = [int(p[0].strip()) for p in pos_pk]
-        pks = [int(p[1].strip()) for p in pos_pk]
-        tb_dict = TrainingBit.objects.in_bulk(pks)
-
-        # - Sort trainingbit primary keys by position
-        sorted_pos_pk_list = sorted(zip(pos,pks))
-
-        # - Make an ordered list of trainingbits
-        tbs = []
-        for pos, pk in sorted_pos_pk_list:
-            tbs.append(tb_dict[pk])
-
-        # - Set the training bits to only the ones chosen on the page
-        skill.trainingbits.clear()
-        skill.trainingbits.add(*tbs)
-
-        # Add topics
-        selected_topic_pks = request.POST.getlist('topic-pks[]')
-        selected_topic_pks = [int(s) for s in selected_topic_pks]
-        print(selected_topic_pks)
-        topics = Topic.objects.filter(pk__in=selected_topic_pks)
-        print(topics)
-        skill.topic_set.clear()
-        skill.topic_set.add(*topics)
-
-        messages.success(request, 'Successfully saved skill')
+            messages.error(request, 'Could not save skill %s ' % form.errors)
 
     elif skill_id is not None:
         skill = Skill.objects.get(id__exact=skill_id)
@@ -225,6 +212,7 @@ def trainingbits_overview(request, topic_slug=None):
         topic = None
         trainingbits = TrainingBit.objects.all()
 
+    trainingbits = trainingbits.filter(is_draft__exact=False)
     trainingbits = sortable_helper(request, trainingbits)
     return render(request, 'skills/trainingbits_overview.html', {
         'trainingbits': trainingbits,
@@ -355,43 +343,42 @@ def trainingbit_view(request, trainingbit_id):
 @csrf_protect
 def trainingbit_edit(request, trainingbit_id=None):
 
+    if trainingbit_id is not None:
+        trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+
+    form = TrainingBitForm()
+
     # If something has been uploaded
     if request.method == 'POST':
 
-        if trainingbit_id is None:
-            trainingbit = TrainingBit(id=trainingbit_id)
+        form = TrainingBitForm(request.POST, request.FILES)
+        if form.is_valid():
+
+            new_trainingbit = form.save(commit=False)
+            try:
+                if new_trainingbit.image == '' and trainingbit is not None and trainingbit.image != '':
+                    new_trainingbit.image = trainingbit.image
+            except NameError:
+                pass
+            new_trainingbit.pk = trainingbit_id
+            new_trainingbit.author = request.user
+
+            new_trainingbit.save()
+            trainingbit = new_trainingbit
+            trainingbit_id = trainingbit.id
+
+            selected_topic_pks = request.POST.getlist('topic-pks[]')
+            selected_topic_pks = [int(s) for s in selected_topic_pks]
+            topics = Topic.objects.filter(pk__in=selected_topic_pks)
+            trainingbit.topic_set.clear()
+            trainingbit.topic_set.add(*topics)
+
+            return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
         else:
-            trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+            messages.error(request, 'Could not save training bit %s' % form.errors)
+            return HttpResponseRedirect(reverse('skills:trainingbit_edit', args=[trainingbit_id]))
 
-        trainingbit.author      = request.user
-        trainingbit.name        = request.POST['name']
-        trainingbit.description = request.POST['description']
-        trainingbit.label       = request.POST['label']
-
-        if 'cover-image' in request.FILES:
-        # and request.FILES['cover-image'].size > 0:
-            image = request.FILES['cover-image']
-        elif trainingbit_id is not None:
-            image = TrainingBit.objects.get(id__exact=trainingbit_id).image
-        else:
-            image = None
-
-        trainingbit.image = image
-
-        trainingbit.save()
-        trainingbit_id = trainingbit.id
-
-        selected_topic_pks = request.POST.getlist('topic-pks[]')
-        selected_topic_pks = [int(s) for s in selected_topic_pks]
-        topics = Topic.objects.filter(pk__in=selected_topic_pks)
-        trainingbit.topic_set.clear()
-        trainingbit.topic_set.add(*topics)
-
-        # return HttpResponseRedirect(reverse('trainer_dashboard'))
-        return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
-            # return HttpResponseRedirect('/')
     elif trainingbit_id is not None:
-        trainingbit = TrainingBit.objects.get(id__exact=trainingbit_id)
         selected_topic_pks = [t.pk for t in trainingbit.topic_set.all()]
     else:
         trainingbit = None
@@ -404,6 +391,7 @@ def trainingbit_edit(request, trainingbit_id=None):
         'topics': Topic.objects.all(),
         'selected_topic_pks': selected_topic_pks,
         'labels': TrainingBit.LABELS,
+        'form': form,
     })
 
 @csrf_protect
