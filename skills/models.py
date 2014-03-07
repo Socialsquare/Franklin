@@ -62,7 +62,7 @@ class TrainingBit(TimedModel, AuthoredModel):
     # Content
     name = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to='trainingbits', default='defaultimage')
+    image = models.ImageField(upload_to='trainingbits', blank=True)
     label = models.CharField(max_length=1, choices=LABELS, blank=False)
     json_content = models.TextField(default='{"learn":[],"act":[],"share":[]}')
 
@@ -71,7 +71,7 @@ class TrainingBit(TimedModel, AuthoredModel):
     is_draft = models.BooleanField(default=True)
 
     def getImage(self):
-        if self.image:
+        if self.image and self.image.url != '':
             return self.image.url
         else:
             return '/static/images/trainingbit-cover-placeholder.png'
