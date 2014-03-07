@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     #   flatpages
     url(r'^page/new/?$', 'global_change_lab.views.page_new', name='page_new'),
     url(r'^page/delete/(\d+)/?$', 'global_change_lab.views.page_delete', name='page_delete'),
+    # Picture upload URL
+    url(r'^picture/upload/?$', 'global_change_lab.views.upload_picture', name="upload_picture"),
 
     # skills
     url(r'^', include('skills.urls', namespace='skills')),

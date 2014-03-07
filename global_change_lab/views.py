@@ -2,13 +2,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 
 import django.contrib.messages as messages
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 
-from skills.models import Skill, TrainingBit, Topic
+from skills.models import Skill, TrainingBit, Topic, Image
 
 from global_change_lab.models import User
 from django.db.models import Q
@@ -135,6 +136,32 @@ def admin_statistics_csv(request):
 
     return response
 
+
+@login_required
+@csrf_protect
+def upload_picture(request):
+    if request.method == 'POST':
+        image = Image()
+        image.image = request.FILES['picture']
+        image.identifier = request.POST['identifier']
+        image.author = request.user
+        image.save()
+
+        #generating json response array
+        result = [
+            {
+                # "name"          : request.user.image.filename,
+                # "size"          : file_size,
+                "url" : image.image.url,
+                # "thumbnail_url" : thumb_url,
+                # "delete_url"    : file_delete_url+str(image.pk)+'/',
+                # "delete_type"   : "POST",
+            },
+        ]
+        response_data = json.dumps(result)
+        return HttpResponse(response_data, mimetype='application/json')
+
+    return HttpResponseRedirect(reverse('/'))
 
 # @csrf_protect
 def upload_profile_picture(request):

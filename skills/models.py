@@ -46,6 +46,12 @@ class AuthoredModel(models.Model):
 
 
 #### CONCRETE MODELS
+class Image(TimedModel):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='uploaded_images', blank=False)
+    image = models.ImageField(upload_to='trainingbits', blank=True)
+    identifier = models.CharField(max_length=36)
+
+
 class TrainingBit(TimedModel, AuthoredModel):
     LABELS = (
         ('I', 'Inspiration'),

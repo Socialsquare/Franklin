@@ -14,7 +14,7 @@ window.GCL.trainingbit_editable = window.GCL.trainingbit_editable || false;
 </script>
 
 <script type="text/template" id="text-template">
-  <div class="text-field <%= editable_class %>">
+  <div class="text-field">
     <%= html %>
   </div>
 </script>
@@ -28,6 +28,9 @@ window.GCL.trainingbit_editable = window.GCL.trainingbit_editable || false;
       <p><%= description %></p>
     </a>
   </div>
+</script>
+<script type="text/template" id="picture-template">
+  <img src="<%= url %>">
 </script>
 
 <script type="text/template" id="embed-template">
@@ -55,11 +58,17 @@ TbPartEmbed = TbPart.extend({
   },
 });
 
+TbPartPicture = TbPart.extend({
+  defaults: {
+    type: 'picture',
+    url: '',
+  },
+});
+
 TbPartText = TbPart.extend({
   defaults: {
     type: 'text',
     html: '',
-    editable_class: '',
   },
 });
 
@@ -78,13 +87,13 @@ var TrainingBit = Backbone.Collection.extend({
           tb_part.description = 'This is some description';
           self.add(new TbPartLink(tb_part));
           break;
+        case 'picture':
+          self.add(new TbPartPicture(tb_part));
+          break;
         case 'embed':
           self.add(new TbPartEmbed(tb_part));
           break;
         case 'text':
-          if (window.GCL.trainingbit_editable) {
-            tb_part.editable_class = 'text-editor';
-          }
           self.add(new TbPartText(tb_part));
           break;
         default:
@@ -107,12 +116,6 @@ var TrainingBitPartView = Backbone.View.extend({
 
     var type = this.model.get('type');
     console.log('Rendering TrainingBitPart of type: ' + type);
-    if (GCL.trainingbit_editable === true) {
-      this.model.set('editable_class', 'text-editor');
-    } else {
-      this.model.set('editable_class', '');
-    }
-
 
     // Render the content of the TrainingBitPart
     var content = _.template($('#' + type + '-template').html(), this.model.toJSON());
