@@ -35,8 +35,13 @@
     <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
     {% endif %}
     <h1>{{skill.name}}</h1>
+    <div class="metadata">
+      {# <span class="icon small heart red"></span> {{ trainingbit.users_in_progress.count }} #}
+      <span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span>
+      <span class="icon chat red"></span><span class="count">{{ project_count }}</span>
+    </div>
   </div>
-  <p class="skill-description">{{skill.description}}</p>
+  <p class="skill-description">{{skill.description|linebreaksbr}}</p>
   {% if request.user.is_authenticated %}
     {# {% if skill in request.user.skills_in_progress.all %} #}
     {% if request.user|is_taking_skill:skill %}
@@ -48,7 +53,7 @@
 </div>
 
 <hr>
-{% include 'partials/trainingbits_grid.html' with trainingbits=skill.trainingbits.all get_query=skill_id_get_query %}
+{% include 'partials/trainingbits_grid.html' with get_query=skill_id_get_query %}
 {% endblock %}
 
 {% block fat_footer %}

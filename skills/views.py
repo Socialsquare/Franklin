@@ -54,9 +54,15 @@ def skills_overview(request, topic_slug=None, show_hidden=False):
 def skill_view(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
 
+    trainingbits = skill.trainingbits.filter(is_draft__exact=False)
+    trainingbit_pks = [t.id for t in trainingbits]
+    project_count = Project.objects.filter(trainingbit_id__in=trainingbit_pks).count()
+
     return render(request, 'skills/skill_view.html', {
         'skill': skill,
         'skill_id_get_query': '?skill_id=%u' % skill.id,
+        'trainingbits': trainingbits,
+        'project_count': project_count,
     })
 
 def skill_trainingbits_json(request, skill_id):

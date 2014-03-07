@@ -32,6 +32,16 @@ body.skill-view {
       display: inline-block;
       line-height: $height;
     }
+    .metadata {
+      // vertical-align: center;
+      display: inline-block;
+      position: relative;
+      top: - rem-calc(5px);
+      margin-left: rem-calc(5px);
+      .count {
+        font-size: rem-calc(12px);
+      }
+    }
   }
 
 }
