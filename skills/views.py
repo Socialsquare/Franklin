@@ -19,9 +19,13 @@ import json
 
 
 def shares_overview(request):
+    all_projects = list(Project.objects.all().order_by('-created_at')[:12])
+    project_list0 = all_projects[0::2]
+    project_list1 = all_projects[1::2]
 
     return render(request, 'skills/shares_overview.html', {
-        'projects': Project.objects.all().order_by('-created_at')[:5],
+        'project_list0': project_list0,
+        'project_list1': project_list1,
         'comments': Comment.objects.exclude(is_deleted__exact=True).order_by('-created_at')[:9],
     })
 
