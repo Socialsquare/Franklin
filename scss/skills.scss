@@ -154,3 +154,51 @@ body.skill-view {
     font-size: 0.75rem;
   }
 }
+
+/****** SKILL GRID *******/
+ul.skills-grid {
+  margin: 0; // Foundation 5 !%^^&&!%!^&%!^ (sets margin-left on <ul>s even
+             // though they are block-grid
+
+  @media #{$small-up} {
+    @include block-grid(1, $padding-size, true);
+  }
+  @media #{$medium-up} {
+    @include block-grid(3, $padding-size, true);
+  }
+  @media #{$large-up} {
+    @include block-grid(4, $padding-size, true);
+  }
+  @media #{$xlarge-up} {
+    @include block-grid(5, $padding-size, true);
+  }
+
+  &.medium {
+    // display: inline-block !important;
+    // width: 20rem;
+    @media #{$small-up} {
+      @include block-grid(1, $padding-size, true);
+    }
+    @media #{$medium-up} {
+      @include block-grid(3, $padding-size, true);
+    }
+    @media #{$large-up} {
+      @include block-grid(3, $padding-size, true);
+    }
+    @media #{$xlarge-up} {
+      @include block-grid(3, $padding-size, true);
+    }
+  }
+
+  .image-column {
+    @include grid-column(4);
+  }
+  .name-column {
+    @include grid-column(8);
+    padding-left: 0;
+    h3 {
+      margin-top: -5px;
+      // line-height: 1.8rem;
+    }
+  }
+}

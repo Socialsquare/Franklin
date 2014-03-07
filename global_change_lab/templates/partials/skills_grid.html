@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<ul class="skills-grid {{ extra_classes }}">
+{% for skill in skills %}
+  <li class="skill">
+    <a href="{{ skill.get_absolute_url }}">
+    <div class="image-column">
+      {% if skill in request.user.skills_completed.all %}
+      <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
+      {% else %}
+      <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
+      {% endif %}
+    </div>
+    <div class="name-column"><h3 class="skill-name">{{skill.name}}</h3></div>
+
+    <!-- <h6> {{ skill.name }} </h6> -->
+    <!-- {% if show_description %} -->
+    <!--   <p>{{ skill.description|truncatechars:125 }}</p> -->
+    <!-- {% endif %} -->
+    </a>
+  </li>
+{% endfor %}
+</ul>

@@ -72,10 +72,19 @@ from django.contrib import comments
 from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 def trainer_dashboard(request):
+    all_trainingbits = request.user.trainingbit_set.all()
+    trainingbits = filter(lambda t: not t.is_draft, all_trainingbits)
+    trainingbit_drafts = filter(lambda t: t.is_draft, all_trainingbits)
+
+    all_skills = request.user.skill_set.all()
+    skills_public = filter(lambda s: s.is_public, all_skills)
+    skills_hidden = filter(lambda s: not s.is_public, all_skills)
 
     return render(request, 'trainer_dashboard.html', {
-        'trainingbits': request.user.trainingbit_set.all(),
-        'skills': request.user.skill_set.all(),
+        'trainingbits': trainingbits,
+        'trainingbit_drafts': trainingbit_drafts,
+        'skills_public': skills_public,
+        'skills_hidden': skills_hidden,
         'topics': Topic.objects.all(),
     })
 
@@ -228,13 +237,19 @@ def profile(request, user_id=None):
         own_profile = False
         in_progress_dict = {}
 
+    projects = list(profile_user.project_set.order_by('-created_at').select_related('trainingbit').prefetch_related('comment_set').all()[:12])
+    project_list0 = projects[0::3]
+    project_list1 = projects[1::3]
+    project_list2 = projects[2::3]
+
     template_dict = {
         'own_profile': own_profile,
         'profile_user': profile_user,
-        'user_fields': User._meta.get_all_field_names(),
         'newest_skills': newest_skills,
         'other_skills_count': other_skills_count,
-        'projects': profile_user.project_set.select_related('trainingbit').prefetch_related('comment_set').all(),
+        'project_list0': project_list0,
+        'project_list1': project_list1,
+        'project_list2': project_list2,
         'hide_comments': True,
     }
     template_dict.update(in_progress_dict)

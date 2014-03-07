@@ -86,7 +86,6 @@ h3.shared-by-others {
       text-align: center;
       line-height: 2rem;
 
-      a { color: $gcl-red; }
       display: none;
     }
 
@@ -99,7 +98,12 @@ h3.shared-by-others {
       line-height: 2rem;
       @include gradient(rgba(255,255,255,0), rgba(255,255,255,1.0));
 
-      a { color: $gcl-red; }
+    }
+    div.shower, div.hider {
+      a {
+        padding: rem-calc(5px);
+        display: inline-block;
+      }
     }
   }
 
@@ -132,3 +136,27 @@ h3.shared-by-others {
   }
 }
 
+.project-column {
+  float: none !important; // overrule the darkness that is Foundation 5
+  border-bottom: 1px $gcl-lightgray solid;
+
+  .date {
+    display: block;
+    font-weight: bold;
+  }
+
+  .content p {
+    font-size: rem-calc(13px);
+  }
+
+  .metadata {
+    height: 1.7rem;
+    line-height: 1.7rem;
+  }
+
+  .trainingbit-name {
+    @extend %text-white-on-red;
+    float: right;
+    display: inline-block;
+  }
+}

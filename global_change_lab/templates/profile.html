@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
+
 {% load static %}
-  {% load inplace_edit %}
+{% load inplace_edit %}
 
 
 {% block scripts %}
@@ -95,13 +96,35 @@
 
 <div>
   <h5>Completed skills</h5>
-  {% include 'skills/partials/skill_list_small.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
+  {% include 'partials/skills_grid.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
 </div>
 
 <hr>
 
   <h5>Recently shared</h5>
+  {% with hide_user=True %}
+  <div class="row">
+    <div class="columns medium-4">
+    {% for project in project_list0 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
+    </div>
+    <div class="columns medium-4">
+    {% for project in project_list1 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
+    </div>
+    <div class="columns medium-4">
+    {% for project in project_list2 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
+    </div>
+  </div>
 
+    {% if not hide_user %}
+      <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
+    {% endif %}
+  {% endwith %}
 
 {% comment %}
   <div class="row">

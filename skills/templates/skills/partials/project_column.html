@@ -1,0 +1,37 @@
+{% load embed_video_tags %}
+
+      <div class="project project-column">
+        {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
+        <h6 class="title">{{ project.name }}</h6>
+        {% if not hide_links %}</a>{% endif %}
+
+        <span class="date">{{ project.created_at }}</span>
+
+        <div class="content">
+          <p>{{ project.content }}</p>
+          <div class="shower"><a href="#" class="button small expand">Expand text</a></div>
+          <div class="hider"><a href="#" class="button small collapse">Collapse text</a></div>
+        </div>
+        {% if project.image %}
+        <ul class="clearing-thumbs" data-clearing>
+          <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
+        </ul>
+        {% endif %}
+
+        {% if project.link %}
+        <a href="{{ project.link }}">Hello</a>
+        {% endif %}
+
+        {% if project.video %}
+          {% video project.video %}
+        {% endif %}
+
+        <div class="metadata">
+          <span class="icon chat red"></span> {{ project.comment_set.count }}
+          <a href="{{ project.trainingbit.get_absolute_url }}">
+            <h6 class="trainingbit-name">
+                {{ project.trainingbit.name|truncatechars:25 }}
+            </h6>
+          </a>
+        </div>
+      </div>
