@@ -82,6 +82,9 @@ class TrainingBit(TimedModel, AuthoredModel):
     def get_absolute_url(self):
         return reverse('skills:trainingbit_cover', args=[self.id])
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class Project(TimedModel, AuthoredModel):
 
