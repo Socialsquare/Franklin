@@ -17,20 +17,20 @@
   {# Mark as recommended #}
   {% permission request.user has 'trainingbit.recommend' %}
     {% if trainingbit.recommended %}
-      <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button info">Remove recommendation</a>
+      <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button admin-button info">Remove recommendation</a>
     {% else %}
-      <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button success">Mark as recommended</a>
+      <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button admin-button success">Mark as recommended</a>
     {% endif %}
   {% endpermission %}
 
   {# Edit trainingbit button #}
   {% permission request.user has 'trainingbit.edit'  %}
-    <a href="{% url 'skills:trainingbit_edit_content' trainingbit.id %}" class="button info">Edit training bit</a>
+    <a href="{% url 'skills:trainingbit_edit_content' trainingbit.id %}" class="button admin-button info">Edit training bit</a>
   {% endpermission %}
 
   {# Delete trainingbit button #}
   {% permission request.user has 'trainingbit.delete'  %}
-    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button">Delete training bit</a>
+    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button admin-button">Delete training bit</a>
   {% endpermission %}
 </div>
 

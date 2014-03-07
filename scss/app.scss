@@ -75,6 +75,10 @@
     &.sorting {
       background-color: $gcl-darkgray;
     }
+    &.admin-button {
+      background-color: $gcl-blue;
+      color: white;
+    }
   }
   // position: absolute;
   // top: rem-calc(10px);

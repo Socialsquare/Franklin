@@ -11,20 +11,20 @@
   {# Mark as public #}
   {% permission request.user has 'skill.publicize' %}
     {% if skill.is_public %}
-      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button info">Hide this skill</a>
+      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button info admin-button">Hide this skill</a>
     {% else %}
-      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button success">Make this skill public</a>
+      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button success admin-button">Make this skill public</a>
     {% endif %}
   {% endpermission %}
 
   {# Edit skill button #}
   {% permission request.user has 'skill.edit' %}
-    <a href="{% url 'skills:skill_edit' skill.id %}" class="button info">Edit skill</a>
+    <a href="{% url 'skills:skill_edit' skill.id %}" class="button info admin-button">Edit skill</a>
   {% endpermission %}
 
   {# Delete skill button #}
   {% permission request.user has 'skill.delete' %}
-    <a href="{% url 'skills:skill_delete' skill.id %}" class="button">Delete skill</a>
+    <a href="{% url 'skills:skill_delete' skill.id %}" class="button admin-button">Delete skill</a>
   {% endpermission %}
 </div>
 <div id="skill-cover">
