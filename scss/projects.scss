@@ -139,6 +139,8 @@ h3.shared-by-others {
 .project-column {
   float: none !important; // overrule the darkness that is Foundation 5
   border-bottom: 1px $gcl-lightgray solid;
+  padding-bottom: rem-calc(3px);
+  margin-bottom: rem-calc(20px);
 
   .date {
     display: block;
@@ -152,6 +154,7 @@ h3.shared-by-others {
   .metadata {
     height: 1.7rem;
     line-height: 1.7rem;
+    font-size: rem-calc(12px);
   }
 
   .trainingbit-name {
