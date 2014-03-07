@@ -238,12 +238,22 @@ footer {
     }
   }
 
+  .social-icons {
+    margin-top: rem-calc(10px);
+    margin-bottom: rem-calc(10px);
+    line-height: 3rem;
+  }
+
   #footer-links {
     width: 50%;
     margin-left: 0;
-
     font-size: 0.7rem;
     // font-weight: 100;
+
+    div.columns {
+      padding-left: 0;
+    }
+
     a {
       display: block;
       color: $gcl-midgray;
@@ -260,12 +270,18 @@ footer {
   }
 
   background-color: $gcl-lightgray;
-  // background-image: url(../../../static/images/top-football-guy-flattened.png);
-  // background-image: url(../../../static/images/top-football-guy.png);
-  background-repeat: no-repeat;
-  background-position: 75% 0%;
-  // height: rem-calc(90px);
-  // height: 100%;
+
+  #footer-background {
+    background-image: url(/static/images/girl-footer.png);
+    // background-image: url(../../../static/images/top-football-guy.png);
+    background-repeat: no-repeat;
+    background-position: 100% 0%;
+  }
+
+  #logo-footer {
+    margin-top: rem-calc(10px);
+    margin-bottom: rem-calc(20px);
+  }
 
 
 }

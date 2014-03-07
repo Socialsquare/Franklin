@@ -124,8 +124,15 @@
   <footer class="{% block footer-classes %}{% endblock %}">
     {% block fat_footer %}{% endblock %}
 
+    <div class="row" id="footer-background">
     <div class="row">
       {% block footer %}
+      <div class="social-icons">
+        <a class="icon-social medium c-twitter red" href="#"></a>
+        <a class="icon-social medium c-facebook red" href="#"></a>
+        <a class="icon-social medium c-google-plus red" href="#"></a>
+        <a class="icon-social medium c-flickr red" href="#"></a>
+      </div>
       <div class="row" id="footer-links">
         <div class="large-4 columns">
           <h6>About Global Change Lab</h6>
@@ -152,6 +159,8 @@
         </div>
       </div>
       {% endblock %}
+    </div>
+    <div class="row"><img id="logo-footer" src="{% static 'images/logo-large-white-footer.png' %}"></div>
     </div>
   </footer>
 

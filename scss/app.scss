@@ -25,9 +25,35 @@
 %entypo {
   font-family: 'EntypoRegular';
 }
+%entypo-social {
+  font-family: 'EntypoSocialRegular';
+}
 
 .icon {
   @extend %entypo;
+  // font-family: Entypo;
+  font-size: 2rem;
+  font-weight: normal;
+  line-height: 0;
+  vertical-align: middle;
+  // display: inline-block;
+  // padding-bottom: 10px;
+
+  &.medium {
+    font-size: 4rem;
+  }
+
+  &.large {
+    font-size: 10rem;
+    line-height: 5rem;
+    color: $gcl-red;
+  }
+  &.black {
+    color: black;
+  }
+}
+.icon-social {
+  @extend %entypo-social;
   // font-family: Entypo;
   font-size: 2rem;
   font-weight: normal;
