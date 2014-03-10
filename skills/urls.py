@@ -31,6 +31,9 @@ urlpatterns = patterns('',
     url(r'^skill/(\d+)/stop$', 'skills.views.skill_stop', name="skill_stop"),
     url(r'^skill/(\d+)/trainingbits.json$', 'skills.views.skill_trainingbits_json', name="skill_trainingbits_json"),
 
+    # Project URLs
+    url(r'^project/(\d+)/view$', 'skills.views.project_view', name="project_view"),
+
     # Topic URLs
     url(r'^topic/new/?$', 'skills.views.topic_new', name='topic_new'),
     url(r'^topic/delete/(\d+)/?$', 'skills.views.topic_delete', name='topic_delete'),

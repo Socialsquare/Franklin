@@ -525,6 +525,17 @@ def topic_delete(request, topic_pk):
             return HttpResponseRedirect(reverse('trainer_dashboard'))
 
 
+def project_view(request, project_id):
+    project_id = int(project_id)
+    project = get_object_or_404(Project, pk=project_id)
+
+    return render(request, 'skills/project_view.html', {
+        'project': project,
+        'comments': project.comment_set.order_by('-created_at').prefetch_related('author'),
+        'next': reverse('skills:project_view', args=[project_id]),
+    })
+
+
 @csrf_protect
 def comment_post(request):
     if request.method == 'POST': # If the form has been submitted...

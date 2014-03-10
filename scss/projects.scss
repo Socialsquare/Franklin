@@ -1,3 +1,10 @@
+/******* PROJECT VIEW *********/
+.project-wrapper {
+  max-width: rem-calc(500px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+}
 
 #project-form {
   input.title, textarea {

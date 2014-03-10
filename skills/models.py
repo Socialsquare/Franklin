@@ -111,8 +111,9 @@ class Project(TimedModel, AuthoredModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('skills:trainingbit_view', args=[self.trainingbit.id]) + \
-               '#project-%u' % self.id
+        # return reverse('skills:trainingbit_view', args=[self.trainingbit.id]) + \
+        #        '#project-%u' % self.id
+        return reverse('skills:project_view', args=[self.pk])
 
     def root_comments(self):
         return self.comment_set.filter(parent=None)
