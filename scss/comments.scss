@@ -48,21 +48,21 @@
     img {
       display: inline-block;
       height: rem-calc(20px);
+      margin-right: 0.3rem;
     }
     .date {
       // line-height: $h6-font-size;
       display: inline-block;
     }
     .author {
-      font-weight: bold;
       display: inline-block;
-      color: $gcl-darkgray;
-    margin-right: 0.5rem;
+      margin-right: 0.3rem;
     }
   }
 
   p.content {
-    font-size: rem-calc(13px);
+    // font-size: rem-calc(13px);
+    font-size: 0.9rem;
     font-weight: 200;
     margin-bottom: 0;
   }
