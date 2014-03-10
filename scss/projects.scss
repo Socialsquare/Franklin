@@ -78,18 +78,9 @@ h3.shared-by-others {
     overflow-y: hidden;
     margin-bottom: 1rem;
 
-    div.hider {
-      // position: absolute;
-      // width: 100%;
-      height: 2rem;
-      // bottom: 0;
-      text-align: center;
-      line-height: 2rem;
-
-      display: none;
     }
 
-    div.shower {
+    div.gradient {
       position: absolute;
       width: 100%;
       height: 2rem;
@@ -99,12 +90,15 @@ h3.shared-by-others {
       @include gradient(rgba(255,255,255,0), rgba(255,255,255,1.0));
 
     }
-    div.shower, div.hider {
-      a {
-        padding: rem-calc(5px);
-        display: inline-block;
-      }
-    }
+  }
+
+  a.expand, a.collapse {
+    float: right;
+    position: relative;
+    top: -0.5rem;
+    // display: inline-block;
+    font-size: rem-calc(12px);
+    color: $gcl-red;
   }
 
   // override Foundation 5
@@ -119,19 +113,27 @@ h3.shared-by-others {
     // max-height: rem-calc(250px);
     width: 100%;
   }
-  div.profile-image {
-    display: inline-block;
-    margin-right: 0.3rem;
-    @include rounded(0.2rem);
-    height: 1.9rem;
-    width: 1.8rem;
-    background-color: $gcl-lightgray;
-    color: white;
-    font-size: 2rem;
+  .user-bar {
+    height: 3rem;
     line-height: 1.5rem;
-    .icon {
-      // line-height: 1.7rem;
-      font-size: 3rem;
+
+
+    .profile-picture {
+      float: left;
+      display: inline-block;
+      margin-right: 0.7rem;
+      @include rounded(0.2rem);
+      height: 3rem;
+      // width: 1.8rem;
+      background-color: $gcl-lightgray;
+      color: white;
+      font-size: 2rem;
+    }
+    .metadata {
+      display: inline-block;
+      .count {
+        font-size: rem-calc(10px);
+      }
     }
   }
 }

@@ -9,9 +9,10 @@
 
         <div class="content">
           <p>{{ project.content }}</p>
-          <div class="shower"><a href="#" class="button small expand">Expand text</a></div>
-          <div class="hider"><a href="#" class="button small collapse">Collapse text</a></div>
+          <div class="gradient"></div>
         </div>
+        <a href="#" class="expand">Read more...</a>
+
         {% if project.image %}
         <ul class="clearing-thumbs" data-clearing>
           <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>

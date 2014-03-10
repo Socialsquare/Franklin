@@ -5,14 +5,12 @@
     <h6 class="title">{{ project.name }}</h6><span class="date">{{ project.created_at }}</span>
   {% if not hide_links %}</a>{% endif %}
 
-  {% if not hide_user %}
-    <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
-  {% endif %}
   <div class="content">
     <p>{{ project.content }}</p>
-    <div class="shower"><a href="#" class="expand">Expand text</a></div>
-    <div class="hider"><a href="#" class="collapse">Collapse text</a></div>
+    <div class="gradient"></div>
   </div>
+  <a href="#" class="expand">Read more...</a>
+  <!-- <div class="hider"><a href="#" class="collapse">Collapse text</a></div> -->
   {% if project.image %}
   <ul class="clearing-thumbs" data-clearing>
     <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
@@ -25,6 +23,18 @@
 
   {% if project.video %}
     {% video project.video %}
+  {% endif %}
+
+  {% if not hide_user %}
+  <div class="user-bar">
+    <img class="profile-picture" src="{{ project.author.getImage }}">
+    <a href="{% url 'profile' project.author.id %}" class="author">{{ project.author.username }}</a>
+    <br>
+    <div class="metadata">
+      <span class="icon heart red"></span><span class="count">{{ project.like_set.count }}</span>
+      <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
+    </div>
+  </div>
   {% endif %}
 
   {% if not hide_comments %}

@@ -141,20 +141,22 @@ $(document).ready(function() {
     var $p = $this.children('p');
     console.log($p.css('height'), $this.css('max-height'));
     if ($p.height() < $this.height()) {
-      $this.children('.shower').hide();
+      $this.children('.gradient').hide();
+      $this.closest('.project').children('.expand').hide();
     }
   });
 
   $('.project a.expand').click(function(e) {
     e.preventDefault();
-    var $project_content = $(this).parent().parent();
-    var $shower = $project_content.children('.shower');
-    var $hider = $project_content.children('.hider');
+    var $project = $(this).closest('.project');
+    var $project_content = $project.children('.content');
+    var $gradient = $project_content.children('.gradient');
 
     $project_content.data('previous-max-height', $project_content.css('max-height'));
     $project_content.css('max-height', 'none');
-    $shower.hide();
-    $hider.show();
+    $gradient.hide();
+
+    $(this).remove();
   });
   $('.project a.collapse').click(function(e) {
     e.preventDefault();
