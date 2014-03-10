@@ -52,10 +52,10 @@ $(document).ready(function() {
 
   // *** HARD DELETE ***
   // Add utility delete event handler that prompts the user to write "delete"
-  // in order delete the object. All <a>'s with class="delete ..." will get this
+  // in order delete the object. All <a>'s with class="hard-delete ..." will get this
   // handler
-  var classNameHardDelete = 'delete';
-  var hardDelete = function() {
+  var classNameHardDelete = 'hard-delete';
+  var hardDelete = function(e) {
     $a = $(this);
 
     var user_prompt = false;
@@ -64,16 +64,19 @@ $(document).ready(function() {
     error_msg = 'Object was not deleted, write <strong>delete</strong> to delete';
 
     if (user_prompt) {
-      ajaxDelete($a);
+      if ($a.data('dynamic') === 'false') {
+        return true;
+      } else {
+        ajaxDelete($a);
+      }
     } else {
       sendMessage(error_msg, 'alert');
     }
+    e.preventDefault();
   };
 
   $('body #content').on('click', 'a.' + classNameHardDelete, function(e) {
-    // call with `hard_delete = true`
-    hardDelete.apply(this, []);
-    e.preventDefault();
+    hardDelete.apply(this, [e]);
   });
 
   // *** SOFT DELETE ***
@@ -90,14 +93,14 @@ $(document).ready(function() {
     var dropdown_id = $a.data('dropdown');
 
     var dropdown = '';
-    dropdown +=   '<div id="' + dropdown_id + '" class="f-dropdown" data-dropdown-content>';
-    dropdown +=   '  <h6>Really remove this comment?</h6>';
+    dropdown +=   '<div class="f-dropdown delete-dropdown" id="' + dropdown_id + '" data-dropdown-content>';
+    dropdown +=   '  <div>Really remove this comment?</div>';
     dropdown +=   '</div>';
     var $dropdown = $(dropdown);
     $dropdown.on('closed', function() { $dropdown.remove(); });
 
     var $delete_button = $('<a href="#" class="button">Delete</a>');
-    $delete_button.click(function() {
+    $delete_button.click(function(e) {
       e.preventDefault();
       ajaxDelete($a);
       $dropdown.foundation('dropdown', 'close', $dropdown);

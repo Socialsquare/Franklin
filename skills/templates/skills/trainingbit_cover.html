@@ -12,7 +12,7 @@
 
   {# Delete trainingbit button #}
   {% permission request.user has 'trainingbit.delete'  %}
-    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button admin-button">Delete training bit</a>
+    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" data-dynamic="false" class="button hard-delete admin-button">Delete training bit</a>
   {% endpermission %}
 </div>
 
