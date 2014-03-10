@@ -4,12 +4,13 @@
       <h6>Recently shared</h6>
       {% for project in recent_projects %}
       <div class="row">
-        <div class="columns small-2">
+        <div class="columns small-2 profile-picture">
           <img src="{{ project.author.getImage }}">
         </div>
         <div class="columns small-10 text">
           <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a>
           shared
+          <br>
           <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
           in the bit
           <a href="{% url 'skills:trainingbit_cover' project.trainingbit.pk %}">{{ project.trainingbit.name }}</a>
