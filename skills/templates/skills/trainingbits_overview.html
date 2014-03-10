@@ -30,7 +30,7 @@ behind the topics.</p>
         <span class="icon triangle-down red"></span>
       </a>
     {% endif %}
-  <ul id="skill-all-topics" class="f-dropdown" data-dropdown-content>
+  <ul id="skill-all-topics" class="f-dropdown topics" data-dropdown-content>
     {% for topic in topics %}
       {# {% if topic != topic_chosen %} #}
       <li><a href="{% url 'skills:trainingbits_overview' topic.slug %}">{{ topic.name }}</a></li>

@@ -95,6 +95,13 @@
     right: 0;
   }
 
+  .f-dropdown.topics {
+    // padding-bottom: 0.5rem;
+    li a {
+      line-height: 0;
+    }
+  }
+
   a.button {
     display: inline-block;
 
