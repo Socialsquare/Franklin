@@ -39,16 +39,17 @@
   {% endif %}
 
   {% if not hide_comments %}
-    <h3>Comments</h3>
     {# Comments section #}
-    {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
-    <div class="comment-form">
-      <form action="{% url 'skills:comment_post' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="project" value="{{ project.pk }}">
-        <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
-        <button class="small">Comment</button>
-      </form>
+    <div class="comments">
+      {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
+      <div class="comment-form">
+        <form action="{% url 'skills:comment_post' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="project" value="{{ project.pk }}">
+          <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
+          <button class="small">Comment</button>
+        </form>
+      </div>
     </div>
   {% endif %}
 </div>

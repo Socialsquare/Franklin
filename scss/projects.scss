@@ -89,6 +89,9 @@ h3.shared-by-others {
     overflow-y: hidden;
     margin-bottom: 1rem;
 
+    p {
+      font-size: 0.9rem;
+      font-weight: 200;
     }
 
     div.gradient {
@@ -117,6 +120,11 @@ h3.shared-by-others {
     li {
       margin-right: 0;
     }
+  }
+
+  div.comments {
+    margin-top: 2rem;
+    margin-left: 3rem;
   }
 
   img.project-image {
