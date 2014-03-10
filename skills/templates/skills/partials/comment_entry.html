@@ -1,6 +1,6 @@
 {% load permissionif %}
 
-<div class="comment" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
+<div class="comment gcl-object" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
 
   <div class="headline">
     <img src="{{ comment.author.getImage }}">
@@ -9,14 +9,15 @@
     <div class="moderation">
       {# Delete comment button #}
       {% permission request.user has 'skills.delete_comment' of comment %}
-      <a href="{% url 'comments-delete' comment.id %}" class="alert adelete" data-dropdown="comment-delete-dropdown-{{comment.id}}">Delete</a>
+      <a href="{% url 'skills:comment_delete' comment.id %}" class="alert soft-delete" data-dropdown="comment-delete-dropdown-{{comment.id}}">Delete</a>
       {% endpermission %}
 
       {# Flag comment button #}
-      <a href="{% url 'comments-flag' comment.id %}" class="flag" data-dropdown="comment-flag-dropdown-{{comment.id}}">Flag comment</a>
+      {% comment %}
+      {#<a href="{% url 'comments-flag' comment.id %}" class="flag" data-dropdown="comment-flag-dropdown-{{comment.id}}">Flag comment</a>#}
       <div id="comment-flag-dropdown-{{comment.id}}" class="f-dropdown" data-dropdown-content>
         <h6>Really flag this comment?</h6>
-        <form action="{% url 'comments-flag' comment.id %}" method="post">{% csrf_token %}
+        {#<form action="{% url 'comments-flag' comment.id %}" method="post">{% csrf_token %}#}
           {% if next %}<div><input type="hidden" name="next" value="{{ next }}" id="next" /></div>{% endif %}
           <p class="submit">
             <input type="submit" name="submit" class="button" value="Flag" />
@@ -24,17 +25,7 @@
           </p>
         </form>
       </div>
-      <script>
-      $('#comment-flag-dropdown-{{comment.id}} a.close').click(function(event) {
-        event.preventDefault();
-        $('#comment-flag-dropdown-{{comment.id}}').foundation('dropdown', 'close', $('#comment-flag-dropdown-{{comment.id}}'));
-      });
-      $("#comment-flag-from-{{comment.id}}").ajaxForm({
-        success: function() {
-          $("#comment-{{comment.id}}").remove();
-        }
-      });
-      </script>
+      {% endcomment %}
     </div>
   </div>
 

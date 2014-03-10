@@ -30,45 +30,90 @@ $(document).ready(function() {
     });
   });
 
+  /*********** AJAX DELETION FUNCTIONS AND HANDLERS *************/
+  var ajaxDelete = function($a) {
+    console.log('AJAX getting:', $a.attr('href'));
 
+    $.ajax({
+      url: $a.attr('href'),
+
+      error: function() {
+        sendMessage('Object could not be deleted');
+      },
+
+      success: function() {
+        // Unfortunately we need to use a class because the jQuery selector
+        // syntax doesn't support `data-...` attributes
+        $a.closest('.gcl-object').remove();
+        sendMessage('Object was deleted');
+      }
+    });
+  };
+
+  // *** HARD DELETE ***
   // Add utility delete event handler that prompts the user to write "delete"
   // in order delete the object. All <a>'s with class="delete ..." will get this
   // handler
-  $('body #content').on('click', 'a.delete', function(e) {
+  var classNameHardDelete = 'delete';
+  var hardDelete = function() {
     $a = $(this);
 
-    console.log('deleting...');
-    console.log($a.data('dynamic'));
+    var user_prompt = false;
+    var error_msg = '';
+    user_prompt = prompt('Please write "delete" to accept deleting this object') === 'delete';
+    error_msg = 'Object was not deleted, write <strong>delete</strong> to delete';
 
-    if (prompt('Please write "delete" to accept deleting this object') === 'delete') {
-
-      console.log($a.data('dynamic'));
-      if ($a.data('dynamic') === false) {
-        return true;
-      } else {
-        console.log('AJAX getting:', $a.attr('href'));
-        e.preventDefault();
-
-        $.ajax({
-          url: $a.attr('href'),
-
-          error: function() {
-            sendMessage('Object could not be deleted');
-          },
-
-          success: function() {
-            // Unfortunately we need to use a class because the jQuery selector
-            // syntax doesn't support `data-...` attributes
-            $a.closest('.gcl-object').remove();
-            sendMessage('Object was deleted');
-          }
-        });
-      }
-
+    if (user_prompt) {
+      ajaxDelete($a);
     } else {
-      sendMessage('Object was not deleted, write <strong>delete</strong> to delete', 'alert');
+      sendMessage(error_msg, 'alert');
     }
+  };
+
+  $('body #content').on('click', 'a.' + classNameHardDelete, function(e) {
+    // call with `hard_delete = true`
+    hardDelete.apply(this, []);
     e.preventDefault();
+  });
+
+  // *** SOFT DELETE ***
+  // Add utility delete event handler that prompts the to click "Delete" or
+  // "Cancel" in order delete the object.
+  // All <a>'s with class="<classNameSoftDelete> ..." will get this handler
+  var classNameSoftDelete = 'soft-delete';
+  $('body #content').on('click', 'a.' + classNameSoftDelete, function(e) {
+    e.preventDefault();
+
+    var $a = $(this);
+    var href = $a.attr('href');
+    $a.data('dropdown', 'soft-delete-dropdown');
+    var dropdown_id = $a.data('dropdown');
+
+    var dropdown = '';
+    dropdown +=   '<div id="' + dropdown_id + '" class="f-dropdown" data-dropdown-content>';
+    dropdown +=   '  <h6>Really remove this comment?</h6>';
+    dropdown +=   '</div>';
+    var $dropdown = $(dropdown);
+    $dropdown.on('closed', function() { $dropdown.remove(); });
+
+    var $delete_button = $('<a href="#" class="button">Delete</a>');
+    $delete_button.click(function() {
+      e.preventDefault();
+      ajaxDelete($a);
+      $dropdown.foundation('dropdown', 'close', $dropdown);
+    });
+
+    var $cancel_button = $('<a href="#" class="button close info">Cancel</a>');
+    $cancel_button.click(function(e) {
+      e.preventDefault();
+      $dropdown.foundation('dropdown', 'close', $dropdown);
+    });
+
+    $dropdown.append($delete_button).append($cancel_button);
+    $dropdown.appendTo($('body'));
+    // $dropdown.foundation('dropdown', 'open', $dropdown);
+    // $dropdown.foundation('dropdown', 'open', [$dropdown, $a]);
+
   });
 
   /************ INFO BOX ************/
