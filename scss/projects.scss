@@ -62,14 +62,18 @@ h3.shared-by-others {
   max-width: rem-calc(650px);
 }
 
+.project-title {
+  @extend %text-white-on-darkgray;
+  margin-right: 0.5rem;
+  text-transform: none;
+  font-size: 1rem;
+}
+
 .project {
   margin-bottom: 1rem;
 
   h6.title {
-    @extend %text-white-on-darkgray;
-    margin-right: 0.5rem;
-    text-transform: none;
-    font-size: 1rem;
+    @extend .project-title;
   }
 
   div.content {
