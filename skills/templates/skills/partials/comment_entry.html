@@ -1,10 +1,12 @@
+{% load humanize %}
 {% load permissionif %}
 
 <div class="comment gcl-object" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
 
   <div class="headline">
     <img src="{{ comment.author.getImage }}">
-    <h6 class="author">{{ comment.author.username }}</h6><span class="date">{{ comment.created_at }}</span>
+    <a href="{% url 'profile' comment.author.id %}" class="author">{{ comment.author.username }}</a>
+    <span class="date">{{ comment.created_at|naturaltime }}</span>
 
     <div class="moderation">
       {# Delete comment button #}
@@ -32,12 +34,24 @@
     {% if comment.is_deleted %}
     <span class="icon block"></span>
     {% else %}
+    {% if maxchars %}
+    <p class="content">{{ comment.text|truncatechars:maxchars }}</p>
+    {% else %}
     <p class="content">{{ comment.text }}</p>
+    {% endif %}
     {% endif %}
 
 
     {# Reply to comment button #}
+    {% if not hide_reply %}
     {% if comment.allow_thread %}<a href="{% url 'skills:comment_post' %}" data-project-pk="{{ project.pk }}" data-parent-pk="{{ comment.pk }}" class="reply">Reply</a>{% endif %}
+    {% endif %}
+
+    {% if show_project %}
+    <div class="from">
+      from the project <a href="{{ comment.project.get_absolute_url }}"><h6 class="project-title">{{ comment.project.name }}</h6></a>
+    </div>
+    {% endif %}
   <!-- </div> -->
 
 

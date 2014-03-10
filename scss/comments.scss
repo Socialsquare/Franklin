@@ -67,6 +67,16 @@
     margin-bottom: 0;
   }
 
+  div.from {
+    text-align: right;
+    font-size: rem-calc(11px);
+    color: $gcl-midgray;
+
+    h6 {
+      font-size: rem-calc(11px);
+    }
+  }
+
   .moderation {
     float: right;
     display: inline-block;
@@ -75,13 +85,19 @@
     a { color: $gcl-lightgray; }
   }
 
+
+  &:hover a.reply {
+    visibility: visible;
+  }
   a.reply {
     display: block;
-    text-align: right;
-    color: $gcl-darkgray;
+    visibility: hidden;
+    // text-align: right;
+    color: $gcl-red;
     padding-right: rem-calc(3px);
     padding-bottom: rem-calc(3px);
-    font-size: rem-calc(14px);
+    padding-top: rem-calc(10px);
+    font-size: rem-calc(12px);
   }
 }
 

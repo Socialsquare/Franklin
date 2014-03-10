@@ -29,6 +29,6 @@
 
   <!-- <hr> -->
 
-  {% include 'skills/partials/comment_list.html' %}
+  {% include 'skills/partials/comment_list.html' with hide_reply=True show_project=True maxchars=200 %}
 </div>
 {% endblock %}
