@@ -1,8 +1,9 @@
+{% load humanize %}
 {% load embed_video_tags %}
 
 <div class="project" id="project-{{ project.id }}">
   {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
-    <h6 class="title">{{ project.name }}</h6><span class="date">{{ project.created_at }}</span>
+    <h6 class="title">{{ project.name }}</h6><span class="date">{{ project.created_at|naturaltime }}</span>
   {% if not hide_links %}</a>{% endif %}
 
   <div class="content">
