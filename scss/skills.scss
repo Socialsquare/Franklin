@@ -28,20 +28,22 @@ body.skill-view {
       height: $height;
       margin-right: 0.5rem;
     }
+    .text-container {
+      display: inline-block;
+      vertical-align: middle;
+    }
     h1 {
       display: inline-block;
-      line-height: $height;
     }
     .metadata {
-      // vertical-align: center;
-      display: inline-block;
-      position: relative;
-      top: - rem-calc(5px);
-      margin-left: rem-calc(5px);
       .count {
         font-size: rem-calc(12px);
       }
     }
+  }
+
+  .skill-description {
+    max-width: 50rem;
   }
 
 }
@@ -69,7 +71,6 @@ body.skill-view {
       }
 
       &.description {
-        padding-left: 0.5rem;
         font-weight: 200;
 
         p {

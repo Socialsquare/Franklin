@@ -34,6 +34,7 @@
     {% else %}
     <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
     {% endif %}
+    <div class="text-container">
     <h1>{{skill.name}}</h1>
     <div class="metadata">
       {# <span class="icon small heart red"></span> {{ trainingbit.users_in_progress.count }} #}
@@ -41,11 +42,12 @@
       <span class="icon chat red"></span><span class="count">{{ project_count }}</span>
     </div>
   </div>
+  </div>
   <p class="skill-description">{{skill.description|linebreaksbr}}</p>
   {% if request.user.is_authenticated %}
     {# {% if skill in request.user.skills_in_progress.all %} #}
     {% if request.user|is_taking_skill:skill %}
-      <a class="button" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
+      <a class="button small begin" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
     {% else %}
       <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
     {% endif %}
