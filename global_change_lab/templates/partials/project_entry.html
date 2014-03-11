@@ -46,10 +46,11 @@
     {% endif %}
     <div class="comments">
       {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
-      <div class="comment-form">
-        <form action="{% url 'skills:comment_post' %}" method="POST">
+      <div class="comment-form-container">
+        <form action="{% url 'skills:comment_post' %}" method="POST" class="comment-form">
           {% csrf_token %}
           <input type="hidden" name="project" value="{{ project.pk }}">
+          <input type="hidden" name="parent" value="">
           <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
           <button class="small">Comment</button>
         </form>

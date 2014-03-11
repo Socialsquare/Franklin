@@ -550,9 +550,24 @@ def comment_post(request):
                 comment.parent = Comment.objects.get(pk__exact=request.POST['parent_pk'])
             # comment.project = project
             comment.save()
-            messages.success(request, 'Comment was successfully saved')
+            if request.is_ajax():
+                comment_html = render_to_string('skills/partials/comment_entry.html', {
+                    'comment': comment,
+                })
+                # return rendered:
+                # * comment
+                d = {
+                    'comment_html': comment_html,
+                }
+                # The 201 HTTP status code is from my reading of the standard
+                # the # correct response to a POST which successfully created a
+                # new object.
+                # See: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2
+                return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+            else:
+                messages.success(request, 'Comment was successfully saved')
         else:
-            messages.success(request, 'Comment could not be saved: %s' % form.errors)
+            messages.error(request, 'Comment could not be saved: %s' % form.errors)
 
         try:
             return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[project.trainingbit.pk]))

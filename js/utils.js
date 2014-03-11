@@ -182,6 +182,32 @@ $(document).ready(function() {
   });
 
   /****************** COMMENTS *******************/
+  // AJAX submit comments
+  $('form.comment-form').ajaxForm({
+    resetForm: true,
+    success: function(data, statusText, xhr, $form) {
+      sendMessage('Comment successfully saved', 'success');
+      var parent_pk = $form.find('input[name=parent]').val();
+      if (parent_pk === '') {
+        $form.closest('.comments').children('.comment-list').append(data['comment_html']);
+      } else {
+        var replies = $('<div class="replies" />');
+        var $comment = $('#comment-' + parent_pk);
+
+        if ($comment.next().hasClass('replies')) {
+          replies = $comment.next();
+        } else if ($comment.next().next().hasClass('replies')) {
+          replies = $comment.next().next();
+        } else {
+          replies.after($comment);
+        }
+        replies.append(data['comment_html']);
+      }
+    },
+    error: function(data, statusText, xhr, $form) {
+      sendMessage('Comment could not be saved', 'error');
+    }
+  });
 
   // jQuery Autosize on comment fields
   // www.jacklmoore.com/autosize/
@@ -199,17 +225,42 @@ $(document).ready(function() {
     $new_div.hide();
   });
 
+  // comment Reply button
   $('.comment a.reply').click(function(e) {
     e.preventDefault();
 
     var $a = $(this);
     var $comment = $a.closest('.comment');
 
-    var $div = $('.comment-form').first().clone();
+    var $comments = $a.closest('.comments');
+    if ($comments.data('comment_form_container') === undefined) {
+      var $comment_form_container = $comments.children('.comment-form-container');
+      $comments.data('comment_form_container', $comment_form_container);
+    } else {
+      var $comment_form_container = $comments.data('comment_form_container');
+    }
+    var $comment_form = $comment_form_container.children('.comment-form');
 
+    // This reply link/form already active
+    if ($a.hasClass('active')) {
+      $comments.append($comment_form_container);
+      $comment_form_container.removeClass('reply');
 
-    console.log('clicked reply');
-    $comment.append($div);
+      $comment_form.find('input[name=parent]').val('');
+      $a.removeClass('active');
+      $a.text('Reply');
+
+    } else {
+      $comments.find('a.active').removeClass('active');
+      $a.addClass('active');
+      $a.text('Close');
+
+      $comment_form.find('input[name=parent]').val($a.data('parent-pk'));
+
+      $comment.after($comment_form_container);
+      // inset to match visual style of replies
+      $comment_form_container.addClass('reply');
+    }
 
   });
 

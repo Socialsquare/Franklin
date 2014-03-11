@@ -105,18 +105,27 @@
   }
 }
 
-.comment-form {
+.comment-form-container {
   margin-top: 1rem;
+
+  &.reply {
+    margin-left: 3rem;
+  }
+}
+
+.comment-form {
 
   textarea, button {
     display: inline-block;
     margin-bottom: 0;
   }
   textarea {
-    width: 85%;
+    width: 80%;
   }
   button {
     vertical-align: bottom;
     padding: rem-calc(7px);
+    margin-bottom: 0.5rem;
+    background-color: $gcl-midgray;
   }
 }

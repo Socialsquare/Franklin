@@ -89,7 +89,8 @@ module.exports = function(grunt) {
             'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
             'bower_components/foundation/js/foundation/foundation.alert.js',            //  ? KiB
             'bower_components/foundation/js/foundation/foundation.clearing.js',         //  ? KiB
-            'bower_components/jquery-autosize/jquery.autosize.js',                      //  ? KiB
+            'bower_components/jquery-autosize/jquery.autosize.js',                      //  ? KiB (for comments)
+            'bower_components/jquery-form/jquery.form.js',                              // 14 KiB (for comments)
             // modernizr in conjunction with
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.
@@ -114,7 +115,6 @@ module.exports = function(grunt) {
             'bower_components/underscore/underscore.js',
             'bower_components/backbone/backbone.js',
             'bower_components/backbone.collectionView/dist/backbone.collectionView.js',
-            'bower_components/jquery-form/jquery.form.js',                              // 14 KiB
           ]
         }
       },
@@ -141,7 +141,6 @@ module.exports = function(grunt) {
             'bower_components/jqueryui/ui/jquery.ui.sortable.js',
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
             'bower_components/offline/offline.min.js',
-            'bower_components/jquery-form/jquery.form.js',
           ]
         }
       }
