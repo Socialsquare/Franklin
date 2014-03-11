@@ -40,6 +40,10 @@
 
   {% if not hide_comments %}
     {# Comments section #}
+    {% if show_comments_header %}
+    <hr>
+    <h3>Comments</h3>
+    {% endif %}
     <div class="comments">
       {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
       <div class="comment-form">

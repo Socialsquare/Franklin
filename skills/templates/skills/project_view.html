@@ -5,6 +5,6 @@
   Part of the training bit
   <a href="{{ project.trainingbit.get_absolute_url}}"><h3 class="white-on-red">{{ project.trainingbit.name }}</h3></a>
   <div class="project-wrapper">
-  {% include 'partials/project_entry.html' %}
+  {% include 'partials/project_entry.html' with show_comments_header=True %}
   </div>
 {% endblock %}
