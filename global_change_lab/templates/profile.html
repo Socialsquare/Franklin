@@ -23,7 +23,7 @@
 
   {# Delete user button #}
   {% if request.user == profile_user or request.user.is_admin %}
-    <a href="{% url 'user_delete' profile_user.id %}" class="button">Delete</a>
+    <a href="{% url 'user_delete' profile_user.id %}" class="button hard-delete" data-dynamic="false">Delete</a>
   {% endif %}
 </div>
 
