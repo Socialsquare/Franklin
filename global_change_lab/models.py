@@ -24,6 +24,21 @@ class CustomUserManager(UserManager):
         return user
 
 
+class UserInfo(models.Model):
+
+    SEXES = [
+        # (data representation, textual/user representation)
+        ('male',   'Male'),
+        ('female', 'Female'),
+    ]
+
+    # Content
+    sex = models.CharField(max_length=20, choices=SEXES, blank=False)
+    country = models.CharField(max_length=140)
+    birthdate = models.DateField()
+    organization = models.CharField(max_length=140)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
     USERNAME_FIELD = 'username'
@@ -38,6 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     description = models.TextField(blank=True)
 
     # Relations
+    userinfo = models.OneToOneField(UserInfo)
     skills_in_progress = models.ManyToManyField(Skill, blank=True, related_name='users_in_progress')
     skills_completed = models.ManyToManyField(Skill, blank=True, related_name='users_completed')
     #   maybe another name for skills_completed?: skills_taken, skills_done

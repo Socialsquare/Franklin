@@ -12,6 +12,8 @@ from django.contrib.auth.models import Group
 from skills.models import Skill, TrainingBit, Topic, Image
 
 from global_change_lab.models import User
+from global_change_lab.forms import UserInfoForm
+
 from django.db.models import Q
 from datetime import datetime, timedelta
 
@@ -23,10 +25,41 @@ def front_page(request):
         'skills': Skill.objects.all(),
     })
 
+##### ONBOARDING VIEWS
+
 def new_user(request):
     return render(request, 'new_user.html', {
+    })
+
+@csrf_protect
+def new_user_input_details(request):
+    form = None
+
+    if request.POST:
+        form = UserInfoForm(request.user, request.POST)
+
+        if form.is_valid():
+            userinfo = form.save()
+
+            # request.user.userinfo = userinfo
+
+            # request.user.description = form.description
+            # request.user.save()
+
+            return HttpResponseRedirect(reverse('new_user_topics'))
+
+    else:
+        form = UserInfoForm(request.user)
+
+    return render(request, 'new_user_input_details.html', {
+        'form': form
+    })
+
+def new_user_topics(request):
+    return render(request, 'new_user_topics.html', {
       'topics': Topic.objects.all(),
     })
+
 
 @csrf_protect
 def new_user_suggestions(request):

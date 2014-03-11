@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     #   front-page and welcome
     url(r'^$', 'global_change_lab.views.front_page', name='front_page'),
     url(r'^welcome/?$', 'global_change_lab.views.new_user', name='new_user'),
+    url(r'^welcome/info/?$', 'global_change_lab.views.new_user_input_details', name='new_user_input_details'),
+    url(r'^welcome/topics/?$', 'global_change_lab.views.new_user_topics', name='new_user_topics'),
     url(r'^welcome/suggestions/?$', 'global_change_lab.views.new_user_suggestions', name='new_user_suggestions'),
     #   users
     url(r'^user/list/?$', 'global_change_lab.views.user_list', name='user_list'),

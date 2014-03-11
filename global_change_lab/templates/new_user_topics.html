@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="new-user-greeter">
+  <form method="POST" action="{% url 'new_user_suggestions' %}">
+  {% csrf_token %}
+  <div class="row" id="topics-select">
+    <div class="medium-4 columns">
+      <h1 class="white"> START BY CHOOSING YOUR TOPICS OF INTEREST </h1>
+    </div>
+    <div class="medium-8 columns">
+      <ul>
+      {% for topic in topics %}
+        <li><label><input type="checkbox" name="topic_ids[]" value="{{ topic.id }}"> {{ topic.name }}</label></li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="new-user-progress">
+    <span class="white">1 2 3</span>
+    <button class="button large next">Start</button>
+  </div>
+  </form>
+</div>
+{% endblock %}

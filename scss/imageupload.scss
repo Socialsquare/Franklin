@@ -1,0 +1,108 @@
+$height: rem-calc(150px);
+$width: rem-calc(150px);
+
+div.dropzone {
+  height: $height;
+  width: $width;
+  z-index: 1;
+
+  background-color: $gcl-lightgray;
+  background-size: cover;
+
+  // I used this: http://stackoverflow.com/a/21849177/118608
+  &:after {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
+
+  input#fileupload {
+    display: none;
+  }
+
+
+  div.progress {
+    @extend %dead-center;
+    width: 85%;
+    height: 10px;
+  }
+
+  div.helptext {
+    @extend %dead-center;
+    width: 85%;
+    height: 3rem;
+    text-align: center;
+    color: $gcl-midgray;
+    @include transition(opacity 0.6s);
+  }
+  div.icon {
+    @extend %dead-center;
+    width: 6rem;
+    height: 2rem;
+    text-align: center;
+    color: $gcl-midgray;
+    line-height: 0.6rem;
+    font-size: 9rem;
+    opacity: 0;
+    @include transition(opacity 0.6s);
+  }
+
+  &.dragging-into {
+    div.helptext {
+      opacity: 0;
+      @include transition(opacity 0.6s);
+    }
+    div.icon {
+      opacity: 1;
+      @include transition(opacity 0.6s);
+    }
+  }
+
+  //   &:before {
+  //     @include transition(display 0.6s);
+  //     font-size: 9rem;
+  //     font-family: 'EntypoRegular';
+  //     content: '\2295';
+  //   }
+  // }
+}
+
+.image-upload {
+  height: $height;
+  width: $width;
+  position: relative;
+
+  .upload-button-container {
+    position: absolute;
+    bottom: 0;
+    left:0;
+    z-index: 2;
+
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    a.button {
+      width: 100%;
+      margin-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.upload-button-container input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+

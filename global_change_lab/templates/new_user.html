@@ -48,24 +48,12 @@
       </ul>
     </div>
   </div>
+  <div class="new-user-progress">
+    <span class="white">1</span> 2 3
+    <a class="button next" href="{% url 'new_user_input_details' %}">Next</a>
+  </div>
 </div>
 
-<div class="row" id="topics-select">
-  <div class="medium-4 columns">
-    <h1> START BY CHOOSING YOUR TOPICS OF INTEREST </h1>
-  </div>
-  <div class="medium-8 columns">
-    <form method="POST" action="{% url 'new_user_suggestions' %}">
-    {% csrf_token %}
-    <ul>
-    {% for topic in topics %}
-      <li><label><input type="checkbox" name="topic_ids[]" value="{{ topic.id }}"> {{ topic.name }}</label></li>
-    {% endfor %}
-    </ul>
-    <button>Start</button>
-    </form>
-  </div>
-</div>
 
 
 {% endblock %}

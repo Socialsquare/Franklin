@@ -213,4 +213,90 @@ $(document).ready(function() {
 
   });
 
+
+  /************* FILE (IMAGE) UPLOAD ************/
+  $('.image-upload').each(function() {
+    var $image_upload = $(this);
+
+    var $fileupload = $image_upload.find('input[type=file]');
+    var fileupload_url = $fileupload.data('url');
+    var fileupload_uid = $fileupload.data('uid');
+    var fileupload_csrf = $fileupload.data('csrf');
+
+    var $dropzone = $image_upload.children('.dropzone');
+
+    $fileupload.fileupload({
+      url: fileupload_url,
+      dataType: 'json',
+      // Enable image resizing, except for Android and Opera,
+      // which actually support image resizing, but fail to
+      // send Blob objects via XHR requests:
+      disableImageResize: /Android(?!.*Chrome)|Opera/
+          .test(window.navigator && navigator.userAgent),
+
+      imageMaxWidth: 200,
+      imageMaxHeight: 200,
+
+      formData: [
+          { name: "uid", value: fileupload_uid},
+          { name: "csrfmiddlewaretoken", value: fileupload_csrf}
+      ],
+      // {# maxFileSize: {{ maxfilesize }}, #}
+      sequentialUploads: true,
+      //imageCrop: true // Force cropped images
+
+      dropZone: $dropzone,
+
+      add: function (e, data) {
+        $.each(data.files, function (index, file) {
+          console.log('Selected file: ' + file.name);
+        });
+        data.submit();
+        var progressbar = $('<div class="progress success round"> <span class="meter" style="width: 0%"></span> </div>');
+        $dropzone.children('.helptext').html('');
+        $dropzone.children('.helptext').append(progressbar);
+      },
+      progressall: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $dropzone.children('.helptext div.progress span.meter').css( 'width', progress + '%');
+      },
+      done: function (e, data) {
+        console.log('Done uploading file: "' + data.result[0].url + '".');
+        $dropzone.children('.helptext').html('');
+        $dropzone.css('background-image', 'url(' + data.result[0].url + ')');
+        // $('image-input-hidden').val(dropzone.css('background-image', 'url(' + data.result[0].url + ')');
+
+        // {# $.each(data.result.files, function (index, file) { #}
+        // {#   console.log('Done uploading.'); #}
+        // {#   $('header').text(file.name); #}
+        // {# }); #}
+
+      }
+      // {# change: function (e, data) { #}
+      // {#   $.each(data.files, function (index, file) { #}
+      // {#     alert('Selected file: ' + file.name); #}
+      // {#   }); #}
+      // {# }, #}
+
+    }).prop('disabled', !$.support.fileInput)
+      .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+    // Add dropzone "hover while dragging" effect
+    // {# https://github.com/blueimp/jQuery-File-Upload/wiki/Drop-zone-effects #}
+
+    // dragenter
+    $dropzone.on('mouseenter dragenter', null, null, function(e) {
+      console.log('hovering');
+      $(this).addClass('dragging-into');
+    });
+    // dragleave
+    $dropzone.on('mouseleave dragleave', null, null, function(e) {
+      console.log('unhovering');
+      $(this).removeClass('dragging-into');
+    });
+
+  });
+
+
+
 });

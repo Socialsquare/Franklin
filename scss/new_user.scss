@@ -1,10 +1,13 @@
 
 div#new-user-greeter {
+  $padding_horizontal: rem-calc(42px);
+  $padding_bottom: 1rem;
+
   background-color : $gcl-darkgray;
   padding-top: rem-calc(30px);
-  padding-left: rem-calc(42px);
-  padding-right: rem-calc(42px);
-  padding-bottom: 1rem;
+  padding-left:  $padding_horizontal;
+  padding-right: $padding_horizontal;
+  padding-bottom: $padding_bottom;
   margin-bottom: 1rem;
 
   h1 {
@@ -25,6 +28,72 @@ div#new-user-greeter {
       padding-right: $pad;
     }
     height: rem-calc(230px);
+  }
+
+  .new-user-progress {
+    font-size: $h1-font-size;
+    color: $gcl-midgray;
+    text-align: center;
+
+    span {
+      font-size: inherit;
+    }
+    .next {
+      position: absolute;
+      right: 0;
+      margin-right: $padding_bottom;
+      &.large {
+        bottom: 2rem;
+      }
+      // float: right;
+    }
+  }
+
+
+  form {
+    ul {
+      margin-left: 0;
+
+      li {
+        list-style: none;
+        display: inline-block;
+        margin-right: rem-calc(10px);
+      }
+    }
+    ul.errorlist {
+      display: inline;
+      color: $gcl-red;
+    }
+
+    input[name=sex] {
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  label {
+    color: white;
+
+  }
+
+    //   display: inline-block;
+
+
+  .birthdate {
+    $width: rem-calc(45px);
+    input {
+      width: $width;
+      display: inline-block;
+      margin-right: rem-calc(10px);
+    }
+    input[name=birthdate_2] {
+      // width: 2 * $width;
+      width: rem-calc(60px);
+    }
+  }
+
+  .dropzone {
+    float: left;
   }
 }
 
