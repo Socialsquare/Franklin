@@ -45,6 +45,8 @@
 
 
   div.headline {
+    margin-top: rem-calc(5px);
+
     img {
       display: inline-block;
       height: rem-calc(20px);
@@ -64,6 +66,7 @@
     // font-size: rem-calc(13px);
     font-size: 0.9rem;
     font-weight: 200;
+    margin-top: rem-calc(5px);
     margin-bottom: 0;
   }
 
@@ -71,6 +74,7 @@
     text-align: right;
     font-size: rem-calc(11px);
     color: $gcl-midgray;
+    margin-top: rem-calc(5px);
 
     h6 {
       font-size: rem-calc(11px);

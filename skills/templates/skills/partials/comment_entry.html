@@ -49,7 +49,7 @@
 
     {% if show_project %}
     <div class="from">
-      from the project <a href="{{ comment.project.get_absolute_url }}"><h6 class="project-title">{{ comment.project.name }}</h6></a>
+      commented on <a href="{{ comment.project.get_absolute_url }}"><h6 class="project-title">{{ comment.project.name|truncatechars:30 }}</h6></a>
     </div>
     {% endif %}
   <!-- </div> -->
