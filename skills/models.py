@@ -190,7 +190,11 @@ from permission.logics import PermissionLogic, AuthorPermissionLogic
 add_permission_logic(Skill, AuthorPermissionLogic())
 add_permission_logic(TrainingBit, AuthorPermissionLogic())
 add_permission_logic(Project, AuthorPermissionLogic())
-add_permission_logic(Comment, AuthorPermissionLogic())
+add_permission_logic(Comment,
+                     AuthorPermissionLogic(field_name='author',
+                                           delete_permission=True)
+                    )
+# See: https://github.com/lambdalisue/django-permission/blob/bdd0ebefbb6638b38886a0d35d9d379cfb067bfd/src/permission/logics/author.py
 
 class AdminPermissionLogic(PermissionLogic):
     def has_perm(user, permission_str, obj):
