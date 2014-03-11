@@ -6,6 +6,7 @@
   margin-top: 1rem;
 }
 
+/******* PROJECT SUBMISSION FORM *******/
 #project-form {
   input.title, textarea {
     // border: none;
@@ -125,6 +126,9 @@ h3.shared-by-others {
   div.comments {
     margin-top: 2rem;
     margin-left: 3rem;
+  }
+  h3 + div.comments {
+    margin-top: 0.8rem;
   }
 
   img.project-image {
