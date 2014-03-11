@@ -39,9 +39,6 @@ urlpatterns = patterns('',
     # url(r'^user/', include('allauth.urls', namespace='allauth', app_name='user')),
     url(r'^user/', include('allauth.urls')),
 
-    # django-comments-xtd
-    url(r'^comments/', include('django_comments_xtd.urls')),
-
     # django-inplaceedit
     (r'^inplaceeditform/', include('inplaceeditform.urls')),
 
