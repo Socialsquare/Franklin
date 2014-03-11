@@ -84,7 +84,8 @@ module.exports = function(grunt) {
           'global_change_lab/static/global_change_lab/js/user.min.js': [                // 90 KiB
             // 'bower_components/jquery/dist/jquery.js',                                // 82 KiB
             'bower_components/jquery.cookie/jquery.cookie.js',                          //  3 KiB
-            'bower_components/foundation/js/foundation.js',                             // 76 KiB
+            'bower_components/foundation/js/foundation/foundation.js',                  // 76 KiB
+            'bower_components/foundation/js/foundation/foundation.reveal.js',           //  7 KiB
             'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
             'bower_components/foundation/js/foundation/foundation.alert.js',            //  ? KiB
             'bower_components/foundation/js/foundation/foundation.clearing.js',         //  ? KiB
