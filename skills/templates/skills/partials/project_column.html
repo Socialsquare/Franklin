@@ -1,4 +1,4 @@
-{% load humanize %}
+{% load gcl_utils %}
 {% load embed_video_tags %}
 
       <div class="project project-column">
@@ -6,7 +6,7 @@
         <h6 class="project-title">{{ project.name }}</h6>
         {% if not hide_links %}</a>{% endif %}
 
-        <span class="date">{{ project.created_at|naturaltime }}</span>
+        <span class="date">{{ project.created_at|pretty_timesince }}</span>
 
         <div class="content">
           <p>{{ project.content }}</p>

@@ -1,4 +1,4 @@
-{% load humanize %}
+{% load gcl_utils %}
 {% load permissionif %}
 
 <div class="comment gcl-object" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
@@ -6,7 +6,7 @@
   <div class="headline">
     <img src="{{ comment.author.getImage }}">
     <a href="{% url 'profile' comment.author.id %}" class="author">{{ comment.author.username }}</a>
-    <span class="date">{{ comment.created_at|naturaltime }}</span>
+    <span class="date">{{ comment.created_at|pretty_timesince }}</span>
 
     <div class="moderation">
       {# Delete comment button #}
