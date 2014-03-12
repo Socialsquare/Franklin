@@ -65,10 +65,12 @@ def skill_view(request, skill_id):
 
     # Like
     content_type = ContentType.objects.get_for_model(skill).pk
+    user_like = None
     try:
-        user_like = request.user.like_set.get(object_id=skill.pk, content_type=content_type)
+        if request.user.is_authenticated():
+            user_like = request.user.like_set.get(object_id=skill.pk, content_type=content_type)
     except Like.DoesNotExist:
-        user_like = None
+        pass
 
 
     return render(request, 'skills/skill_view.html', {
@@ -247,10 +249,12 @@ def trainingbit_cover(request, trainingbit_id):
 
     # Like
     content_type = ContentType.objects.get_for_model(trainingbit)
+    user_like = None
     try:
-        user_like = request.user.like_set.get(object_id=trainingbit.pk, content_type=content_type)
+        if request.user.is_authenticated():
+            user_like = request.user.like_set.get(object_id=trainingbit.pk, content_type=content_type)
     except Like.DoesNotExist:
-        user_like = None
+        pass
 
     # Related trainingbits
     topic_pks = trainingbit.topic_set.all().values('id')
