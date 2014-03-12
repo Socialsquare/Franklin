@@ -28,8 +28,9 @@ class UserInfo(models.Model):
 
     SEXES = [
         # (data representation, textual/user representation)
-        ('male',   'Male'),
         ('female', 'Female'),
+        ('male',   'Male'),
+        ('other',  'Other'),
     ]
 
     # Content
