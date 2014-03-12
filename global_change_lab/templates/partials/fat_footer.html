@@ -21,12 +21,12 @@
     <div class="medium-6 columns likes-n-comments">
       <h6>Recent likes and comments</h6>
       <ul>
-      {% for comment in recent_comments %}
+      {% for author, action, obj in recent_activity %}
         <li>
           <span class="icon chat red"></span>
-          <a href="{% url 'profile' comment.author.pk %}">{{ comment.author.username }}</a>
-          commented on
-          <a href="{{ comment.project.get_absolute_url }}">{{ comment.project.name }}</a>
+          <a href="{% url 'profile' author.pk %}">{{ author.username }}</a>
+          {{ action }}
+          <a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a>
         </li>
       {% endfor %}
       </ul>
