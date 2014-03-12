@@ -71,12 +71,11 @@
     </ul>
   </div>
 </div>
-{% comment %}
 <div class="row">
   <h2>Related training bits</h2>
+  {% include 'partials/trainingbits_grid.html' with trainingbits=related_trainingbits %}
   {#{% include 'skills/partials/trainingbit_grid.html' with skills=trainingbit.skill_set.all %}#}
 </div>
-{% endcomment %}
 
 {% endblock %}
 
