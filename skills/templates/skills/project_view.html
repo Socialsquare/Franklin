@@ -1,10 +1,34 @@
 {% extends 'base.html' %}
+{% load gcl_utils %}
+
+{% block body_classes %}project-view{% endblock %}
 
 {% block content %}
 {#{% include 'skills/partials/project.html' %}#}
-  Part of the training bit
-  <a href="{{ project.trainingbit.get_absolute_url}}"><h3 class="white-on-red">{{ project.trainingbit.name }}</h3></a>
   <div class="project-wrapper">
-  {% include 'partials/project_entry.html' with show_comments_header=True %}
+  {% include 'partials/project_entry.html' with show_comments_header=True hide_user=True %}
+  </div>
+  <div class="medium-3 project-metadata sidebar">
+    <div class="metadata">
+      <span class="icon heart red"></span><span class="count">{{ project.likes.count }}</span>
+      <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
+      <br>
+      <a class="button small {% if user_like %}unlike{% else %}like{% endif %}" href="{% url 'skills:like' %}"
+        data-csrf_token="{{ csrf_token }}"
+        data-object_id="{{ project.pk }}"
+        data-content_type="{{ content_type.pk }}">{% if user_like %}Unlike{% else %}Like{% endif %}</a>
+    </div>
+
+    <div class="author-info">
+      <img src="{{ project.author.getImage }}">
+      {{ project.author.username }}<br>
+      <span class="date">{{ project.created_at|date }}</span><br>
+      <span class="date">({{ project.created_at|pretty_timesince }})</span>
+    </div>
+    <hr>
+    <span class="leader">Shared on </span>
+    <a href="{{ project.trainingbit.get_absolute_url}}">
+      <h6 class="white-on-red">{{ project.trainingbit.name }}</h6>
+    </a>
   </div>
 {% endblock %}

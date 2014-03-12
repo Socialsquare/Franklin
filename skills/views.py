@@ -556,6 +556,7 @@ def project_view(request, project_id):
 
     return render(request, 'skills/project_view.html', {
         'project': project,
+        'content_type': ContentType.objects.get_for_model(project),
         'comments': project.comment_set.order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:project_view', args=[project_id]),
     })

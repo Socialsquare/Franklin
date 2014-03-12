@@ -15,6 +15,15 @@
   }
 }
 
+.project-metadata {
+  //@media #{$small-up} {
+  @media #{$medium-up} {
+    position: absolute;
+    right: 0;
+    top: rem-calc(40px);
+  }
+}
+
 /******* PROJECT SUBMISSION FORM *******/
 #project-form {
   input.title, textarea {
