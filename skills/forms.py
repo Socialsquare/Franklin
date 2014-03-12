@@ -1,5 +1,16 @@
 from django.forms import ModelForm
-from skills.models import Skill, TrainingBit, Project, Comment, Topic
+from skills.models import Like, Skill, TrainingBit, Project, Comment, Topic
+
+
+class LikeForm(ModelForm):
+    # def __init__(self, author, *args, **kwargs):
+    #     self.author = author
+
+    #     super(LikeForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Like
+        fields = ['content_type', 'object_id']
 
 
 class SkillForm(ModelForm):

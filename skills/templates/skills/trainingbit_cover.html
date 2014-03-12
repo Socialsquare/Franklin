@@ -41,10 +41,16 @@
   </div>
   <div class="columns medium-3 sidebar">
     <div class="metadata">
-      {# <span class="icon small heart red"></span> {{ trainingbit.users_in_progress.count }} #}
+      <span class="icon heart red"></span><span class="count">{{ trainingbit.likes.count }}</span>
       <span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span>
       <span class="icon chat red"></span><span class="count">{{ trainingbit.project_set.count }}</span>
+
+      <a class="button small {% if user_like %}unlike{% else %}like{% endif %}" href="{% url 'skills:like' %}"
+        data-csrf_token="{{ csrf_token }}"
+        data-object_id="{{ trainingbit.pk }}"
+        data-content_type="{{ content_type.pk }}">{% if user_like %}Unlike{% else %}Like{% endif %}</a>
     </div>
+
     <div class="author-info">
       <img src="{{ trainingbit.author.getImage }}">
       {{ trainingbit.author.username }}<br>

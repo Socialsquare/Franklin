@@ -29,6 +29,7 @@
         {% endif %}
 
         <div class="metadata">
+           <span class="icon heart red"></span> {{ project.likes.count }}
           <span class="icon chat red"></span> {{ project.comment_set.count }}
           <a href="{{ project.trainingbit.get_absolute_url }}">
             <h6 class="trainingbit-name">

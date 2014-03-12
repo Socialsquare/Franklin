@@ -34,6 +34,9 @@ urlpatterns = patterns('',
     # Project URLs
     url(r'^project/(\d+)/view$', 'skills.views.project_view', name="project_view"),
 
+    # Like URLs
+    url(r'^like/?$', 'skills.views.like', name="like"),
+
     # Topic URLs
     url(r'^topic/new/?$', 'skills.views.topic_new', name='topic_new'),
     url(r'^topic/delete/(\d+)/?$', 'skills.views.topic_delete', name='topic_delete'),

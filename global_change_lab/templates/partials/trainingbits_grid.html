@@ -13,7 +13,7 @@
     {% else %}
     <div class="description">
       <h6> {{trainingbit.name}} </h6>
-        <p>{{trainingbit.description|truncatechars:125}}</p>
+      <p>{{trainingbit.description|truncatechars:125}}</p>
       <div class="info">
         {% comment %}
         {% if not hide_part_of %}
@@ -28,9 +28,9 @@
         {% endif %}
         {% endcomment %}
         <hr>
-        {% if hide_metadata %}
-        <span class="icon small heart red"></span> 23
-        <span class="icon small chat red"></span> 9
+        {% if not hide_metadata %}
+        <span class="icon small heart red"></span> {{ trainingbit.likes.count }}
+        <span class="icon small chat red"></span> {{ trainingbit.project_set.count }}
         {% endif %}
       </div>
     </div>

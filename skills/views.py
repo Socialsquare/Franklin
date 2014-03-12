@@ -5,12 +5,13 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
+from django.contrib.contenttypes.models import ContentType
 
 import django.contrib.messages as messages
 from permission.decorators import permission_required
 
-from skills.models import Skill, TrainingBit, Topic, Project, Comment
-from skills.forms import SkillForm, TrainingBitForm, ProjectForm, CommentForm, TopicForm
+from skills.models import Skill, TrainingBit, Topic, Project, Comment, Like
+from skills.forms import SkillForm, TrainingBitForm, ProjectForm, CommentForm, TopicForm, LikeForm
 
 from django_sortable.helpers import sortable_helper
 
@@ -62,7 +63,18 @@ def skill_view(request, skill_id):
     trainingbit_pks = [t.id for t in trainingbits]
     project_count = Project.objects.filter(trainingbit_id__in=trainingbit_pks).count()
 
+    # Like
+    content_type = ContentType.objects.get_for_model(skill).pk
+    try:
+        user_like = request.user.like_set.get(object_id=skill.pk, content_type=content_type)
+    except Like.DoesNotExist:
+        user_like = None
+
+
     return render(request, 'skills/skill_view.html', {
+        'content_type_pk': ContentType.objects.get_for_model(skill).pk,
+        'likes': skill.likes.count(),
+        'user_like': user_like,
         'skill': skill,
         'skill_id_get_query': '?skill_id=%u' % skill.id,
         'trainingbits': trainingbits,
@@ -233,10 +245,18 @@ def trainingbit_cover(request, trainingbit_id):
     except KeyError:
         pass
 
+    # Like
+    content_type = ContentType.objects.get_for_model(trainingbit)
+    try:
+        user_like = request.user.like_set.get(object_id=trainingbit.pk, content_type=content_type)
+    except Like.DoesNotExist:
+        user_like = None
 
     return render(request, 'skills/trainingbit_cover.html', {
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.all().prefetch_related('comment_set'),
+        'content_type': content_type,
+        'user_like': user_like,
     })
 
 def get_suggested_trainingbits(user, session):
@@ -586,3 +606,39 @@ def comment_delete(request, comment_pk):
 
     return HttpResponseRedirect(reverse('front_page'))
 
+
+@login_required
+@csrf_protect
+def like(request):
+    if request.method == 'POST':  # If the form has been submitted...
+        like = Like.objects.filter(object_id=request.POST['object_id'],
+                                   content_type=request.POST['content_type'],
+                                   author__pk=request.user.pk)
+        print(len(like))
+        if like.exists():
+            like.delete()
+            if request.is_ajax():
+                d = {'success': 'SUCCESS!!!!11'}
+                return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+            else:
+                messages.info(request, 'You no longer like this %s' % like.content_type)
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            like = Like(author=request.user)
+            form = LikeForm(request.POST, instance=like)
+            if form.is_valid():
+                like = form.save(commit=False)
+                like.author = request.user
+                like.save()
+                if request.is_ajax():
+                    d = {'success': 'SUCCESS!!!!11'}
+                    return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+                else:
+                    messages.success(request, 'Like absorbed')
+                    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                messages.error(request, 'Form invalid %s' % form.errors)
+                return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
+    else:
+        messages.error(request, 'Did not like')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

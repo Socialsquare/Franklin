@@ -2,6 +2,11 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from django.forms import ValidationError
+
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+
 from sortedm2m.fields import SortedManyToManyField
 from embed_video.fields import EmbedVideoField
 
@@ -46,6 +51,24 @@ class AuthoredModel(models.Model):
 
 
 #### CONCRETE MODELS
+class Like(TimedModel, AuthoredModel):
+    # https://docs.djangoproject.com/en/1.6/ref/contrib/contenttypes/#id1
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
+
+    # http://timmyomahony.com/blog/reversing-unique-generic-foreign-key-django/
+    def validate_unique(self, *args, **kwargs):
+        super(Like, self).validate_unique(*args, **kwargs)
+
+        if self.__class__.objects.filter(author=self.author,
+                                         content_type=self.content_type,
+                                         object_id=self.object_id).exists():
+            raise ValidationError({
+                'NON_FIELD_ERRORS': ('You already liked this',)
+            })
+
+
 class Image(TimedModel):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='uploaded_images', blank=False)
     image = models.ImageField(upload_to='trainingbits', blank=True)
@@ -65,6 +88,9 @@ class TrainingBit(TimedModel, AuthoredModel):
     image = models.ImageField(upload_to='trainingbits', blank=True)
     label = models.CharField(max_length=1, choices=LABELS, blank=False)
     json_content = models.TextField(default='{"learn":[],"act":[],"share":[]}')
+
+    # Relations
+    likes = generic.GenericRelation(Like)
 
     # Flags
     recommended = models.BooleanField(default=False)
@@ -97,6 +123,7 @@ class Project(TimedModel, AuthoredModel):
 
     # Relations
     trainingbit = models.ForeignKey(TrainingBit, blank=False)
+    likes = generic.GenericRelation(Like)
 
     # Flags
     is_public = models.BooleanField(default=True)
@@ -117,6 +144,7 @@ class Project(TimedModel, AuthoredModel):
 
     def root_comments(self):
         return self.comment_set.filter(parent=None)
+
 
 class Comment(TimedModel, AuthoredModel):
 
@@ -150,6 +178,7 @@ class Skill(TimedModel, AuthoredModel):
     #   optional relation to training bits (i.e. a skill does _have_ to have a
     #   training bit)
     trainingbits = SortedManyToManyField(TrainingBit, blank=True)
+    likes = generic.GenericRelation(Like)
 
     # Flags
     is_public = models.BooleanField(default=False)
@@ -195,6 +224,7 @@ add_permission_logic(Comment,
                                            delete_permission=True)
                     )
 # See: https://github.com/lambdalisue/django-permission/blob/bdd0ebefbb6638b38886a0d35d9d379cfb067bfd/src/permission/logics/author.py
+
 
 class AdminPermissionLogic(PermissionLogic):
     def has_perm(user, permission_str, obj):

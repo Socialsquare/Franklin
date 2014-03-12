@@ -32,7 +32,7 @@
     <a href="{% url 'profile' project.author.id %}" class="author">{{ project.author.username }}</a>
     <br>
     <div class="metadata">
-      <span class="icon heart red"></span><span class="count">{{ project.like_set.count }}</span>
+      <span class="icon heart red"></span><span class="count">{{ project.likes.count }}</span>
       <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
     </div>
   </div>

@@ -45,6 +45,10 @@ $left-margin: rem-calc(40px);
     }
   }
 
+  .like, .unlike {
+    margin-top: 1rem;
+  }
+
   .author-info {
     img {
       float: left;
