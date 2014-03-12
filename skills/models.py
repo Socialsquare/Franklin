@@ -228,7 +228,7 @@ add_permission_logic(Comment,
 
 class AdminPermissionLogic(PermissionLogic):
     def has_perm(user, permission_str, obj):
-        if user.is_admin():
+        if user.is_admin:
             return True
         else:
             return False
