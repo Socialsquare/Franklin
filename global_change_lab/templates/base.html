@@ -96,14 +96,14 @@
         {% endblock %}
 
         <nav>
-          {% if request.user.is_authenticated %}
+          {% block nav_buttons %}
           <!-- Left Nav Section -->
           <ul>
             <li><a class="{% current 'skills:skills_overview' %}" href="{% url 'skills:skills_overview' %}">Skills</a></li>
             <li><a class="{% current 'skills:trainingbits_overview' %}" href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
             <li><a class="{% current 'skills:shares_overview' %}" href="{% url 'skills:shares_overview' %}">Shares</a></li>
           </ul>
-          {% endif %}
+          {% endblock %}
 
         </nav>
       </div>
