@@ -116,6 +116,7 @@ header {
     ul {
       list-style: none;
       margin-bottom: 0; // override Foundation 5
+      margin-left: 0;
 
       li {
         margin-right: rem-calc(18px);
