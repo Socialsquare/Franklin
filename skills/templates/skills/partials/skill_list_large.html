@@ -2,14 +2,14 @@
 <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 xlarge-block-grid-3 skill-list-view">
   {% for skill in skills %}
   <li class="row">
-    <div class="skill-icon small-2 columns">
+    <div class="skill-icon"> <!-- small-2 columns"> -->
       {% if skill in request.user.skills_completed.all %}
       <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
       {% else %}
       <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
       {% endif %}
     </div>
-    <div class="description small-10 columns">
+    <div class="description"> <!--  small-10 columns"> -->
       <a href="{% url 'skills:skill_view' skill.id %}"><h2>{{skill.name}}</h2></a>
       <p>{{skill.description|truncatechars:170}}</p>
       <div class="info">

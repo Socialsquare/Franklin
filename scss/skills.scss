@@ -61,18 +61,25 @@ body.skill-view {
     margin-bottom: 2rem;
     // padding-right: 1rem;
 
-    &>div.columns {
+
+    &>div {
+      display: inline-block;
       height: $skill-height;
       float: left;
       padding:0;
 
-      img {
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
+
+      &.skill-icon {
+        width: 10%;
+        margin-right: rem-calc(10px);
+        // img {
+          // margin-right: auto;
+          // width: 50%;
+        // }
       }
 
       &.description {
+        width: 85%;
         font-weight: 200;
 
         p {
