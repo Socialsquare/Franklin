@@ -110,15 +110,16 @@ body.user-profile {
     color: black;
     margin-right: rem-calc(10px);
   }
+
+  .trainingbit-count {
+    position: absolute;
+    right: 0; //rem-calc(5px);
+    bottom: 0; //rem-calc(2px);
+    // text-align: center;
+    color: $gcl-midgray;
+  }
 }
 
-.trainingbit-count {
-  position: absolute;
-  right: 0; //rem-calc(5px);
-  bottom: 0; //rem-calc(2px);
-  // text-align: center;
-  color: $gcl-midgray;
-}
 
 
 

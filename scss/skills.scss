@@ -34,6 +34,8 @@ body.skill-view {
     }
     h1 {
       display: inline-block;
+      margin-bottom: 0;
+      // line-height: 0.9;
     }
     .metadata {
       .count {
@@ -113,11 +115,12 @@ body.skill-view {
       margin-bottom: 0.3rem;
     }
 
-    .metadata {
-      font-size: 0.7rem;
-      color: #9E9E9E;
-    }
   }
+}
+
+.trainingbit-count {
+  font-size: 0.7rem;
+  color: #9E9E9E;
 }
 
 
