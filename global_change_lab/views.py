@@ -20,6 +20,9 @@ from datetime import datetime, timedelta
 import csv, json
 
 def front_page(request):
+    if request.user.is_authenticated():
+        return profile(request)
+
     return render(request, 'front_page.html', {
         'name': 'malthe',
         'skills': Skill.objects.all(),
