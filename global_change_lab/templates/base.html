@@ -39,6 +39,8 @@
 
 <body class="{% block body-classes %}{% endblock %}">
 
+  {% comment %}
+  {# It was decided that we don't show messages #}
   <div id="messages">
     {% for message in messages %}
     <div class="alert-box {{ message.tags }}" data-alert>
@@ -47,6 +49,7 @@
     </div>
     {% endfor %}
   </div>
+  {% endcomment %}
 
   <div id="permanent-messages">
     {% block permanent-messages %}
