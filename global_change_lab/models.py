@@ -33,7 +33,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     datetime_joined = models.DateTimeField(default=datetime.now)
 
     # Content
-    username = models.CharField(max_length=40, unique=True)
+    username = models.CharField(max_length=40, unique=True, error_messages={
+        'unique': 'The username you have choosen is already taken - please, pick another one'
+    })
+    # The error message on duplicate unique values cannot be set in forms
+    # https://code.djangoproject.com/ticket/8913
     email = models.CharField(max_length=100, blank=True)
     image = models.ImageField(upload_to='trainingbits', null=True, blank=True)
     description = models.TextField(blank=True)
@@ -138,12 +142,17 @@ class UserInfo(models.Model):
         ('male',   'Male'),
         ('other',  'Other'),
     ]
+    ORGANISATION_TYPES = [
+        ('noorg', 'No organization'),
+        ('actionaid', 'ActionAid organization'),
+        ('rel', 'ActionAid related organization'),
+    ]
 
     # Content
     sex = models.CharField(max_length=20, choices=SEXES, blank=False)
     country = models.CharField(max_length=140, null=True)
     birthdate = models.DateField(null=True)
-    organization = models.CharField(max_length=140, null=True)
+    organization = models.CharField(max_length=15, choices=ORGANISATION_TYPES, blank=False)
 
     # Relations
     user = models.OneToOneField(User, null=True, blank=True)

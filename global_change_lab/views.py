@@ -39,7 +39,7 @@ def new_user_input_details(request):
     form = None
 
     if request.POST:
-        form = UserInfoForm(request.user, request.POST)
+        form = UserInfoForm(request.POST, instance=request.user)
 
         if form.is_valid():
             userinfo = form.save()
@@ -52,7 +52,7 @@ def new_user_input_details(request):
             return HttpResponseRedirect(reverse('new_user_topics'))
 
     else:
-        form = UserInfoForm(request.user)
+        form = UserInfoForm(instance=request.user)
 
     return render(request, 'new_user_input_details.html', {
         'form': form
@@ -239,12 +239,12 @@ def profile(request, user_id=None):
     form = None
 
     if request.POST:
-        form = UserInfoForm(request.user, request.POST)
+        form = UserInfoForm(request.user, request.POST, instance=request.user)
 
         if form.is_valid():
             userinfo = form.save()
     else:
-        form = UserInfoForm(request.user)
+        form = UserInfoForm(instance=request.user)
 
 
     if user_id is None:

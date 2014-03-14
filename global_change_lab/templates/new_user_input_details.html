@@ -44,10 +44,11 @@
           <!-- {{ form.errors }} -->
 
           <label>Username
-            <!-- <input type="text" name="username"> -->
-            {{ form.username.errors }}
             {{ form.username }}
           </label>
+          {% if form.username.errors %}
+            <small class="error">{{ form.username.errors.as_text }}</small>
+          {% endif %}
 
           <label>Sex {{ form.sex.errors }}</label>
           {{ form.sex }}
@@ -57,9 +58,11 @@
       <div class="row">
         <div class="columns medium-6">
           <label>Country
-            {{ form.country.errors }}
             {{ form.country }}
           </label>
+          {% if form.country.errors %}
+            <small class="error">{{ form.country.errors.as_text }}</small>
+          {% endif %}
         </div>
         <div class="columns medium-6 birthdate">
           <label>Day of birth {{ form.birthdate.errors }}</label>
@@ -72,18 +75,22 @@
 
 
       <label>Organization or relation to actionAid
-        {{ form.organization.errors }}
         {{ form.organization }}
       </label>
+      {% if form.organization.errors %}
+        <small class="error">{{ form.organization.errors.as_text }}</small>
+      {% endif %}
 
       <label>A short description of yourself
-        {{ form.description.errors }}
         {{ form.description }}
       </label>
+      {% if form.description.errors %}
+        <small class="error">{{ form.description.errors.as_text }}</small>
+      {% endif %}
     </div>
   </div>
   <div class="new-user-progress">
-    <span class="white">1 2</span> 3
+    1 <span class="white">2</span> 3
     <button class="button next">Next</button>
   </div>
   </form>

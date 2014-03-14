@@ -57,46 +57,42 @@ class DateSelectorWidget(widgets.MultiWidget):
 
 
 class UserInfoForm(forms.ModelForm):
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
-        # Add these fields from the user object
-        _fields = ('username', 'description')
-        # Retrieve initial (current) data from the user object
-        _initial = {}
-        _instance = None
+    def __init__(self, *args, **kwargs):
 
-        if user is not None:
-            _initial.update(model_to_dict(user, _fields))
-            try:
-                _instance = user.userinfo
-                _initial.update(model_to_dict(_instance))
-            except UserInfo.DoesNotExist:
-                pass
+        self.user = kwargs['instance']
+        self.userinfo = self.user.userinfo
+
+        _retrieve_fields = ('birthdate', 'sex', 'country', 'organization')
+
+        # Retrieve initial (current) data from the User and UserInfo object
+        _initial = {}
+        #_initial.update(model_to_dict(self.user, _fields))
+        _initial.update(model_to_dict(self.userinfo, _retrieve_fields))
 
         # Pass the initial data to the base
-        super(UserInfoForm, self).__init__(initial=_initial, instance=_instance, *args, **kwargs)
-        # Retrieve the fields from the user model and update the fields with it
-        self.fields.update(fields_for_model(User, _fields))
+        super(UserInfoForm, self).__init__(initial=_initial, *args, **kwargs)
+
+        # Add these automatically fields from the UserInfo object
+        _add_fields = ('country', 'organization')
+        self.fields.update(fields_for_model(UserInfo, _add_fields))
+
         # Set description field to be required
         self.fields['description'].required = True
+        self.fields['username'].required = True
+        self.fields['username'].unique = True
 
     class Meta:
-        model = UserInfo
-        exclude = ('user',)
+        model = User
+        fields = ('username', 'description')
 
     def save(self, *args, **kwargs):
-        u = self.user
-        u.username = self.cleaned_data['username']
-        u.description = self.cleaned_data['description']
-        userinfo = super(UserInfoForm, self).save(*args,**kwargs)
-        userinfo.user = u
-        userinfo.save()
-        # u.userinfo = userinfo
-        u.save()
-        return userinfo
-
-    # username = forms.CharField(max_length=30, label='Username')
-    # email = forms.CharField(max_length=100, label='Email')
+        self.userinfo.birthdate = self.cleaned_data['birthdate']
+        self.userinfo.sex = self.cleaned_data['sex']
+        self.userinfo.country = self.cleaned_data['country']
+        self.userinfo.organization = self.cleaned_data['organization']
+        self.userinfo.save()
+        user = super(UserInfoForm, self).save(*args,**kwargs)
+        return user
 
     sex = forms.ChoiceField(choices=UserInfo.SEXES, widget=forms.RadioSelect(), required=True)
     birthdate = forms.DateField(widget=DateSelectorWidget, required=True)

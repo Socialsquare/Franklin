@@ -64,6 +64,21 @@ div#new-user-greeter {
       display: inline;
       color: $gcl-red;
     }
+    // There should be no distance between the form elemet and the error message
+    input[type=text], select, textarea {
+      // margin-bottom: 0;
+    }
+    small.error {
+      padding: 0.3rem;
+      margin-top: -1rem;
+      ul {
+        margin-left: rem-calc(5px);
+        color: white;
+        li {
+          display: inline;
+        }
+      }
+    }
 
     input[name=sex] {
       position: relative;
@@ -73,11 +88,7 @@ div#new-user-greeter {
 
   label {
     color: white;
-
   }
-
-    //   display: inline-block;
-
 
   .birthdate {
     $width: rem-calc(45px);
