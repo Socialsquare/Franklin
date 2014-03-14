@@ -24,21 +24,6 @@ class CustomUserManager(UserManager):
         return user
 
 
-class UserInfo(models.Model):
-
-    SEXES = [
-        # (data representation, textual/user representation)
-        ('female', 'Female'),
-        ('male',   'Male'),
-        ('other',  'Other'),
-    ]
-
-    # Content
-    sex = models.CharField(max_length=20, choices=SEXES, blank=False)
-    country = models.CharField(max_length=140)
-    birthdate = models.DateField()
-    organization = models.CharField(max_length=140)
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
@@ -54,7 +39,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     description = models.TextField(blank=True)
 
     # Relations
-    userinfo = models.OneToOneField(UserInfo)
     skills_in_progress = models.ManyToManyField(Skill, blank=True, related_name='users_in_progress')
     skills_completed = models.ManyToManyField(Skill, blank=True, related_name='users_completed')
     #   maybe another name for skills_completed?: skills_taken, skills_done
@@ -144,6 +128,39 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.image.url
         else:
             return '/static/images/profile-picture-placeholder.png'
+
+
+class UserInfo(models.Model):
+
+    SEXES = [
+        # (data representation, textual/user representation)
+        ('female', 'Female'),
+        ('male',   'Male'),
+        ('other',  'Other'),
+    ]
+
+    # Content
+    sex = models.CharField(max_length=20, choices=SEXES, blank=False)
+    country = models.CharField(max_length=140, null=True)
+    birthdate = models.DateField(null=True)
+    organization = models.CharField(max_length=140, null=True)
+
+    # Relations
+    user = models.OneToOneField(User, null=True, blank=True)
+
+
+# http://stackoverflow.com/a/10408140/118608
+def get_or_create_userinfo(user):
+    """
+    Return the UserInfo for the given user, creating one if it does not exist.
+
+    This will also set user.userinfo to cache the result.
+    """
+    userinfo, c = UserInfo.objects.get_or_create(user=user)
+    # user.userinfo = userinfo  # Doesn't work (AttributeError: can't set attribute)
+    return userinfo
+
+User.userinfo = property(get_or_create_userinfo)
 
 
 from solo.models import SingletonModel

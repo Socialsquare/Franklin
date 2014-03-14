@@ -89,9 +89,9 @@ class UserInfoForm(forms.ModelForm):
         u.username = self.cleaned_data['username']
         u.description = self.cleaned_data['description']
         userinfo = super(UserInfoForm, self).save(*args,**kwargs)
-        # userinfo.user = u
-        # userinfo.save()
-        u.userinfo = userinfo
+        userinfo.user = u
+        userinfo.save()
+        # u.userinfo = userinfo
         u.save()
         return userinfo
 
