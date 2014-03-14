@@ -20,15 +20,22 @@ DraftField = forms.TypedChoiceField(
                  choices=((False, 'Public'), (True, 'Draft')),
                  widget=forms.RadioSelect(),
                  required=True,
-                 label='Draft status'
+                 label='Draft status',
+                 initial=True
              )
 
 class SkillForm(ModelForm):
     is_draft = DraftField
 
-
-    name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Name the skill'}))
-    description = forms.CharField(widget=widgets.Textarea(attrs={'placeholder': 'Describe the skill'}))
+    name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Name the skill'}),
+        error_messages={'required': 'You must give a name to the skill'},
+    )
+    description = forms.CharField(
+        widget=widgets.Textarea(attrs={'placeholder': 'Describe the skill'}),
+        error_messages={'required': 'You must fill out a description'},
+    )
 
     class Meta:
         model = Skill
@@ -37,6 +44,16 @@ class SkillForm(ModelForm):
 
 class TrainingBitForm(ModelForm):
     is_draft = DraftField
+
+    name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'Name the training bit'}),
+        error_messages={'required': 'You must give a name to the training bit'},
+    )
+    description = forms.CharField(
+        widget=widgets.Textarea(attrs={'placeholder': 'Describe the training bit'}),
+        error_messages={'required': 'You must fill out a description'},
+    )
 
     class Meta:
         model = TrainingBit

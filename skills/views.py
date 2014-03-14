@@ -379,6 +379,9 @@ def trainingbit_view(request, trainingbit_id):
 @csrf_protect
 def trainingbit_edit(request, trainingbit_id=None):
 
+    trainingbit = None
+    selected_topic_pks = []
+
     form = TrainingBitForm(instance=TrainingBit())
 
     if trainingbit_id is not None:
@@ -414,13 +417,9 @@ def trainingbit_edit(request, trainingbit_id=None):
             return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
         else:
             messages.error(request, 'Could not save training bit %s' % form.errors)
-            return HttpResponseRedirect(reverse('skills:trainingbit_edit', args=[trainingbit_id]))
 
     elif trainingbit_id is not None:
         selected_topic_pks = [t.pk for t in trainingbit.topic_set.all()]
-    else:
-        trainingbit = None
-        selected_topic_pks = []
 
 
     # By default show training bit form
