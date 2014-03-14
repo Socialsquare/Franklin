@@ -20,15 +20,15 @@
   <hr>
   <div class="row">
     <div class="large-6 columns">
-      <h3>Your active training bits</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your public training bits</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
-      {% for item in trainingbits %}
+      {% for item in trainingbits_public %}
         {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
       {% endfor %}
       </div>
-      <h3>Your training bits drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your training bit drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
-      {% for item in trainingbit_drafts %}
+      {% for item in trainingbits_drafts %}
         {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
       {% endfor %}
       </div>
@@ -40,9 +40,9 @@
         {% include 'partials/trainer_item.html' with url_name='skills:skill_edit' %}
       {% endfor %}
       </div>
-      <h3>Your hidden skills</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your skill drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
-      {% for item in skills_hidden %}
+      {% for item in skills_drafts %}
         {% include 'partials/trainer_item.html' with url_name='skills:skill_edit' %}
       {% endfor %}
       </div>

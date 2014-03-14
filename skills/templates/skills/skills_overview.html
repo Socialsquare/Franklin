@@ -45,14 +45,14 @@
   </ul>
 
   {# View public #}
-  {% if showing_hidden %}
+  {% if showing_drafts %}
     <a href="{% url 'skills:skills_overview' %}" class="button info">
-      Hide hidden skills
+      Show public skills
     </a>
   {% else %}
-    {% permission request.user has 'skills.show_hidden' %}
-    <a href="{% url 'skills:skills_overview_all' show_hidden=True %}" class="button info">
-      View hidden skills
+    {% permission request.user has 'skills.show_drafts' %}
+    <a href="{% url 'skills:skills_overview_all' show_drafts=True %}" class="button info">
+      Show drafts
     </a>
     {% endpermission %}
   {% endif %}

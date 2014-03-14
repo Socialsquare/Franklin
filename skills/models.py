@@ -181,7 +181,7 @@ class Skill(TimedModel, AuthoredModel):
     likes = generic.GenericRelation(Like)
 
     # Flags
-    is_public = models.BooleanField(default=False)
+    is_draft = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

@@ -31,7 +31,7 @@ def shares_overview(request):
     })
 
 
-def skills_overview(request, topic_slug=None, show_hidden=False):
+def skills_overview(request, topic_slug=None, show_drafts=False):
     # Show from topic
     if topic_slug is not None:
         topic = get_object_or_404(Topic, slug=topic_slug)
@@ -40,18 +40,18 @@ def skills_overview(request, topic_slug=None, show_hidden=False):
         topic = None
         skills = Skill.objects.all()
 
-    # Show public/hidden
-    if request.user.has_perm('skills.show_hidden') and show_hidden:
-        skills = skills.filter(is_public=False)
+    # Show public/drafts
+    if request.user.has_perm('skills.show_drafts') and show_drafts:
+        skills = skills.filter(is_draft=False)
     else:
-        skills = skills.filter(is_public=True)
+        skills = skills.filter(is_draft=True)
 
     # Sort
     skills = sortable_helper(request, skills)
 
     return render(request, 'skills/skills_overview.html', {
         'skills': skills,
-        'showing_hidden': show_hidden,
+        'showing_drafts': show_drafts,
         'topics': Topic.objects.all(),
         'topic_chosen': topic,
     })
@@ -123,12 +123,12 @@ def skill_stop(request, skill_id):
 def skill_publicize(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
     if request.user.has_perm('skill.publicize', skill):
-        if skill.is_public:
-            skill.is_public = False
-            messages.info(request, 'The skill is no longer public')
+        if skill.is_draft:
+            skill.is_draft = False
+            messages.info(request, 'The skill is now public')
         else:
-            skill.is_public = True
-            messages.success(request, 'The skill is now public')
+            skill.is_draft = True
+            messages.success(request, 'Reverted skill to draft status')
         skill.save()
         return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
     else:
@@ -147,6 +147,10 @@ def skill_delete(request, skill_id):
 
 @csrf_protect
 def skill_edit(request, skill_id=None):
+
+    skill = None
+    selected_topic_pks = []
+    form = SkillForm()
 
     # If something has been uploaded
     if request.method == 'POST':
@@ -195,9 +199,7 @@ def skill_edit(request, skill_id=None):
     elif skill_id is not None:
         skill = Skill.objects.get(id__exact=skill_id)
         selected_topic_pks = [t.pk for t in skill.topic_set.all()]
-    else:
-        skill = None
-        selected_topic_pks = []
+        form = SkillForm(instance=skill)
 
     if skill is None:
         trainingbits_chosen    = []
@@ -219,6 +221,7 @@ def skill_edit(request, skill_id=None):
         'trainingbits_available': trainingbits_available,
         'topics': Topic.objects.all(),
         'selected_topic_pks': selected_topic_pks,
+        'form': form,
     })
 
 
@@ -376,10 +379,12 @@ def trainingbit_view(request, trainingbit_id):
 @csrf_protect
 def trainingbit_edit(request, trainingbit_id=None):
 
+    form = TrainingBitForm(instance=TrainingBit())
+
     if trainingbit_id is not None:
         trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+        form = TrainingBitForm(instance=trainingbit)
 
-    form = TrainingBitForm()
 
     # If something has been uploaded
     if request.method == 'POST':

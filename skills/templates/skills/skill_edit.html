@@ -20,7 +20,8 @@
   {% csrf_token %}
   <div class="input-field-row">
     <div class="input-field">
-      <input type="text" name="name" placeholder="Name the skill" value="{{ skill.name }}">
+      {{ form.name }}
+      {{ form.name.errors }}
     </div>
     <div class="help-text">
       <h6>Title</h6>
@@ -29,7 +30,8 @@
   </div>
   <div class="input-field-row">
     <div class="input-field">
-      <textarea name="description" placeholder="Describe the skill">{{skill.description}}</textarea>
+      {{ form.description }}
+      {{ form.description.errors }}
     </div>
     <div class="help-text">
       <h6>Description</h6>
@@ -92,10 +94,7 @@
   </div>
   <div class="input-field-row">
     <div class="input-field">
-      <label>
-        <input type="checkbox" name="is_public" {% if skill.is_public %}checked{% endif %}>
-        Is public
-      </label>
+      Draft status: {{ form.is_draft }}
     </div>
     <div class="help-text">
       <h6>Public</h6>

@@ -78,8 +78,7 @@
   <div class="input-field-row">
     <div class="input-field">
       <label>
-        <input type="checkbox" name="is_draft" {% if not trainingbit or trainingbit.is_draft %}checked{% endif %}>
-        Is draft
+        Draft status: {{ form.is_draft }}
       </label>
     </div>
     <div class="help-text">

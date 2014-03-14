@@ -58,3 +58,14 @@
     }
   }
 }
+
+body.trainer-interface {
+  ul#id_is_draft {
+    list-style: none;
+    margin-left: 0;
+    li {
+      display: inline-block;
+      margin-right: rem-calc(10px);
+    }
+  }
+}

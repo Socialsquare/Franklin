@@ -109,18 +109,18 @@ from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 def trainer_dashboard(request):
     all_trainingbits = request.user.trainingbit_set.all()
-    trainingbits = filter(lambda t: not t.is_draft, all_trainingbits)
-    trainingbit_drafts = filter(lambda t: t.is_draft, all_trainingbits)
+    trainingbits_public = filter(lambda t: not t.is_draft, all_trainingbits)
+    trainingbits_drafts = filter(lambda t: t.is_draft, all_trainingbits)
 
     all_skills = request.user.skill_set.all()
-    skills_public = filter(lambda s: s.is_public, all_skills)
-    skills_hidden = filter(lambda s: not s.is_public, all_skills)
+    skills_public = filter(lambda s: not s.is_draft, all_skills)
+    skills_drafts = filter(lambda s: s.is_draft, all_skills)
 
     return render(request, 'trainer_dashboard.html', {
-        'trainingbits': trainingbits,
-        'trainingbit_drafts': trainingbit_drafts,
+        'trainingbits_public': trainingbits_public,
+        'trainingbits_drafts': trainingbits_drafts,
         'skills_public': skills_public,
-        'skills_hidden': skills_hidden,
+        'skills_drafts': skills_drafts,
         'topics': Topic.objects.all(),
     })
 
@@ -235,6 +235,18 @@ def upload_profile_picture(request):
 
 
 def profile(request, user_id=None):
+
+    form = None
+
+    if request.POST:
+        form = UserInfoForm(request.user, request.POST)
+
+        if form.is_valid():
+            userinfo = form.save()
+    else:
+        form = UserInfoForm(request.user)
+
+
     if user_id is None:
         profile_user = request.user
     else:
@@ -287,6 +299,7 @@ def profile(request, user_id=None):
         'project_list1': project_list1,
         'project_list2': project_list2,
         'hide_comments': True,
+        'form': form,
     }
     template_dict.update(in_progress_dict)
 
