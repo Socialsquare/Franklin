@@ -36,8 +36,16 @@ ul.trainingbit-list-view {
   }
 }
 
+
 li.trainingbit {
   margin-bottom: rem-calc(10px);
+
+  a {
+    display: block;
+    &:hover div.description h6 {
+      color: black;
+    }
+  }
 
   // Keep aspect ratio of div when resizing
   // See: http://stackoverflow.com/a/12121309/118608
