@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     url(r'^skill/(\d+)/trainingbits.json$', 'skills.views.skill_trainingbits_json', name="skill_trainingbits_json"),
 
     # Project URLs
-    url(r'^project/(\d+)/view$', 'skills.views.project_view', name="project_view"),
+    url(r'^share/(\d+)/view$', 'skills.views.project_view', name="project_view"),
 
     # Like URLs
     url(r'^like/?$', 'skills.views.like', name="like"),
