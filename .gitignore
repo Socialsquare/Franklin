@@ -22,7 +22,5 @@ global_change_lab/template
 /.venv
 *~
 
-skills/migrations/
-
 # who needs this anyway?!
 global_change_lab/static/
