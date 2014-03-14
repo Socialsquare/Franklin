@@ -18,9 +18,22 @@
   }
 
   div.list-container {
+    $empty_height: rem-calc(90px);
+    min-height: $empty_height;
     background-color: white;
+    position: relative;
     padding-left: 1rem;
     padding-right: 1rem;
+
+    div.empty-message {
+      @extend %dead-center;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      line-height: $empty_height;
+      color: $gcl-midgray;
+    }
+
     >div {
       border-top: 1px $gcl-lightgray solid;
       &:first-of-type {
@@ -66,6 +79,11 @@
 ul.topic-list {
   list-style: none;
   font-size: rem-calc(11px);
+  margin-top: 1rem;
+  margin-left: 0;
+  display: inline-block; // to make margin top work - otherwise it will push
+                         // the whole div (.list-container) downwards instead of
+                         // positioning the <ul> inside the div.list-container
 
   li {
     display: inline-block;
@@ -76,5 +94,12 @@ ul.topic-list {
 
     background-color: $gcl-darkgray;
     color: white;
+
+    a.delete-topic {
+      color: $gcl-red;
+      &:hover {
+        color: black;
+      }
+    }
   }
 }

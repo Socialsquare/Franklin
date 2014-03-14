@@ -22,40 +22,61 @@
     <div class="large-6 columns">
       <h3>Your public training bits</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
+      {% if trainingbits_public %}
       {% for item in trainingbits_public %}
         {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
       {% endfor %}
+      {% else %}
+        <div class="empty-message">You have no public training bits</div>
+      {% endif %}
       </div>
       <h3>Your training bit drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
+      {% if trainingbits_drafts %}
       {% for item in trainingbits_drafts %}
         {% include 'partials/trainer_item.html' with url_name='skills:trainingbit_edit' %}
       {% endfor %}
+      {% else %}
+        <div class="empty-message">You have no training bit drafts</div>
+      {% endif %}
       </div>
     </div>
     <div class="large-6 columns">
       <h3>Your public skills</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
+      {% if skills_public %}
       {% for item in skills_public %}
         {% include 'partials/trainer_item.html' with url_name='skills:skill_edit' %}
       {% endfor %}
+      {% else %}
+        <div class="empty-message">You have no public skills</div>
+      {% endif %}
       </div>
       <h3>Your skill drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
       <div class="list-container">
+      {% if skills_drafts %}
       {% for item in skills_drafts %}
         {% include 'partials/trainer_item.html' with url_name='skills:skill_edit' %}
       {% endfor %}
+      {% else %}
+        <div class="empty-message">You have no skill drafts</div>
+      {% endif %}
       </div>
     </div>
   </div>
   <div class="row">
     <div class="medium-6 columns">
     <h3>Topics</h3>
-      <ul id="topic-list" class="topic-list">
-      {% for topic in topics %}
-        <li class="gcl-object">{{ topic.name }} <a href="{% url 'skills:topic_delete' topic.pk %}" class="delete delete-topic" data-id="{{ topic.pk }}">&#215;</a></li>
-      {% endfor %}
-      </ul>
+      <div class="list-container">
+        {% if topics %}
+        <ul id="topic-list" class="topic-list">
+        {% for topic in topics %}
+          <li class="gcl-object">{{ topic.name }} <a href="{% url 'skills:topic_delete' topic.pk %}" class="delete hard-delete delete-topic" data-id="{{ topic.pk }}">&#215;</a></li>
+        {% endfor %}
+        </ul>
+        {% else %}
+        <div class="empty-message">You have no public skills</div>
+        {% endif %}
     </div>
   </div>
 </div>
