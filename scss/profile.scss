@@ -94,35 +94,6 @@ body.user-profile {
   }
 }
 
-
-#wordcloud {
-  position: relative;
-  height: 100%;
-
-  .centering {
-    @extend %dead-center;
-    div {
-      margin-bottom: rem-calc(5px);
-    }
-  }
-  a {
-    background-color: $gcl-lightgray;
-    color: black;
-    margin-right: rem-calc(10px);
-  }
-
-  .trainingbit-count {
-    position: absolute;
-    right: 0; //rem-calc(5px);
-    bottom: 0; //rem-calc(2px);
-    // text-align: center;
-    color: $gcl-midgray;
-  }
-}
-
-
-
-
 .progress-small-headline {
   text-transform: uppercase;
 }
