@@ -17,25 +17,32 @@
   {# Upgrade user button (to trainer) #}
   {% if request.user.is_admin %}
     {% if not profile_user.is_trainer and not profile_user.is_admin %}
-    <a href="{% url 'user_upgrade_to_trainer' profile_user.id %}" class="button success">Upgrade to trainer</a>
+    <a href="{% url 'user_upgrade_to_trainer' profile_user.id %}" class="button admin-button success">Upgrade to trainer</a>
     {% endif %}
   {% endif %}
 
   {# Delete user button #}
-  {% if request.user == profile_user or request.user.is_admin %}
-    <a href="{% url 'user_delete' profile_user.id %}" class="button hard-delete" data-dynamic="false">Delete</a>
+  {% if request.user.is_admin %}
+    <a href="{% url 'user_delete' profile_user.id %}" class="button admin-button hard-delete" data-dynamic="false">Delete</a>
   {% endif %}
+
+  {# Edit profile user button #}
+  {% if request.user == profile_user or request.user.is_admin %}
+    <a href="#" class="button" data-reveal-id="edit-modal">Edit profile</a>
+  {% endif %}
+</div>
+
+<div id="edit-modal" class="reveal-modal small" data-reveal>
+  {% include 'partials/user_info_form.html' with has_delete=True %}
+
+  <a class="close-reveal-modal">&#215;</a>
 </div>
 
 
 
 <div class="row" id="profile-bar">
   <div class="large-2 columns">
-    <div id="profile-picture"{% if profile_user == request.user %} class="dropzone"{% endif %}>
-      {% if profile_user == request.user %}
-        <input id="fileupload" type="file" name="profile-picture">
-        <div class="hover-visual"><span class="icon circled-plus"></span></div>
-      {% endif %}
+    <div id="profile-picture">
       <img src="{{ profile_user.getImage }}" class="profile-picture">
     </div>
   </div>
@@ -172,91 +179,5 @@
 
 {# http://stackoverflow.com/questions/8103584/linking-django-comments-with-django-users #}
 {# http://stackoverflow.com/questions/5292723/django-retrieve-all-comments-for-a-user #}
-
-
-
-
-<script>
-{# // Set by django #}
-{# var csrftoken = $.cookie('csrftoken'); #}
-
-$('#fileupload').fileupload({
-  url: '{% url 'upload_profile_picture' %}',
-  dataType: 'json',
-  // Enable image resizing, except for Android and Opera,
-  // which actually support image resizing, but fail to
-  // send Blob objects via XHR requests:
-  disableImageResize: /Android(?!.*Chrome)|Opera/
-      .test(window.navigator && navigator.userAgent),
-
-  imageMaxWidth: 200,
-  imageMaxHeight: 200,
-
-  formData: [
-      { name: "uid", value: "{{ uid }}"},
-      { name: "csrfmiddlewaretoken", value: "{{ csrf_token }}"}
-  ],
-  {# maxFileSize: {{ maxfilesize }}, #}
-  sequentialUploads: true,
-  //imageCrop: true // Force cropped images
-
-  dropZone: $('.dropzone'),
-
-  add: function (e, data) {
-    $.each(data.files, function (index, file) {
-      console.log('Selected file: ' + file.name);
-    });
-    data.submit();
-    var progressbar = $('<div class="progress success round"> <span class="meter" style="width: 0%"></span> </div>');
-    $('#profile-picture div').html('');
-    $('#profile-picture div').append(progressbar);
-  },
-  progressall: function (e, data) {
-    var progress = parseInt(data.loaded / data.total * 100, 10);
-    $('#profile-picture div div.progress span.meter').css( 'width', progress + '%');
-  },
-  done: function (e, data) {
-    $('#profile-picture').html('');
-    $img = $('<img>');
-    $img.attr('src', data.result[0].url);
-    $('#profile-picture').append($img);
-
-    {# $.each(data.result.files, function (index, file) { #}
-    {#   console.log('Done uploading.'); #}
-    {#   $('header').text(file.name); #}
-    {# }); #}
-
-  }
-  {# change: function (e, data) { #}
-  {#   $.each(data.files, function (index, file) { #}
-  {#     alert('Selected file: ' + file.name); #}
-  {#   }); #}
-  {# }, #}
-
-}).prop('disabled', !$.support.fileInput)
-  .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-
-</script>
-
-<script>
-{# https://github.com/blueimp/jQuery-File-Upload/wiki/Drop-zone-effects #}
-$(document).ready(function() {
-  var $hover_visual = $('#profile-picture .hover-visual');
-  // dragenter
-  $('.dropzone').on('mouseenter dragenter', null, null, function(e) {
-    {# e.preventDefault(); #}
-    {# e.stopPropagation(); #}
-
-    console.log('hovering');
-    $hover_visual.addClass('hover');
-  });
-  // dragleave
-  $('.dropzone').on('mouseleave dragleave', null, null, function(e) {
-    console.log('unhovering');
-    $hover_visual.removeClass('hover');
-  });
-});
-</script>
 
 {% endblock %}

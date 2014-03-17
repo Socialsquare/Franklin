@@ -49,64 +49,13 @@ div#new-user-greeter {
     }
   }
 
-
-  form {
-    ul {
-      margin-left: 0;
-
-      li {
-        list-style: none;
-        display: inline-block;
-        margin-right: rem-calc(10px);
-      }
-    }
-    ul.errorlist {
-      display: inline;
-      color: $gcl-red;
-    }
-    // There should be no distance between the form elemet and the error message
-    input[type=text], select, textarea {
-      // margin-bottom: 0;
-    }
-    small.error {
-      padding: 0.3rem;
-      margin-top: -1rem;
-      ul {
-        margin-left: rem-calc(5px);
-        color: white;
-        li {
-          display: inline;
-        }
-      }
-    }
-
-    input[name=sex] {
-      position: relative;
-      top: 2px;
-    }
-  }
-
   label {
     color: white;
   }
-
-  .birthdate {
-    $width: rem-calc(45px);
-    input {
-      width: $width;
-      display: inline-block;
-      margin-right: rem-calc(10px);
-    }
-    input[name=birthdate_2] {
-      // width: 2 * $width;
-      width: rem-calc(60px);
-    }
-  }
-
-  .dropzone {
-    float: left;
-  }
 }
+
+
+
 
 
 #topics-select {
@@ -144,4 +93,11 @@ div#new-user-greeter {
     text-align: center;
     padding-top: rem-calc(10px);
   }
+}
+
+#start-using-gcl {
+  font-size: rem-calc(14px);
+  padding: 1rem;
+  margin-right: 0.5rem !important;
+  bottom: 1.5rem;
 }

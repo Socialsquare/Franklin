@@ -55,7 +55,8 @@ def new_user_input_details(request):
         form = UserInfoForm(instance=request.user)
 
     return render(request, 'new_user_input_details.html', {
-        'form': form
+        'form': form,
+        'form_action': reverse('new_user_input_details'),
     })
 
 def new_user_topics(request):
@@ -239,7 +240,7 @@ def profile(request, user_id=None):
     form = None
 
     if request.POST:
-        form = UserInfoForm(request.user, request.POST, instance=request.user)
+        form = UserInfoForm(request.POST, instance=request.user)
 
         if form.is_valid():
             userinfo = form.save()
@@ -300,6 +301,7 @@ def profile(request, user_id=None):
         'project_list2': project_list2,
         'hide_comments': True,
         'form': form,
+        'form_action': reverse('profile'),
     }
     template_dict.update(in_progress_dict)
 

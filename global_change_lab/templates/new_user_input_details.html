@@ -9,7 +9,6 @@
 {% block content %}
 
 <div id="new-user-greeter">
-  <form method="POST" action="{% url 'new_user_input_details' %}">
   {% csrf_token %}
   <div class="row">
     <div class="columns medium-5">
@@ -23,79 +22,20 @@
       <p>Thank you ;)</p>
     </div>
     <div class="columns medium-7">
-
-      <div class="row">
-        <div class="columns medium-4">
-          <div class="image-upload">
-            <div class="dropzone" {% if request.user.image %}style="background-image: url({{ request.user.getImage }})"{% endif %}>
-              {% if not request.user.image %}<div class="helptext">Drop a picture of yourself here</div>{% endif %}
-              <div class="icon circled-plus"></div>
-            </div>
-            <div class="upload-button-container">
-              <a href="#" class="button">Upload image</a>
-              <input class="fileupload" type="file" name="profile-picture"
-                     data-url="{% url 'upload_profile_picture' %}"
-                     data-uid="{{ uid }}"
-                     data-csrf="{{ csrf_token }}">
-            </div>
-          </div>
-        </div>
-        <div class="columns medium-8">
-          <!-- {{ form.errors }} -->
-
-          <label>Username
-            {{ form.username }}
-          </label>
-          {% if form.username.errors %}
-            <small class="error">{{ form.username.errors.as_text }}</small>
-          {% endif %}
-
-          <label>Sex {{ form.sex.errors }}</label>
-          {{ form.sex }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="columns medium-6">
-          <label>Country
-            {{ form.country }}
-          </label>
-          {% if form.country.errors %}
-            <small class="error">{{ form.country.errors.as_text }}</small>
-          {% endif %}
-        </div>
-        <div class="columns medium-6 birthdate">
-          <label>Day of birth {{ form.birthdate.errors }}</label>
-          <!-- <input type="text" maxlength="2" placeholder="DD"   name="birthday_date"> -->
-          <!-- <input type="text" maxlength="2" placeholder="MM"   name="birthday_month"> -->
-          <!-- <input type="text" maxlength="4" placeholder="YYYY" name="birthday_year"> -->
-          {{ form.birthdate }}
-        </div>
-      </div>
-
-
-      <label>Organization or relation to actionAid
-        {{ form.organization }}
-      </label>
-      {% if form.organization.errors %}
-        <small class="error">{{ form.organization.errors.as_text }}</small>
-      {% endif %}
-
-      <label>A short description of yourself
-        {{ form.description }}
-      </label>
-      {% if form.description.errors %}
-        <small class="error">{{ form.description.errors.as_text }}</small>
-      {% endif %}
+      {% include 'partials/user_info_form.html'%}
     </div>
   </div>
   <div class="new-user-progress">
     1 <span class="white">2</span> 3
-    <button class="button next">Next</button>
   </div>
-  </form>
 </div>
 
+<script>
+var $submitButton = $('#submitButton');
+$submitButton.addClass('next');
+$submitButton.text('Next');
+$submitButton.appendTo('.new-user-progress');
+</script>
 
 
 {% endblock %}
