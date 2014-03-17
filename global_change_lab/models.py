@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 
 from django.db import models
 from allauth.account.models import EmailAddress
+from django_countries.fields import CountryField
 
 from skills.models import Skill, TrainingBit
 
@@ -150,7 +151,7 @@ class UserInfo(models.Model):
 
     # Content
     sex = models.CharField(max_length=20, choices=SEXES, blank=False)
-    country = models.CharField(max_length=140, null=True)
+    country = CountryField()
     birthdate = models.DateField(null=True)
     organization = models.CharField(max_length=15, choices=ORGANISATION_TYPES, blank=False)
 

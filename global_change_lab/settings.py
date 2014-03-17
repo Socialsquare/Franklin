@@ -264,3 +264,8 @@ MESSAGE_TAGS = {
 # LOCALE_PATHS = [
 #     'locale'
 # ]
+
+# django-countries
+COUNTRIES_OVERRIDE = {
+    '00': ' Other',
+}
