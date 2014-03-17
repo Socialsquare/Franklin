@@ -58,13 +58,12 @@ $(document).ready(function() {
   var hardDelete = function(e) {
     $a = $(this);
 
-    var user_prompt = false;
-    var error_msg = '';
-    user_prompt = prompt('Please write "delete" to accept deleting this object') === 'delete';
-    error_msg = 'Object was not deleted, write <strong>delete</strong> to delete';
+    var user_prompt = prompt('Please write "delete" to accept deleting this object');
+    var error_msg = 'Object was not deleted, write <strong>delete</strong> to delete';
 
-    if (user_prompt) {
-      if ($a.data('dynamic') === 'false') {
+    if (user_prompt === 'delete') {
+      // jQuery does type coercion on `data` attributes: string("false") -> bool(false)
+      if ($a.data('dynamic') === false) {
         return true;
       } else {
         ajaxDelete($a);
@@ -75,7 +74,7 @@ $(document).ready(function() {
     e.preventDefault();
   };
 
-  $('body #content').on('click', 'a.' + classNameHardDelete, function(e) {
+  $(document).on('click', 'a.' + classNameHardDelete, function(e) {
     hardDelete.apply(this, [e]);
   });
 
@@ -84,7 +83,7 @@ $(document).ready(function() {
   // "Cancel" in order delete the object.
   // All <a>'s with class="<classNameSoftDelete> ..." will get this handler
   var classNameSoftDelete = 'soft-delete';
-  $('body #content').on('click', 'a.' + classNameSoftDelete, function(e) {
+  $(document).on('click', 'a.' + classNameSoftDelete, function(e) {
     e.preventDefault();
 
     var $a = $(this);
