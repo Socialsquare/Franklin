@@ -90,11 +90,11 @@
             {% endblock %}
 
             {% block trainer_dashboard_button %}
-            {% permission request.user has 'trainingbit.create'  %}
+            {% if request.user.is_trainer %}
             <div id="trainer-dashboard-button">
               <a href="{% url 'trainer_dashboard' %}" class="button admin-button">Trainer Dashboard</a>
             </div>
-            {% endpermission %}
+            {% endif %}
             {% endblock %}
 
             <div id="logged-in-menu">
