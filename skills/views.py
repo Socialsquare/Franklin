@@ -42,9 +42,11 @@ def skills_overview(request, topic_slug=None, show_drafts=False):
 
     # Show public/drafts
     if request.user.has_perm('skills.show_drafts') and show_drafts:
-        skills = skills.filter(is_draft=False)
-    else:
         skills = skills.filter(is_draft=True)
+    else:
+        # by default show the skill that are _not_ drafts
+        # that is - show the public skills
+        skills = skills.filter(is_draft=False)
 
     # Sort
     skills = sortable_helper(request, skills)
