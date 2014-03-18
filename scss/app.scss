@@ -111,14 +111,15 @@
     &.sorting {
       background-color: $gcl-darkgray;
     }
-    &.admin-button {
-      background-color: $gcl-blue;
-      color: white;
-    }
   }
   // position: absolute;
   // top: rem-calc(10px);
   // right: rem-calc(5px);
+}
+
+a.button.admin-button {
+  background-color: $gcl-blue;
+  color: white;
 }
 
 .button {
@@ -127,11 +128,15 @@
   padding-right: rem-calc(10px);
   padding-top: rem-calc(7px);
   padding-bottom: rem-calc(7px);
-  font-size: rem-calc(12px);
+  font-size: $button-font-size;
 
   display: inline-block;
   text-transform: uppercase;
   background-color: $gcl-red;
+
+  &:hover {
+    background-color: black;
+  }
 }
 
 .button.info {
@@ -294,9 +299,6 @@ p.skill-description, p.trainingbit-description {
   font-size: 0.9rem;
 }
 
-.button:hover {
-  background-color: black;
-}
 
 // Or selectively include components
 // @import
