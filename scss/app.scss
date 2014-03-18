@@ -299,6 +299,23 @@ p.skill-description, p.trainingbit-description {
   font-size: 0.9rem;
 }
 
+#like-count {
+  $line_height: 1.2rem;
+  line-height: $line_height;
+  height: rem-calc(15px); //1.2rem;
+  overflow: hidden;
+  display: inline-block;
+
+  div {
+    position: relative;
+    &.like {
+      top: 0rem;
+    }
+    &.unlike {
+      top: -$line_height;
+    }
+  }
+}
 
 // Or selectively include components
 // @import

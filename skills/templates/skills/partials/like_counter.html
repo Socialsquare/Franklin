@@ -1,0 +1,12 @@
+<span class="icon small heart red"></span>
+<div id="like-count" class="count">
+  <div class="{% if user_like %}unlike{% else %}like{% endif %}">
+    {% if user_like %}
+      {{ object.likes.count|add:-1 }}<br>
+      {{ object.likes.count }}
+    {% else %}
+      {{ object.likes.count }}<br>
+      {{ object.likes.count|add:1 }}
+    {% endif %}
+  </div>
+</div>

@@ -64,7 +64,7 @@ def skill_view(request, skill_id):
     project_count = Project.objects.filter(trainingbit_id__in=trainingbit_pks).count()
 
     # Like
-    content_type = ContentType.objects.get_for_model(skill).pk
+    content_type = ContentType.objects.get_for_model(skill)
     user_like = None
     try:
         if request.user.is_authenticated():
@@ -74,9 +74,9 @@ def skill_view(request, skill_id):
 
 
     return render(request, 'skills/skill_view.html', {
-        'content_type_pk': ContentType.objects.get_for_model(skill).pk,
-        'likes': skill.likes.count(),
         'user_like': user_like,
+        'content_type': content_type,
+        'likes': skill.likes.count(),
         'skill': skill,
         'skill_id_get_query': '?skill_id=%u' % skill.id,
         'trainingbits': trainingbits,
@@ -562,9 +562,19 @@ def project_view(request, project_id):
     project_id = int(project_id)
     project = get_object_or_404(Project, pk=project_id)
 
+    # Like
+    content_type = ContentType.objects.get_for_model(project)
+    user_like = None
+    try:
+        if request.user.is_authenticated():
+            user_like = request.user.like_set.get(object_id=project.pk, content_type=content_type)
+    except Like.DoesNotExist:
+        pass
+
     return render(request, 'skills/project_view.html', {
+        'user_like': user_like,
+        'content_type': content_type,
         'project': project,
-        'content_type': ContentType.objects.get_for_model(project),
         'comments': project.comment_set.order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:project_view', args=[project_id]),
     })

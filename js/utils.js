@@ -284,15 +284,19 @@ $(document).ready(function() {
       url: $a.attr('href'),
       success: function() {
         if (liking) {
-          sendMessage('You liked something!', 'success');
+          //sendMessage('You liked something!', 'success');
           $a.removeClass('like');
           $a.addClass('unlike');
           $a.text('Unlike');
+
+          $("#like-count div").animate({top: "-1.2rem"}, 400);
         } else {
-          sendMessage('You no longer like this', 'info');
+          //sendMessage('You no longer like this', 'info');
           $a.removeClass('unlike');
           $a.addClass('like');
           $a.text('Like');
+
+          $("#like-count div").animate({top: "0rem"}, 400);
         }
       },
       error: function(data) {

@@ -38,7 +38,7 @@
     <h1>{{skill.name}}</h1>
     <div class="metadata">
       <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span><br>
-      <span class="icon small heart red"></span><span class="count">{{ skill.likes.count }}</span>
+      {% include 'skills/partials/like_counter.html' with object=skill %}
       <span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span>
     </div>
   </div>
@@ -53,10 +53,7 @@
     {% endif %}
   {% endif %}
 
-  <a class="button small {% if user_like %}unlike{% else %}like{% endif %}" href="{% url 'skills:like' %}"
-     data-csrf_token="{{ csrf_token }}"
-     data-object_id="{{ skill.pk }}"
-     data-content_type="{{ content_type_pk }}">{% if user_like %}Unlike{% else %}Like{% endif %}</a>
+  {% include 'skills/partials/like_button.html' with object=skill %}
 </div>
 
 <hr>

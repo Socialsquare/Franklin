@@ -10,13 +10,10 @@
   </div>
   <div class="medium-3 project-metadata sidebar">
     <div class="metadata">
-      <span class="icon heart red"></span><span class="count">{{ project.likes.count }}</span>
+      {% include 'skills/partials/like_counter.html' with object=project %}
       <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
       <br>
-      <a class="button small {% if user_like %}unlike{% else %}like{% endif %}" href="{% url 'skills:like' %}"
-        data-csrf_token="{{ csrf_token }}"
-        data-object_id="{{ project.pk }}"
-        data-content_type="{{ content_type.pk }}">{% if user_like %}Unlike{% else %}Like{% endif %}</a>
+      {% include 'skills/partials/like_button.html' with object=project %}
     </div>
 
     <div class="author-info">
