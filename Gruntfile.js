@@ -89,6 +89,7 @@ module.exports = function(grunt) {
             'bower_components/foundation/js/foundation/foundation.dropdown.js',         //  7 KiB
             'bower_components/foundation/js/foundation/foundation.alert.js',            //  ? KiB
             'bower_components/foundation/js/foundation/foundation.clearing.js',         //  ? KiB
+            'bower_components/foundation/js/foundation/foundation.topbar.js',           //  ? KiB
             'bower_components/jquery-autosize/jquery.autosize.js',                      //  ? KiB (for comments)
             'bower_components/jquery-form/jquery.form.js',                              // 14 KiB (for comments)
             // modernizr in conjunction with

@@ -59,58 +59,68 @@
 
   {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
   <div id="sticky-footer-wrap">
-    <header class="{% block header-classes %}{% endblock %}">
-      <div class="row">
-        <a href="/" title="Global Change Lab home" id="gcl-logo"><img src="{% static 'images/gcl-logo.png' %}"></a>
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <!-- <h1><a href="#">My Site</a></h1> -->
+            <a href="/" title="Global Change Lab home" id="gcl-logo"><img src="{% static 'images/gcl-logo.png' %}"></a>
+          </li>
+          <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+        </ul>
 
-        <div id="logged-in-menu">
-        {% if user.is_authenticated %}
-          <a href="#" class="button" data-dropdown="drop">
-            <span class="icon user"></span>
-            {{ user.username }}
-            <span class="icon triangle-down red"></span>
-          </a>
-          <ul id="drop" class="f-dropdown" data-dropdown-content>
-            <li><a href="{% url 'profile' %}">View my profile</a></li>
-            <li><a href="{% url 'account_logout' %}">Sign out</a></li>
-          </ul>
-        {% else %}
-          <a href="{% url 'account_login' %}" class="button">
-            Sign in
-            <span class="icon triangle-down red"></span>
-          </a>
-        {% endif %}
-        </div>
-        
-        {% block trainer_dashboard_button %}
-        {% permission request.user has 'trainingbit.create'  %}
-        <div id="trainer-dashboard-button">
-          <a href="{% url 'trainer_dashboard' %}" class="button">Trainer Dashboard</a>
-        </div>
-        {% endpermission %}
-        {% endblock %}
-
-        {% block admin_dashboard_button %}
-        {% if request.user.is_admin  %}
-        <div id="admin-dashboard-button">
-          <a href="{% url 'admin_dashboard' %}" class="button">Admin Dashboard</a>
-        </div>
-        {% endif %}
-        {% endblock %}
-
-        <nav>
-          {% block nav_buttons %}
+        <section class="top-bar-section">
           <!-- Left Nav Section -->
-          <ul>
-            <li><a class="{% current 'skills:skills_overview' %}" href="{% url 'skills:skills_overview' %}">Skills</a></li>
-            <li><a class="{% current 'skills:trainingbits_overview' %}" href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
-            <li><a class="{% current 'skills:shares_overview' %}" href="{% url 'skills:shares_overview' %}">Shares</a></li>
+          <ul class="left">
+            {% block nav_buttons %}
+              <li><a class="{% current 'skills:skills_overview' %}" href="{% url 'skills:skills_overview' %}">Skills</a></li>
+              <li><a class="{% current 'skills:trainingbits_overview' %}" href="{% url 'skills:trainingbits_overview' %}">Bits</a></li>
+              <li><a class="{% current 'skills:shares_overview' %}" href="{% url 'skills:shares_overview' %}">Shares</a></li>
+            {% endblock %}
           </ul>
-          {% endblock %}
 
-        </nav>
-      </div>
-    </header>
+          <!-- Right Nav Section -->
+          <div class="right">
+            {% block admin_dashboard_button %}
+            {% if request.user.is_admin  %}
+            <div id="admin-dashboard-button">
+              <a href="{% url 'admin_dashboard' %}" class="button admin-button">Admin Dashboard</a>
+            </div>
+            {% endif %}
+            {% endblock %}
+
+            {% block trainer_dashboard_button %}
+            {% permission request.user has 'trainingbit.create'  %}
+            <div id="trainer-dashboard-button">
+              <a href="{% url 'trainer_dashboard' %}" class="button admin-button">Trainer Dashboard</a>
+            </div>
+            {% endpermission %}
+            {% endblock %}
+
+            <div id="logged-in-menu">
+            {% if user.is_authenticated %}
+              <a href="#" class="button" data-dropdown="drop">
+                <span class="icon user"></span>
+                {{ user.username }}
+                <span class="icon triangle-down red"></span>
+              </a>
+              <ul id="drop" class="f-dropdown" data-dropdown-content>
+                <li><a href="{% url 'profile' %}">View my profile</a></li>
+                <li><a href="{% url 'account_logout' %}">Sign out</a></li>
+              </ul>
+            {% else %}
+              <a href="{% url 'account_login' %}" class="button">
+                Sign in
+                <span class="icon triangle-down red"></span>
+              </a>
+            {% endif %}
+            </div>
+
+          </div>
+        </section>
+      </nav>
+    </div>
+
     <div id="content" class="{% block content-classes %}{% endblock %}">
 
     <div id="info-box" data-url-name="{% current_url_name %}">

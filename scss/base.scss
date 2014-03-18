@@ -29,29 +29,28 @@ footer {
 body.trainer-interface {
   background-color: $gcl-lightgray;
 
-  header {
+  .contain-to-grid {
     background-color: $gcl-darkgray;
-
-    a#gcl-logo {
-      background-image: url(/static/images/gcl-logo-white.png);
-    }
-    nav {
-      ul li a {
-        background-color: white;
-        color: $gcl-midgray;
-
+    nav.top-bar {
+      background-color: inherit;
+      a#gcl-logo {
+        background-image: url(/static/images/gcl-logo-white.png);
         &:hover {
-          background-color: $gcl-midgray;
-          color: white;
-        }
-
-        .update-count {
-          color: white;
+          background-color: inherit;
         }
       }
-
+      ul {
+        background-color: inherit;
+        a {
+          background-color: inherit;
+          color: white;
+          &:hover {
+            background-color: $gcl-midgray;
+            color: white;
+          }
+        }
+      }
     }
-
   }
 
   footer {
@@ -73,135 +72,83 @@ body.trainer-interface {
   }
 }
 
-header {
-  .row {
-    max-width: $row-width; // row in <header> in Foundation 5 don't have the
-                           // default max-width, so we enforce it
-  }
 
-  // Have some space
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  // Background
-  background-color: $gcl-lightgray;
-  // background-image: url(../../../static/images/top-football-guy-flattened.png);
-  background-image: url(../../../static/images/top-football-guy.png);
-  background-repeat: no-repeat;
-  background-position: 75% 0%;
-  // height: rem-calc(90px);
-  height: 100%;
-
+.top-bar {
   // Logo
-  // img#gcl-logo {
   a#gcl-logo {
-    img { visibility: hidden; }
-    display: block;
-    float: left;
+    line-height: $topbar-height;
 
+    img { visibility: hidden; }
+
+    display: inline-block;
     // PNG size: 190x43 (WxH)
     width: rem-calc(110px);
     height: rem-calc(25px);
+    margin-top: rem-calc(10px);
 
     background-image: url(/static/images/gcl-logo.png);
     background-repeat: no-repeat;
     background-size: 100%;
   }
 
-  // Nav buttons
-  nav {
-    clear: both;
-    width: 100%;
-    padding-top: 0.7rem;
-    ul {
-      list-style: none;
-      margin-bottom: 0; // override Foundation 5
-      margin-left: 0;
+  .left {
+    margin-left: 1rem;
+    li a {
+      font-weight: bold;
+      color: $gcl-midgray;
+      text-transform: uppercase;
+      &.current {
+        color: $gcl-red;
+      }
+    }
+  }
 
+  .button {
+    top: 0; // override Foundation 5 .top-bar .button
+    font-size: $button-font-size;
+    @extend .button;
+  }
+
+  div#trainer-dashboard-button, div#admin-dashboard-button{
+    margin-right: rem-calc(10px);
+    display: inline-block;
+  }
+
+  div#logged-in-menu { //, div#trainer-dashboard-button, div#admin-dashboard-button {
+    display: inline-block;
+    a.button {
+      background-color: white;
+      font-size: rem-calc(12px);
+      color: $gcl-darkgray;
+      text-transform: none;
+
+      padding-left: rem-calc(10px);
+      padding-right: rem-calc(10px);
+      padding-top: rem-calc(7px);
+      padding-bottom: rem-calc(7px);
+
+      // margin-bottom: 0;
+    }
+    #drop {
+      background-color: white;
+      width: 8rem;
       li {
-        margin-right: rem-calc(18px);
-        display: inline-block;
-
-        @media #{$small-only} {
-          display: block;
-        }
-
-
+        width: 100%;
         a {
-          color: white;
-          background-color: $gcl-darkgray;
-          display: block;
-
-          // Highlight current page
-          &.current, &:hover {
-            background-color: $gcl-midgray !important;
-            color: white;
-          }
-
-          @include rounded(rem-calc(2px));
-          font-weight: bold;
-          text-transform: uppercase;
-
-          $vertical-padding: rem-calc(22px);
-          $horizontal-padding: rem-calc(22px);
-
-          &, & span {
-            font-size: 0.75rem; // gets overridden by <span> font-size
-          }
-
-          @media #{$small-only} {
-            $horizontal-padding: rem-calc(10px);
-            display: inline-block;
-            width: auto;
-            // HACK: foundation **adds** padding when going to small screens?
-            //       wtf?
-            padding-top: 0;
-            padding-bottom: 0;
-          }
-          line-height: rem-calc(35px);
-          padding-right: $horizontal-padding;
-          padding-left:  $horizontal-padding;
-
-          .update-count {
-            display: inline-block;
-            background-color: $gcl-red;
-            margin-left: $horizontal-padding - rem-calc(5px);
-            margin-right: -$horizontal-padding;
-            padding-right: 15px;
-            padding-left: 15px;
-            @include rounded-right(rem-calc(2px));
+          background-color: white;
+          color: black;
+        }
+        &:hover {
+          a {
+            color: $gcl-red;
+            background-color: $gcl-browngray;
           }
         }
       }
     }
   }
-
-  // User buttons (logged in)
-  div#logged-in-menu, div#trainer-dashboard-button, div#admin-dashboard-button {
-    float: right;
-
-    a.button {
-      background-color: white;
-      padding-left: rem-calc(10px);
-      padding-right: rem-calc(10px);
-      padding-top: rem-calc(7px);
-      padding-bottom: rem-calc(7px);
-      font-size: rem-calc(12px);
-      color: $gcl-darkgray;
-      text-transform: none;
-      margin-bottom: 0;
-    }
-  }
-  div#trainer-dashboard-button, div#admin-dashboard-button{
-    margin-right: rem-calc(10px);
-
-    a.button {
-      background-color: $gcl-blue;
-      color: white;
-    }
-  }
-
 }
+
 
 footer {
   .fat-footer {
