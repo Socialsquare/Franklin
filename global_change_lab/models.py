@@ -110,13 +110,15 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return result[0].verified
         return False
 
+    @property
     def is_trainer(self):
+        if self.is_admin:
+            return True
         return self.groups.filter(name='Trainers')
 
     @property
     def is_admin(self):
-        # return self.groups.filter(name='Admins')
-        return self.is_staff
+        return self.is_staff or self.groups.filter(name='Admins')
 
     # is_staff = models.BooleanField()
     @property
