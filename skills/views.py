@@ -384,17 +384,17 @@ def trainingbit_edit(request, trainingbit_id=None):
     trainingbit = None
     selected_topic_pks = []
 
-    form = TrainingBitForm(instance=TrainingBit())
 
     if trainingbit_id is not None:
         trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
-        form = TrainingBitForm(instance=trainingbit)
+        selected_topic_pks = [t.pk for t in trainingbit.topic_set.all()]
 
+    form = TrainingBitForm(instance=trainingbit)
 
     # If something has been uploaded
     if request.method == 'POST':
 
-        form = TrainingBitForm(request.POST, request.FILES)
+        form = TrainingBitForm(request.POST, request.FILES, instance=trainingbit)
         if form.is_valid():
 
             new_trainingbit = form.save(commit=False)
@@ -419,10 +419,6 @@ def trainingbit_edit(request, trainingbit_id=None):
             return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
         else:
             messages.error(request, 'Could not save training bit %s' % form.errors)
-
-    elif trainingbit_id is not None:
-        selected_topic_pks = [t.pk for t in trainingbit.topic_set.all()]
-
 
     # By default show training bit form
     return render(request, 'skills/trainingbit_edit.html', {
