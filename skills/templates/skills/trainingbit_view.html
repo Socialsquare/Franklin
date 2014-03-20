@@ -24,13 +24,13 @@
   {% endpermission %}
 
   {# Edit trainingbit button #}
-  {% permission request.user has 'trainingbit.edit'  %}
-    <a href="{% url 'skills:trainingbit_edit_content' trainingbit.id %}" class="button admin-button info">Edit training bit</a>
+  {% permission request.user has 'skills.change_trainingbit' of trainingbit %}
+    <a href="{% url 'skills:trainingbit_edit' trainingbit.id %}" class="button info admin-button">Edit training bit</a>
   {% endpermission %}
 
   {# Delete trainingbit button #}
-  {% permission request.user has 'trainingbit.delete'  %}
-    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" class="button admin-button">Delete training bit</a>
+  {% permission request.user has 'skills.delete_trainingbit' of trainingbit %}
+    <a href="{% url 'skills:trainingbit_delete' trainingbit.id %}" data-dynamic="false" class="button hard-delete admin-button">Delete training bit</a>
   {% endpermission %}
 </div>
 

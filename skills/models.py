@@ -217,8 +217,13 @@ from permission.logics import PermissionLogic, AuthorPermissionLogic
 
 # Authors have full permission (edit, delete etc.) to their own skills and training bits
 add_permission_logic(Skill, AuthorPermissionLogic())
-add_permission_logic(TrainingBit, AuthorPermissionLogic())
 add_permission_logic(Project, AuthorPermissionLogic())
+gcl_authorpermissionlogic = AuthorPermissionLogic(
+    field_name='author',
+    change_permission=True,
+    delete_permission=True
+)
+add_permission_logic(TrainingBit, gcl_authorpermissionlogic)
 add_permission_logic(Comment,
                      AuthorPermissionLogic(field_name='author',
                                            delete_permission=True)
