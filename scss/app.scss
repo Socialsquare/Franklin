@@ -303,6 +303,16 @@ p.skill-description, p.trainingbit-description {
   font-size: 0.9rem;
 }
 
+.button.like, .button.unlike {
+  padding-top:    rem-calc(10px);
+  padding-bottom: rem-calc(10px);
+
+  span.heart {
+    margin-left: - rem-calc(5px);
+    margin-right: rem-calc(5px);
+  }
+}
+
 #like-count {
   $line_height: 1.2rem;
   line-height: $line_height;
