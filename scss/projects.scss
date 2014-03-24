@@ -1,9 +1,10 @@
 /******* PROJECT VIEW *********/
 .project-wrapper {
-  max-width: rem-calc(500px);
-  margin-left: auto;
-  margin-right: auto;
-  // margin-top: 1rem;
+  width: 70%;
+  margin-left: 15%;
+  //max-width: rem-calc(500px);
+  //margin-left: auto;
+  //margin-right: auto;
 
   .leader {
     margin-top: -1.0rem;
@@ -13,6 +14,21 @@
     margin-top: 1.3rem;
     font-size: $h2-font-size;
   }
+}
+
+.metadata-row {
+  .author-info {
+    width: 49%;
+    display: inline-block;
+  }
+  .metadata-inline-row {
+    width: 50%;
+    float: right;
+    display: inline-block;
+    text-align: right;
+  }
+
+  border-bottom: 1px solid $gcl-midgray;
 }
 
 .project-metadata {
@@ -148,7 +164,6 @@ a:hover .project-title {
 
   div.comments {
     margin-top: 2rem;
-    margin-left: 3rem;
   }
   h3 + div.comments {
     margin-top: 0.8rem;

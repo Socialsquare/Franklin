@@ -99,6 +99,8 @@
 }
 
 .comment-form {
+  background-color: $gcl-comment-color;
+  padding: 1rem;
 
   textarea, button {
     display: inline-block;
@@ -110,7 +112,8 @@
   button {
     vertical-align: bottom;
     padding: rem-calc(7px);
-    margin-bottom: 0.5rem;
-    background-color: $gcl-midgray;
+    background-color: $gcl-red;
+    text-transform: uppercase;
+    font-size: $button-font-size;
   }
 }

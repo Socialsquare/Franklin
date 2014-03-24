@@ -1,31 +1,73 @@
 {% extends 'base.html' %}
 {% load gcl_utils %}
+{% load embed_video_tags %}
 
 {% block body_classes %}project-view{% endblock %}
 
 {% block content %}
+<div id="trainingbit-cover" style="background-image: url({{project.trainingbit.getImage}})">
+  <a class="back-button" href="{% url 'skills:trainingbit_view' project.trainingbit.pk %}">
+    <span class="icon circled-left"></span>Go to training bit
+  </a>
+  <span class="label white-on-red">{{ project.trainingbit.get_label_display }}</span>
+  <h1>{{ project.trainingbit.name }}</h1>
+</div>
+
 {#{% include 'skills/partials/project.html' %}#}
-  <div class="project-wrapper">
-  {% include 'partials/project_entry.html' with show_comments_header=True hide_user=True %}
-  </div>
-  <div class="medium-3 project-metadata sidebar">
-    <div class="metadata">
-      {% include 'skills/partials/like_counter.html' with object=project %}
-      <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
-      <br>
-      {% include 'skills/partials/like_button.html' with object=project %}
+<div class="project-wrapper">
+
+  <div class="project" id="project-{{ project.id }}">
+    <h6 class="project-title">{{ project.name }}</h6>
+
+    {# <div class="clear-both"></div> #}
+    <div class="metadata-row">
+      <div class="author-info">
+        <img src="{{ project.author.getImage }}">
+        {{ project.author.username }}<br>
+        <span class="date">{{ project.created_at|date }}</span>
+      </div>
+      <div class="metadata-inline-row">
+        {% include 'skills/partials/like_counter.html' with object=project %}
+        <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
+        {% include 'skills/partials/like_button.html' with object=project %}
+      </div>
+    </div>
+    {# <span class="date">{{ project.created_at|pretty_timesince }}</span> #}
+
+    <div class="content">
+      <p>{{ project.content }}</p>
+    </div>
+    {% if project.image %}
+    <ul class="clearing-thumbs" data-clearing>
+      <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
+    </ul>
+    {% endif %}
+
+    {% if project.link %}
+    <a href="{{ project.link }}">Hello</a>
+    {% endif %}
+
+    {% if project.video %}
+      {% video project.video %}
+    {% endif %}
+
+    <div class="comment-form-container">
+      <form action="{% url 'skills:comment_post' %}" method="POST" class="comment-form">
+        {% csrf_token %}
+        <input type="hidden" name="project" value="{{ project.pk }}">
+        <input type="hidden" name="parent" value="">
+        <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
+        {# <button class="small">Comment</button> #}
+        <button>Comment</button>
+      </form>
     </div>
 
-    <div class="author-info">
-      <img src="{{ project.author.getImage }}">
-      {{ project.author.username }}<br>
-      <span class="date">{{ project.created_at|date }}</span><br>
-      <span class="date">({{ project.created_at|pretty_timesince }})</span>
+    {# Comments section #}
+    <h3>Comments</h3>
+    <div class="comments">
+      {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
     </div>
-    <hr>
-    <span class="leader">Shared on </span>
-    <a href="{{ project.trainingbit.get_absolute_url}}">
-      <h6 class="white-on-red">{{ project.trainingbit.name }}</h6>
-    </a>
   </div>
+
+</div>
 {% endblock %}
