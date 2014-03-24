@@ -12,14 +12,22 @@
   {% csrf_token %}
   <div class="row">
     <div class="columns medium-5">
-      <h1 class="white">Help us and provide a few details about yourself</h1>
-      <p>Why?</p>
-      <p>
-        By giving us your details we are able to gain finanizing from our
-        sponsors. We will not sell or distribute your personal information to
-        third parties.
+      <h1 class="white">Please, provide a few more details about yourself!</h1>
+      <p class="bold">
+        We would love to get to know you better and it helps us continue to
+        build an even better Global Change Lab.
       </p>
-      <p>Thank you ;)</p>
+      <p>
+        We want to give you the opportunity to get the best training in the
+        world. To do that we need to get to know you a bit more, so please tell us
+        more about yourself. Only your photo, username and description will be
+        showed to other users and we will never, ever sell or distribute your
+        personal information to third parties. If you want to read more
+        <a href="{% url 'about' %}">about this site</a>
+        or to the terms of service please find them
+        <a href="{% url 'terms_of_service' %}">here</a>
+      </p>
+      <p>Thank<!--s--> you ;-)</p>
     </div>
     <div class="columns medium-7">
       {% include 'partials/user_info_form.html'%}
