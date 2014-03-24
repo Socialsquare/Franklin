@@ -243,6 +243,14 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'global_change_lab.forms.SignupForm'
 
 LOGIN_REDIRECT_URL = 'front_page'
 LOGIN_URL = '/user/login'
+
+# Sign out immediatly when visiting /account/signout (in this case /user/signout)
+# (http://stackoverflow.com/a/18135023/118608)
+# (https://django-allauth.readthedocs.org/en/latest/#logout)
+# TODO: Change to AJAX POST, since logout on GET is allows 3rd parties to log
+#       out the user
+ACCOUNT_LOGOUT_ON_GET = True
+
 TEMPLATE_CONTEXT_PROCESSORS += (
     # allauth specific context processors
     'allauth.account.context_processors.account',
