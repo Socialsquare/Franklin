@@ -321,6 +321,30 @@ p.skill-description, p.trainingbit-description {
   }
 }
 
+div.gcl-column {
+  width: 30%; // width: 300px; // the row width is 1000px, so there
+  margin-left: 5%; // margin-left: 50px;
+  float: left;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+}
+
+div.gcl-column2 {
+  width: 65%; // width: 650px = the width of two column plus the margin in
+              // between them
+  margin-left: 5%; // margin-left: 50px;
+  float: left;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+}
+
+.shares-overview-header {
+  text-transform: uppercase;
+}
 
 .metadata-fat {
   $metadata_height: 2rem;

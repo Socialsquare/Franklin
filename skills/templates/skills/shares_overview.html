@@ -4,31 +4,30 @@
 
 {% block content %}
 <div class="row">
-  <div class="columns medium-8">
-    <h1 class="white-on-red">Latest shares</h1>
+  {# TODO: Don't have three columns here, just push the second header the #}
+  {#       appropriate amount. #}
+  <div class="gcl-column">
+    <h4 class="shares-overview-header">Recently shared</h4>
   </div>
-  <div class="columns medium-4">
-    <h1 class="white-on-red">Latest comments</h1>
+  <div class="gcl-column">
+  </div>
+  <div class="gcl-column">
+    <h4 class="shares-overview-header">Comments</h4>
   </div>
 </div>
-  <div class="columns medium-4">
+<div class="row">
+  <div class="gcl-column">
     {% for project in project_list0 %}
       {% include 'skills/partials/project_column.html' %}
     {% endfor %}
   </div>
-  <div class="columns medium-4">
+  <div class="gcl-column">
     {% for project in project_list1 %}
       {% include 'skills/partials/project_column.html' %}
     {% endfor %}
   </div>
-{# </div> #}
-
-  <!-- <hr> -->
-
-<div class="columns medium-4">
-
-  <!-- <hr> -->
-
-  {% include 'skills/partials/comment_list.html' with hide_reply=True show_project=True maxchars=200 %}
+  <div class="gcl-column">
+    {% include 'skills/partials/comment_list.html' with hide_reply=True show_project=True maxchars=200 %}
+  </div>
 </div>
 {% endblock %}

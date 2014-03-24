@@ -17,18 +17,24 @@ from django_sortable.helpers import sortable_helper
 
 import json
 
-
-
-def shares_overview(request):
-    all_projects = list(Project.objects.all().order_by('-created_at')[:12])
+def fetch_data_for_columns(projects, comments):
+    all_projects = list(projects.order_by('-created_at')[:12])
     project_list0 = all_projects[0::2]
     project_list1 = all_projects[1::2]
 
-    return render(request, 'skills/shares_overview.html', {
+    latest_comments = comments.exclude(is_deleted__exact=True).\
+        prefetch_related('author', 'project').order_by('-created_at')[:9]
+
+    return {
         'project_list0': project_list0,
         'project_list1': project_list1,
-        'comments': Comment.objects.exclude(is_deleted__exact=True).order_by('-created_at')[:9],
-    })
+        'comments': latest_comments
+    }
+
+def shares_overview(request):
+
+    return render(request, 'skills/shares_overview.html',
+        fetch_data_for_columns(Project.objects.all(), Comment.objects.all()))
 
 
 def skills_overview(request, topic_slug=None, show_drafts=False):
