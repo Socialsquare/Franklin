@@ -17,6 +17,12 @@
 </div>
 
 <div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
+  {% if current_skill_id %}
+  <a class="back-button" href="{% url 'skills:skill_view' current_skill_id %}">
+    <span class="icon circled-left"></span>Back to skill
+  </a>
+  {% endif %}
+  <span class="label white-on-red">{{ trainingbit.get_label_display }}</span>
   <h1>{{ trainingbit.name }}</h1>
 </div>
 <div class="row">

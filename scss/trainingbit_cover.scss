@@ -10,6 +10,36 @@ $left-margin: rem-calc(40px);
   position: relative;
 
 
+  .back-button {
+    display: inline-block;
+    float: left;
+    margin-left: $left-margin;
+    margin-top: 1rem;
+    background-color: $gcl-darkgray;
+    color: white;
+    padding: rem-calc(10px);
+    font-size: rem-calc(10px);
+    text-transform: uppercase;
+    font-weight: bold;
+
+    span.icon {
+      position: relative;
+      left: - rem-calc(5px);
+      font-size: rem-calc(45px);
+    }
+  }
+
+  .label {
+    float: left;
+    clear: both;
+    margin-left: $left-margin;
+    margin-top: rem-calc(75px);
+
+    padding: rem-calc(7px);
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
   h1 {
     @extend %white-on-red;
     display: inline-block;

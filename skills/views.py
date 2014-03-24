@@ -271,6 +271,7 @@ def trainingbit_cover(request, trainingbit_id):
         'user_like': user_like,
         'projects': trainingbit.project_set.all().prefetch_related('author').prefetch_related('comment_set'),
         'related_trainingbits': related_trainingbits[:4],
+        'current_skill_id': request.session.get('current_skill_id'),
     })
 
 def get_suggested_trainingbits(user, session):
