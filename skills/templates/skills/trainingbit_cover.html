@@ -24,9 +24,10 @@
   {% endif %}
   <span class="label white-on-red">{{ trainingbit.get_label_display }}</span>
   <h1>{{ trainingbit.name }}</h1>
+
 </div>
 <div class="row">
-  <div class="columns medium-9 main-column">
+  <div class="gcl-column2 cover-description">
     <p class="trainingbit-description">{{ trainingbit.description }}</p>
     <div class="start-trainingbit-container">
       {% if request.user.is_authenticated %}
@@ -41,11 +42,6 @@
         <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>
       {% endif %}
     </div>
-    <hr>
-    <h2>Shared by others</h2>
-    {% include 'partials/project_list.html' %}
-  </div>
-  <div class="columns medium-3 sidebar">
     <div class="metadata">
       {% include 'skills/partials/like_counter.html' with object=trainingbit %}
       <span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span>
@@ -53,32 +49,59 @@
 
       {% include 'skills/partials/like_button.html' with object=trainingbit %}
     </div>
+  </div>
+  <div class="gcl-column sidebar">
 
     <div class="author-info">
       <img src="{{ trainingbit.author.getImage }}">
       {{ trainingbit.author.username }}<br>
       <span class="date">{{ trainingbit.created_at|date }}</span>
     </div>
-    <hr>
-    <h5>Included in these skills</h5>
-    <ul class="no-bullet">
-      {% for skill in trainingbit.skill_set.all %}
-      <li><a href="{{ skill.get_absolute_url }}">{{ skill.name }}</a></li>
-      {% endfor %}
-    </ul>
-    <h5>Related topics</h5>
-    <ul class="no-bullet">
-      {% for topic in trainingbit.topic_set.all %}
-      <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
-      {% endfor %}
-    </ul>
+    <div>
+      <div class="columns small-6">
+        <h5>Topics</h5>
+        <ul class="no-bullet">
+          {% for topic in trainingbit.topic_set.all %}
+          <li><a href="{{ topic.get_absolute_url }}">{{ topic.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="columns small-6">
+        <h5>Skills</h5>
+        <ul class="no-bullet">
+          {% for skill in trainingbit.skill_set.all %}
+          <li><a href="{{ skill.get_absolute_url }}">{{ skill.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+<hr>
+<div class="row">
+  <h2>Shared by others</h2>
+  <div class="gcl-column">
+    {% for project in project_list0 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
+  </div>
+  <div class="gcl-column">
+    {% for project in project_list1 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
+  </div>
+  <div class="gcl-column">
+    {% include 'skills/partials/comment_list.html' with hide_reply=True show_project=True maxchars=200 %}
+  </div>
+</div>
+
+{% comment %}
 <div class="row">
   <h2>Related training bits</h2>
   {% include 'partials/trainingbits_grid.html' with trainingbits=related_trainingbits %}
   {#{% include 'skills/partials/trainingbit_grid.html' with skills=trainingbit.skill_set.all %}#}
 </div>
+{% endcomment %}
 
 {% endblock %}
 

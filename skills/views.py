@@ -271,14 +271,19 @@ def trainingbit_cover(request, trainingbit_id):
     topic_pks = trainingbit.topic_set.all().values('id')
     related_trainingbits = TrainingBit.objects.filter(topic__id__in=topic_pks).distinct()
 
-    return render(request, 'skills/trainingbit_cover.html', {
+    template_vars = {
         'trainingbit': trainingbit,
         'content_type': content_type,
         'user_like': user_like,
         'projects': trainingbit.project_set.all().prefetch_related('author').prefetch_related('comment_set'),
         'related_trainingbits': related_trainingbits[:4],
         'current_skill_id': request.session.get('current_skill_id'),
-    })
+    }
+    project_pks = list(trainingbit.project_set.all().values_list('pk', flat=True))
+    comments = Comment.objects.filter(pk__in=project_pks)
+    template_vars.update(fetch_data_for_columns(trainingbit.project_set, comments))
+
+    return render(request, 'skills/trainingbit_cover.html', template_vars)
 
 def get_suggested_trainingbits(user, session):
     # documentation on `values_list`: https://docs.djangoproject.com/en/1.6/ref/models/querysets/#values-list
