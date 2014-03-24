@@ -95,6 +95,11 @@ h3.shared-by-others {
   font-size: 1rem;
 }
 
+a:hover .project-title {
+  color: black;
+  background-color: $gcl-lightgray;
+}
+
 .project {
   margin-bottom: 1rem;
 
@@ -181,18 +186,31 @@ h3.shared-by-others {
 
 .project-column {
   float: none !important; // overrule the darkness that is Foundation 5
-  border-bottom: 1px $gcl-lightgray solid;
   padding-bottom: rem-calc(3px);
   margin-bottom: rem-calc(20px);
 
-  .content p {
-    font-size: rem-calc(13px);
+  a:hover .project-title {
+    
   }
 
-  .metadata {
-    height: 1.7rem;
-    line-height: 1.7rem;
-    font-size: rem-calc(12px);
+  .project-title { // this is a <h6>
+    display: block;
+    margin-bottom: 0;
+    margin-right: 0;
+    padding-top: rem-calc(3px);
+    padding-bottom: rem-calc(3px);
+    padding-left: rem-calc(5px);
+  }
+
+  .columns {
+    padding: 0;
+  }
+
+  .content {
+    p {
+      font-size: rem-calc(13px);
+      margin-bottom: 0;
+    }
   }
 
   .trainingbit-name {

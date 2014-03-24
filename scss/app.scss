@@ -321,6 +321,38 @@ p.skill-description, p.trainingbit-description {
   }
 }
 
+
+.metadata-fat {
+  $metadata_height: 2rem;
+  height: $metadata_height;
+  margin-top: rem-calc(10px) !important; // TODO: Fix !important
+
+  .columns {
+    padding: 0;
+  }
+
+  .profile-picture {
+    text-align: center;
+    img {
+      max-height: $metadata_height;
+    }
+  }
+
+  .text {
+    line-height: $metadata_height / 2;
+    font-size: rem-calc(12px);
+    a, span {
+      font-size: rem-calc(12px);
+      font-weight: bold;
+    }
+  }
+  .icons {
+    text-align: right;
+    font-size: rem-calc(12px);
+    line-height: $metadata_height;
+  }
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

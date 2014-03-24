@@ -3,22 +3,20 @@
 
       <div class="project project-column">
         {% if not hide_links %}<a href="{{ project.get_absolute_url }}">{% endif %}
-        <h6 class="project-title">{{ project.name }}</h6>
+          <h6 class="project-title">{{ project.name|truncatechars:35 }}</h6>
         {% if not hide_links %}</a>{% endif %}
-
-        <span class="date">{{ project.created_at|pretty_timesince }}</span>
-
-        <div class="content">
-          <p>{{ project.content }}</p>
-          <div class="gradient"></div>
-        </div>
-        <a href="#" class="expand">Read more...</a>
 
         {% if project.image %}
         <ul class="clearing-thumbs" data-clearing>
           <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
         </ul>
         {% endif %}
+
+
+        <div class="content">
+          <p>{{ project.content|truncatechars:300 }}</p>
+        </div>
+
 
         {% if project.link %}
         <a href="{{ project.link }}">Hello</a>
@@ -28,13 +26,20 @@
           {% video project.video %}
         {% endif %}
 
-        <div class="metadata">
-           <span class="icon heart red"></span> {{ project.likes.count }}
-          <span class="icon chat red"></span> {{ project.comment_set.count }}
-          <a href="{{ project.trainingbit.get_absolute_url }}">
-            <h6 class="trainingbit-name">
-                {{ project.trainingbit.name|truncatechars:25 }}
-            </h6>
-          </a>
+        <div class="metadata-fat">
+          <div class="columns small-2 profile-picture">
+            <img src="{{ project.author.getImage }}">
+          </div>
+          <div class="columns small-6 text">
+            <span>{{ project.created_at|pretty_timesince }}</span>
+            by
+            <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a><br>
+            in
+            <a href="{% url 'skills:trainingbit_cover' project.trainingbit.pk %}">{{ project.trainingbit.name|truncatechars:25 }}</a>
+          </div>
+          <div class="columns small-4 icons">
+            <span class="icon heart red"></span> {{ project.likes.count }}
+            <span class="icon chat red"></span> {{ project.comment_set.count }}
+          </div>
         </div>
       </div>
