@@ -37,30 +37,9 @@
   }
 }
 
+
 .comment {
-  border-top: 1px solid $gcl-lightgray;
-  &:last-child {
-    border-bottom: 1px solid $gcl-lightgray;
-  }
-
-
-  div.headline {
-    margin-top: rem-calc(5px);
-
-    img {
-      display: inline-block;
-      height: rem-calc(20px);
-      margin-right: 0.3rem;
-    }
-    .date {
-      // line-height: $h6-font-size;
-      display: inline-block;
-    }
-    .author {
-      display: inline-block;
-      margin-right: 0.3rem;
-    }
-  }
+  margin-bottom: 1rem;
 
   p.content {
     // font-size: rem-calc(13px);
@@ -68,6 +47,12 @@
     font-weight: 200;
     margin-top: rem-calc(5px);
     margin-bottom: 0;
+    background-color: $gcl-comment-color;
+
+    padding-left:   rem-calc(5px);
+    padding-top:    rem-calc(7px);
+    padding-bottom: rem-calc(7px);
+    // padding-left: rem-calc(4px);
   }
 
   div.from {
