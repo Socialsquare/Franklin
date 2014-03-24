@@ -84,7 +84,10 @@
     </div>
     {% endfor %}
     {% else %}
-      <div class="empty-message"><div>Not doing anything right now</div></div>
+      <div class="empty-message">
+        You are not working on any skills right now.
+        Find a skill that you <a href="{% url 'skills:skills_overview' %}">want to learn</a>.
+      </div>
     {% endif %}
   </div>
 
@@ -93,7 +96,10 @@
     {% if trainingbits_in_progress %}
     {% include 'partials/trainingbits_grid.html' with trainingbits=trainingbits_in_progress extra_classes='medium' hide_description=True hide_part_of=True %}
     {% else %}
-      <div class="empty-message"><div>Not doing anything right now</div></div>
+      <div class="empty-message">
+        You are not working on any training bits right now.<br>
+        Find a training bit that you <a href="{% url 'skills:trainingbits_overview' %}">want to take</a>.
+      </div>
     {% endif %}
   </div>
 </div>
@@ -103,76 +109,61 @@
 
 <div>
   <h5>Completed skills</h5>
-  {% include 'partials/skills_grid.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
-</div>
-
-<hr>
-
-  <h5>Recently shared</h5>
-  {% with hide_user=True %}
-  <div class="row">
-    <div class="columns medium-4">
-    {% for project in project_list0 %}
-      {% include 'skills/partials/project_column.html' %}
-    {% endfor %}
+  {% if newest_skills %}
+    {% include 'partials/skills_grid.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
+  {% else %}
+    <div class="empty-message">
+      {% if own_profile %}
+      You have not completed any skills yet. How can this be?<br>
+      You better <a href="{% url 'skills:skills_overview' %}">get going</a> ;-)
+      {% else %}
+      {{ profile_user.username }} has not yet completed any skills.
+      {% endif %}
     </div>
-    <div class="columns medium-4">
-    {% for project in project_list1 %}
-      {% include 'skills/partials/project_column.html' %}
-    {% endfor %}
-    </div>
-    <div class="columns medium-4">
-    {% for project in project_list2 %}
-      {% include 'skills/partials/project_column.html' %}
-    {% endfor %}
-    </div>
-  </div>
-
-    {% if not hide_user %}
-      <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
     {% endif %}
-  {% endwith %}
-
-{% comment %}
-  <div class="row">
-    <div class="medium-6 columns">
-      <h2>{{ profile_user.username }}'s completed training bits</h2>
-      <div class="trainingbit-count">{{ profile_user.trainingbits_completed.count }} in total</div>
-      <div id="wordcloud">
-        <div class="centering">
-          {% for trainingbit in profile_user.trainingbits_completed.all %}
-          <a href="{{ trainingbit.get_absolute_url }}">{{ trainingbit.name }}</a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-    <div class="medium-6 columns">
-      <h2>{{ profile_user.username }}' s skills</h2>
-    </div>
-  </div>
-
-<hr>
-
-<div class="row">
-  <div class="medium-6 columns">
-    <h2>{{ profile_user.username }} have shared</h2>
-    {% include 'partials/project_list.html' with projects=projects hide_user=True %}
-  </div>
-  <div class="medium-6 columns">
-    <h2>{{ profile_user.username }}'s latest comments</h2>
-    {# {% comment %} #}
-    <ul>
-    {% for comment in profile_user.comment_comments.all %}
-    <li>{{ comment.name }}</li>
-    {% endfor %}
-    {# {% endcomment %} #}
-    </ul>
-  </div>
 </div>
 
 <hr>
-{% endcomment %}
 
+<h5>Recently shared</h5>
+{% if project_list0 %}
+{% with hide_user=True %}
+<div class="row">
+  <div class="columns medium-4">
+  {% for project in project_list0 %}
+    {% include 'skills/partials/project_column.html' %}
+  {% endfor %}
+  </div>
+  <div class="columns medium-4">
+  {% for project in project_list1 %}
+    {% include 'skills/partials/project_column.html' %}
+  {% endfor %}
+  </div>
+  <div class="columns medium-4">
+  {% for project in project_list2 %}
+    {% include 'skills/partials/project_column.html' %}
+  {% endfor %}
+  </div>
+</div>
+
+  {% if not hide_user %}
+    <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
+  {% endif %}
+{% endwith %}
+{% else %}
+<div class="row">
+  <div class="empty-message">
+    {% if own_profile %}
+    You have not shared any of your work yet.
+    You know that sharing is caring, right? And we would love to see your work!
+    {% else %}
+    {{ profile_user.username }} has not yet shared his or her work.
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- User id: {{ profile_user.pk }} -->
 
 {# <dt>Joined on: </dt><dd>{{ profile_user.date_joined }}</dd> #}
 {# <dt>Last seen: </dt><dd>{{ profile_user.last_login }}</dd> #}

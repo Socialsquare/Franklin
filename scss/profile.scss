@@ -48,17 +48,8 @@ hr.large {
 }
 
 .empty-message {
-  height: 3rem;
-  width: 100%;
-  position: relative;
-
-  div {
-    @extend %dead-center;
-    width: 100%;
-    text-align:center;
-    height: 2rem;
-    color: $gcl-midgray;
-  }
+  height: 6rem;
+  color: $gcl-midgray;
 }
 
 .skill-progress {
