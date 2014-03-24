@@ -3,8 +3,8 @@ from skills.models import Project, Comment, Like
 def fatfooter_data(request):
     recent_activity_count = 7
 
-    recent_comments = Comment.objects.all().order_by('-created_at')[:recent_activity_count]
-    recent_likes    = Like.objects.all().order_by('-created_at')[:recent_activity_count]
+    recent_comments = Comment.objects.all().prefetch_related('author', 'project').order_by('-created_at')[:recent_activity_count]
+    recent_likes    = Like.objects.all().prefetch_related('author', 'content_object').order_by('-created_at')[:recent_activity_count]
 
     recent_activity = list(recent_comments) + list(recent_likes)
     recent_activity.sort(key=lambda a: a.created_at, reverse=True)
