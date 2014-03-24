@@ -216,18 +216,16 @@ from permission.logics import PermissionLogic, AuthorPermissionLogic
 # from permission.logics import CollaboratorsPermissionLogic
 
 # Authors have full permission (edit, delete etc.) to their own skills and training bits
-add_permission_logic(Skill, AuthorPermissionLogic())
-add_permission_logic(Project, AuthorPermissionLogic())
 gcl_authorpermissionlogic = AuthorPermissionLogic(
     field_name='author',
     change_permission=True,
     delete_permission=True
 )
+add_permission_logic(Skill, gcl_authorpermissionlogic)
 add_permission_logic(TrainingBit, gcl_authorpermissionlogic)
-add_permission_logic(Comment,
-                     AuthorPermissionLogic(field_name='author',
-                                           delete_permission=True)
-                    )
+add_permission_logic(Project, gcl_authorpermissionlogic)
+add_permission_logic(Comment, gcl_authorpermissionlogic)
+
 # See: https://github.com/lambdalisue/django-permission/blob/bdd0ebefbb6638b38886a0d35d9d379cfb067bfd/src/permission/logics/author.py
 
 
