@@ -377,6 +377,36 @@ div.gcl-column2 {
   }
 }
 
+// Used to show the author in `trainingbit_cover` and `project_view`
+.author-info {
+  // float: left;
+  // display: block;
+  // width: auto;
+
+  img {
+    float: left;
+    max-width: rem-calc(40px);
+    max-height: rem-calc(40px);
+    margin-right: rem-calc(13px);
+    margin-bottom: rem-calc(10px);
+  }
+  .date {
+    font-size: rem-calc(13px);
+  }
+}
+
+// Used to show metadata numbers in `trainingbit_cover` and `project_view`
+.metadata-inline-row {
+  >.icon {
+    font-size: rem-calc(40px);
+    //margin-right: rem-calc(5px);
+  }
+  .count {
+    font-size: rem-calc(13px);
+    margin-right: rem-calc(10px);
+  }
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

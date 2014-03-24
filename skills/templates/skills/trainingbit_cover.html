@@ -42,7 +42,7 @@
         <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>
       {% endif %}
     </div>
-    <div class="metadata">
+    <div class="metadata-inline-row">
       {% include 'skills/partials/like_counter.html' with object=trainingbit %}
       <span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span>
       <span class="icon chat red"></span><span class="count">{{ trainingbit.project_set.count }}</span>
