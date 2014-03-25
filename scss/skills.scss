@@ -45,15 +45,6 @@ body.skill-view {
 
   .start-row {
     max-width: 50rem;
-    .metadata {
-      float: right;
-      .count {
-        font-size: rem-calc(12px);
-      }
-      .button.like, .button.unlike {
-        margin-left: rem-calc(7px);
-      }
-    }
   }
 
 }

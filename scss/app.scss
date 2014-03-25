@@ -405,14 +405,16 @@ div.gcl-column2 {
   }
 }
 
-// Used to show metadata numbers in `trainingbit_cover` and `project_view`
-.metadata-inline-row {
+// Used to show metadata numbers in `trainingbit_cover` and `skill_view`
+.metadata-with-like-button {
+  float: right;
+
   >.icon {
     font-size: rem-calc(40px);
     //margin-right: rem-calc(5px);
   }
   .count {
-    font-size: rem-calc(13px);
+    font-size: rem-calc(13px); // 12px?
     margin-right: rem-calc(10px);
   }
 }

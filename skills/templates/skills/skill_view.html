@@ -50,7 +50,7 @@
   {% else %}
     <a class="button small begin" href="{# url 'login' #}">Sign up to start this skill</a>
   {% endif %}
-    <div class="metadata">
+    <div class="metadata-with-like-button">
       <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>
       <!-- <br> -->
       {% include 'skills/partials/like_counter.html' with object=skill %}
