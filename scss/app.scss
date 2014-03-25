@@ -358,31 +358,42 @@ div.gcl-column2 {
   text-transform: uppercase;
 }
 
+
+$metadata_height: rem-calc(38px);
+
 .metadata-fat {
-  $metadata_height: 2rem;
   height: $metadata_height;
+  line-height: $metadata_height;
   margin-top: rem-calc(10px) !important; // TODO: Fix !important
 
-  .columns {
-    padding: 0;
+  .profile-picture {
+    height: 100%;
+    width: $metadata_height;
+    // max-width: 100%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-right: 0.5rem;
   }
 
-  .profile-picture {
-    text-align: center;
-    img {
-      max-height: $metadata_height;
-    }
+  &>div {
+    height: $metadata_height;
+    vertical-align: middle;
   }
 
   .text {
     line-height: $metadata_height / 2;
     font-size: rem-calc(12px);
+    display: inline-block;
+
     a, span {
       font-size: rem-calc(12px);
       font-weight: bold;
     }
   }
   .icons {
+    float: right;
     text-align: right;
     font-size: rem-calc(12px);
     line-height: $metadata_height;

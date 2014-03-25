@@ -27,17 +27,15 @@
         {% endif %}
 
         <div class="metadata-fat">
-          <div class="columns small-2 profile-picture">
-            <img src="{{ project.author.getImage }}">
-          </div>
-          <div class="columns small-6 text">
+          <div class="profile-picture" style="background-image: url({{ project.author.getImage }})"></div>
+          <div class="text">
             <span>{{ project.created_at|pretty_timesince }}</span>
             by
             <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a><br>
             in
             <a href="{% url 'skills:trainingbit_cover' project.trainingbit.pk %}">{{ project.trainingbit.name|truncatechars:25 }}</a>
           </div>
-          <div class="columns small-4 icons">
+          <div class="icons">
             <span class="icon heart red"></span> {{ project.likes.count }}
             <span class="icon chat red"></span> {{ project.comment_set.count }}
           </div>
