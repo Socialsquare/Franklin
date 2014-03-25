@@ -584,12 +584,18 @@ def project_view(request, project_id):
     except Like.DoesNotExist:
         pass
 
+    # Related projects
+    related_projects = project.trainingbit.project_set.all()[:3]
+
     return render(request, 'skills/project_view.html', {
         'user_like': user_like,
         'content_type': content_type,
         'project': project,
         'comments': project.root_comments().order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:project_view', args=[project_id]),
+        'related_project1': related_projects[0],
+        'related_project2': related_projects[1],
+        'related_project3': related_projects[2],
         'back_url': reverse('skills:trainingbit_cover', args=[project.trainingbit.pk])
     })
 

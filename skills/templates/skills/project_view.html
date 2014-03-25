@@ -88,4 +88,18 @@
   </div>
 
 </div>
+<hr>
+<div class="row">
+  <h1>Related shares</h1>
+  <div class="gcl-column">
+    {% include 'skills/partials/project_column.html' with project=related_project1 %}
+  </div>
+  <div class="gcl-column">
+    {% include 'skills/partials/project_column.html' with project=related_project2 %}
+  </div>
+  <div class="gcl-column">
+    {% include 'skills/partials/project_column.html' with project=related_project3 %}
+  </div>
+
+</div>
 {% endblock %}
