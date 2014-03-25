@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 <a class="button small {% if user_like %}unlike{% else %}like{% endif %}"
     href="{% url 'skills:like' %}"
     data-csrf_token="{{ csrf_token }}"
@@ -9,3 +10,8 @@
   <span class="icon heart"></span>Like
   {% endif %}
 </a>
+{% else %}
+<a class="button small like signup" href="{% url 'account_signup' %}">
+  <span class="icon heart"></span>Sign up to like
+</a>
+{% endif %}
