@@ -14,29 +14,13 @@
     margin-top: 1.3rem;
     font-size: $h2-font-size;
   }
-}
 
-.metadata-row {
-  .author-info {
-    width: 49%;
-    display: inline-block;
-  }
-  .metadata-inline-row {
-    width: 50%;
-    float: right;
-    display: inline-block;
-    text-align: right;
-  }
-
-  border-bottom: 1px solid $gcl-midgray;
-}
-
-.project-metadata {
-  //@media #{$small-up} {
-  @media #{$medium-up} {
-    position: absolute;
-    right: 0;
-    top: rem-calc(40px);
+  .project {
+    .metadata-fat {
+      -moz-box-sizing: content-box;
+      padding-bottom: rem-calc(5px);
+      border-bottom: 1px solid $gcl-lightgray;
+    }
   }
 }
 

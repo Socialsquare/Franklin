@@ -16,13 +16,13 @@
     <h6 class="project-title">{{ project.name }}</h6>
 
     {# <div class="clear-both"></div> #}
-    <div class="metadata-row">
-      <div class="author-info">
-        <img src="{{ project.author.getImage }}">
-        {{ project.author.username }}<br>
+    <div class="metadata-fat">
+      <div class="profile-picture" style="background-image: url({{ project.author.getImage }})"></div>
+      <div class="text">
+        <a class="author" href="{{ project.author.get_absolute_url }}">{{ project.author.username }}</a><br>
         <span class="date">{{ project.created_at|date }}</span>
       </div>
-      <div class="metadata-inline-row">
+      <div class="icons">
         {% include 'skills/partials/like_counter.html' with object=project %}
         <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
         {% include 'skills/partials/like_button.html' with object=project %}
