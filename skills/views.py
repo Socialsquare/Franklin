@@ -588,7 +588,7 @@ def project_view(request, project_id):
         'user_like': user_like,
         'content_type': content_type,
         'project': project,
-        'comments': project.comment_set.order_by('-created_at').prefetch_related('author'),
+        'comments': project.root_comments().order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:project_view', args=[project_id]),
         'back_url': reverse('skills:trainingbit_cover', args=[project.trainingbit.pk])
     })
