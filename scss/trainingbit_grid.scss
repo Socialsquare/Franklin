@@ -70,16 +70,25 @@ li.trainingbit {
   }
 
   div.label {
-    display: inline-block;
     float: left;
     margin-top: rem-calc(15px);
+    background-color: $gcl-red;
+  }
+  div.completion-text {
+    float: left;
+    clear: left;
+    background-color: black;
+  }
+  div.label, div.completion-text {
+    display: inline-block;
     font-size: rem-calc(12px);
     $horisontal-padding: rem-calc(9px);
     padding-left: $horisontal-padding;
     padding-right: $horisontal-padding;
-    background-color: $gcl-red;
     font-weight: bold;
+    color: white;
   }
+
   div.description {
     height: rem-calc(133px);
     // width: $width;

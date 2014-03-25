@@ -6,6 +6,9 @@
     <div class="wrapper">
       <div class="image" style="background-image: url({{ trainingbit.getImage }})">
         <div class="label">{{ trainingbit.get_label_display }}</div>
+        {% if trainingbit in request.user.trainingbits_completed.all %}
+        <div class="completion-text">Done</div>
+        {% endif %}
       </div>
     </div>
     {% if hide_description %}
