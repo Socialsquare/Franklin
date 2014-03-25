@@ -36,14 +36,10 @@
     {% endif %}
     <div class="text-container">
     <h1>{{skill.name}}</h1>
-    <div class="metadata">
-      <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span><br>
-      {% include 'skills/partials/like_counter.html' with object=skill %}
-      <span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span>
-    </div>
   </div>
   </div>
   <p class="skill-description">{{skill.description|linebreaksbr}}</p>
+  <div class="start-row">
   {% if request.user.is_authenticated %}
     {# {% if skill in request.user.skills_in_progress.all %} #}
     {% if request.user|is_taking_skill:skill %}
@@ -51,9 +47,18 @@
     {% else %}
       <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
     {% endif %}
+  {% else %}
+    <a class="button small begin" href="{# url 'login' #}">Sign up to start this skill</a>
   {% endif %}
+    <div class="metadata">
+      <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>
+      <!-- <br> -->
+      {% include 'skills/partials/like_counter.html' with object=skill %}
+      <span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span>
+      {% include 'skills/partials/like_button.html' with object=skill %}
+    </div>
+  </div>
 
-  {% include 'skills/partials/like_button.html' with object=skill %}
 </div>
 
 <hr>

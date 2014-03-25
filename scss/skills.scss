@@ -37,15 +37,23 @@ body.skill-view {
       margin-bottom: 0;
       // line-height: 0.9;
     }
-    .metadata {
-      .count {
-        font-size: rem-calc(12px);
-      }
-    }
   }
 
   .skill-description {
     max-width: 50rem;
+  }
+
+  .start-row {
+    max-width: 50rem;
+    .metadata {
+      float: right;
+      .count {
+        font-size: rem-calc(12px);
+      }
+      .button.like, .button.unlike {
+        margin-left: rem-calc(7px);
+      }
+    }
   }
 
 }
