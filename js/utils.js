@@ -231,48 +231,50 @@ $(document).ready(function() {
 
   /************* LIKES ************/
   $('a.like, a.unlike').click(function(e) {
-    e.preventDefault();
 
     var $a = $(this);
-    var liking = true;
-    if ($a.hasClass('unlike')) {
-      liking = false;
+    if ($a.data('object_id')) {
+      e.preventDefault();
+      var liking = true;
+      if ($a.hasClass('unlike')) {
+        liking = false;
+      }
+
+      $.ajax({
+        type: 'POST',
+        headers: { 'X-CSRFToken': $a.data('csrf_token') },
+        data: {
+          'content_type': $a.data('content_type'),
+          'object_id': $a.data('object_id'),
+          //'csrf_token':
+        },
+        url: $a.attr('href'),
+        success: function() {
+          if (liking) {
+            //sendMessage('You liked something!', 'success');
+            $a.removeClass('like');
+            $a.addClass('unlike');
+            $a.text('Unlike');
+
+            $("#like-count div").animate({top: "-1em"}, 400);
+          } else {
+            //sendMessage('You no longer like this', 'info');
+            $a.removeClass('unlike');
+            $a.addClass('like');
+            $a.text('Like');
+
+            $("#like-count div").animate({top: "0em"}, 400);
+          }
+        },
+        error: function(data) {
+          if (liking) {
+            sendMessage('Error in liking', 'error');
+          } else {
+            sendMessage('Could not unlike', 'error');
+          }
+        },
+      });
     }
-
-    $.ajax({
-      type: 'POST',
-      headers: { 'X-CSRFToken': $a.data('csrf_token') },
-      data: {
-        'content_type': $a.data('content_type'),
-        'object_id': $a.data('object_id'),
-        //'csrf_token':
-      },
-      url: $a.attr('href'),
-      success: function() {
-        if (liking) {
-          //sendMessage('You liked something!', 'success');
-          $a.removeClass('like');
-          $a.addClass('unlike');
-          $a.text('Unlike');
-
-          $("#like-count div").animate({top: "-1.2rem"}, 400);
-        } else {
-          //sendMessage('You no longer like this', 'info');
-          $a.removeClass('unlike');
-          $a.addClass('like');
-          $a.text('Like');
-
-          $("#like-count div").animate({top: "0rem"}, 400);
-        }
-      },
-      error: function(data) {
-        if (liking) {
-          sendMessage('Error in liking', 'error');
-        } else {
-          sendMessage('Could not unlike', 'error');
-        }
-      },
-    });
   });
 
   /************* FILE (IMAGE) UPLOAD ************/
