@@ -108,9 +108,6 @@ a:hover .project-title {
   }
 
   div.content {
-    position: relative;
-    max-height: rem-calc(300px);
-    overflow-y: hidden;
     margin-bottom: 1rem;
 
     p {
@@ -118,16 +115,6 @@ a:hover .project-title {
       font-weight: 200;
     }
 
-    div.gradient {
-      position: absolute;
-      width: 100%;
-      height: 2rem;
-      bottom: 0;
-      text-align: center;
-      line-height: 2rem;
-      @include gradient(rgba(255,255,255,0), rgba(255,255,255,1.0));
-
-    }
   }
 
   a.expand, a.collapse {
