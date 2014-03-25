@@ -47,21 +47,43 @@
       {% video project.video %}
     {% endif %}
 
-    <div class="comment-form-container">
-      <form action="{% url 'skills:comment_post' %}" method="POST" class="comment-form">
-        {% csrf_token %}
-        <input type="hidden" name="project" value="{{ project.pk }}">
-        <input type="hidden" name="parent" value="">
-        <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
-        {# <button class="small">Comment</button> #}
-        <button>Comment</button>
-      </form>
-    </div>
+  </div>
 
-    {# Comments section #}
-    <h3>Comments</h3>
-    <div class="comments">
-      {% include 'skills/partials/comment_list.html' with comments=project.root_comments %}
+  <div class="comment-form-container">
+    {% if user.is_authenticated %}
+    <form action="{% url 'skills:comment_post' %}" method="POST" class="comment-form">
+      {% csrf_token %}
+      <input type="hidden" name="project" value="{{ project.pk }}">
+      <input type="hidden" name="parent" value="">
+      <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
+      {# <button class="small">Comment</button> #}
+      <button>Comment</button>
+    </form>
+    {% else %}
+    <div class="not-logged-in">
+      <a href="{% url 'account_signup' %}">Sign up to comment</a>
+    </div>
+    {% endif %}
+  </div>
+
+  {# Comments section #}
+  <h3>Comments</h3>
+  <div class="comments">
+    <div id="comment-list">
+    {% if comments %}
+    {% for comment in comments %}
+
+
+      {% include 'skills/partials/comment_entry.html' %}
+      <div class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
+      {% for reply in comment.comment_set.all %}
+        {% include 'skills/partials/comment_entry.html' with comment=reply %}
+      {% endfor %}
+      </div>
+    {% endfor %}
+    {% else %}
+    {# <div class="message-missing">No comments yet</div> #}
+    {% endif %}
     </div>
   </div>
 

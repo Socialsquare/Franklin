@@ -48,6 +48,10 @@
     margin-top: rem-calc(5px);
     margin-bottom: 0;
     background-color: $gcl-comment-color;
+    &.deleted {
+      background-color: $gcl-lightgray;
+      color: $gcl-midgray;
+    }
 
     padding-left:   rem-calc(5px);
     padding-top:    rem-calc(7px);
@@ -91,7 +95,17 @@
 }
 
 .comment-form-container {
+  position: relative;
   margin-top: 1rem;
+  background-color: $gcl-comment-color;
+  min-height: 6rem;
+
+  .not-logged-in {
+    @extend %dead-center;
+    height: 1em;
+    width: 10rem;
+    text-align: center;
+  }
 
   &.reply {
     margin-left: 3rem;
@@ -99,7 +113,6 @@
 }
 
 .comment-form {
-  background-color: $gcl-comment-color;
   padding: 1rem;
 
   textarea, button {
