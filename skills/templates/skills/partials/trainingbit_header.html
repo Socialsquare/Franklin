@@ -1,0 +1,15 @@
+
+<div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
+  {% if back_url %}
+  <a class="back-button" href="{{ back_url }}">
+    <span class="icon circled-left"></span>{{ back_text }}
+  </a>
+  {% endif %}
+  <div class="info-container">
+    <span class="label white-on-red">{{ trainingbit.get_label_display }}</span>
+    {% if trainingbit in request.user.trainingbits_completed.all %}
+    <span class="completion-text">Done</span>
+    {% endif %}
+    <h1>{{ trainingbit.name }}</h1>
+  </div>
+</div>

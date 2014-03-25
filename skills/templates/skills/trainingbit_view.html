@@ -35,15 +35,9 @@
 </div>
 
 {# Training Bit COVER #}
-<div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
-  <a class="back-button" href="{% url 'skills:trainingbit_cover' trainingbit.pk %}">
-    <span class="icon circled-left"></span>Back to training bit cover
-  </a>
-  <span class="label white-on-red">{{ trainingbit.get_label_display }}</span>
-  <h1>{{ trainingbit.name }}</h1>
-</div>
-
-
+{% with 'Back to training bit cover' as back_text %}
+{% include 'skills/partials/trainingbit_header.html' %}
+{% endwith %}
 
 {% comment %}
 {% if request.user.is_authenticated %}

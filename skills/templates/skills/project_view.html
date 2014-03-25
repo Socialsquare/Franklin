@@ -5,13 +5,9 @@
 {% block body_classes %}project-view{% endblock %}
 
 {% block content %}
-<div id="trainingbit-cover" style="background-image: url({{project.trainingbit.getImage}})">
-  <a class="back-button" href="{% url 'skills:trainingbit_view' project.trainingbit.pk %}">
-    <span class="icon circled-left"></span>Go to training bit
-  </a>
-  <span class="label white-on-red">{{ project.trainingbit.get_label_display }}</span>
-  <h1>{{ project.trainingbit.name }}</h1>
-</div>
+{% with 'Go to training bit' as back_text %}
+{% include 'skills/partials/trainingbit_header.html' with trainingbit=project.trainingbit %}
+{% endwith %}
 
 {#{% include 'skills/partials/project.html' %}#}
 <div class="project-wrapper">

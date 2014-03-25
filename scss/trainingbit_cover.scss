@@ -29,23 +29,34 @@ $left-margin: rem-calc(20px);
     }
   }
 
-  .label {
-    float: left;
-    clear: both;
+  .info-container {
     margin-left: $left-margin;
     margin-top: rem-calc(75px);
+    float: left;
+    clear: both;
+  }
 
+  .label {
+    margin-bottom: 0;
     padding: rem-calc(7px);
     text-transform: uppercase;
     font-weight: bold;
   }
 
+  .completion-text {
+    font-size: 0.6875rem;// rem-calc(12px);
+
+    padding: rem-calc(7px);
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+  }
+
   h1 {
     @extend %white-on-red;
-    display: inline-block;
-    position: absolute;
-    left: $left-margin;
-    bottom: rem-calc(100px);
+    margin-top: rem-calc(10px);
+    margin-bottom: 0;
   }
 
   margin-bottom: rem-calc(30px);

@@ -278,6 +278,7 @@ def trainingbit_cover(request, trainingbit_id):
         'projects': trainingbit.project_set.all().prefetch_related('author').prefetch_related('comment_set'),
         'related_trainingbits': related_trainingbits[:4],
         'current_skill_id': request.session.get('current_skill_id'),
+        'back_url': reverse('skills:skill_view', args=[request.session.get('current_skill_id')]),
     }
     project_pks = list(trainingbit.project_set.all().values_list('pk', flat=True))
     comments = Comment.objects.filter(pk__in=project_pks)
@@ -388,6 +389,7 @@ def trainingbit_view(request, trainingbit_id):
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
+        'back_url': reverse('skills:trainingbit_cover', args=[trainingbit_id]),
     })
 
 @csrf_protect
@@ -458,6 +460,7 @@ def trainingbit_edit_content(request, trainingbit_id):
     # If nothing has been POSTed just show the `edit_content` page
     return render(request, 'skills/trainingbit_edit_content.html', {
         'trainingbit': trainingbit,
+        'back_url': reverse('skills:trainingbit_edit', args=[trainingbit.pk]),
     })
 
 @csrf_protect
@@ -587,6 +590,7 @@ def project_view(request, project_id):
         'project': project,
         'comments': project.comment_set.order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:project_view', args=[project_id]),
+        'back_url': reverse('skills:trainingbit_cover', args=[project.trainingbit.pk])
     })
 
 
