@@ -314,16 +314,18 @@ p.skill-description, p.trainingbit-description {
 }
 
 #like-count {
-  $line_height: 1.2rem;
+  $line_height: 1.0em;
   line-height: $line_height;
-  height: rem-calc(15px); //1.2rem;
+  height:      $line_height;
   overflow: hidden;
   display: inline-block;
+  position: relative;
+  top: 0.09rem;
 
   div {
     position: relative;
     &.like {
-      top: 0rem;
+      top: 0;
     }
     &.unlike {
       top: -$line_height;
