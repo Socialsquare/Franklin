@@ -204,9 +204,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
-span {
-  font-size: $rem-base;
-}
 
 h1 {
   text-transform: uppercase;
