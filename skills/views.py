@@ -252,11 +252,19 @@ def trainingbits_overview(request, topic_slug=None):
 def trainingbit_cover(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
+    # Remember what skill the user came from and save it as the user's "current
+    # skill".
     try:
         skill_id = request.GET['skill_id']
         request.session['current_skill_id'] = skill_id
     except KeyError:
         pass
+
+    # If the user has a current skill let the user go back to that skill.
+    if request.session.get('current_skill_id') is not None:
+        back_url = reverse('skills:skill_view', args=[request.session.get('current_skill_id')])
+    else:
+        back_url = None
 
     # Like
     content_type = ContentType.objects.get_for_model(trainingbit)
@@ -278,7 +286,7 @@ def trainingbit_cover(request, trainingbit_id):
         'projects': trainingbit.project_set.all().prefetch_related('author').prefetch_related('comment_set'),
         'related_trainingbits': related_trainingbits[:4],
         'current_skill_id': request.session.get('current_skill_id'),
-        'back_url': reverse('skills:skill_view', args=[request.session.get('current_skill_id')]),
+        'back_url': back_url,
     }
     project_pks = list(trainingbit.project_set.all().values_list('pk', flat=True))
     comments = Comment.objects.filter(pk__in=project_pks)
