@@ -23,8 +23,34 @@
 
 
 }
+/*********** FULL COMMENTS ***********/
+// Used on `project_view.html`
 
 .comment-list {
+  min-height: 5rem;
+}
+
+.comment-compact, .comment {
+
+  p.content {
+    font-size: 0.9rem;
+    font-weight: 200;
+    margin-top: rem-calc(5px);
+    margin-bottom: 0;
+    &.deleted {
+      background-color: $gcl-lightgray;
+      color: $gcl-midgray;
+    }
+
+    padding-top:    rem-calc(7px);
+    padding-bottom: rem-calc(7px);
+  }
+}
+
+/*********** COMPACT COMMENTS ***********/
+
+// Comment list used on `trainingbit_cover.html` and `shares_overview.html`
+.comment-list-compact {
   .replies {
     // background-color: $gcl-lightgray;
     margin-left: rem-calc(50px);
@@ -38,7 +64,7 @@
 }
 
 
-.comment {
+.comment-compact {
   margin-bottom: 1rem;
 
   p.content {
