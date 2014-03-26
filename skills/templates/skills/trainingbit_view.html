@@ -25,7 +25,7 @@
 
   {# Edit trainingbit button #}
   {% permission request.user has 'skills.change_trainingbit' of trainingbit %}
-    <a href="{% url 'skills:trainingbit_edit' trainingbit.id %}" class="button info admin-button">Edit training bit</a>
+    <a href="{% url 'skills:trainingbit_edit_content' trainingbit.id %}" class="button info admin-button">Edit training bit</a>
   {% endpermission %}
 
   {# Delete trainingbit button #}
