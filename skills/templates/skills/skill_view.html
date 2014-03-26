@@ -24,7 +24,7 @@
 
   {# Delete skill button #}
   {% permission request.user has 'skill.delete' %}
-    <a href="{% url 'skills:skill_delete' skill.id %}" class="button admin-button">Delete skill</a>
+    <a href="{% url 'skills:skill_delete' skill.id %}" data-dynamic="false" class="button hard-delete admin-button">Delete skill</a>
   {% endpermission %}
 </div>
 <div id="skill-cover">
