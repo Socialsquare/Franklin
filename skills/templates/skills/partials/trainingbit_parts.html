@@ -84,7 +84,6 @@ var TrainingBit = Backbone.Collection.extend({
     _.each(res, function (tb_part) {
       switch(tb_part.type) {
         case 'link':
-          tb_part.description = 'This is some description';
           self.add(new TbPartLink(tb_part));
           break;
         case 'picture':

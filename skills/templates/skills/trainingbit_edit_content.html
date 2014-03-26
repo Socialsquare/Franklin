@@ -92,7 +92,8 @@ Offline.on('up', function() {
   <div id="modal-add-link" class="reveal-modal" data-reveal>
     <h2>Add link</h2>
     <label>URL: <input class="url" type="text" placeholder="http://actionaid.org"></label>
-    <label>Title: <input class="title" type="text" placeholder="The website of actionAid"></label>
+    <label>Title: <input class="title" type="text" placeholder="actionAid"></label>
+    <label>Description: <input class="description" type="text" placeholder="The website of actionAid, here you find out more about actionAid's activities."></label>
     <button>Add link</button>
     <a class="close-reveal-modal">&#215;</a>
   </div>
@@ -408,7 +409,11 @@ var EditorToolbarView = Backbone.View.extend({
     var self = this;
     var addLink = function() {
       console.log('Adding a link...');
-      self.options.trainingbit.add(new TbPartLink({url: $('#modal-add-link input.url').val(), title: $('#modal-add-link input.title').val()}));
+      self.options.trainingbit.add(new TbPartLink({
+        url: $('#modal-add-link input.url').val(),
+        title: $('#modal-add-link input.title').val(),
+        description: $('#modal-add-link input.description').val()
+      }));
       $('#modal-add-link').foundation('reveal', 'close');
       $('#modal-add-link button').off('click', addLink);
 
