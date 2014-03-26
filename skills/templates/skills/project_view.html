@@ -68,23 +68,20 @@
 
   {# Comments section #}
   <h3>Comments</h3>
-  <div class="comments">
-    <div id="comment-list">
-    {% if comments %}
-    {% for comment in comments %}
-
-
-      {% include 'skills/partials/comment_entry.html' %}
-      <div class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
-      {% for reply in comment.comment_set.all %}
-        {% include 'skills/partials/comment_entry.html' with comment=reply %}
-      {% endfor %}
-      </div>
+  <div class="comment-list">
+  {% if comments %}
+  {% for comment in comments %}
+    {% include 'skills/partials/comment_entry.html' %}
+    <div class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
+    {% for reply in comment.comment_set.all %}
+      {% include 'skills/partials/comment_entry.html' with comment=reply %}
     {% endfor %}
-    {% else %}
-    {# <div class="message-missing">No comments yet</div> #}
-    {% endif %}
     </div>
+  {% endfor %}
+  {% else %}
+  {# <div class="message-missing">No comments yet</div> #}
+    <span class="notice">No comments yet</span>
+  {% endif %}
   </div>
 
 </div>
