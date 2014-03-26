@@ -47,15 +47,4 @@
       {#{% endcomment %}#}
     </div>
     {% endcomment %}
-
-
-
-    {# Reply to comment button #}
-    {% if not hide_reply %}
-    {% if comment.allow_thread %}<a href="{% url 'skills:comment_post' %}" data-parent-pk="{{ comment.pk }}" class="reply">Reply</a>{% endif %}
-    {% endif %}
-
-  <!-- </div> -->
-
-
 </div>

@@ -80,19 +80,6 @@
   }
 
 
-  &:hover a.reply {
-    visibility: visible;
-  }
-  a.reply {
-    display: block;
-    visibility: hidden;
-    // text-align: right;
-    color: $gcl-red;
-    padding-right: rem-calc(3px);
-    padding-bottom: rem-calc(3px);
-    padding-top: rem-calc(10px);
-    font-size: rem-calc(12px);
-  }
 }
 
 .comment-form-container {
