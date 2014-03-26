@@ -22,7 +22,7 @@
         <a class="author" href="{{ project.author.get_absolute_url }}">{{ project.author.username }}</a><br>
         <span class="date">{{ project.created_at|date }}</span>
       </div>
-      <div class="icons">
+      <div class="metadata-with-like-button">
         {% include 'skills/partials/like_counter.html' with object=project %}
         <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
         {% include 'skills/partials/like_button.html' with object=project %}
