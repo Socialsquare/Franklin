@@ -10,10 +10,10 @@
 <div class="page-buttons">
   {# Mark as public #}
   {% permission request.user has 'skill.publicize' %}
-    {% if skill.is_public %}
-      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button info admin-button">Hide this skill</a>
-    {% else %}
+    {% if skill.is_draft %}
       <a href="{% url 'skills:skill_publicize' skill.id %}" class="button success admin-button">Make this skill public</a>
+    {% else %}
+      <a href="{% url 'skills:skill_publicize' skill.id %}" class="button info admin-button">Hide this skill</a>
     {% endif %}
   {% endpermission %}
 
