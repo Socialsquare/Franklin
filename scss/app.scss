@@ -362,6 +362,7 @@ $metadata_height: rem-calc(38px);
   height: $metadata_height;
   line-height: $metadata_height;
   margin-top: rem-calc(10px) !important; // TODO: Fix !important
+  font-size: rem-calc(12px);
 
   .profile-picture {
     height: 100%;
@@ -384,8 +385,10 @@ $metadata_height: rem-calc(38px);
     font-size: rem-calc(12px);
     display: inline-block;
 
-    a, span {
-      font-size: rem-calc(12px);
+    span {
+      color: black;
+    }
+    a {
       font-weight: bold;
     }
   }
