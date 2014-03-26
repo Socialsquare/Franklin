@@ -228,12 +228,7 @@ $('#share-video-accept').click(function(e) {
 
 <hr>
 
-{# Projects section #}
-<h3 class="shared-by-others">Shared by others</h3>
-{% include 'partials/project_list.html' with hide_links=True %}
-
 {% include 'skills/partials/trainingbit_parts.html' %}
-
 
 <script>
 var tb = {{ trainingbit.json_content|safe }};
