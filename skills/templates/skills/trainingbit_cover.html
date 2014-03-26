@@ -46,11 +46,14 @@
   </div>
   <div class="gcl-column sidebar">
 
-    <div class="author-info">
-      <img src="{{ trainingbit.author.getImage }}">
-      {{ trainingbit.author.username }}<br>
-      <span class="date">{{ trainingbit.created_at|date }}</span>
+    <div class="metadata-fat">
+      <div class="profile-picture" style="background-image: url({{ trainingbit.author.getImage }})"></div>
+      <div class="text">
+        <a href="{{ trainingbit.author.get_absolute_url }}" class="author">{{ trainingbit.author.username }}</a><br>
+        <span class="date">{{ trainingbit.created_at|date }}</span>
+      </div>
     </div>
+
     <div>
       <div class="columns small-6">
         <h5>Topics</h5>

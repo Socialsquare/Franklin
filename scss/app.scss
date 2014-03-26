@@ -284,17 +284,6 @@ p.skill-description, p.trainingbit-description {
   font-weight: 300;
 }
 
-.date {
-  font-size: 0.65rem;
-  font-weight: 200;
-  color: #969696;
-}
-
-.author {
-  font-size: rem-calc(16px);
-  font-weight: 700;
-}
-
 .delete-dropdown {
   padding: 0.5rem;
   font-size: 0.9rem;
@@ -385,6 +374,17 @@ $metadata_height: rem-calc(38px);
     font-size: rem-calc(12px);
     display: inline-block;
 
+    .author {
+      font-size: rem-calc(16px);
+      font-weight: 700;
+      // font-weight: bold;
+    }
+
+    .date {
+      font-weight: 200;
+      font-size: rem-calc(12px);
+    }
+
     span {
       color: black;
     }
@@ -397,24 +397,6 @@ $metadata_height: rem-calc(38px);
     text-align: right;
     font-size: rem-calc(12px);
     line-height: $metadata_height;
-  }
-}
-
-// Used to show the author in `trainingbit_cover` and `project_view`
-.author-info {
-  // float: left;
-  // display: block;
-  // width: auto;
-
-  img {
-    float: left;
-    max-width: rem-calc(40px);
-    max-height: rem-calc(40px);
-    margin-right: rem-calc(13px);
-    margin-bottom: rem-calc(10px);
-  }
-  .date {
-    font-size: rem-calc(13px);
   }
 }
 
