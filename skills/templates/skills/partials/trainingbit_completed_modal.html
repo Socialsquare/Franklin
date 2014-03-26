@@ -1,20 +1,51 @@
+{% load staticfiles %}
+{% load gcl_utils %}
+
 {# Content of the "completed trainingbit" modal on the `trainingbit_view` page #}
-<h3>Awesome, you have completed</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2><h3>!</h3>
-<p>Checkout these other training bits that may be of interest</p>
-{% if suggested_trainingbits %}
-  <div style="width: 30rem; margin-left: auto; margin-right: auto;">
-  {% include 'partials/trainingbits_grid.html' with trainingbits=suggested_trainingbits hide_part_of=True extra_classes='medium' %}
-  </div>
-{% else %}
-  <p>Sorry! We have no suggestions for you at the moment.
-  Maybe you have already completed all Training Bits?</p>
+<h3>Well done! You have completed</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2>
+
+{% if completed_skills %}
+  {# {{ completed_skills_names|listify:3 }} #}
+  <h3> and the skill of 
+  {% for skill in completed_skills %}
+    {% if forloop.last and forlopp.revcounter != 0 %} and {% endif %}
+    {% if not forloop.last and not forloop.first %}, {% endif %}
+
+    {# {% if skill in request.user.skills_completed.all %} #}
+    <img class="skill-flag" src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
+    {# {% else %} #}
+    {# <img class="skill-flag" src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image"> #}
+    {# {% endif %} #}
+
+    {{ skill.name }}
+  {% endfor %}
+  </h3>
 {% endif %}
+<h3>!</h3>
+
+
+{% if suggested_trainingbits %}
+<p>Checkout these other training bits that may be of interest</p>
+<div style="width: 30rem; margin-left: auto; margin-right: auto;">
+  {% include 'partials/trainingbits_grid.html' with trainingbits=suggested_trainingbits hide_part_of=True extra_classes='medium' %}
+</div>
+{% else %}
+<p>
+  Sorry! We have no suggestions for you at the moment. Maybe you have already completed all Training Bits?
+</p>
+{% endif %}
+
+<p>
+  You can go to your <a href="{% url 'profile' %}">profile</a> to see your current progress.
+</p>
+
+{% comment %}
 {% if completed_skills %}
   <h4>Congratulations with completing this|these skill(s):
   <div style="width: 30rem; margin-left: auto; margin-right: auto;">
   {% include 'skills/partials/skill_list_small.html' with skills=completed_skills hide_part_of=True extra_classes='medium' %}
   </div>
 {% endif %}
+{% endcomment %}
+
 <a class="close-reveal-modal">&#215;</a>
-<script>
-</script>

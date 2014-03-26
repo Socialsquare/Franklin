@@ -429,6 +429,25 @@ $metadata_height: rem-calc(38px);
   }
 }
 
+// Modal that congratulates the user on completing a training bit and suggests
+// other training bits to work on.
+// Currently shown on the `project_view.html` page.
+#trainingbit-completed-modal {
+  h2, h3 {
+    text-transform: none;
+    display: inline-block;
+  }
+  .trainingbit-title {
+    @extend %text-white-on-red;
+    margin-left: rem-calc(7px);
+    margin-right: rem-calc(7px);
+  }
+  img.skill-flag {
+    height: 2.5rem;
+    margin-left: 0.2rem;
+  }
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

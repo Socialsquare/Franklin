@@ -346,6 +346,7 @@ def trainingbit_view(request, trainingbit_id):
     trainingbit_id = int(trainingbit_id)
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
+    form = ProjectForm()
 
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
@@ -360,35 +361,14 @@ def trainingbit_view(request, trainingbit_id):
 
             # complete trainingbit
             request.user.complete_trainingbit(trainingbit)
-
-            suggested_trainingbits = get_suggested_trainingbits(request.user, request.session)
-            completed_skills = get_completed_skills(request.user, trainingbit)
-            print(completed_skills)
+            request.session['completed_trainingbit_pk'] = trainingbit.pk
 
             # complete skills
+            completed_skills = get_completed_skills(request.user, trainingbit)
             request.user.complete_skills(completed_skills)
+            request.session['completed_skill_pks'] = [s.pk for s in completed_skills]
 
-            if request.is_ajax():
-                modal_html = render_to_string('skills/partials/trainingbit_completed_modal.html', {
-                    'trainingbit': trainingbit,
-                    'suggested_trainingbits': suggested_trainingbits[:3],
-                    'completed_skills': completed_skills,
-                })
-                project_html = render_to_string('partials/project_entry.html', {
-                    'project': project,
-                })
-                # return rendered:
-                # * completion dialog (modal_html)
-                # * project for shared/projects section
-                d = {
-                    'modal_html': modal_html,
-                    'project_html': project_html,
-                }
-                # The 201 HTTP status code is from my reading of the standard
-                # the # correct response to a POST which successfully created a
-                # new object.
-                # See: http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.2
-                return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+            return HttpResponseRedirect(reverse('skills:project_view', args=[project.pk]))
         else:
             if request.is_ajax():
                 return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
@@ -400,6 +380,7 @@ def trainingbit_view(request, trainingbit_id):
         'projects': trainingbit.project_set.order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
         'back_url': reverse('skills:trainingbit_cover', args=[trainingbit_id]),
+        'form': form,
     })
 
 @csrf_protect
@@ -585,6 +566,26 @@ def project_view(request, project_id):
     project_id = int(project_id)
     project = get_object_or_404(Project, pk=project_id)
 
+    ### Suggestion modal
+    completed_trainingbit_pk = request.session.get('completed_trainingbit_pk')
+    if completed_trainingbit_pk is not None:
+        # There's no hard guarantee that we are on the project that the user
+        # recently completed a training bit through, but we assume it here:
+        #   If the session variable is set - we show the suggestions and
+        #   congratulations regardless of what project page we are on.
+        show_suggestions = True
+        suggested_trainingbits = get_suggested_trainingbits(request.user, request.session)
+        completed_skill_pks = request.session.get('completed_skill_pks')
+        completed_skills = Skill.objects.filter(pk__in=completed_skill_pks)
+
+        # Remove "recently completed" state from session
+        request.session.pop('completed_trainingbit_pk')
+        request.session.pop('completed_skill_pks')
+    else:
+        show_suggestions = False
+        suggested_trainingbits = []
+        completed_skills = []
+
     # Like
     content_type = ContentType.objects.get_for_model(project)
     user_like = None
@@ -619,6 +620,9 @@ def project_view(request, project_id):
         'related_project2': related_project2,
         'related_project3': related_project3,
 
+        'suggested_trainingbits': suggested_trainingbits[:3],
+        'completed_skills': completed_skills,
+        'show_suggestions': show_suggestions,
     })
 
 

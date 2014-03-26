@@ -184,6 +184,12 @@
       </div>
       <button class="share-button small">Share, and complete training bit</button>
     </form>
+    {% if form.errors %}
+    <div class="project-form-errors">
+      <h4>Error were encountered when trying to submit project</h4>
+      {{ form.errors }}
+    </div>
+    {% endif %}
   </div>
 </div>
 
@@ -219,12 +225,6 @@ $('#share-video-accept').click(function(e) {
   $('#modal-add-video').foundation('reveal', 'close');
 });
 </script>
-
-<div id="trainingbit-completed-modal" class="reveal-modal medium" data-reveal>
-</div>
-
-<div id="trainingbit-failed-submit-modal" class="reveal-modal tiny" data-reveal>
-</div>
 
 <hr>
 
@@ -287,39 +287,6 @@ $(document).ready(function() {
   });
   tb_share_view.render();
 
-});
-
-
-$(document).ready(function() {
-  $('#project-form').submit(function(e) {
-    e.preventDefault();
-    $(this).ajaxSubmit({
-      error: function(response) {
-        var j = JSON.parse(response.responseText);
-        console.log(j);
-        var $modal = $('#trainingbit-failed-submit-modal');
-        $modal.html('');
-        $modal.append('<h3>Failed to add project</h3>');
-        for (name in j) {
-          {# $('#project-form input[name='+name+']').after($('<span>'+j[name]+'</span>')); #}
-          {# $('#project-form textarea[name='+name+']').after($('<span>'+j[name]+'</span>')); #}
-          var $li = $('<li />').html('<strong>' + name + '</strong>:' + j[name]);
-          $modal.append($li);
-        }
-        $modal.foundation('reveal', 'open');
-      },
-      success: function(data) {
-        $('#trainingbit-completed-modal').html(data.modal_html);
-        $('#trainingbit-completed-modal').foundation('reveal', 'open');
-
-        var $project = $(data.project_html).fadeIn(1000);
-        $('#project-list').prepend($project);
-
-        {# $('#project-form').clearForm(); #}
-        $('#project-form').resetForm();
-      },
-    });
-  });
 });
 
 </script>

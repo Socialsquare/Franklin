@@ -110,4 +110,19 @@
 
 </div>
 {% endif %}
+
+<div id="trainingbit-completed-modal" class="reveal-modal medium" data-reveal>
+  {% if show_suggestions %}
+  {% include 'skills/partials/trainingbit_completed_modal.html' with trainingbit=project.trainingbit %}
+  {% endif %}
+</div>
+
+{% if show_suggestions %}
+<script>
+$(document).ready(function() {
+  $('#trainingbit-completed-modal').foundation('reveal', 'open');
+});
+</script>
+{% endif %}
+
 {% endblock %}
