@@ -177,7 +177,8 @@
           <a href="#" id="image-upload-button" class="button">Upload image</a>
           <input type="file" name="image" id="image-file-input">
         </div>
-        <input type="hidden" name="link" value="" id="link-hidden-field">
+        <input type="hidden" name="link_title" value="" id="link_title-hidden-field">
+        <input type="hidden" name="link_url" value="" id="link_url-hidden-field">
         <input type="hidden" name="video" value="" id="video-hidden-field">
         <a href="#" id="link-button" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a>
         <a href="#" id="video-button" class="button" data-reveal-id="modal-add-video" data-reveal>Attach video</a>
@@ -195,16 +196,26 @@
 
 <div id="modal-add-link" class="reveal-modal medium" data-reveal>
   <h1>Share link</h1>
-  <input type="text" placeholder="http://example.org" id="link-input-field">
-  <a href="#" id="share-link-accept" class="button" data-reveal-id="modal-add-video" data-reveal>Share link</a>
+  <input type="text" placeholder="Link title" id="link_title-input-field">
+  <input type="text" placeholder="http://example.org" id="link_url-input-field">
+  {# <a href="#" id="share-link-accept" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a> #}
+  <a href="#" id="share-link-accept" class="button">Share link</a>
+  <span class="msg"></span>
   <a class="close-reveal-modal">&#215;</a>
 </div>
 <script>
 $('#share-link-accept').click(function(e) {
   e.preventDefault();
-  $('#link-hidden-field').val($('#link-input-field').val());
-  $('#link-button').addClass('success');
-  $('#modal-add-link').foundation('reveal', 'close');
+  var title = $('#link_title-input-field').val();
+  var url = $('#link_url-input-field').val();
+  if (url == '' || title == '') {
+    $(this).parent().children('.msg').text('Please provide both URL and title for the link.');
+  } else {
+    $('#link_title-hidden-field').val(title);
+    $('#link_url-hidden-field').val(url);
+    $('#link-button').addClass('success');
+    $('#modal-add-link').foundation('reveal', 'close');
+  }
 });
 </script>
 <div id="modal-add-video" class="reveal-modal medium" data-reveal>

@@ -118,7 +118,8 @@ class Project(TimedModel, AuthoredModel):
     name = models.CharField(max_length=100, blank=False)
     content = models.TextField(blank=False)
     image = models.ImageField(upload_to='trainingbits', blank=True)
-    link = models.URLField(blank=True)
+    link_title = models.CharField(max_length=100, blank=True)
+    link_url = models.URLField(blank=True)
     video = EmbedVideoField(blank=True, null=True)
 
     # Relations

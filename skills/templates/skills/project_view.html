@@ -39,8 +39,8 @@
     </ul>
     {% endif %}
 
-    {% if project.link %}
-    <a href="{{ project.link }}">Hello</a>
+    {% if project.link_url and project.link_title %}
+    <a href="{{ project.link_url }}">{{ project.link_title }}</a>
     {% endif %}
 
     {% if project.video %}
