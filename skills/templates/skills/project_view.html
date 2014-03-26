@@ -88,6 +88,9 @@
   </div>
 
 </div>
+
+{# If we have any related projects #}
+{% if related_project1 %}
 <hr>
 <div class="row">
   <h1>Related shares</h1>
@@ -95,11 +98,16 @@
     {% include 'skills/partials/project_column.html' with project=related_project1 %}
   </div>
   <div class="gcl-column">
+    {% if related_project2 %}
     {% include 'skills/partials/project_column.html' with project=related_project2 %}
+    {% endif %}
   </div>
   <div class="gcl-column">
+    {% if related_project3 %}
     {% include 'skills/partials/project_column.html' with project=related_project3 %}
+    {% endif %}
   </div>
 
 </div>
+{% endif %}
 {% endblock %}

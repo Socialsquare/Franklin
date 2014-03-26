@@ -346,6 +346,7 @@ def trainingbit_view(request, trainingbit_id):
     trainingbit_id = int(trainingbit_id)
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
 
+
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
@@ -355,6 +356,7 @@ def trainingbit_view(request, trainingbit_id):
             project.trainingbit = trainingbit
             project.save()
             messages.success(request, 'Project was successfully saved')
+
 
             # complete trainingbit
             request.user.complete_trainingbit(trainingbit)
@@ -593,7 +595,17 @@ def project_view(request, project_id):
         pass
 
     # Related projects
-    related_projects = project.trainingbit.project_set.all()[:3]
+    related_projects = list(project.trainingbit.project_set.exclude(pk__exact=project.pk)[:3])
+    related_project1 = None
+    related_project2 = None
+    related_project3 = None
+    try:
+        related_project1 = related_projects[0]
+        related_project2 = related_projects[1]
+        related_project3 = related_projects[2]
+    except IndexError:
+        pass
+
 
     return render(request, 'skills/project_view.html', {
         'user_like': user_like,
@@ -601,10 +613,12 @@ def project_view(request, project_id):
         'project': project,
         'comments': project.root_comments().order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:project_view', args=[project_id]),
-        'related_project1': related_projects[0],
-        'related_project2': related_projects[1],
-        'related_project3': related_projects[2],
-        'back_url': reverse('skills:trainingbit_cover', args=[project.trainingbit.pk])
+        'back_url': reverse('skills:trainingbit_cover', args=[project.trainingbit.pk]),
+
+        'related_project1': related_project1,
+        'related_project2': related_project2,
+        'related_project3': related_project3,
+
     })
 
 
