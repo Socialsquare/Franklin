@@ -285,6 +285,7 @@ $(document).ready(function() {
     var fileupload_url = $fileupload.data('url');
     var fileupload_uid = $fileupload.data('uid');
     var fileupload_csrf = $fileupload.data('csrf');
+    var fileupload_identifier = $fileupload.data('identifier');
 
     var $dropzone = $image_upload.children('.dropzone');
 
@@ -302,7 +303,8 @@ $(document).ready(function() {
 
       formData: [
           { name: "uid", value: fileupload_uid},
-          { name: "csrfmiddlewaretoken", value: fileupload_csrf}
+          { name: "csrfmiddlewaretoken", value: fileupload_csrf},
+          { name: "identifier", value: fileupload_identifier}
       ],
       // {# maxFileSize: {{ maxfilesize }}, #}
       sequentialUploads: true,
@@ -321,12 +323,13 @@ $(document).ready(function() {
       },
       progressall: function (e, data) {
         var progress = parseInt(data.loaded / data.total * 100, 10);
-        $dropzone.children('.helptext div.progress span.meter').css( 'width', progress + '%');
+        $dropzone.children('.helptext div.progress span.meter').css('width', progress + '%');
       },
       done: function (e, data) {
         console.log('Done uploading file: "' + data.result[0].url + '".');
         $dropzone.children('.helptext').html('');
         $dropzone.css('background-image', 'url(' + data.result[0].url + ')');
+        $image_upload.data('image_url', data.result[0].url);
         // $('image-input-hidden').val(dropzone.css('background-image', 'url(' + data.result[0].url + ')');
 
         // {# $.each(data.result.files, function (index, file) { #}

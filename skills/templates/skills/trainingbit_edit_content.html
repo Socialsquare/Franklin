@@ -98,9 +98,24 @@ Offline.on('up', function() {
   </div>
   <div id="modal-add-picture" class="reveal-modal" data-reveal>
     <h2>Add picture</h2>
-    <input id="fileupload" type="file" name="picture">
-    <div class="dropzone">Drop a picture here</div>
-    <div id="picture"></div>
+
+
+    <div class="image-upload">
+      <div class="dropzone">
+        {# {% if not request.user.image %}<div class="helptext">Drop a picture of yourself here</div>{% endif %} #}
+        <div class="helptext">Drop a picture here</div>
+        <div class="icon circled-plus"></div>
+      </div>
+      <div class="upload-button-container">
+        <a href="#" class="button">Upload image</a>
+        <input class="fileupload" type="file" name="picture"
+                data-url="{% url 'upload_picture' %}"
+                data-uid="{{ uid }}"
+                data-csrf="{{ csrf_token }}"
+                data-identifier="trainingbit_image">
+      </div>
+    </div>
+
     <button>Add picture</button>
     <a class="close-reveal-modal">&#215;</a>
   </div>
@@ -432,17 +447,22 @@ var EditorToolbarView = Backbone.View.extend({
   addPicture: function() {
     var self = this;
     var addPicture = function() {
-      console.log('Adding a picture...');
-      var value = $('#modal-add-picture img').attr('src');
-      console.log(value);
-      self.options.trainingbit.add(new TbPartPicture({url: value}));
+
+      var image_url = $('#modal-add-picture .image-upload').data('image_url');
+
+      console.log('Adding a picture: "' + image_url + '".');
+
+      self.options.trainingbit.add(new TbPartPicture({url: image_url}));
+
+      // Close modal
       $('#modal-add-picture').foundation('reveal', 'close');
-      $('#modal-add-picture button').off('click', addPicture);
 
       saveTrainingBit();
     };
-    $('#modal-add-picture button').on('click', addPicture);
 
+    // Add event handler
+    $('#modal-add-picture button').on('click', addPicture);
+    // Remove event handler on close
     $('#modal-add-picture').on('close', null, function () {
       $(this).find('button').off('click', addPicture);;
     });
@@ -534,71 +554,5 @@ $(document).ready(function() {
 
 });
   </script>
-
-<script>
-{# // Set by django #}
-{# var csrftoken = $.cookie('csrftoken'); #}
-
-$('#fileupload').fileupload({
-  url: '{% url 'upload_picture' %}',
-  dataType: 'json',
-  // Enable image resizing, except for Android and Opera,
-  // which actually support image resizing, but fail to
-  // send Blob objects via XHR requests:
-  disableImageResize: /Android(?!.*Chrome)|Opera/
-      .test(window.navigator && navigator.userAgent),
-
-  imageMaxWidth: 200,
-  imageMaxHeight: 200,
-
-  formData: [
-      { name: "uid", value: "{{ uid }}"},
-      { name: "csrfmiddlewaretoken", value: "{{ csrf_token }}"},
-      { name: "identifier", value: "trainingbit_content"}
-  ],
-  {# maxFileSize: {{ maxfilesize }}, #}
-  sequentialUploads: true,
-  //imageCrop: true // Force cropped images
-
-  dropZone: $('.dropzone'),
-
-  add: function (e, data) {
-    $.each(data.files, function (index, file) {
-      console.log('Selected file: ' + file.name);
-    });
-    data.submit();
-    var progressbar = $('<div class="progress success round"> <span class="meter" style="width: 0%"></span> </div>');
-    $('#picture div').html('');
-    $('#picture div').append(progressbar);
-  },
-  progressall: function (e, data) {
-    var progress = parseInt(data.loaded / data.total * 100, 10);
-    $('#picture div div.progress span.meter').css( 'width', progress + '%');
-  },
-  done: function (e, data) {
-    $('#picture').html('');
-    $img = $('<img>');
-    console.log(data.result);
-    $img.attr('src', data.result[0].url);
-    $('#picture').append($img);
-
-    {# $.each(data.result.files, function (index, file) { #}
-    {#   console.log('Done uploading.'); #}
-    {#   $('header').text(file.name); #}
-    {# }); #}
-
-  }
-  {# change: function (e, data) { #}
-  {#   $.each(data.files, function (index, file) { #}
-  {#     alert('Selected file: ' + file.name); #}
-  {#   }); #}
-  {# }, #}
-
-}).prop('disabled', !$.support.fileInput)
-  .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-
-</script>
-
 
 {% endblock %}

@@ -137,21 +137,3 @@
   }
 }
 
-#modal-add-picture {
-  input#fileupload {
-    display: none;
-  }
-  .dropzone {
-    height: 5rem;
-    width: 10rem;
-    background-color: $gcl-lightgray;
-
-    color: $gcl-darkgray;
-    font-size: rem-calc(12px);
-    line-height: 5rem;
-    text-align: center;
-
-    @include rounded(6px);
-    margin-bottom: 1rem;
-  }
-}
