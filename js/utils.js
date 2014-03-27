@@ -147,6 +147,12 @@ $(document).ready(function() {
   });
 
   /****************** COMMENTS *******************/
+
+  // jQuery Autosize on comment fields
+  // www.jacklmoore.com/autosize/
+  $('textarea.comment').autosize();
+
+
   // AJAX submit comments
   $('form.comment-form').ajaxForm({
     resetForm: true,
@@ -173,10 +179,6 @@ $(document).ready(function() {
       sendMessage('Comment could not be saved', 'error');
     }
   });
-
-  // jQuery Autosize on comment fields
-  // www.jacklmoore.com/autosize/
-  $('textarea.comment').autosize();
 
   var $div = $('.comment-form').first();
   $('.replies').each(function() {
