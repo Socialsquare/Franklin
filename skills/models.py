@@ -2,8 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+# Django forms
 from django.forms import ValidationError
 
+# Generic relations
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
@@ -11,20 +13,24 @@ from django.contrib.contenttypes import generic
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from sortedm2m.fields import SortedManyToManyField
-from embed_video.fields import EmbedVideoField
-
 # Email
 from django.core.mail import send_mail
 
-
+# Python modules
 from datetime import datetime
 
+# Custom fields
+from sortedm2m.fields import SortedManyToManyField
+from embed_video.fields import EmbedVideoField
 
+
+# South (fix)
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ['skills.models.AutoDateTimeField'])
 
+
 #### ABSTRACT MODELS (for inclusion via inheritance)
+
 # Don't use `auto_now` and `auto_now_add`:
 #   http://stackoverflow.com/questions/1737017/django-auto-now-and-auto-now-add/1737078#1737078
 #   https://groups.google.com/forum/#!topic/django-developers/TNYxwiXLTlI
@@ -58,6 +64,7 @@ class AuthoredModel(models.Model):
 
 
 #### CONCRETE MODELS
+
 class Like(TimedModel, AuthoredModel):
     # https://docs.djangoproject.com/en/1.6/ref/contrib/contenttypes/#id1
     content_type = models.ForeignKey(ContentType)
@@ -217,6 +224,8 @@ class Topic(TimedModel, AuthoredModel):
     def __str__(self):
         return self.name
 
+
+#### PERMISSIONS
 
 # apply AuthorPermissionLogic and CollaboratorsPermissionLogic
 from permission import add_permission_logic
