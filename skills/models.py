@@ -7,8 +7,15 @@ from django.forms import ValidationError
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+# Signals
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from sortedm2m.fields import SortedManyToManyField
 from embed_video.fields import EmbedVideoField
+
+# Email
+from django.core.mail import send_mail
 
 
 from datetime import datetime
@@ -241,3 +248,19 @@ class AdminPermissionLogic(PermissionLogic):
 add_permission_logic(Skill, AdminPermissionLogic())
 add_permission_logic(TrainingBit, AdminPermissionLogic())
 add_permission_logic(Comment, AdminPermissionLogic())
+
+
+#### SIGNALS
+
+@receiver(post_save, sender=Comment)
+def send_notification_email(sender, **kwargs):
+    if kwargs['created']:
+        comment = kwargs['instance']
+
+        if comment.author.email is not None and comment.author.email != '':
+            print('Sending mail')
+            send_mail('Global Change Lab: You got a reply on your comment',
+                      'Click here to see the comment %s' % reverse('skills:project_view', args=[comment.project.pk]),
+                      'noreply@globalchangelab.org',
+                      [comment.author.email],
+                      fail_silently=False)
