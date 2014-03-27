@@ -660,14 +660,24 @@ def comment_post(request):
             messages.error(request, 'Comment could not be saved: %s' % form.errors)
 
         try:
-            return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[project.trainingbit.pk]))
+            return HttpResponseRedirect(reverse('skills:project_view', args=[project.pk]))
         except UnboundLocalError:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     return HttpResponseRedirect(reverse('front_page'))
 
 
-@csrf_protect
+@login_required
+def comment_flag(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    comment.is_flagged = True
+    comment.save()
+    messages.success(request, 'Comment was successfully flagged')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
 def comment_delete(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
     comment.is_deleted = True

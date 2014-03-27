@@ -66,13 +66,42 @@
     {% endif %}
   </div>
 
+
+
+  {# Hidden elements we supply for Javascript #}
+
+  {#   Delete dropdown #}
+  <div id="comment-delete-dropdown" class="f-dropdown" data-dropdown-content>
+    <h6>Really delete this comment?</h6>
+    <a href="#" class="delete button">Delete comment</a>
+    <a href="#" class="button close info">Cancel</a>
+  </div>
+
+  {#   Flag dropdown #}
+  <div id="comment-flag-dropdown" class="f-dropdown" data-dropdown-content>
+    <h6>Really flag this comment?</h6>
+    <a href="#" class="flag button">Flag comment</a>
+    <a href="#" class="button close info">Cancel</a>
+  </div>
+
+  {#   Reply form #}
+  <form action="{% url 'skills:comment_post' %}" method="POST" class="reply-form">
+    {% csrf_token %}
+    <input type="hidden" name="project" value="{{ project.pk }}">
+    <input type="hidden" name="parent" value="">
+    <textarea class="comment" name="text" placeholder="Write a reply..."></textarea>
+    {# <button class="small">Comment</button> #}
+    <button>Reply</button>
+  </form>
+
+
   {# Comments section #}
   <h3>Comments</h3>
   <div class="comment-list">
   {% if comments %}
   {% for comment in comments %}
     {% include 'skills/partials/comment_entry.html' %}
-    <div class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
+    <div id="replies-for-{{comment.pk}}" class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
     {% for reply in comment.comment_set.all %}
       {% include 'skills/partials/comment_entry.html' with comment=reply %}
     {% endfor %}
@@ -80,7 +109,7 @@
   {% endfor %}
   {% else %}
   {# <div class="message-missing">No comments yet</div> #}
-    <span class="notice">No comments yet</span>
+    <span class="missing-message notice">No comments yet</span>
   {% endif %}
   </div>
 

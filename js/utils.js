@@ -154,79 +154,113 @@ $(document).ready(function() {
 
 
   // AJAX submit comments
-  $('form.comment-form').ajaxForm({
+  var ajax_form_settings = {
     resetForm: true,
     success: function(data, statusText, xhr, $form) {
       sendMessage('Comment successfully saved', 'success');
       var parent_pk = $form.find('input[name=parent]').val();
-      if (parent_pk === '') {
-        $form.closest('.comments').children('.comment-list').append(data['comment_html']);
-      } else {
-        var replies = $('<div class="replies" />');
-        var $comment = $('#comment-' + parent_pk);
+      var $comment = $(data['comment_html']);
+      $comment.hide();
 
-        if ($comment.next().hasClass('replies')) {
-          replies = $comment.next();
-        } else if ($comment.next().next().hasClass('replies')) {
-          replies = $comment.next().next();
-        } else {
-          replies.after($comment);
-        }
-        replies.append(data['comment_html']);
+      if (parent_pk === '') {
+        $('.comment-list .missing-message').remove();
+
+        $('.comment-list').prepend($comment);
+        $comment.fadeIn();
+      } else {
+        // var $replies = $form.closest('.replies');
+        // $replies.prepend($comment);
+        $form.after($comment);
+        $comment.fadeIn();
       }
     },
     error: function(data, statusText, xhr, $form) {
       sendMessage('Comment could not be saved', 'error');
     }
-  });
+  };
 
-  var $div = $('.comment-form').first();
-  $('.replies').each(function() {
-    var $this = $(this);
-    var $new_div = $div.clone();
-    var $reply_form = $new_div.children('form').first();
-    // $reply_form.attr('action', $this.attr('href'));
-    $reply_form.append('<input type="hidden" name="parent_pk" value="' + $this.data('parent-pk') + '">');
-    $reply_form.children('input[name=project]').val($this.data('project-pk'));
-    $new_div.appendTo($this);
-    $new_div.hide();
-  });
+  $('form.comment-form').ajaxForm(ajax_form_settings);
 
-  // comment Reply button
+  // Flag and delete buttons
+  //   I know - sorry - this is overly complex, but I just don't want to have
+  //   two times the code for these event handlers lying around (DRY)
+  var actions = {
+    'delete': function($a) {
+      $a.closest('.comment').slideUp();
+      var comment_pk = $a.closest('.comment').data('comment-pk');
+      $('#replies-for-' + comment_pk).slideUp();
+    },
+    'flag':   function($a) { $a.text('Flagged'); }
+  };
+  for (var action in actions) {
+
+    // Avoiding Javascript variable capture, ugh...
+    //   also, the fact that `$(this)` actually ends up referring to the <a> is
+    //   kind of lucky.
+    var func = (function(action) {
+      return function(e) {
+        var $a = $(this);
+
+        $('#comment-' + action + '-dropdown a.close').click(function(e) {
+          e.preventDefault();
+          $(document).foundation('dropdown', 'close', $('#' + $a.data('dropdown')));
+        });
+
+        $('#comment-' + action + '-dropdown a.' + action).click(function(e) {
+          e.preventDefault();
+          $a.css('visibility', 'visible');
+
+          $.ajax({
+            type: 'GET',
+            url: $a.attr('href'),
+            success: function() {
+              actions[action]($a);
+              $(document).foundation('dropdown', 'close', $('#' + $a.data('dropdown')));
+            },
+            error: function(data) {
+              sendMessage('Error: Could not ' + action, 'error');
+            }
+          });
+        });
+      };
+    })(action);
+
+    $('.comment a.' + action).click(func);
+  }
+
+  // Reply button
   $('.comment a.reply').click(function(e) {
     e.preventDefault();
 
     var $a = $(this);
-    var $comment = $a.closest('.comment');
 
-    var $comments = $a.closest('.comments');
-    if ($comments.data('comment_form_container') === undefined) {
-      var $comment_form_container = $comments.children('.comment-form-container');
-      $comments.data('comment_form_container', $comment_form_container);
-    } else {
-      var $comment_form_container = $comments.data('comment_form_container');
-    }
-    var $comment_form = $comment_form_container.children('.comment-form');
+    var $comment = $a.closest('.comment');
+    var comment_pk = $comment.data('comment-pk');
+    var $replies = $('#replies-for-' + comment_pk);
 
     // This reply link/form already active
     if ($a.hasClass('active')) {
-      $comments.append($comment_form_container);
-      $comment_form_container.removeClass('reply');
+      // Remove the reply form
+      $a.data('reply-form').remove();
 
-      $comment_form.find('input[name=parent]').val('');
+      // Change the link text
       $a.removeClass('active');
       $a.text('Reply');
-
     } else {
-      $comments.find('a.active').removeClass('active');
+      // Add the reply form
+      var $reply_form = $('form.reply-form').first().clone();
+      $reply_form.ajaxForm(ajax_form_settings);
+
+      $a.data('reply-form', $reply_form);
+      $replies.prepend($reply_form);
+      $reply_form.show();
+
+      // Set the parent primary key (the ID)
+      $reply_form.find('input[name=parent]').val($a.data('parent-pk'));
+
+      // Change the link text
       $a.addClass('active');
       $a.text('Close');
-
-      $comment_form.find('input[name=parent]').val($a.data('parent-pk'));
-
-      $comment.after($comment_form_container);
-      // inset to match visual style of replies
-      $comment_form_container.addClass('reply');
     }
 
   });

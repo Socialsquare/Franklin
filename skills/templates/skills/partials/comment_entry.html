@@ -1,17 +1,14 @@
 {% load gcl_utils %}
 {% load permissionif %}
 
-<div class="comment gcl-object" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}">
+<div class="comment gcl-object" style="margin-left:{{ comment.level }}rem;" id="comment-{{comment.id}}" data-comment-pk="{{comment.id}}">
 
-    {% if comment.is_deleted %}
-    <span class="icon block"></span>
-    {% else %}
-    {% if maxchars %}
-    <p class="content">{{ comment.text|truncatechars:maxchars }}</p>
-    {% else %}
-    <p class="content">{{ comment.text }}</p>
-    {% endif %}
-    {% endif %}
+  {% if comment.is_deleted %}
+  <!-- <span class="icon block"></span> -->
+  <p class="content deleted">This comment has been deleted</p>
+  {% else %}
+  <p class="content">{{ comment.text }}</p>
+  {% endif %}
 
   <div class="metadata-fat">
     <div class="profile-picture" style="background-image: url({{ comment.author.getImage }})"></div>
@@ -19,40 +16,21 @@
       <a href="{% url 'profile' comment.author.id %}">{{ comment.author.username }}</a><br>
       {{ comment.created_at|pretty_timesince }}<br>
     </div>
-  </div>
 
-    {% comment %}
-    <div class="moderation">
+    <div class="actions">
       {# Delete comment button #}
       {% permission request.user has 'skills.delete_comment' of comment %}
-      <a href="{% url 'skills:comment_delete' comment.id %}" class="alert soft-delete" data-dropdown="comment-delete-dropdown-{{comment.id}}">Delete</a>
+      <a href="{% url 'skills:comment_delete' comment.id %}" class="delete notice" data-dropdown="comment-delete-dropdown">Delete</a>
       {% endpermission %}
 
       {# Flag comment button #}
-      {% comment %}
-      {#<a href="{% url 'comments-flag' comment.id %}" class="flag" data-dropdown="comment-flag-dropdown-{{comment.id}}">Flag comment</a>#}
-      <div id="comment-flag-dropdown-{{comment.id}}" class="f-dropdown" data-dropdown-content>
-        <h6>Really flag this comment?</h6>
-        {#<form action="{% url 'comments-flag' comment.id %}" method="post">{% csrf_token %}#}
-          {% if next %}<div><input type="hidden" name="next" value="{{ next }}" id="next" /></div>{% endif %}
-          <p class="submit">
-            <input type="submit" name="submit" class="button" value="Flag" />
-            <a href="{{ comment.get_absolute_url }}" class="button close info">cancel</a>
-          </p>
-        </form>
-      </div>
-      {#{% endcomment %}#}
+      {% if user.is_authenticated %}
+      <a href="{% url 'skills:comment_flag' comment.id %}" class="flag notice" data-dropdown="comment-flag-dropdown">Flag comment</a>
+      {% endif %}
+
+      {# Reply to comment button #}
+      {% if comment.allow_thread %}<a href="{% url 'skills:comment_post' %}" data-parent-pk="{{ comment.pk }}" class="reply red">Reply</a>{% endif %}
     </div>
-    {% endcomment %}
-
-
-
-    {# Reply to comment button #}
-    {% if not hide_reply %}
-    {% if comment.allow_thread %}<a href="{% url 'skills:comment_post' %}" data-parent-pk="{{ comment.pk }}" class="reply">Reply</a>{% endif %}
-    {% endif %}
-
-  <!-- </div> -->
-
+  </div>
 
 </div>
