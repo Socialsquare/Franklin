@@ -364,6 +364,20 @@ def page_new(request):
         return HttpResponseRedirect(reverse('trainer_dashboard'))
 
 @csrf_protect
+def page_edit(request, page_pk):
+    flatpage = get_object_or_404(FlatPage, pk=page_pk)
+
+    if request.method == 'POST':
+        flatpage.content = request.POST['content']
+        flatpage.save()
+        messages.success(request, 'Successfully updated page "%s"' % flatpage.title)
+
+        return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', args=[flatpage.url]))
+    else:
+        return HttpResponseRedirect(reverse('front_page'))
+
+
+@csrf_protect
 def page_delete(request, page_pk):
 
     page = get_object_or_404(FlatPage, pk=page_pk)

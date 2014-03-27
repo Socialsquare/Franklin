@@ -1,18 +1,76 @@
 {% extends 'base.html' %}
 {% load permissionif %}
 
+
+{% permission request.user has 'page.edit' %}
+{% if request.GET.edit%}
+{% block scripts %}
+  <link rel="stylesheet" href="/static/medium-editor/medium-editor.css"></script>
+{% endblock %}
+{% endif %}
+{% endpermission %}
+
 {% block content %}
 {# Edit skill button #}
 <div class="page-buttons">
   {% permission request.user has 'page.edit' %}
-    {#<a href="{% url 'skills:skill_edit' skill.id %}" class="button info">Edit skill</a>#}
+    {% if not request.GET.edit %}
+    <a href="?edit=true" class="button info">Edit page</a>
+    {% endif %}
   {% endpermission %}
 
   {# Delete skill button #}
   {% permission request.user has 'page.delete' %}
-    <a href="{% url 'page_delete' flatpage.pk %}" class="button delete" data-dynamic="false">Delete page</a>
+    <a href="{% url 'page_delete' flatpage.pk %}" class="button hard-delete" data-dynamic="false">Delete page</a>
   {% endpermission %}
 </div>
 
-{{ flatpage.content }}
+<h1>{{ flatpage.title }}</h1>
+
+<div id="flatpage">
+  {{ flatpage.content }}
+    {# <textarea name="content" id="content-editor-textarea" rows="10" cols="80" placeholder="Write the page content here"></textarea> #}
+</div>
+
+{% permission request.user has 'page.edit' %}
+{% if request.GET.edit %}
+    <form id="flatpage-edit-form" method="POST" action="{% url 'page_edit' flatpage.pk %}">
+      {% csrf_token %}
+      <input type="hidden" name="content">
+      <button>Save</button>
+    </form>
+
+    <script src="/static/global_change_lab/js/trainer.min.js"></script>
+    <script>
+      {# var $this = $('#content-editor-textarea'); #}
+      {# var styles = $this.attr('style'); #}
+      {# if (typeof styles != 'undefined') { #}
+      {#     styles = ' style="' + styles + '"'; #}
+      {# } #}
+
+      {# $this.wrap('<div class="editable-wrapper"/>'); #}
+      {# var $w = $this.parent(); #}
+      {# $w.prepend('<div id="content-medium-editor" class="editable" ' + styles + ' data-placeholder="'+$this.attr('placeholder')+'">' + $this.val()+'</div>'); #}
+      {# $this.hide(); #}
+
+      var editor = new MediumEditor('#flatpage', {
+        anchorInputPlaceholder: 'Type a link',
+        placeholder: 'Type your text here',
+        buttons: ['bold', 'italic', 'header1', 'header2', 'orderedlist', 'unorderedlist'],
+        diffLeft: 0,
+        diffTop: -10,
+        firstHeader: 'h1',
+        secondHeader: 'h2',
+        delay: 300,
+        targetBlank: true
+      });
+
+      $('#flatpage-edit-form').submit(function(e) {
+        $(this).find('input[name=content]').val($('#flatpage').html());
+      });
+
+    </script>
+{% endif %}
+{% endpermission %}
+
 {% endblock %}

@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^admin/statistics.csv$', 'global_change_lab.views.admin_statistics_csv', name='admin_statistics_csv'),
     #   flatpages
     url(r'^page/new/?$', 'global_change_lab.views.page_new', name='page_new'),
+    url(r'^page/edit/(\d+)/?$', 'global_change_lab.views.page_edit', name='page_edit'),
     url(r'^page/delete/(\d+)/?$', 'global_change_lab.views.page_delete', name='page_delete'),
     # Picture upload URL
     url(r'^picture/upload/?$', 'global_change_lab.views.upload_picture', name="upload_picture"),
