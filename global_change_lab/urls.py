@@ -54,7 +54,6 @@ urlpatterns = patterns('',
 
     # static pages
     url(r'^about', 'global_change_lab.views.about', name='about'),
-    url(r'^termsofservice', 'global_change_lab.views.terms_of_service', name='terms_of_service'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
@@ -74,3 +73,9 @@ if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^debug_styles/?$', style_view, name='debug_styles'),
     )
+
+# django.contrib.flatpages
+urlpatterns += patterns('django.contrib.flatpages.views',
+    url(r'^terms/$', 'flatpage', {'url': '/terms/'}, name='terms'),
+)
+

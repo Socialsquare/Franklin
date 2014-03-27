@@ -374,8 +374,5 @@ def page_delete(request, page_pk):
     # return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', args=[flatpage.url]))
 
 
-def terms_of_service(request):
-    return render(request, 'terms_of_service.html', template_dict)
-
 def about(request):
     return render(request, 'about.html', template_dict)

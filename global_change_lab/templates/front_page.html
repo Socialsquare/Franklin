@@ -18,8 +18,14 @@
         <label><div>Repeat password</div><input type="password" name="password2"></label>
         <div>
           <div class="small-2 checkbox-container"><input type="checkbox" id="terms-checkbox" name="terms"></div>
-          <div class="small-10 terms-text"><label for="terms-checkbox">
-            <span class="terms">I agree to the Terms of Service and Privacy Policy of The Global Change Lab</span></label>
+          <div class="small-10 terms-text">
+            <label for="terms-checkbox">
+              <span class="terms">
+                {# Another possible url is: #}
+                {# {% url 'django.contrib.flatpages.views.flatpage' url='/terms' %} #}
+                I agree to the <a href="{% url 'terms' %}">Terms of Service and Privacy Policy</a> of The Global Change Lab
+              </span>
+            </label>
           </div>
         </div>
         <input type="hidden" name="next" value="{% url 'new_user' %}">
