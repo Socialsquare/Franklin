@@ -19,7 +19,7 @@
 
   {# Edit skill button #}
   {% permission request.user has 'skill.edit' %}
-    <a href="{% url 'skills:skill_edit' skill.id %}" class="button info admin-button">Edit skill</a>
+    <a href="{% url 'skills:skill_edit' slug=skill.slug %}" class="button info admin-button">Edit skill</a>
   {% endpermission %}
 
   {# Delete skill button #}

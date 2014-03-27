@@ -13,7 +13,7 @@
           <br>
           <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
           in the bit
-          <a href="{% url 'skills:trainingbit_cover' project.trainingbit.pk %}">{{ project.trainingbit.name }}</a>
+          <a href="{{ project.trainingbit.get_absolute_url }}">{{ project.trainingbit.name }}</a>
         </div>
       </div>
       {% endfor %}

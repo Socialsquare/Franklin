@@ -11,7 +11,7 @@
 <div class="page-buttons">
   {# View trainingbit button #}
   {% if trainingbit %}
-  <a href="{% url 'skills:trainingbit_cover' trainingbit.id %}" class="button info">View training bit cover</a>
+  <a href="{% url 'skills:trainingbit_cover' slug=trainingbit.slug %}" class="button info">View training bit cover</a>
   {% endif %}
 </div>
 

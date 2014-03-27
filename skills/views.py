@@ -64,8 +64,8 @@ def skills_overview(request, topic_slug=None, show_drafts=False):
         'topic_chosen': topic,
     })
 
-def skill_view(request, skill_id):
-    skill = get_object_or_404(Skill, pk=skill_id)
+def skill_view(request, slug=None):
+    skill = get_object_or_404(Skill, slug=slug)
 
     trainingbits = skill.trainingbits.filter(is_draft__exact=False)
     trainingbit_pks = [t.id for t in trainingbits]
@@ -115,7 +115,7 @@ def skill_start(request, skill_id):
     request.user.skills_in_progress.add(skill)
     messages.success(request, 'You are now taking this skill')
 
-    return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
+    return HttpResponseRedirect(skill.get_absolute_url())
 
 @csrf_protect
 def skill_stop(request, skill_id):
@@ -124,7 +124,7 @@ def skill_stop(request, skill_id):
     request.user.skills_in_progress.remove(skill)
     messages.info(request, 'You are no longer taking this skill')
 
-    return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
+    return HttpResponseRedirect(skill.get_absolute_url())
 
 @csrf_protect
 #@permission_required('skill.publicize')
@@ -138,10 +138,10 @@ def skill_publicize(request, skill_id):
             skill.is_draft = True
             messages.success(request, 'Reverted skill to draft status')
         skill.save()
-        return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
     else:
         messages.error(request, 'You do not have permission to make this skill public')
-        return HttpResponseRedirect(reverse('skills:skill_view', args=[skill_id]))
+
+    return HttpResponseRedirect(skill.get_absolute_url())
 
 def skill_delete(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
@@ -151,25 +151,29 @@ def skill_delete(request, skill_id):
         return HttpResponseRedirect(reverse('skills:skills_overview'))
     else:
         messages.error(request, 'You do not have permission to delete this skill')
-        return HttpResponseRedirect(reverse('skills:skill_view', skill_id))
+        return HttpResponseRedirect(skill.get_absolute_url())
 
 @csrf_protect
-def skill_edit(request, skill_id=None):
+def skill_edit(request, slug=None):
 
     skill = None
     selected_topic_pks = []
     form = SkillForm()
 
+    if slug is not None:
+        skill = get_object_or_404(Skill, slug=slug)
+        selected_topic_pks = [t.pk for t in skill.topic_set.all()]
+        form = SkillForm(instance=skill)
+
+
     # If something has been uploaded
     if request.method == 'POST':
 
-        form = SkillForm(request.POST)
+        form = SkillForm(request.POST, instance=skill)
         if form.is_valid():
 
             skill = form.save(commit=False)
             skill.author = request.user
-            skill.pk = skill_id
-
             skill.save()
 
             # Add trainingbits (ORDER IS IMPORTANT HERE)
@@ -203,11 +207,6 @@ def skill_edit(request, skill_id=None):
             messages.success(request, 'Successfully saved skill')
         else:
             messages.error(request, 'Could not save skill %s ' % form.errors)
-
-    elif skill_id is not None:
-        skill = Skill.objects.get(id__exact=skill_id)
-        selected_topic_pks = [t.pk for t in skill.topic_set.all()]
-        form = SkillForm(instance=skill)
 
     if skill is None:
         trainingbits_chosen    = []
@@ -249,8 +248,8 @@ def trainingbits_overview(request, topic_slug=None):
         'topic_chosen': topic,
     })
 
-def trainingbit_cover(request, trainingbit_id):
-    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+def trainingbit_cover(request, slug=None):
+    trainingbit = get_object_or_404(TrainingBit, slug=slug)
 
     # Remember what skill the user came from and save it as the user's "current
     # skill".
@@ -261,10 +260,11 @@ def trainingbit_cover(request, trainingbit_id):
         pass
 
     # If the user has a current skill let the user go back to that skill.
+    back_url = None
     if request.session.get('current_skill_id') is not None:
-        back_url = reverse('skills:skill_view', args=[request.session.get('current_skill_id')])
-    else:
-        back_url = None
+        skill = Skill.objects.get(id__exact=request.session.get('current_skill_id'))
+        if skill is not None:
+            back_url = skill.get_absolute_url()
 
     # Like
     content_type = ContentType.objects.get_for_model(trainingbit)
@@ -342,9 +342,8 @@ def get_completed_skills(user, trainingbit):
 
 @login_required
 @csrf_protect
-def trainingbit_view(request, trainingbit_id):
-    trainingbit_id = int(trainingbit_id)
-    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+def trainingbit_view(request, slug=None):
+    trainingbit = get_object_or_404(TrainingBit, slug=slug)
 
     form = ProjectForm()
 
@@ -368,7 +367,7 @@ def trainingbit_view(request, trainingbit_id):
             request.user.complete_skills(completed_skills)
             request.session['completed_skill_pks'] = [s.pk for s in completed_skills]
 
-            return HttpResponseRedirect(reverse('skills:project_view', args=[project.pk]))
+            return HttpResponseRedirect(project.get_absolute_url())
         else:
             if request.is_ajax():
                 return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
@@ -378,20 +377,20 @@ def trainingbit_view(request, trainingbit_id):
     return render(request, 'skills/trainingbit_view.html', {
         'trainingbit': trainingbit,
         'projects': trainingbit.project_set.order_by('-created_at').prefetch_related('author'),
-        'next': reverse('skills:trainingbit_view', args=[trainingbit_id]),
-        'back_url': reverse('skills:trainingbit_cover', args=[trainingbit_id]),
+        'next': reverse('skills:trainingbit_view', kwargs={'slug': trainingbit.slug}),
+        'back_url': reverse('skills:trainingbit_cover', kwargs={'slug': trainingbit.slug}),
         'form': form,
     })
 
 @csrf_protect
-def trainingbit_edit(request, trainingbit_id=None):
+def trainingbit_edit(request, slug=None):
 
     trainingbit = None
     selected_topic_pks = []
 
 
-    if trainingbit_id is not None:
-        trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+    if slug is not None:
+        trainingbit = get_object_or_404(TrainingBit, slug=slug)
         selected_topic_pks = [t.pk for t in trainingbit.topic_set.all()]
 
     form = TrainingBitForm(instance=trainingbit)
@@ -408,7 +407,6 @@ def trainingbit_edit(request, trainingbit_id=None):
                     new_trainingbit.image = trainingbit.image
             except NameError:
                 pass
-            new_trainingbit.pk = trainingbit_id
             new_trainingbit.author = request.user
 
             new_trainingbit.save()
@@ -421,7 +419,7 @@ def trainingbit_edit(request, trainingbit_id=None):
             trainingbit.topic_set.clear()
             trainingbit.topic_set.add(*topics)
 
-            return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', args=[trainingbit_id]))
+            return HttpResponseRedirect(reverse('skills:trainingbit_edit_content', kwargs={'slug': trainingbit.slug}))
         else:
             messages.error(request, 'Could not save training bit %s' % form.errors)
 
@@ -435,8 +433,8 @@ def trainingbit_edit(request, trainingbit_id=None):
     })
 
 @csrf_protect
-def trainingbit_edit_content(request, trainingbit_id):
-    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
+def trainingbit_edit_content(request, slug=None):
+    trainingbit = get_object_or_404(TrainingBit, slug=slug)
 
     # If a form has been submitted
     if request.method == 'POST':
@@ -451,17 +449,17 @@ def trainingbit_edit_content(request, trainingbit_id):
     # If nothing has been POSTed just show the `edit_content` page
     return render(request, 'skills/trainingbit_edit_content.html', {
         'trainingbit': trainingbit,
-        'back_url': reverse('skills:trainingbit_edit', args=[trainingbit.pk]),
+        'back_url': reverse('skills:trainingbit_edit', kwargs={'slug': trainingbit.slug}),
     })
 
 @csrf_protect
-def trainingbit_delete(request, trainingbit_id):
-    trainingbit = TrainingBit.objects.filter(id__exact=trainingbit_id)
+def trainingbit_delete(request, trainingbit_pk):
+    trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_pk)
     if request.user.has_perm('trainingbit.delete', trainingbit):
         trainingbit.delete()
         return HttpResponseRedirect(reverse('skills:trainingbits_overview'))
     else:
-        return HttpResponseRedirect(reverse('skills:trainingbit_view', trainingbit_id))
+        return HttpResponseRedirect(trainingbit.get_absolute_url())
 
 # Using the django-permissions functions like this:
 # @permission_required('trainingbit.recommend')
@@ -481,10 +479,10 @@ def trainingbit_recommend(request, trainingbit_id):
             trainingbit.recommended = True
             messages.success(request, 'Successfully recommended training bit')
         trainingbit.save()
-        return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
+        return HttpResponseRedirect(trainingbit.get_absolute_url())
     else:
         messages.error(request, 'You do not have permission to recommend this training bit')
-        return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
+        return HttpResponseRedirect(trainingbit.get_absolute_url())
 
 @login_required
 @csrf_protect
@@ -502,7 +500,7 @@ def trainingbit_start(request, trainingbit_id):
         request.user.trainingbits_in_progress.add(trainingbit)
         messages.success(request, 'You are now taking this training bit')
 
-    return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
+    return HttpResponseRedirect(reverse('skills:trainingbit_view', kwargs={'slug': trainingbit.slug}))
 
 @csrf_protect
 def trainingbit_stop(request, trainingbit_id):
@@ -511,7 +509,7 @@ def trainingbit_stop(request, trainingbit_id):
     request.user.trainingbits_in_progress.remove(trainingbit)
     messages.info(request, 'You are no longer taking this training bit')
 
-    return HttpResponseRedirect(reverse('skills:trainingbit_view', args=[trainingbit_id]))
+    return HttpResponseRedirect(trainingbit.get_absolute_url())
 
 
 @csrf_protect
@@ -562,9 +560,8 @@ def topic_delete(request, topic_pk):
             return HttpResponseRedirect(reverse('trainer_dashboard'))
 
 
-def project_view(request, project_id):
-    project_id = int(project_id)
-    project = get_object_or_404(Project, pk=project_id)
+def project_view(request, slug=None):
+    project = get_object_or_404(Project, slug=slug)
 
     ### Suggestion modal
     completed_trainingbit_pk = request.session.get('completed_trainingbit_pk')
@@ -613,8 +610,8 @@ def project_view(request, project_id):
         'content_type': content_type,
         'project': project,
         'comments': project.root_comments().order_by('-created_at').prefetch_related('author'),
-        'next': reverse('skills:project_view', args=[project_id]),
-        'back_url': reverse('skills:trainingbit_cover', args=[project.trainingbit.pk]),
+        'next': project.get_absolute_url(),
+        'back_url': project.trainingbit.get_absolute_url(),
 
         'related_project1': related_project1,
         'related_project2': related_project2,
@@ -660,7 +657,7 @@ def comment_post(request):
             messages.error(request, 'Comment could not be saved: %s' % form.errors)
 
         try:
-            return HttpResponseRedirect(reverse('skills:project_view', args=[project.pk]))
+            return HttpResponseRedirect(project.get_absolute_url())
         except UnboundLocalError:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

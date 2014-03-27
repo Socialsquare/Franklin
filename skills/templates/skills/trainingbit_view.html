@@ -25,7 +25,7 @@
 
   {# Edit trainingbit button #}
   {% permission request.user has 'skills.change_trainingbit' of trainingbit %}
-    <a href="{% url 'skills:trainingbit_edit_content' trainingbit.id %}" class="button info admin-button">Edit training bit</a>
+    <a href="{% url 'skills:trainingbit_edit_content' slug=trainingbit.slug %}" class="button info admin-button">Edit training bit</a>
   {% endpermission %}
 
   {# Delete trainingbit button #}
@@ -168,7 +168,7 @@
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <ul></ul>
-    <form id="project-form" action="{% url 'skills:trainingbit_view' trainingbit.id %}" method="POST"  enctype="multipart/form-data">
+    <form id="project-form" action="{% url 'skills:trainingbit_view' slug=trainingbit.slug %}" method="POST"  enctype="multipart/form-data">
       {% csrf_token %}
       <input type="text" name="name" placeholder="Title" class="title">
       <textarea name="content" placeholder="Write your thoughts about this training bit"></textarea>

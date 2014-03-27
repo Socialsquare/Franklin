@@ -72,7 +72,7 @@
     {% for skill in skills_in_progress %}
     <div class="row">
       <div class="columns medium-6">
-        <a href="{% url 'skills:skill_view' skill.id %}">
+        <a href="{{ skill.get_absolute_url }}">
           <h6>{{ skill.name }}</h6>
         </a>
       </div>

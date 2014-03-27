@@ -50,7 +50,7 @@ Offline.on('up', function() {
 
 <div class="page-buttons">
   {# View trainingbit button #}
-    <a href="{% url 'skills:trainingbit_view' trainingbit.id %}" class="button info">View training bit</a>
+    <a href="{% url 'skills:trainingbit_view' slug=trainingbit.slug %}" class="button info">View training bit</a>
 </div>
 
   {# Training Bit COVER #}
@@ -127,7 +127,7 @@ Offline.on('up', function() {
     <a class="close-reveal-modal">&#215;</a>
   </div>
 
-  <form id="trainingbit-content-form" action="{% url 'skills:trainingbit_edit_content' trainingbit.id %}" method="post" enctype="multipart/form-data">
+  <form id="trainingbit-content-form" action="{% url 'skills:trainingbit_edit_content' slug=trainingbit.slug %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
     <input type="hidden" id="trainingbit_content_json" name="trainingbit_content_json">
     <button>Save training bit</button>

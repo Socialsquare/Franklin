@@ -10,7 +10,7 @@
       {% endif %}
     </div>
     <div class="description"> <!--  small-10 columns"> -->
-      <a href="{% url 'skills:skill_view' skill.id %}"><h2>{{skill.name}}</h2></a>
+      <a href="{{ skill.get_absolute_url }}"><h2>{{skill.name}}</h2></a>
       <p>{{skill.description|truncatechars:170}}</p>
       <div class="info">
         <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>

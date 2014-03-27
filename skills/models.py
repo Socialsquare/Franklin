@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 
 # Django forms
 from django.forms import ValidationError
@@ -63,6 +64,25 @@ class AuthoredModel(models.Model):
         abstract = True
 
 
+# Please have this model as a parent for your models if you want the model to
+# use slugs in its URL.
+class SluggedModel(models.Model):
+    # Relations
+    slug = models.SlugField(max_length=60, db_index=True, null=False, blank=False)
+
+    class Meta:
+        abstract = True
+
+    # From: http://stackoverflow.com/a/837835/118608
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # The object has "just" been created (not in the database yet)
+            # so set the slug
+            self.slug = slugify(self.name)
+
+        super(SluggedModel, self).save(*args, **kwargs)
+
+
 #### CONCRETE MODELS
 
 class Like(TimedModel, AuthoredModel):
@@ -89,7 +109,7 @@ class Image(TimedModel):
     identifier = models.CharField(max_length=36)
 
 
-class TrainingBit(TimedModel, AuthoredModel):
+class TrainingBit(TimedModel, AuthoredModel, SluggedModel):
     LABELS = (
         ('I', 'Inspiration'),
         ('B', 'Background'),
@@ -120,13 +140,13 @@ class TrainingBit(TimedModel, AuthoredModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('skills:trainingbit_cover', args=[self.id])
+        return reverse('skills:trainingbit_cover', kwargs={'slug': self.slug})
 
     class Meta:
         ordering = ['-created_at']
 
 
-class Project(TimedModel, AuthoredModel):
+class Project(TimedModel, AuthoredModel, SluggedModel):
 
     # Content
     name = models.CharField(max_length=100, blank=False)
@@ -155,7 +175,7 @@ class Project(TimedModel, AuthoredModel):
     def get_absolute_url(self):
         # return reverse('skills:trainingbit_view', args=[self.trainingbit.id]) + \
         #        '#project-%u' % self.id
-        return reverse('skills:project_view', args=[self.pk])
+        return reverse('skills:project_view', kwargs={'slug': self.slug})
 
     def root_comments(self):
         return self.comment_set.filter(parent=None)
@@ -183,7 +203,8 @@ class Comment(TimedModel, AuthoredModel):
         return self.parent is None
 
 
-class Skill(TimedModel, AuthoredModel):
+
+class Skill(TimedModel, AuthoredModel, SluggedModel):
 
     # Content
     name = models.CharField(max_length=30)
@@ -202,7 +223,7 @@ class Skill(TimedModel, AuthoredModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('skills:skill_view', args=[self.id])
+        return reverse('skills:skill_view', kwargs={'slug': self.slug})
 
 
 class Topic(TimedModel, AuthoredModel):

@@ -33,7 +33,7 @@
             by
             <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a><br>
             in
-            <a href="{% url 'skills:trainingbit_cover' project.trainingbit.pk %}">{{ project.trainingbit.name|truncatechars:25 }}</a>
+            <a href="{{ project.trainingbit.get_absolute_url }}">{{ project.trainingbit.name|truncatechars:25 }}</a>
           </div>
           <div class="icons">
             <span class="icon heart red"></span> {{ project.likes.count }}
