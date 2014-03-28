@@ -26,7 +26,7 @@ class Migration(SchemaMigration):
         for _class in [orm.Skill, orm.Project, orm.TrainingBit]:
             for obj in _class.objects.all():
                 obj.slug = slugify(obj.name)[:60]
-                if obj.slug = '':
+                if obj.slug == '':
                     obj.slug = obj.pk
                 obj.save()
 
