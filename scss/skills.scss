@@ -222,14 +222,14 @@ ul.skills-grid {
   }
 
   .image-column {
-    @include grid-column(4);
+    // width, last-column,  center, offset, push, pull, collapse, float
+    @include grid-column(3, false, false, 0, 0, 0, true, left);
   }
   .name-column {
-    @include grid-column(8);
-    padding-left: 0;
+    @include grid-column(9, false, false, 0, 0, 0, true, left);
+    padding-left: rem-calc(8px);;
     h3 {
       margin-top: -5px;
-      // line-height: 1.8rem;
     }
   }
 }

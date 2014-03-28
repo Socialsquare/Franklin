@@ -41,22 +41,12 @@
 
 
 <div class="row" id="profile-bar">
-  <div class="large-2 columns">
-    <div id="profile-picture">
-      <img src="{{ profile_user.getImage }}" class="profile-picture">
-    </div>
-  </div>
-  <div class="large-10 columns">
-    <h1>{{ profile_user.username }}</h1>
-      {% if profile_user == request.user %}
-    <p class="description inplaceedit">
-        {% inplace_edit 'profile_user.description' edit_empty_value="Write about your self here" %}
-      {% else %}
-    <p class="description">
-        {{ profile_user.description }}
-      {% endif %}
-    </p>
-  </div>
+  <div class="profile-picture" style="background-image: url({{ profile_user.getImage }})"></div>
+  <h1>{{ profile_user.username }}</h1>
+  <span class="country">{{ profile_user.userinfo.country.name }}</span>
+  <p class="description">
+    {{ profile_user.description }}
+  </p>
 </div>
 
 {% if own_profile %}
@@ -105,10 +95,11 @@
 </div>
 {% endif %}
 
-<hr class="large">
+{# <hr class="large"> #}
+<hr>
 
 <div>
-  <h5>Completed skills</h5>
+  <h2 class="section-title">Completed skills</h2>
   {% if newest_skills %}
     {% include 'partials/skills_grid.html' with skills=newest_skills non_shown_skill_count=other_skills_count%}
   {% else %}
@@ -125,24 +116,25 @@
 
 <hr>
 
-<h5>Recently shared</h5>
+<h2 class="section-title">Recently shared</h2>
 {% if project_list0 %}
 {% with hide_user=True %}
 <div class="row">
-  <div class="columns medium-4">
-  {% for project in project_list0 %}
-    {% include 'skills/partials/project_column.html' %}
-  {% endfor %}
+  <div class="gcl-column">
+    {% for project in project_list0 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
   </div>
-  <div class="columns medium-4">
-  {% for project in project_list1 %}
-    {% include 'skills/partials/project_column.html' %}
-  {% endfor %}
+  <div class="gcl-column">
+    {% for project in project_list1 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
   </div>
-  <div class="columns medium-4">
-  {% for project in project_list2 %}
-    {% include 'skills/partials/project_column.html' %}
-  {% endfor %}
+  <div class="gcl-column">
+    {# {% include 'skills/partials/comment_list_compact.html' with hide_reply=True show_project=True maxchars=200 %} #}
+    {% for project in project_list2 %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
   </div>
 </div>
 

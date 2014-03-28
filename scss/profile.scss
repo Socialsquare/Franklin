@@ -4,38 +4,42 @@ body.user-profile {
 
 
 #profile-bar {
-  background-color: $gcl-darkgray;
 
   $height: rem-calc(150px);
   height: $height;
+  position: relative;
 
-  div.columns {
-    height: 100%;
+  div.profile-picture {
+    float: left;
+    background-size: cover;
+    background-position: center;
+    height: 85%;
+    width: $height;
+    overflow: hidden;
+
+    margin-right: rem-calc(20px);
   }
-
 
   h1 {
     color: $gcl-red;
+    margin-top: - rem-calc(5px);
+    margin-bottom: rem-calc(5px);
+  }
+
+  span.country {
+    font-weight: bold;
+    font-size: rem-calc(12px);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem; //-calc(5px);
+    display: inline-block;
   }
 
   p.description {
-    &.edit {
-      color: $gcl-lightgray;
-    }
-    color: white;
+    // color: $gcl-midgray;
+    font-size: 0.9rem;
+    font-weight: 200;
   }
 
-  div#profile-picture {
-    // background-color: white;
-    height: 85%;
-    overflow: hidden;
-    @extend %dead-center;
-
-    margin-left: $column-gutter / 2;
-    margin-right: $column-gutter / 2;
-
-
-  }
 }
 
 .progress-small-headline {
@@ -45,6 +49,11 @@ body.user-profile {
 hr.large {
   margin-bottom: rem-calc(3px);
   border-bottom: rem-calc(3px) solid $gcl-lightgray;
+}
+
+.section-title {
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 
 .empty-message {
