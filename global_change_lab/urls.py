@@ -40,9 +40,6 @@ urlpatterns = patterns('',
     # url(r'^user/', include('allauth.urls', namespace='allauth', app_name='user')),
     url(r'^user/', include('allauth.urls')),
 
-    # django-inplaceedit
-    (r'^inplaceeditform/', include('inplaceeditform.urls')),
-
     # django.contrib.admin
     url(r'^admin/', include(admin.site.urls)),
 

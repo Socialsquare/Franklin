@@ -52,7 +52,6 @@ INSTALLED_APPS = (
     'django_sortable',
     'solo',
     'sortedm2m',
-    'inplaceeditform',
     'embed_video',
     # 'rosetta',
     # 'translations',

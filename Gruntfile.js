@@ -30,8 +30,6 @@ module.exports = function(grunt) {
         },
         files: {
           'global_change_lab/static/global_change_lab/css/app.css' : [ 'scss/app.scss' ],
-          'global_change_lab/static/css/inplaceedit_style.css'     : [ 'scss/inplaceedit_style.scss' ],
-          'global_change_lab/static/css/inplaceedit_structure.css' : [ 'scss/inplaceedit_structure.scss' ],
         }
       }
     },
