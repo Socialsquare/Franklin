@@ -43,8 +43,15 @@ body.skill-view {
     max-width: 50rem;
   }
 
+  /******* START/STOP SKILL *********/
   .start-row {
     max-width: 50rem;
+    height: $metadata_height;
+  }
+  .stop {
+    font-size: rem-calc(13px);
+    line-height: $metadata_height;
+    // margin-left: rem-calc(15px);
   }
 
 }

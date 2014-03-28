@@ -43,12 +43,13 @@
   {% if request.user.is_authenticated %}
     {# {% if skill in request.user.skills_in_progress.all %} #}
     {% if request.user|is_taking_skill:skill %}
-      <a class="button small begin" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
+      <a class="stop notice" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
     {% else %}
+      <a class="stop notice" style="display: none" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
       <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
     {% endif %}
   {% else %}
-    <a class="button small begin" href="{% url 'account_signup' %}">Sign up to start this skill</a>
+    <a class="button small" href="{% url 'account_signup' %}">Sign up to start this skill</a>
   {% endif %}
     <div class="metadata-with-like-button">
       <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>
@@ -60,6 +61,40 @@
   </div>
 
 </div>
+
+<div id="skill-started-modal" class="reveal-modal" data-reveal>
+  <h3>Congratulations on starting this skill</h3>
+  <p>Get started with these training bits<p>
+
+  {# <div style="width: 30rem; margin-left: auto; margin-right: auto;"> #}
+    {% include 'partials/trainingbits_grid.html' with trainingbits=skill.trainingbits.all|slice:":3" extra_classes='medium' get_query=skill_id_get_query %}
+  {# </div> #}
+
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+
+
+<script>
+$('.begin').click(function(e) {
+  e.preventDefault();
+
+  var $a = $(this);
+
+  $.ajax({
+    type: 'GET',
+    url: $a.attr('href'),
+    success: function() {
+      $a.hide();
+      $('.stop').show();
+      {# actions[action]($a); #}
+      $('#skill-started-modal').foundation('reveal', 'open');
+    },
+    error: function(data) {
+    }
+  });
+});
+</script>
 
 <hr>
 {% include 'partials/trainingbits_grid.html' with get_query=skill_id_get_query %}
