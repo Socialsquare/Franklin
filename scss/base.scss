@@ -52,6 +52,9 @@ body.trainer-interface {
       }
     }
   }
+  #trainer-dashboard-button, #admin-dashboard-button, #logged-in-menu {
+    background-color: $gcl-darkgray;
+  }
 
   footer {
     .fat-footer {
@@ -109,42 +112,46 @@ body.trainer-interface {
     @extend .button;
   }
 
-  div#trainer-dashboard-button, div#admin-dashboard-button{
-    margin-right: rem-calc(10px);
-    display: inline-block;
+  #trainer-dashboard-button, #admin-dashboard-button, #logged-in-menu {
+    background-color: $topbar-bg-color;
+    >a {
+      // $margin: 7px;
+      // margin: $margin;
+      // width: auto;
+      // line-height: $topbar-height - 2*$margin;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+  #trainer-dashboard-button, #admin-dashboard-button {
+    a {
+      color: white;
+      background-color: $gcl-blue;
+    }
   }
 
-  div#logged-in-menu { //, div#trainer-dashboard-button, div#admin-dashboard-button {
-    display: inline-block;
-    a.button {
-      background-color: white;
-      font-size: rem-calc(12px);
+  #logged-in-menu { //, div#trainer-dashboard-button, div#admin-dashboard-button {
+    >a {
+      // background-color: white;
+      background-color: white !important;
       color: $gcl-darkgray;
-      text-transform: none;
-
-      padding-left: rem-calc(10px);
-      padding-right: rem-calc(10px);
-      padding-top: rem-calc(7px);
-      padding-bottom: rem-calc(7px);
-
-      // margin-bottom: 0;
+      padding-right: 23px !important;
     }
-    #drop {
-      background-color: white;
-      width: 8rem;
-      li {
-        width: 100%;
-        a {
-          background-color: white;
-          color: black;
-        }
-        &:hover {
-          a {
-            color: $gcl-red;
-            background-color: $gcl-browngray;
-          }
-        }
-      }
+  }
+}
+nav.top-bar:not(.expanded) {
+  #trainer-dashboard-button, #admin-dashboard-button {
+    a {
+      text-transform: uppercase;
+    }
+  }
+  #trainer-dashboard-button, #admin-dashboard-button, #logged-in-menu {
+    >a {
+      $margin: 7px;
+      margin: $margin;
+      width: auto;
+      line-height: $topbar-height - 2*$margin;
+      font-size: rem-calc(12px);
     }
   }
 }

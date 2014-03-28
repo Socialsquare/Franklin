@@ -1043,16 +1043,20 @@ $topbar-bg-color: $gcl-lightgray;
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-$topbar-dropdown-bg: $gcl-lightgray; //#333;
-// $topbar-dropdown-link-color: #fff;
+// Foundation 5 BUG: Try making a small window, and click the menu button at
+//                   the top of the page. There will be a colored gap between
+//                   the left edge of the window and the right edge of the menu
+//                   buttons.
+$topbar-dropdown-bg: $gcl-lightgray;
+$topbar-dropdown-link-color: $gcl-darkgray; // #fff;
 // $topbar-dropdown-link-bg: #333;
 // $topbar-dropdown-link-weight: normal;
 // $topbar-dropdown-toggle-size: 5px;
-// $topbar-dropdown-toggle-color: #fff;
-// $topbar-dropdown-toggle-alpha: 0.4;
+$topbar-dropdown-toggle-color: $gcl-red;
+$topbar-dropdown-toggle-alpha: 1;
 
 // Set the link colors and styles for top-level nav
-// $topbar-link-color: #fff;
+$topbar-link-color: $gcl-darkgray; //#fff;
 // $topbar-link-color-hover: #fff;
 // $topbar-link-color-active: #fff;
 // $topbar-link-weight: normal;

@@ -80,43 +80,40 @@
           </ul>
 
           <!-- Right Nav Section -->
-          <div class="right">
+          <ul class="right">
             {% block admin_dashboard_button %}
             {% if request.user.is_admin  %}
-            <div id="admin-dashboard-button">
-              <a href="{% url 'admin_dashboard' %}" class="button admin-button">Admin Dashboard</a>
-            </div>
+            <li id="admin-dashboard-button">
+              <a href="{% url 'admin_dashboard' %}" class="admin-button">Admin Dashboard</a>
+            </li>
             {% endif %}
             {% endblock %}
 
             {% block trainer_dashboard_button %}
             {% if request.user.is_trainer %}
-            <div id="trainer-dashboard-button">
-              <a href="{% url 'trainer_dashboard' %}" class="button admin-button">Trainer Dashboard</a>
-            </div>
+            <li id="trainer-dashboard-button">
+              <a href="{% url 'trainer_dashboard' %}" class="admin-button">Trainer Dashboard</a>
+            </li>
             {% endif %}
             {% endblock %}
 
-            <div id="logged-in-menu">
+            <li id="logged-in-menu" class="has-dropdown">
             {% if user.is_authenticated %}
-              <a href="#" class="button" data-dropdown="drop">
+              <a href="#">
                 <span class="icon user"></span>
                 {{ user.username }}
-                <span class="icon triangle-down red"></span>
               </a>
-              <ul id="drop" class="f-dropdown" data-dropdown-content>
+              <ul class="dropdown">
                 <li><a href="{% url 'profile' %}">View my profile</a></li>
                 <li><a href="{% url 'account_logout' %}">Sign out</a></li>
               </ul>
             {% else %}
               <a href="{% url 'account_login' %}" class="button">
                 Sign in
-                <span class="icon triangle-down red"></span>
               </a>
             {% endif %}
-            </div>
-
-          </div>
+            </li>
+          </ul>
         </section>
       </nav>
     </div>
