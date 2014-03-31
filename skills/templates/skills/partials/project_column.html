@@ -29,7 +29,7 @@
         <div class="metadata-fat">
           <div class="profile-picture" style="background-image: url({{ project.author.getImage }})"></div>
           <div class="text">
-            <span>{{ project.created_at|pretty_timesince }}</span>
+            <span class="bold">{{ project.created_at|pretty_timesince }}</span>
             by
             <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a><br>
             in
