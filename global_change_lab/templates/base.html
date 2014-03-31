@@ -79,7 +79,7 @@
             {% block admin_dashboard_button %}
             {% if request.user.is_admin  %}
             <li id="admin-dashboard-button">
-              <a href="{% url 'admin_dashboard' %}" class="admin-button">Admin Dashboard</a>
+              <a href="{% url 'admin_dashboard' %}" class="button admin-button">Admin Dashboard</a>
             </li>
             {% endif %}
             {% endblock %}
@@ -87,13 +87,13 @@
             {% block trainer_dashboard_button %}
             {% if request.user.is_trainer %}
             <li id="trainer-dashboard-button">
-              <a href="{% url 'trainer_dashboard' %}" class="admin-button">Trainer Dashboard</a>
+              <a href="{% url 'trainer_dashboard' %}" class="button admin-button">Trainer Dashboard</a>
             </li>
             {% endif %}
             {% endblock %}
 
-            <li id="logged-in-menu" class="has-dropdown">
             {% if user.is_authenticated %}
+            <li id="logged-in-menu" class="has-dropdown logged-in">
               <a href="#">
                 <span class="icon user"></span>
                 {{ user.username }}
@@ -103,6 +103,7 @@
                 <li><a href="{% url 'account_logout' %}">Sign out</a></li>
               </ul>
             {% else %}
+            <li id="logged-in-menu" class="">
               <a href="{% url 'account_login' %}" class="button">
                 Sign in
               </a>

@@ -54,6 +54,9 @@ body.trainer-interface {
   }
   #trainer-dashboard-button, #admin-dashboard-button, #logged-in-menu {
     background-color: $gcl-darkgray;
+    a.admin-button {
+      background-color: $gcl-blue;
+    }
   }
 
   footer {
@@ -95,7 +98,6 @@ body.trainer-interface {
   }
 
   .left {
-    margin-left: 1rem;
     li a {
       font-weight: bold;
       color: $gcl-midgray;
@@ -106,51 +108,58 @@ body.trainer-interface {
     }
   }
 
-  .button {
-    top: 0; // override Foundation 5 .top-bar .button
-    font-size: $button-font-size;
-    @extend .button;
-  }
-
   #trainer-dashboard-button, #admin-dashboard-button, #logged-in-menu {
     background-color: $topbar-bg-color;
     >a {
-      // $margin: 7px;
-      // margin: $margin;
-      // width: auto;
-      // line-height: $topbar-height - 2*$margin;
       padding-left: 10px;
       padding-right: 10px;
-    }
-  }
-  #trainer-dashboard-button, #admin-dashboard-button {
-    a {
-      color: white;
-      background-color: $gcl-blue;
     }
   }
 
   #logged-in-menu { //, div#trainer-dashboard-button, div#admin-dashboard-button {
     >a {
-      // background-color: white;
       background-color: white !important;
       color: $gcl-darkgray;
       padding-right: 23px !important;
+      &:after {
+        margin-#{$opposite-direction}: 7px;
+      }
+    }
+  }
+  #logged-in-menu:not(.has-dropdown) {
+    a:after {
+      @include css-triangle($topbar-dropdown-toggle-size, rgba($topbar-dropdown-toggle-color, $topbar-dropdown-toggle-alpha), $default-float);
+      margin-#{$opposite-direction}: 7px;
+      margin-top: -($topbar-dropdown-toggle-size / 2) - 2;
+      position: absolute;
+      top: 50%;
+      #{$opposite-direction}: 0;
     }
   }
 }
+nav.top-bar.expanded {
+  border-bottom: 1px solid $gcl-darkgray;
+}
 nav.top-bar:not(.expanded) {
-  #trainer-dashboard-button, #admin-dashboard-button {
-    a {
-      text-transform: uppercase;
-    }
+  .left {
+    margin-left: 1rem;
   }
-  #trainer-dashboard-button, #admin-dashboard-button, #logged-in-menu {
+
+  li#trainer-dashboard-button, li#admin-dashboard-button  {
+    padding-left: rem-calc(5px);
+  }
+
+  a.admin-button {
+    text-transform: uppercase;
+    font-size: rem-calc(12px);
+  }
+  #logged-in-menu.logged-in {
     >a {
       $margin: 7px;
       margin: $margin;
+      margin-right: 0;
       width: auto;
-      line-height: $topbar-height - 2*$margin;
+      line-height: 28px; //-- $topbar-height - 2*$margin;
       font-size: rem-calc(12px);
     }
   }
