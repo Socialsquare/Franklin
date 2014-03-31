@@ -116,12 +116,13 @@
 
     <div id="content" class="{% block content-classes %}{% endblock %}">
 
-    <div id="info-box" data-url-name="{% current_url_name %}">
-      <div class="text">{% block info %}{% endblock %}</div>
-      <a href="#" class="close">&times;</a>
-    </div>
+      <div id="info-box" data-url-name="{% current_url_name %}">
+        <div class="text">{% block info %}{% endblock %}</div>
+        <a href="#" class="close">&times;</a>
+      </div>
 
-        {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
+
     </div>
     <div id="sticky-footer-push"></div>
   </div>
