@@ -131,9 +131,9 @@
   <footer class="{% block footer-classes %}{% endblock %}">
     {% block fat_footer %}{% endblock %}
 
-    <div class="row" id="footer-background">
     <div class="row">
-      {% block footer %}
+    {% block footer %}
+    <div class="columns footer-left">
       <div class="social-icons">
         <a class="icon-social medium c-twitter red" href="#"></a>
         <a class="icon-social medium c-facebook red" href="#"></a>
@@ -142,32 +142,35 @@
       </div>
       <div class="row" id="footer-links">
         <div class="large-4 columns">
-          <h6>About Global Change Lab</h6>
+          <h6>Global Change Lab</h6>
 
           {% load flatpages %}
           {% get_flatpages as flatpages %}
           {% for page in flatpages %}
-            <a href="{% url 'django.contrib.flatpages.views.flatpage' page.url %}">{{ page.title }}</a>
+          <a class="notice" href="{% url 'django.contrib.flatpages.views.flatpage' page.url %}">{{ page.title }}</a>
           {% endfor %}
         </div>
         <div class="large-4 columns">
-          <h6>Training extras</h6>
-          <a href="#">Search for a training</a>
-          <a href="#">All training</a>
-          <a href="#">How to apply</a>
+          <h6>Training principals</h6>
+          <a class="notice" href="#">Who we work with</a>
+          <a class="notice" href="#">GP</a>
+          <a class="notice" href="#">News</a>
+          <a class="notice" href="#">Contact</a>
         </div>
         <div class="large-4 columns">
-          <h6>Who we are</h6>
-          <a href="#">Training principals</a>
-          <a href="#">Who we work with</a>
-          <a href="#">GP</a>
-          <a href="#">News</a>
-          <a href="#">Contact</a>
+          <h6>Training extras</h6>
+          <a class="notice" href="#">Search for a training</a>
+          <a class="notice" href="#">All training</a>
+          <a class="notice" href="#">How to apply</a>
+          <a class="notice" href="#">Who we are</a>
         </div>
       </div>
-      {% endblock %}
     </div>
-    <div class="row"><img id="logo-footer" src="{% static 'images/logo-large-white-footer.png' %}"></div>
+    <div class="columns footer-images">
+      <img id="footer-logo" src="{% static 'images/logo-large-white-footer.png' %}">
+      <img id="footer-guy" src="{% static 'images/footer-peace-guy.png' %}">
+    </div>
+    {% endblock %}
     </div>
   </footer>
 

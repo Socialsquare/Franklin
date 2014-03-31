@@ -8,22 +8,25 @@ html, body {
   height: 100%;
 }
 // $fat-footer-height: rem-calc(300px);
-// $static-footer-height: rem-calc(200px);
-// $footer-height: $fat-footer-height + $static-footer-height;
+$fat-footer-height: 0;
+$static-footer-height: rem-calc(300px);
+$footer-height: $fat-footer-height + $static-footer-height;
 #sticky-footer-wrap {
   clear: both;
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  // margin-bottom: -$footer-height;
+  margin-bottom: -$footer-height;
 }
 footer {
   clear: both;
   position: relative;
-  // height: $static-footer-height;
+  @media #{$medium-up} {
+    min-height: $static-footer-height;
+  }
 }
 #sticky-footer-push {
-  // height: $footer-height;
+  height: $footer-height;
 }
 
 body.trainer-interface {
@@ -210,14 +213,44 @@ footer {
     }
   }
 
+  $social_icons_height: rem-calc(120px);
+
   .social-icons {
-    margin-top: rem-calc(10px);
-    margin-bottom: rem-calc(10px);
+    width: 100%;
+    $margin_top: rem-calc(10px);
+    height: $social_icons_height -  $margin_top;
+    margin-top: $margin_top;
+    // margin-bottom: rem-calc(10px);
     line-height: 3rem;
   }
 
+  .footer-left {
+    @media #{$medium-up} {
+      // width, last-column,  center, offset, push, pull, collapse, float
+      @include grid-column(7, false, false, 0, 0, 0, true, left);
+    }
+  }
+
+  .footer-images {
+    @media #{$medium-up} {
+      // width, last-column,  center, offset, push, pull, collapse, float
+      @include grid-column(5, false, false, 0, 0, 0, true, left);
+    }
+
+    img {
+      float: right;
+      &#footer-logo {
+        margin-top: $social_icons_height;
+        margin-left: rem-calc(20px);
+        width: rem-calc(190px);
+      }
+      &#footer-guy {
+        margin-top: rem-calc(20px);
+      }
+    }
+  }
+
   #footer-links {
-    width: 50%;
     margin-left: 0;
     font-size: 0.7rem;
     line-height: 1.3;
@@ -229,17 +262,9 @@ footer {
 
     a {
       display: block;
-      color: $gcl-midgray;
       font-family: arial, sans-serif;
     }
 
-    h6 {
-      text-transform: none;
-      font-size: 0.7rem;
-      font-family: $body-font-family;
-      font-weight: bold;
-      margin-bottom: 0;
-    }
   }
 
   background-color: $gcl-lightgray;
@@ -251,10 +276,7 @@ footer {
     background-position: 100% 0%;
   }
 
-  #logo-footer {
-    margin-top: rem-calc(10px);
-    margin-bottom: rem-calc(20px);
-  }
+
 
 
 }
