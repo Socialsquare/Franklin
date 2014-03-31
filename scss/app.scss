@@ -117,9 +117,14 @@
   // right: rem-calc(5px);
 }
 
-a.button.admin-button {
+a.button.admin-button, .top-bar-section li a.button.admin-button {
   background-color: $gcl-blue;
   color: white;
+
+  &:hover {
+    background-color: black;
+    @include transition(background-color 0.3s);
+  }
 }
 
 .button {
@@ -155,6 +160,9 @@ a.button.admin-button {
 
 .red {
   color: $gcl-red;
+}
+a.red:hover {
+  color: black;
 }
 
 @mixin text-colored-background {
