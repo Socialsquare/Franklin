@@ -1,0 +1,10 @@
+
+div#front-page-cols .icon.large {
+  line-height: 0;
+}
+
+
+.icon:not(.large) {
+  position: relative;
+  top: -0.5rem;
+}
