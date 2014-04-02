@@ -477,7 +477,7 @@ var EditorToolbarView = Backbone.View.extend({
     $('#modal-add-link button').on('click', addLink);
 
 
-    $('#modal-add-link').on('close', '[data-reveal]', function () {
+    $('#modal-add-link').on('close',function() {
       $(this).find('button').off('click', addLink);;
     });
 
