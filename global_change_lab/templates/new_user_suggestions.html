@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
 {% load socialaccount %}
-
-{% block scripts %}
-<script src="/static/global_change_lab/js/foundation.orbit.min.js"></script>
-{% endblock %}
+{% load inlinetrans %}
 
 {% block info %}
-  <p>Front page help text. Skills are different trainings where you practice different skillsets as an activist.</p>
-  <p>Each training consists of a number of Training Bits. Each time you finish a training bit you'll get one step closer to finishing a skill.</p>
+  <p>
+    {% itrans "Welcome!" %}<br>
+    {% itrans "Here are some suggestions of skills and training bits you can begin with." %}
+  </p>
+
+  <p>
+    {% itrans "Skills are sets of selected training bits that help you be an even better activist and just what you need to change the world. You can take the training bits of a skill in any order you'll like but you need to take them all to get the skill." %}
+  </p>
+
+  <p>
+    {% itrans "Training Bits are just what you need to get to know activism, social change or get event better at campaigning. These small bits of training are divided into inspiration, tools or background to help you set-up your training in your on style." %}
+  </p>
 {% endblock %}
 
 {% block content %}

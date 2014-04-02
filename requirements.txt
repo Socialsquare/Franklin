@@ -13,3 +13,4 @@ https://github.com/malthejorgensen/django-solo/tarball/master
 django-sortedm2m==0.7.0
 django-embed-video==0.8
 django-countries==2.0
+https://github.com/malthejorgensen/django-inlinetrans/tarball/master

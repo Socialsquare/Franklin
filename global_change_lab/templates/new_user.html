@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load socialaccount %}
+{% load inlinetrans %}
 
 {% block scripts %}
 <script src="/static/global_change_lab/js/foundation.orbit.min.js"></script>
@@ -21,28 +22,19 @@
         <li>
           <h2>Skills</h2>
           <p>
-            Skill are collections of Training Bit that you should complete in
-            Skill are collections of Training Bit that you should complete in
-            Skill are collections of Training Bit that you should complete in
-            Skill are collections of Training Bit that you should complete in
-            order to obtain a certain skill
-            order to obtain a certain skill
-            order to obtain a certain skill
-            order to obtain a certain skill
+            {% itrans "Skills are sets of selected training bits that help you become even better within areas such as campaigning, activism, social change and much more. You can take the selected training bits in any order you'll like but you need to take them all to get the skill you need to change the world. Are you up for the challenge?" %}
           </p>
         </li>
         <li>
           <h2>Training Bits</h2>
           <p>
-            Training Bit are small bits of action, inspiration and knowledge
-            that helps you understand a subject.
+            {% itrans "Training Bits are just what you need to get to know activism, social change or get event better at campaigning. These small bits of training are divided into inspiration, tools or background to help you set-up your training in your on style. We are adding new ones all the time so remember to check in for new stuff to learn." %}
           </p>
         </li>
         <li>
           <h2>Sharing is Caring!</h2>
           <p>
-            In order to complete a Training Bit you must share your actions or
-            thoughts with all of us :)
+            {% itrans "To complete a training bit and get a skill you must share your work, actions or thoughts with the rest of us. That way we will all learn together and help each other change the world for the better. We love to see your work!" %}
           </p>
         </li>
       </ul>

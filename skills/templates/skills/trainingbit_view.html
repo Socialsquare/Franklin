@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load permissionif %}
 {% load user_skills %}
+{% load inlinetrans %}
 
 {% block scripts %}
 <script src="{% static 'global_change_lab/js/trainingbit_view.min.js' %}"></script>
@@ -63,34 +64,7 @@
     <a href="#" class="info-icon" data-reveal-id="learn-info-modal" data-reveal>&#8505;</a>
     <div id="learn-info-modal" class="reveal-modal" data-reveal>
       <h1>Learn</h1>
-          Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
-      accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab
-      illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-      explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut
-      odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione
-      voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum,
-      quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam
-      [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam
-      quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
-      ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-      consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate
-      velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum
-      fugiat, quo voluptas nulla pariatur?
-
-          At vero eos et accusamus et iusto odio dignissimos ducimus, qui
-      blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et
-      quas molestias excepturi sint, obcaecati cupiditate non provident,
-      similique sunt in culpa, qui officia deserunt mollitia animi, id est
-      laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-      distinctio. Nam libero tempore, cum soluta nobis est eligendi optio,
-      cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-      omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-      quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet,
-      ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-      earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-      voluptatibus maiores alias consequatur aut perferendis doloribus
-      asperiores repellat…
-
+      {% itrans "This first part of the training bit is focused on giving you the right input and information about the topic you are studying. Whether it is a text on the background of the topic, a tutorial on how to use a specific tool or model or some input that inspires your creative thinking it will help you to understand and later, apply, this particular field." %}
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <ul></ul>
@@ -100,34 +74,7 @@
     <a href="#" class="info-icon" data-reveal-id="act-info-modal" data-reveal>&#8505;</a>
     <div id="act-info-modal" class="reveal-modal" data-reveal>
       <h1>Act</h1>
-          Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
-      accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab
-      illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-      explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut
-      odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione
-      voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum,
-      quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam
-      [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam
-      quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
-      ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-      consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate
-      velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum
-      fugiat, quo voluptas nulla pariatur?
-
-          At vero eos et accusamus et iusto odio dignissimos ducimus, qui
-      blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et
-      quas molestias excepturi sint, obcaecati cupiditate non provident,
-      similique sunt in culpa, qui officia deserunt mollitia animi, id est
-      laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-      distinctio. Nam libero tempore, cum soluta nobis est eligendi optio,
-      cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-      omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-      quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet,
-      ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-      earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-      voluptatibus maiores alias consequatur aut perferendis doloribus
-      asperiores repellat…
-
+      {% itrans "The second part of each training bit is focused on action. Whether you have to go out an take photos of your stencil or answer a couple of tricky questions, this is where we want you to act and use the information you read through in the first part in real life." %}
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <ul></ul>
@@ -137,34 +84,7 @@
     <a href="#" class="info-icon" data-reveal-id="share-info-modal" data-reveal>&#8505;</a>
     <div id="share-info-modal" class="reveal-modal" data-reveal>
       <h1>Share</h1>
-          Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
-      accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab
-      illo inventore veritatis et quasi architecto beatae vitae dicta sunt,
-      explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut
-      odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione
-      voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum,
-      quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam
-      [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam
-      quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
-      ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
-      consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate
-      velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum
-      fugiat, quo voluptas nulla pariatur?
-
-          At vero eos et accusamus et iusto odio dignissimos ducimus, qui
-      blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et
-      quas molestias excepturi sint, obcaecati cupiditate non provident,
-      similique sunt in culpa, qui officia deserunt mollitia animi, id est
-      laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-      distinctio. Nam libero tempore, cum soluta nobis est eligendi optio,
-      cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus,
-      omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-      quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet,
-      ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-      earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-      voluptatibus maiores alias consequatur aut perferendis doloribus
-      asperiores repellat…
-
+      {% itrans "The last part of the training bit - and a step you need to do to complete it - is to share your work with the rest of us. Whether it is a short essay and a video of your latest campaign or a reflection about the use of a specific tool, it is an opportunity for you to share and connect with the Global Change Lab community." %}
       <a class="close-reveal-modal">&#215;</a>
     </div>
     <ul></ul>
@@ -183,7 +103,7 @@
         <a href="#" id="link-button" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a>
         <a href="#" id="video-button" class="button" data-reveal-id="modal-add-video" data-reveal>Attach video</a>
       </div>
-      <button class="share-button small">Share, and complete training bit</button>
+      <button class="share-button small">{% itrans "Share and complete this training bit" %}</button>
     </form>
     {% if form.errors %}
     <div class="project-form-errors">

@@ -1,5 +1,7 @@
 {% load staticfiles %}
 {% load gcl_utils %}
+{% load i18n %}
+{% load inlinetrans %}
 
 {# Content of the "completed trainingbit" modal on the `trainingbit_view` page #}
 <h3>Well done! You have completed</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2>
@@ -25,7 +27,8 @@
 
 
 {% if suggested_trainingbits %}
-<p>Checkout these other training bits that may be of interest</p>
+{% url 'profile' as profile_url %}
+<p>{% blocktrans %}Checkout the training bits below - perhaps they are something for you to do next? You can also go to <a class="red" href="{{ profile_url }}">your profile</a> to see your current progress.{% endblocktrans %}</p>
 <div style="width: 30rem; margin-left: auto; margin-right: auto;">
   {% include 'partials/trainingbits_grid.html' with trainingbits=suggested_trainingbits hide_part_of=True extra_classes='medium' %}
 </div>
@@ -35,9 +38,12 @@
 </p>
 {% endif %}
 
+{% comment %}
 <p>
   You can go to your <a href="{% url 'profile' %}">profile</a> to see your current progress.
 </p>
+{% endcomment %}
+
 
 {% comment %}
 {% if completed_skills %}

@@ -78,3 +78,7 @@ urlpatterns += patterns('django.contrib.flatpages.views',
     url(r'^terms/$', 'flatpage', {'url': '/terms/'}, name='terms'),
 )
 
+# django-inlinetrans
+urlpatterns += patterns('',
+    url(r'^inlinetrans/', include('inlinetrans.urls')),
+)

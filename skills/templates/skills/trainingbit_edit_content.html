@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
+{% load inlinetrans %}
 
 
 {% block body-classes %} trainer-interface {% endblock %}
@@ -168,7 +170,6 @@ Offline.on('up', function() {
 
   <script type="text/template" id="link-help-text">
     <h6>Link</h6>
-    Links to external websites
   </script>
   <script type="text/template" id="embed-picture-text">
     <h6>Picture</h6>
@@ -176,7 +177,7 @@ Offline.on('up', function() {
   </script>
   <script type="text/template" id="embed-help-text">
     <h6>Embed</h6>
-    Videos from Youtube, Vimeo etc.
+    {% itrans "You can add videos from YouTube or Vimeo by pasting in the videos embed code here" %}
   </script>
   <script type="text/template" id="text-help-text">
     <h6>Text</h6>
@@ -353,7 +354,7 @@ var TrainingBitPartView = Backbone.View.extend({
       console.log(text_editor)
       var editor = new MediumEditor(text_editor, {
           anchorInputPlaceholder: 'Type a link',
-          placeholder: 'Type your text here',
+          placeholder: '{% trans "Add text - if you want to make the text a header or into bullits or italics etc. please select the text and choose how you want to configure it" %}',
           buttons: ['bold', 'italic', 'header1', 'header2', 'orderedlist', 'unorderedlist'],
           diffLeft: 0,
           diffTop: -10,

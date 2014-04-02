@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load inlinetrans %}
 
 
 {% block body-classes %} trainer-interface {% endblock %}
@@ -25,7 +26,7 @@
     </div>
     <div class="help-text">
       <h6>Title</h6>
-      Here you should write the name of the skill.
+      {% itrans "Please, give the skill a name" %}
     </div>
   </div>
   <div class="input-field-row">
@@ -35,7 +36,7 @@
     </div>
     <div class="help-text">
       <h6>Description</h6>
-      Here you should write a short description of the skill.
+      {% itrans "Add a description to the skill" %}
     </div>
   </div>
 
@@ -85,11 +86,10 @@
     </div>
     <div class="help-text">
       <h6>Training Bits</h6>
-      Here you can add training bits to the skill.
-      {# Drag the training bit into the order you want them to show in s #}
-      Drag training bits from the list on the left to the list on the right.
-      The order of the training bits here is the order they will show on the
-      skill page.
+      {% itrans "To achieve this skill people will need to take training bits. Add the training bits to the skill here."  %}
+      {# Drag training bits from the list on the left to the list on the right. #}
+      {# The order of the training bits here is the order they will show on the #}
+      {# skill page. #}
     </div>
   </div>
   <div class="input-field-row">

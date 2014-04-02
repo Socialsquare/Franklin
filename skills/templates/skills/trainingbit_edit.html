@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load inlinetrans %}
 
 {% block body-classes %} trainer-interface {% endblock %}
 {% block scripts %}
@@ -24,7 +25,7 @@
     </div>
     <div class="help-text">
       <h6>Title</h6>
-      Here you should write the name of your training bit.
+      {% itrans "Please, give the training bit a name" %}
     </div>
   </div>
   <div class="input-field-row">
@@ -36,8 +37,7 @@
     </div>
     <div class="help-text">
       <h6>Cover Image</h6>
-      Drag a file from your computer on to the button, or click the button to find
-      a file on your computer that will be the cover image of this training bit.
+      {% itrans "Add a cover image to your training bit. Drag and drop a image from your compuer or select a file from your computer. The cover image will look best if it 1000 x 650 in size." %}
     </div>
   </div>
   <div class="input-field-row">
@@ -47,7 +47,7 @@
     </div>
     <div class="help-text">
       <h6>Description</h6>
-      Here you should write a short description of your training bit.
+      {% itrans "Add a description to the training bit. This text is what makes people pick your training bit. Make sure that the description is short and gets the message across." %}
     </div>
   </div>
   <div class="input-field-row">
@@ -60,12 +60,7 @@
     </div>
     <div class="help-text">
       <h6>Label</h6>
-      Choose the type of training this training bit provides:
-      <ul>
-        <li>Inspiration</li>
-        <li>Learning</li>
-        <li>Doing</li>
-      </ul>
+      {% itrans 'A training bit has a label and is either labelled "inspiration", "learning" or "tool". Choose a label for this training bit.' %}
     </div>
   </div>
   <div class="input-field-row">
@@ -74,7 +69,7 @@
     </div>
     <div class="help-text">
       <h6>Topics</h6>
-      Here you can add topics to the training bit.
+      {% itrans "Select topics from the list and add topics to your training bit." %}
     </div>
   </div>
   <div class="input-field-row">

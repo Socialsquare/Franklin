@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
+{% load inlinetrans %}
+
 {% block content %}
 <div id="new-user-greeter">
   <form method="POST" action="{% url 'new_user_suggestions' %}">
   {% csrf_token %}
   <div class="row" id="topics-select">
     <div class="medium-4 columns">
-      <h1 class="white"> START BY CHOOSING YOUR TOPICS OF INTEREST </h1>
+      <h2 class="white">{% itrans "Choose your topics of interest - and we will suggest some skils and training bits you can begin with." %}</h2>
     </div>
     <div class="medium-8 columns">
       <ul>

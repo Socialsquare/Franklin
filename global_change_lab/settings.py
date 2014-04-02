@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASEDIR = BASE_DIR # for compatibility with django-inlinetrans
 
 
 # Quick-start development settings - unsuitable for production
@@ -55,6 +56,7 @@ INSTALLED_APPS = (
     'embed_video',
     # 'rosetta',
     # 'translations',
+    'inlinetrans',
 
     'allauth',
     'allauth.account',
@@ -84,7 +86,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -267,10 +269,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert' # foundation 5 uses 'alert' as its 'error'-class
 }
 
-# yawd-translations
-# LOCALE_PATHS = [
-#     'locale'
-# ]
+# django-inlinetrans
+LOCALE_PATHS = [
+    'locale'
+]
 
 # django-countries
 COUNTRIES_OVERRIDE = {
