@@ -147,6 +147,9 @@ Offline.on('up', function() {
       <div class="help-text">
         <%= help_text %>
       </div>
+      <div class="edit">
+        <a class=""><span class="icon pencil"></span></a>
+      </div>
       <div class="delete">
         <a class=""><span class="icon trash"></span></a><!-- Delete -->
       </div>
@@ -303,6 +306,7 @@ var TrainingBitPartView = Backbone.View.extend({
   //tagName: 'div',
   events: {
     'click .delete': 'deleteTbPart',
+    'click .edit': 'edit',
     // There may be smarter ways to do this, rather than just listening for
     // keypresses.
     // See: http://stackoverflow.com/questions/7802784/listening-to-events-of-a-contenteditable-html-element/7804973#7804973
@@ -321,6 +325,51 @@ var TrainingBitPartView = Backbone.View.extend({
       this.model.attributes.html = this.$el.find('.text-field').html();
     }
     saveTrainingBit();
+  },
+
+  edit: function() {
+
+    var type = this.model.get('type');
+    console.log('Editing: ' + type);
+
+    if (type == 'link') {
+      var self = this;
+      $('#modal-add-link button').text('Update link');
+
+      // Update modal window with values
+      $('#modal-add-link input.url').val(this.model.get('url'));
+      $('#modal-add-link input.title').val(this.model.get('title'));
+      $('#modal-add-link input.description').val(this.model.get('description'));
+
+      var addLink = function() {
+        console.log('Updating link...');
+
+        self.model.set('url', $('#modal-add-link input.url').val());
+        self.model.set('title', $('#modal-add-link input.title').val());
+        self.model.set('description', $('#modal-add-link input.description').val());
+        self.render();
+
+        $('#modal-add-link').foundation('reveal', 'close');
+        $('#modal-add-link button').off('click', addLink);
+
+        saveTrainingBit();
+      };
+      $('#modal-add-link button').on('click', addLink);
+
+
+      {# $('#modal-add-link').on('close', '[data-reveal]', function () { #}
+      $('#modal-add-link').on('close', function() {
+        $(this).find('button').off('click', addLink);;
+
+        // Reset fields and button text
+        $('#modal-add-link button').text('Add link');
+        $('#modal-add-link input.url').val('');
+        $('#modal-add-link input.title').val('');
+        $('#modal-add-link input.description').val('');
+      });
+
+      $('#modal-add-link').foundation('reveal', 'open');
+    }
   },
 
   render: function() {
@@ -363,6 +412,11 @@ var TrainingBitPartView = Backbone.View.extend({
           delay: 300,
           targetBlank: true
       });
+    }
+    if (type == 'link') {
+      //this.$el.find('.edit')
+    } else {
+      this.$el.find('.edit').hide();
     }
 
     // Setup save timer

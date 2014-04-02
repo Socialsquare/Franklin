@@ -44,7 +44,7 @@
     }
   }
 
-  .handle, .delete {
+  .handle, .delete, .edit {
     height: 100%;
     margin-bottom: 0; // to override the .input-row > * { margin ... }
     .icon {
@@ -71,23 +71,25 @@
       color: $gcl-midgray;
     }
   }
-  .delete {
+  .edit, .delete {
     position: absolute;
-    right: -1rem;
     margin: auto;
 
-    a       .icon {
+    a .icon {
       color: $gcl-darkgray;
+      font-size: 2.5rem;
       @include transition(color 0.3s);
     }
     a:hover .icon {
       @include transition(color 0.3s);
       color: $gcl-red;
     }
-
-    .icon {
-      font-size: 5rem;
-    }
+  }
+  .edit {
+    right: 0.5rem;
+  }
+  .delete {
+    right: -1.5rem;
   }
 }
 
