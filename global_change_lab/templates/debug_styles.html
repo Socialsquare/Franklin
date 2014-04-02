@@ -2,6 +2,12 @@
 
 
 {% block content %}
+<style>
+#content {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+</style>
 
 <div class="row">
   <div class="columns medium-6">
@@ -40,6 +46,14 @@
 
 <button>Button element</button>
 
-<a href="#">A link</a>
+<a href="#">A link</a><br>
+<a id="hide" href="#">Test sticky footer</a>
+<script>
+$('#hide').click(function(e) {
+  e.preventDefault();
+
+  $('#content .row').toggle();
+});
+</script>
 
 {% endblock %}
