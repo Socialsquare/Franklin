@@ -287,10 +287,24 @@ def send_notification_email(sender, **kwargs):
     if kwargs['created']:
         comment = kwargs['instance']
 
-        if comment.author.email is not None and comment.author.email != '':
-            print('Sending mail')
-            send_mail('Global Change Lab: You got a reply on your comment',
-                      'Click here to see the comment %s' % reverse('skills:project_view', args=[comment.project.pk]),
-                      'noreply@globalchangelab.org',
-                      [comment.author.email],
+        is_reply = comment.parent is not None
+        author_has_email = comment.author.email is not None and comment.author.email != ''
+        if is_reply and author_has_email:
+            print('Sending mail to: %s <%s>' % (comment.parent.author.username,  comment.parent.author.email))
+
+            # From: http://stackoverflow.com/a/8817935/118608
+            from django.contrib.sites.models import get_current_site
+            request = None
+            full_url = ''.join(['http://', get_current_site(request).domain, comment.get_absolute_url()])
+            #'Click here to see the comment %s' % full_url,
+
+            email_subject = 'You got a reply on your comment on Global Change Lab'
+            email_body = '%s just commented on your comment on %s!\r\n\r\n%s' % (comment.author.username, comment.project.name, full_url)
+            email_from = 'Global Change Lab <hello@globalchangelab.org>'
+            email_to = [comment.parent.author.email]
+
+            send_mail(email_subject,
+                      email_body,
+                      email_from,
+                      email_to,
                       fail_silently=False)
