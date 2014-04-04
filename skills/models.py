@@ -219,6 +219,9 @@ class Skill(TimedModel, AuthoredModel, SluggedModel):
     # Flags
     is_draft = models.BooleanField(default=True)
 
+    def trainingbit_count(self):
+        return self.trainingbits.filter(is_draft=False).count()
+
     def __str__(self):
         return self.name
 

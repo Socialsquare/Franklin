@@ -52,7 +52,7 @@
     <a class="button small" href="{% url 'account_signup' %}">Sign up to start this skill</a>
   {% endif %}
     <div class="metadata-with-like-button">
-      <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>
+      <span class="trainingbit-count">{{ skill.trainingbit_count }} Training Bits</span>
       <!-- <br> -->
       {% include 'skills/partials/like_counter.html' with object=skill %}
       <span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span>

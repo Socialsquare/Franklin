@@ -13,7 +13,7 @@
       <a href="{{ skill.get_absolute_url }}"><h2>{{skill.name}}</h2></a>
       <p>{{skill.description|truncatechars:170}}</p>
       <div class="info">
-        <span class="trainingbit-count">{{ skill.trainingbits.count }} Training Bits</span>
+        <span class="trainingbit-count">{{ skill.trainingbit_count }} Training Bits</span>
         <hr>
         <span class="icon small heart red"></span> {{ skill.likes.count }}
         <span class="icon small users red"></span> {{ skill.users_completed.count }}
