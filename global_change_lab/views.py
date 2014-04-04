@@ -9,7 +9,7 @@ from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 
-from skills.models import Skill, TrainingBit, Topic, Image, Comment
+from skills.models import Skill, TrainingBit, Topic, Image, Comment, Project
 
 from global_change_lab.models import User
 from global_change_lab.forms import UserInfoForm
@@ -161,6 +161,13 @@ def admin_flagged_comments(request):
     return render(request, 'admin_flagged_comments.html', {
         'comments': Comment.objects.filter(is_deleted=False, is_flagged=True),
     })
+
+def admin_flagged_shares(request):
+
+    return render(request, 'admin_flagged_shares.html', {
+        'projects': Project.objects.filter(is_deleted=False, is_flagged=True),
+    })
+
 
 def admin_users_csv(request):
     response = HttpResponse(content_type='text/csv')

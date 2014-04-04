@@ -446,6 +446,20 @@ div.gcl-column2 {
   }
 }
 
+// Used for flagging and deleting projects and comments
+.actions {
+  display: inline-block;
+  vertical-align: middle;
+
+  text-transform: uppercase;
+  font-size: rem-calc(12px);
+
+  a {
+    // margin-left: rem-calc(10px);
+    &:focus { visibility: visible; }
+  }
+}
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

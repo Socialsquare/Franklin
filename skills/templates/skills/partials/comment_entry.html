@@ -20,12 +20,12 @@
     <div class="actions">
       {# Delete comment button #}
       {% permission request.user has 'skills.delete_comment' of comment %}
-      <a href="{% url 'skills:comment_delete' comment.id %}" class="delete notice" data-dropdown="comment-delete-dropdown">Delete</a>
+      <a href="{% url 'skills:comment_delete' comment.id %}" class="delete notice" data-dropdown="delete-dropdown">Delete</a>
       {% endpermission %}
 
       {# Flag comment button #}
       {% if user.is_authenticated %}
-      <a href="{% url 'skills:comment_flag' comment.id %}" class="flag notice" data-dropdown="comment-flag-dropdown">Flag comment</a>
+      <a href="{% url 'skills:comment_flag' comment.id %}" class="flag notice" data-dropdown="flag-dropdown">Flag comment</a>
       {% endif %}
 
       {# Reply to comment button #}

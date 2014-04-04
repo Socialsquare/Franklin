@@ -194,19 +194,26 @@ $(document).ready(function() {
   };
   for (var action in actions) {
 
-    // Avoiding Javascript variable capture, ugh...
+    // Create event handlers
+    //   ... avoiding Javascript variable capture, ugh...
     //   also, the fact that `$(this)` actually ends up referring to the <a> is
     //   kind of lucky.
     var func = (function(action) {
       return function(e) {
         var $a = $(this);
 
-        $('#comment-' + action + '-dropdown a.close').click(function(e) {
+        // Change text to match "Flag comment"/"Flag share"
+        var object_type = $a.data('object-type');
+        var $dropdown = $('#' + action + '-dropdown').find('.object-type').text(object_type);
+
+        // Close dropdown event handler
+        $('#' + action + '-dropdown a.close').click(function(e) {
           e.preventDefault();
           $(document).foundation('dropdown', 'close', $('#' + $a.data('dropdown')));
         });
 
-        $('#comment-' + action + '-dropdown a.' + action).click(function(e) {
+        // Confirm action event handler
+        $('#' + action + '-dropdown a.' + action).click(function(e) {
           e.preventDefault();
           $a.css('visibility', 'visible');
 
@@ -225,7 +232,9 @@ $(document).ready(function() {
       };
     })(action);
 
+    // Bind event handlers
     $('.comment a.' + action).click(func);
+    $('a.' + action).click(func);
   }
 
   // Reply button

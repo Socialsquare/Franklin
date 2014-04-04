@@ -23,8 +23,18 @@
         <span class="date">{{ project.created_at|date }}</span>
       </div>
       <div class="metadata-with-like-button">
+        {# Flag comment button #}
+        <div class="actions">
+          {% if user.is_authenticated %}
+          <a href="{% url 'skills:project_flag' project.pk %}" class="flag notice" data-object-type="share" data-dropdown="flag-dropdown">Flag this share</a>
+          {% endif %}
+        </div>
+
+        {# Metadata #}
         {% include 'skills/partials/like_counter.html' with object=project %}
         <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
+
+        {# Like button #}
         {% include 'skills/partials/like_button.html' with object=project %}
       </div>
     </div>
@@ -71,16 +81,16 @@
   {# Hidden elements we supply for Javascript #}
 
   {#   Delete dropdown #}
-  <div id="comment-delete-dropdown" class="f-dropdown" data-dropdown-content>
+  <div id="delete-dropdown" class="f-dropdown" data-dropdown-content>
     <h6>Really delete this comment?</h6>
     <a href="#" class="delete button">Delete comment</a>
     <a href="#" class="button close info">Cancel</a>
   </div>
 
   {#   Flag dropdown #}
-  <div id="comment-flag-dropdown" class="f-dropdown" data-dropdown-content>
-    <h6>Really flag this comment?</h6>
-    <a href="#" class="flag button">Flag comment</a>
+  <div id="flag-dropdown" class="f-dropdown" data-dropdown-content>
+    <h6>Really flag this <span class="object-type">object</span>?</h6>
+    <a href="#" class="flag button">Flag <span class="object-type">object</span></a>
     <a href="#" class="button close info">Cancel</a>
   </div>
 

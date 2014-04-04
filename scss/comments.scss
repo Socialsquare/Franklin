@@ -28,17 +28,11 @@
 
   .actions {
     visibility: hidden;
-    float: right;
     width: auto;
-
-    vertical-align: middle;
-
-    text-transform: uppercase;
-    font-size: rem-calc(12px);
+    float: right;
 
     a {
       margin-left: rem-calc(10px);
-      &:focus { visibility: visible; }
     }
   }
 

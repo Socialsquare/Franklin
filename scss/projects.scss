@@ -20,6 +20,17 @@
       -moz-box-sizing: content-box;
       padding-bottom: rem-calc(5px);
       border-bottom: 1px solid $gcl-lightgray;
+
+      .actions {
+        visibility: hidden;
+        margin-right: rem-calc(10px);
+      }
+
+      &:hover {
+        .actions {
+          visibility: visible;
+        }
+      }
     }
   }
 }

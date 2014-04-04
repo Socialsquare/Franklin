@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load gcl_utils %}
+
+{% block admin_dashboard_button %}
+{% endblock %}
+
+{% block body-classes %} trainer-interface {% endblock %}
+{% block scripts %}
+  <script src="{% static 'global_change_lab/js/trainer.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="admin-dashboard">
+  <h1>Administrator Dashboard - flagged shares</h1>
+  <hr>
+
+
+
+  {% if projects %}
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>User</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for project in projects %}
+      <tr>
+        <td><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></td>
+        <td><a href="{{ project.author.get_absolute_url }}">{{ project.author.username }}</a></td>
+        <td>{{ project.created_at|pretty_timesince }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <span class="missing-message notice">No shares are flagged right now</span>
+  {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block fat_footer %}
+{% include 'partials/fat_footer.html' %}
+{% endblock %}

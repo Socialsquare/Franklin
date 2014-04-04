@@ -623,6 +623,29 @@ def project_view(request, slug=None):
     })
 
 
+@login_required
+def project_flag(request, project_pk):
+    project = get_object_or_404(Project, pk=project_pk)
+    project.is_flagged = True
+    project.save()
+    messages.success(request, 'Project was successfully flagged')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def project_delete(request, project_pk):
+    project = get_object_or_404(Project, pk=project_pk)
+    if request.user.has_perm('skills.project_delete', project):
+        project.is_deleted = True
+        project.save()
+        messages.success(request, 'Project was successfully deleted')
+    else:
+        messages.success(request, 'You do not have permissions to delete this project')
+
+    return HttpResponseRedirect(reverse('front_page'))
+
+
 @csrf_protect
 def comment_post(request):
     if request.method == 'POST': # If the form has been submitted...

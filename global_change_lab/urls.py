@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     #   admins
     url(r'^admin/dashboard/?$', 'global_change_lab.views.admin_dashboard', name='admin_dashboard'),
     url(r'^admin/flagged-comments/?$', 'global_change_lab.views.admin_flagged_comments', name='admin_flagged_comments'),
+    url(r'^admin/flagged-shares/?$', 'global_change_lab.views.admin_flagged_shares', name='admin_flagged_shares'),
     url(r'^admin/users.csv$', 'global_change_lab.views.admin_users_csv', name='admin_users_csv'),
     url(r'^admin/statistics.csv$', 'global_change_lab.views.admin_statistics_csv', name='admin_statistics_csv'),
     #   flatpages

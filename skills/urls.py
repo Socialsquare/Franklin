@@ -33,6 +33,8 @@ urlpatterns = patterns('',
 
     # Project URLs
     url(r'^share/(?P<slug>[-\w\d]+)$', 'skills.views.project_view', name="project_view"),
+    url(r'^share/flag/(\d+)/?$', 'skills.views.project_flag', name="project_flag"),
+    url(r'^share/delete/(\d+)/?$', 'skills.views.project_delete', name="project_delete"),
 
     # Like URLs
     url(r'^like/?$', 'skills.views.like', name="like"),

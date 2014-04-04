@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
+
 # Django forms
 from django.forms import ValidationError
 
@@ -162,6 +163,8 @@ class Project(TimedModel, AuthoredModel, SluggedModel):
 
     # Flags
     is_public = models.BooleanField(default=True)
+    is_flagged = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     # def getImage(self):
     #     if self.image:
@@ -202,6 +205,8 @@ class Comment(TimedModel, AuthoredModel):
     def allow_thread(self):
         return self.parent is None
 
+    def get_absolute_url(self):
+        return self.project.get_absolute_url() + ('#comment-%u' % self.pk)
 
 
 class Skill(TimedModel, AuthoredModel, SluggedModel):
