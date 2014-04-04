@@ -27,13 +27,29 @@
         <small class="error">{{ form.username.errors.as_text }}</small>
       {% endif %}
 
-      <label>Sex {{ form.sex.errors }}</label>
-      {{ form.sex }}
+      <label>Email
+        {{ form.email }}
+      </label>
+      {% if form.email.errors %}
+        <small class="error">{{ form.email.errors.as_text }}</small>
+      {% endif %}
+
     </div>
   </div>
 
   <div class="row">
     <div class="columns medium-6">
+      <label>Sex {{ form.sex.errors }}</label>
+      {{ form.sex }}
+    </div>
+    <div class="columns medium-6 birthdate">
+      <label>Day of birth {{ form.birthdate.errors }}</label>
+      {{ form.birthdate }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns medium-4">
       <label>Country
         {{ form.country }}
       </label>
@@ -41,22 +57,17 @@
         <small class="error">{{ form.country.errors.as_text }}</small>
       {% endif %}
     </div>
-    <div class="columns medium-6 birthdate">
-      <label>Day of birth {{ form.birthdate.errors }}</label>
-      <!-- <input type="text" maxlength="2" placeholder="DD"   name="birthday_date"> -->
-      <!-- <input type="text" maxlength="2" placeholder="MM"   name="birthday_month"> -->
-      <!-- <input type="text" maxlength="4" placeholder="YYYY" name="birthday_year"> -->
-      {{ form.birthdate }}
+    <div class="columns medium-8">
+      <label>Organization or relation to actionAid
+        {{ form.organization }}
+      </label>
+      {% if form.organization.errors %}
+        <small class="error">{{ form.organization.errors.as_text }}</small>
+      {% endif %}
     </div>
   </div>
 
 
-  <label>Organization or relation to actionAid
-    {{ form.organization }}
-  </label>
-  {% if form.organization.errors %}
-    <small class="error">{{ form.organization.errors.as_text }}</small>
-  {% endif %}
 
   <label>A short description of yourself
     {{ form.description }}

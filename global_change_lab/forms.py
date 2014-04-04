@@ -80,10 +80,11 @@ class UserInfoForm(forms.ModelForm):
         self.fields['description'].required = True
         self.fields['username'].required = True
         self.fields['username'].unique = True
+        self.fields['email'].unique = True
 
     class Meta:
         model = User
-        fields = ('username', 'description')
+        fields = ('username', 'email', 'description')
 
     def save(self, *args, **kwargs):
         self.userinfo.birthdate = self.cleaned_data['birthdate']
