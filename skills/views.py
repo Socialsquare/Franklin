@@ -34,7 +34,7 @@ def fetch_data_for_columns(projects, comments):
 def shares_overview(request):
 
     return render(request, 'skills/shares_overview.html',
-        fetch_data_for_columns(Project.objects.all(), Comment.objects.all()))
+        fetch_data_for_columns(Project.objects.filter(is_deleted=False), Comment.objects.all()))
 
 
 def skills_overview(request, topic_slug=None, show_drafts=False):
@@ -69,7 +69,7 @@ def skill_view(request, slug=None):
 
     trainingbits = skill.trainingbits.filter(is_draft__exact=False)
     trainingbit_pks = [t.id for t in trainingbits]
-    project_count = Project.objects.filter(trainingbit_id__in=trainingbit_pks).count()
+    project_count = Project.objects.filter(is_deleted=False, trainingbit_id__in=trainingbit_pks).count()
 
     # Like
     content_type = ContentType.objects.get_for_model(skill)
@@ -283,12 +283,12 @@ def trainingbit_cover(request, slug=None):
         'trainingbit': trainingbit,
         'content_type': content_type,
         'user_like': user_like,
-        'projects': trainingbit.project_set.all().prefetch_related('author').prefetch_related('comment_set'),
+        'projects': trainingbit.project_set.filter(is_deleted=False).prefetch_related('author').prefetch_related('comment_set'),
         'related_trainingbits': related_trainingbits[:4],
         'current_skill_id': request.session.get('current_skill_id'),
         'back_url': back_url,
     }
-    project_pks = list(trainingbit.project_set.all().values_list('pk', flat=True))
+    project_pks = list(trainingbit.project_set.filter(is_deleted=False).values_list('pk', flat=True))
     comments = Comment.objects.filter(pk__in=project_pks)
     template_vars.update(fetch_data_for_columns(trainingbit.project_set, comments))
 
@@ -376,7 +376,7 @@ def trainingbit_view(request, slug=None):
 
     return render(request, 'skills/trainingbit_view.html', {
         'trainingbit': trainingbit,
-        'projects': trainingbit.project_set.order_by('-created_at').prefetch_related('author'),
+        'projects': trainingbit.project_set.filter(is_deleted=False).order_by('-created_at').prefetch_related('author'),
         'next': reverse('skills:trainingbit_view', kwargs={'slug': trainingbit.slug}),
         'back_url': reverse('skills:trainingbit_cover', kwargs={'slug': trainingbit.slug}),
         'form': form,
@@ -561,7 +561,7 @@ def topic_delete(request, topic_pk):
 
 
 def project_view(request, slug=None):
-    project = get_object_or_404(Project, slug=slug)
+    project = get_object_or_404(Project, slug=slug, is_deleted=False)
 
     ### Suggestion modal
     completed_trainingbit_pk = request.session.get('completed_trainingbit_pk')
@@ -593,7 +593,7 @@ def project_view(request, slug=None):
         pass
 
     # Related projects
-    related_projects = list(project.trainingbit.project_set.exclude(pk__exact=project.pk)[:3])
+    related_projects = list(project.trainingbit.project_set.exclude(pk__exact=project.pk, is_deleted=True)[:3])
     related_project1 = None
     related_project2 = None
     related_project3 = None

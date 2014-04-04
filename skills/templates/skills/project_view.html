@@ -5,6 +5,14 @@
 {% block body-classes %}project-view{% endblock %}
 
 {% block content %}
+<div class="page-buttons">
+  {# Delete trainingbit button #}
+  {# {% permission request.user has 'skills.delete_project' of project %}{% endpermission %} #}
+  {% if user.is_admin %}
+    <a href="{% url 'skills:project_delete' project.pk %}" data-dynamic="false" class="button hard-delete admin-button">Delete share</a>
+  {% endif %}
+</div>
+
 {% with 'Go to training bit' as back_text %}
 {% include 'skills/partials/trainingbit_header.html' with trainingbit=project.trainingbit %}
 {% endwith %}
