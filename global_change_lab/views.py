@@ -166,11 +166,29 @@ def admin_users_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="users.csv"'
 
+    fields_to_save = {
+        "username": lambda u: u.username,
+        "datetime_joined": lambda u: u.datetime_joined,
+        "email": lambda u: u.email,
+        "description": lambda u: u.description,
+        "sex": lambda u: u.userinfo.get_sex_display(),
+        "country": lambda u: u.userinfo.country.name,
+        "birthdate": lambda u: u.userinfo.birthdate,
+        "organization": lambda u: u.userinfo.get_organization_display(),
+        "skills_completed": lambda u: ';'.join(map(lambda s: s.name, u.skills_completed.all())),
+        "skills_in_progress": lambda u: ';'.join(map(lambda s: s.name, u.skills_in_progress.all())),
+        "trainingbits_completed": lambda u: ';'.join(map(lambda s: s.name, u.trainingbits_completed.all())),
+        "trainingbits_in_progress": lambda u: ';'.join(map(lambda s: s.name, u.trainingbits_in_progress.all())),
+    }
+
     writer = csv.writer(response)
-    writer.writerow(["username", "datetime_joined", "name", "email", ])
+    writer.writerow(list(fields_to_save.keys()))
 
     for user in User.objects.distinct():
-        writer.writerow([user.username, user.datetime_joined, user.get_full_name(), user.email, ])
+        l = []
+        for field in fields_to_save.values():
+            l.append(field(user))
+        writer.writerow(l)
 
     return response
 
