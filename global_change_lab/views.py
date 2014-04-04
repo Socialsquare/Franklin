@@ -156,9 +156,9 @@ def admin_dashboard(request):
     return render(request, 'admin_dashboard.html', template_dict)
 
 
-def admin_dashboard_flagged_comments(request):
+def admin_flagged_comments(request):
 
-    return render(request, 'admin_dashboard_flagged_comments.html', {
+    return render(request, 'admin_flagged_comments.html', {
         'comments': Comment.objects.filter(is_deleted=False, is_flagged=True),
     })
 
