@@ -33,8 +33,10 @@ def fetch_data_for_columns(projects, comments):
 
 def shares_overview(request):
 
-    return render(request, 'skills/shares_overview.html',
-        fetch_data_for_columns(Project.objects.filter(is_deleted=False), Comment.objects.all()))
+    return render(request, 'skills/shares_overview.html', {
+        'projects': Project.objects.filter(is_deleted=False).order_by('-created_at')[:12],
+        'comments': Comment.objects.exclude(is_deleted__exact=True).prefetch_related('author', 'project').order_by('-created_at')[:9],
+    })
 
 
 def skills_overview(request, topic_slug=None, show_drafts=False):

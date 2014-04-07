@@ -4,30 +4,29 @@
 
 {% block content %}
 <div class="row">
-  {# TODO: Don't have three columns here, just push the second header the #}
-  {#       appropriate amount. #}
-  <div class="gcl-column">
-    <h4 class="shares-overview-header">Recently shared</h4>
-  </div>
-  <div class="gcl-column">
+  <div id="masonry-container" class="gcl-column2">
+    <h4 class="shares-overview-header stamp">Recently shared</h4>
+    <div class="masonry-gutter"></div>
+    {% for project in projects %}
+      {% include 'skills/partials/project_column.html' %}
+    {% endfor %}
   </div>
   <div class="gcl-column">
     <h4 class="shares-overview-header">Comments</h4>
-  </div>
-</div>
-<div class="row">
-  <div class="gcl-column">
-    {% for project in project_list0 %}
-      {% include 'skills/partials/project_column.html' %}
-    {% endfor %}
-  </div>
-  <div class="gcl-column">
-    {% for project in project_list1 %}
-      {% include 'skills/partials/project_column.html' %}
-    {% endfor %}
-  </div>
-  <div class="gcl-column">
     {% include 'skills/partials/comment_list_compact.html' with hide_reply=True show_project=True maxchars=200 %}
   </div>
 </div>
+{% endblock %}
+
+{% block javascript_extra %}
+$('#masonry-container').masonry({
+  itemSelector: '.project-column',
+  gutter: '.masonry-gutter'
+});
+
+var updateMasonry = function() {
+  $('#masonry-container').masonry();
+};
+
+$(window).on('resize', $.throttle(250, updateMasonry) );
 {% endblock %}

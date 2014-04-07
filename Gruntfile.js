@@ -90,6 +90,8 @@ module.exports = function(grunt) {
             'bower_components/foundation/js/foundation/foundation.topbar.js',           //  ? KiB
             'bower_components/jquery-autosize/jquery.autosize.js',                      //  ? KiB (for comments)
             'bower_components/jquery-form/jquery.form.js',                              // 14 KiB (for comments)
+            'bower_components/masonry/dist/masonry.pkgd.min.js',                        //  ? KiB
+            'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js', //  ? KiB
             // modernizr in conjunction with
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.
@@ -138,7 +140,6 @@ module.exports = function(grunt) {
             'bower_components/jqueryui/ui/jquery.ui.widget.js',
             'bower_components/jqueryui/ui/jquery.ui.mouse.js',
             'bower_components/jqueryui/ui/jquery.ui.sortable.js',
-            'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js',
             'bower_components/offline/offline.min.js',
           ]
         }

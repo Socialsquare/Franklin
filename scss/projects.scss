@@ -186,10 +186,32 @@ a:hover .project-title {
   }
 }
 
+
+.gcl-column2 {
+  .masonry-gutter {
+    width: 8.33%;
+    // display: none;
+    @media #{$large-up} {
+      width: rem-calc(50px);
+    }
+  }
+ .project-column {
+    width: 100%;
+
+    @media #{$medium-up} {
+      width: 45.833%;
+    }
+    @media #{$large-up} {
+      width: rem-calc(300px);
+    }
+  }
+}
+
+
 .project-column {
-  float: none !important; // overrule the darkness that is Foundation 5
   padding-bottom: rem-calc(3px);
   margin-bottom: rem-calc(20px);
+  width: 100%;
 
   a:hover .project-title {
     

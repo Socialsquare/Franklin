@@ -335,8 +335,13 @@ p.skill-description, p.trainingbit-description {
   }
 }
 
+
 /******** GLOBAL CHANGE LAB 3-COLUMN LAYOUT *********/
 div.gcl-column {
+  position: relative;
+  float: left !important; // Foundation 5 grabs ALL elements which have class
+                          // names "column" in their name (absolutely crazy!)
+  width: 100%;
 
   // @media #{$medium-only} {
   @media only screen and (min-width:30em){
@@ -362,9 +367,19 @@ div.gcl-column {
 }
 
 div.gcl-column2 {
-  width: 65%; // width: 650px = the width of two column plus the margin in
-              // between them
-  margin-left: 5%; // margin-left: 50px;
+  width: 100%;
+
+  @media only screen and (min-width:30em){
+    width: 100%;
+  }
+
+  @media only screen and (min-width:45em){
+    width: 65%; // width: 650px = the width of two column plus the margin in
+                // between them
+    margin-left: 5%; // margin-left: 50px;
+  }
+
+
   float: left;
 
   &:first-of-type {

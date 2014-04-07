@@ -220,6 +220,8 @@
         });
     })(jQuery);
     {% endif %}
+
+    {% block javascript_extra %}{% endblock %}
   </script>
 
   {% get_solo 'global_change_lab.SiteConfiguration' as site_config %}
