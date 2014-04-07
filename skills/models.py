@@ -20,6 +20,7 @@ from django.core.mail import send_mail
 
 # Python modules
 from datetime import datetime
+import re
 
 # Custom fields
 from sortedm2m.fields import SortedManyToManyField
@@ -69,7 +70,7 @@ class AuthoredModel(models.Model):
 # use slugs in its URL.
 class SluggedModel(models.Model):
     # Relations
-    slug = models.SlugField(max_length=60, db_index=True, null=False, blank=False)
+    slug = models.SlugField(max_length=60, db_index=True, null=False, blank=False, unique=True)
 
     class Meta:
         abstract = True
@@ -79,7 +80,25 @@ class SluggedModel(models.Model):
         if not self.pk:
             # The object has "just" been created (not in the database yet)
             # so set the slug
-            self.slug = slugify(self.name)
+            slug = slugify(self.name)
+
+            if self.__class__.objects.get(slug__exact=slug):
+                # An object with this slug already exists!
+                existing_slugs = self.__class__.objects.\
+                                     filter(slug__regex='^' + slug + r'-\d+').\
+                                     values_list('slug', flat=True)
+                if len(existing_slugs) > 0:
+                    # Grab number from highest existing slug
+                    last_existing_slug = sorted(existing_slugs)[-1]
+                    m = re.match(r'^.*-(\d+)$', last_existing_slug)
+                    id_counter = int(m.group(1)) + 1
+                else:
+                    id_counter = 1
+
+                # Generate new unique slug
+                slug = '%s-%u' % (slug, id_counter)
+
+            self.slug = slug
 
         super(SluggedModel, self).save(*args, **kwargs)
 
