@@ -205,6 +205,8 @@ def skill_edit(request, slug=None):
             skill.topic_set.add(*topics)
 
             messages.success(request, 'Successfully saved skill')
+
+            return HttpResponseRedirect(reverse('skills:skill_edit', args=[skill.slug]))
         else:
             messages.error(request, 'Could not save skill %s ' % form.errors)
 
