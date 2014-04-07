@@ -71,6 +71,12 @@
       position: relative;
       overflow: hidden;
       display: inline-block;
+
+      &:hover {
+        a.button {
+          background-color: black;
+        }
+      }
     }
     .upload-button input[type=file] {
       position: absolute;
