@@ -3,6 +3,7 @@
 {% load permissionif %}
 {% load user_skills %}
 {% load inlinetrans %}
+{% load i18n %}
 
 {% block scripts %}
 <script src="{% static 'global_change_lab/js/trainingbit_view.min.js' %}"></script>
@@ -103,7 +104,7 @@
         <a href="#" id="link-button" class="button" data-reveal-id="modal-add-link" data-reveal>Share link</a>
         <a href="#" id="video-button" class="button" data-reveal-id="modal-add-video" data-reveal>Attach video</a>
       </div>
-      <button class="share-button small">{% itrans "Share and complete this training bit" %}</button>
+      <button class="share-button button small">{% itrans "Share and complete this training bit" %}</button>
     </form>
     {% if form.errors %}
     <div class="project-form-errors">
@@ -134,6 +135,7 @@ $('#share-link-accept').click(function(e) {
     $('#link_title-hidden-field').val(title);
     $('#link_url-hidden-field').val(url);
     $('#link-button').addClass('success');
+    $('#link-button').text('{% trans 'Link added' %}');
     $('#modal-add-link').foundation('reveal', 'close');
   }
 });
@@ -148,11 +150,13 @@ $('#share-link-accept').click(function(e) {
 $('#image-file-input').on('change', function() {
     console.log('hi');
   $('#image-upload-button').addClass('success');
+  $('#image-upload-button').text('{% trans 'Picture added' %}');
 });
 $('#share-video-accept').click(function(e) {
   e.preventDefault();
   $('#video-hidden-field').val($('#video-input-field').val());
   $('#video-button').addClass('success');
+  $('#video-button').text('{% trans 'Video added' %}');
   $('#modal-add-video').foundation('reveal', 'close');
 });
 </script>
