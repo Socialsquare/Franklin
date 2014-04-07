@@ -67,20 +67,11 @@
     </div>
   </div>
 
-
-
   <label>A short description of yourself
     {{ form.description }}
   </label>
   {% if form.description.errors %}
     <small class="error">{{ form.description.errors.as_text }}</small>
-  {% endif %}
-
-  {% if has_delete %}
-    {# Delete user button #}
-    {% if request.user == profile_user %}
-      <a href="{% url 'user_delete' profile_user.id %}" class="button hard-delete" data-dynamic="false">Delete my profile</a>
-    {% endif %}
   {% endif %}
 
   <button class="button success">Save</button>

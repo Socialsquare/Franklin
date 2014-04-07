@@ -71,3 +71,17 @@ hr.large {
     // span.meter { background-color: $gcl-red; }
   }
 }
+
+.profile-actions {
+  float: left;
+
+  font-size: rem-calc(12px);
+  line-height: rem-calc(29px);
+  //height: 
+  vertical-align: middle;
+
+  a {
+    margin-right: rem-calc(7px);
+  }
+
+}

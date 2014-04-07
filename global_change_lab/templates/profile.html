@@ -30,7 +30,17 @@
 </div>
 
 <div id="edit-modal" class="reveal-modal small" data-reveal>
-  {% include 'partials/user_info_form.html' with has_delete=True %}
+  {% include 'partials/user_info_form.html' %}
+
+  <div class="profile-actions">
+    {# Delete user button #}
+    {% if request.user == profile_user %}
+      <a href="{% url 'user_delete' profile_user.id %}" class="notice hard-delete" data-dynamic="false">Delete my profile</a>
+    {% endif %}
+
+    {# Delete user button #}
+    <a class="notice" href="{% url 'account_change_password' %}?next={% url 'profile' %}">Change password</a>
+  </div>
 
   <a class="close-reveal-modal">&#215;</a>
 </div>
