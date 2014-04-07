@@ -1,6 +1,7 @@
 @import "normalize";
 @import "scss/settings";
 @import "foundation";
+
 @import "scss/gcl-functions";
 @import "scss/entypo";
 @import "scss/front_page";
@@ -334,13 +335,29 @@ p.skill-description, p.trainingbit-description {
   }
 }
 
+/******** GLOBAL CHANGE LAB 3-COLUMN LAYOUT *********/
 div.gcl-column {
-  width: 30%; // width: 300px; // the row width is 1000px, so there
-  margin-left: 5%; // margin-left: 50px;
-  float: left;
 
-  &:first-of-type {
-    margin-left: 0;
+  // @media #{$medium-only} {
+  @media only screen and (min-width:30em){
+    width: 47.5%;
+    margin-left: 5%;
+    float: left;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  // @media #{$large-up} {
+  @media only screen and (min-width:45em){
+    width: 30%; // width: 300px; // the row width is 1000px, so there
+    margin-left: 5%; // margin-left: 50px;
+    float: left;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
   }
 }
 
@@ -365,6 +382,10 @@ div.gcl-column2 {
   line-height: $metadata_height;
   margin-top: rem-calc(10px) !important; // TODO: Fix !important
   font-size: rem-calc(12px);
+
+  overflow-y: hidden; // In some layouts the icons will pushed out of the
+                      // .metadata-fat box and onto a new line. In that case we
+                      // hide the icons that are overflowing.
 
   .profile-picture {
     height: 100%;
