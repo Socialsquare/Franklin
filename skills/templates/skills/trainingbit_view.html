@@ -107,13 +107,26 @@
       <button class="share-button button small">{% itrans "Share and complete this training bit" %}</button>
     </form>
     {% if form.errors %}
-    <div class="project-form-errors">
+    <div id="project-form-errors" class="project-form-errors">
       <h4>Error were encountered when trying to submit project</h4>
       {{ form.errors }}
     </div>
     {% endif %}
   </div>
 </div>
+
+<script>
+// Scroll to errors on project submission error
+$(document).ready(function() {
+  if ($('#project-form-errors').length === 1) {
+    $('html, body').scrollTop($("#project-form-errors").offset().top);
+  }
+  // $('html, body').animate({
+  //   scrollTop: $("#project-form-errors").offset().top
+  // }, 1000);
+});
+
+</script>
 
 <div id="modal-add-link" class="reveal-modal medium" data-reveal>
   <h1>Share link</h1>
