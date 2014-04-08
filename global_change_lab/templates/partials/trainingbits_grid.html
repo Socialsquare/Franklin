@@ -12,10 +12,10 @@
       </div>
     </div>
     {% if hide_description %}
-      <h6> {{trainingbit.name}} </h6>
+      <h6 class="trainingbit-name"> {{trainingbit.name}} </h6>
     {% else %}
     <div class="description">
-      <h6> {{trainingbit.name}} </h6>
+      <h6 class="trainingbit-name"> {{trainingbit.name}} </h6>
       <p>{{trainingbit.description|truncatechars:125}}</p>
       <div class="info">
         {% comment %}

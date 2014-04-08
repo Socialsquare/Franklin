@@ -42,7 +42,7 @@ li.trainingbit {
 
   a {
     display: block;
-    &:hover div.description h6 {
+    &:hover .trainingbit-name {
       color: black;
     }
   }
