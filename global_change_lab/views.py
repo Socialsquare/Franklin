@@ -245,10 +245,8 @@ def upload_picture(request):
 def upload_profile_picture(request):
     print('did recieve')
     if request.method == 'POST':
-        print('did post')
         request.user.image = request.FILES['profile-picture']
         request.user.save()
-        print('did save')
 
         #generating json response array
         result = [
