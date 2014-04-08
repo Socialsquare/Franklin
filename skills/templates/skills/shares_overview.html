@@ -21,7 +21,8 @@
 {% block javascript_extra %}
 $('#masonry-container').masonry({
   itemSelector: '.project-column',
-  gutter: '.masonry-gutter'
+  gutter: '.masonry-gutter',
+  stamp: '.stamp'
 });
 
 var updateMasonry = function() {
