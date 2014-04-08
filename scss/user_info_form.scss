@@ -43,17 +43,6 @@ form.user_info_form {
   input[type=text], select, textarea {
     // margin-bottom: 0;
   }
-  small.error {
-    padding: 0.3rem;
-    margin-top: -1rem;
-    ul {
-      margin-left: rem-calc(5px);
-      color: white;
-      li {
-        display: inline;
-      }
-    }
-  }
 
   input[name=sex] {
     position: relative;

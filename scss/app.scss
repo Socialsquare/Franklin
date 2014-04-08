@@ -150,6 +150,22 @@ a.button.admin-button, .top-bar-section li a.button.admin-button {
   color: $gcl-darkgray;
 }
 
+form {
+  small.error {
+    padding: 0.3rem;
+    ul {
+      margin-left: rem-calc(5px);
+      color: white;
+      li {
+        display: inline;
+      }
+    }
+  }
+  input + small.error {
+    margin-top: -1rem;
+  }
+}
+
 %blue-button {
   background-color: $gcl-blue;
   color: white;

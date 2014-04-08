@@ -7,18 +7,14 @@
 
 {% block body-classes %}login-signup{% endblock %}
 
-{% comment %}
-{% load account %}
-{{ signup_url }}
-{% endcomment %}
+{# {% block head_title %}{% trans "Signup" %}{% endblock %} #}
 
 {% block content %}
 
 <div class="small-row">
-  <h1>{% trans "Sign In" %}</h1>
+  <h1>{% trans "Sign Up" %}</h1>
 
-  {% url 'account_signup' as url_account_signup %}
-  <p>{% blocktrans %}Don't have an account? Sign up <a class="red" href="{{ url_account_signup }}">here</a>.{% endblocktrans %}</p>
+  <p>{% blocktrans %}Already have an account? Then please sign in <a class="red" href="{{ login_url }}">here</a>.{% endblocktrans %}</p>
 </div>
 
 <hr>
@@ -26,35 +22,6 @@
 <div class="small-row">
   <div class="medium-6 columns signup">
       <h2 class="column-header">{% itrans 'Sign up for a Global Change Lab account' %}</h2>
-      <form class="login" method="POST" action="{% url 'account_login' %}">
-        {% csrf_token %}
-        {# {{ form.as_p }} #} {# TODO: Use translation instead of this manual override #}
-        {{ form.non_field_errors }}
-        <p>
-          <label for="id_login">Username or email:</label>
-          <input id="id_login" type="text" placeholder="Username or e-mail" name="login" autofocus="autofocus"></input>
-          {% if form.login.errors %}
-            <small class="error">{{ form.login.errors.as_text }}</small>
-          {% endif %}
-        </p>
-        <p>
-          <label for="id_password">Password:</label>
-          <input id="id_password" type="password" placeholder="Password" name="password"></input>
-          {% if form.password.errors %}
-            <small class="error">{{ form.password.errors.as_text }}</small>
-          {% endif %}
-        </p>
-        <div class="bottom">
-          <input id="id_remember" type="checkbox" name="remember"></input>
-          <label for="id_remember">Remember me</label>{#<br>#}
-          <button type="submit" class="small">{% trans "Sign in" %}{# &raquo; #}</button>
-        </div>
-        <a class="forgot-password" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-      </form>
-      {% comment %}
       <form method="POST" action="{% url 'account_signup' %}" class="signup" id="signup_form">
         {% csrf_token %}
         <label>
@@ -105,7 +72,6 @@
         {# <button>Sign up</button> #}
         <button type="submit" class="small">{% trans "Sign Up" %}{# &raquo; #}</button>
       </form>
-      {% endcomment %}
     </div>
     <div class="medium-6 columns social-login">
       <h2 class="column-header">{% itrans 'Or sign up with these services' %}</h2>
@@ -128,3 +94,5 @@
 
 
 {% endblock %}
+
+

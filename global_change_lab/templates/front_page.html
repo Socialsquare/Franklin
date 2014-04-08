@@ -1,50 +1,8 @@
 {% extends "base.html" %}
 
-{% load socialaccount %}
-
 {% block nav_buttons %}{% endblock %}
 
 {% block content %}
-
-<div id="login-modal" class="reveal-modal small" data-reveal>
-  <div class="row">
-    <div class="small-7 columns">
-      <h3>Sign up</h3>
-      <form method="POST" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        <label><div>E-mail</div>         <input type="text" name="email" placeholder="example@example.org"></label>
-        <label><div>Name</div>           <input type="text" name="username"></label>
-        <label><div>Password</div>       <input type="password" name="password1"></label>
-        <label><div>Repeat password</div><input type="password" name="password2"></label>
-        <div>
-          <div class="small-2 checkbox-container"><input type="checkbox" id="terms-checkbox" name="terms"></div>
-          <div class="small-10 terms-text">
-            <label for="terms-checkbox">
-              <span class="terms">
-                {# Another possible url is: #}
-                {# {% url 'django.contrib.flatpages.views.flatpage' url='/terms' %} #}
-                I agree to the <a href="{% url 'terms' %}">Terms of Service and Privacy Policy</a> of The Global Change Lab
-              </span>
-            </label>
-          </div>
-        </div>
-        <input type="hidden" name="next" value="{% url 'new_user' %}">
-        <button>Sign up</button>
-      </form>
-    </div>
-    <div class="small-5 columns signup">
-      <h3>Sign up via...</h3>
-      <ul>
-        <li><a class="secondary button" href="{% provider_login_url "facebook" %}">Facebook</a></li>
-        <li><a class="secondary button" href="{% provider_login_url "twitter" %}">Twitter</a></li>
-        <li><a class="secondary button" href="{% provider_login_url "google" %}">Google</a></li>
-      </ul>
-      {# <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a> #}
-    </div>
-  </div>
-
-  <a class="close-reveal-modal">&#215;</a>
-</div>
 
 <div id="front-page-greeter">
   <h2>Change the world</h2><br>
@@ -52,7 +10,7 @@
   <p>The Global Change Lab
   is a training hub for
   global activists</p>
-  <a href="{% url 'account_signup' %}"  data-reveal-id="login-modal" class="button join">Join us <span class="icon add-user"></span></a>
+  <a href="{% url 'account_signup' %}" class="button join">Join us <span class="icon add-user"></span></a>
 </div>
 <div class="row" id="front-page-cols">
   <div class="medium-4 columns">

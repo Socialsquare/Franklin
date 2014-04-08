@@ -79,26 +79,3 @@ div#front-page-cols {
   }
 }
 
-#login-modal {
-  button {
-    margin: 0;
-    float: left;
-  }
-
-  .checkbox-container {
-    line-height: 4rem;
-    margin: 0;
-    float: left;
-
-    #terms-checkbox {
-      vertical-align: middle;
-      display: inline;
-    }
-  }
-  .terms-text {
-    float: left;
-  }
-  .terms {
-    font-size: rem-calc(13px);
-  }
-}

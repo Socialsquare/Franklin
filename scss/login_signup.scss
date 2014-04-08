@@ -1,36 +1,127 @@
+body.login-signup {
+  .column-header {
+    font-family: $body-font-family;
+    font-weight: bold;
+    font-size: rem-calc(16px);
+    margin-bottom: rem-calc(12px);
+  }
 
-form.login {
+  .columns {
+    padding: 0;
+  }
 
-  input[type=text], input[type=password] {
-    max-width: rem-calc(270px);
+  .signup.columns {
+    // border-right: 2px groove rgba(128,128,128,0.1);
+    border-right: 1px solid $gcl-lightgray;
+    padding-right: rem-calc(60px);
+  }
+  .social-login.columns {
+    padding-left: rem-calc(60px);
+  }
+}
+
+form.signup, form.login {
+  input#terms-checkbox {
+    display: block;
+    float: left;
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+  label[for=terms-checkbox] {
+    display: inline;
+    margin: 0;
   }
 
   button {
-    float: left;
-    margin-right: 1rem;
+    float: right;
+    background-color: #86C351;
+    font-size: rem-calc(16px);
+    font-weight: 300;
+    margin-top: 0.8rem;
   }
+}
 
-  input[type=checkbox] {
-    width: 10px;
+form.login {
+  div.bottom {
+    line-height: 3.5rem;
+    button { margin-top: 0; }
   }
 
   label[for=id_remember] {
     display: inline;
+    font-size: rem-calc(15px);
+    position: relative;
+    top: - rem-calc(2px);
   }
 
   a.forgot-password {
-    margin-left: 0.5rem;
-    color: $primary-color;
+    display: block;
+    float: right;
+    clear: both;
+    font-size: rem-calc(12px);
+  }
+}
+
+div.small-row {
+  max-width: rem-calc(820px);
+  margin: 0 auto;
+
+}
+
+
+
+.social-button {
+  position: relative;
+
+  &:first-of-type {
+    margin-top: rem-calc(33px);
   }
 
-  div.bottom {
-    line-height: 3.5rem;
-    // padding-top: 1rem;
-    // max-width: rem-calc(330px);
+  $height: rem-calc(50px);
+  height: $height;
+  width: rem-calc(258px);
+  line-height: $height;
+  max-width: 100%;
+  display: block;
+  background-color: $gcl-lightgray;
+  margin-bottom: rem-calc(15px);
 
-    br {
-      // height: 20px;
-      line-height: 0.5;
+  // Icon part, text part
+  div.logo {
+    width: rem-calc(50px);
+    text-align: center;
+    .icon-social {
+      font-size: rem-calc(60px);
+    }
+    border-right: 2px groove rgba(128, 128, 128, 0.1); // groove inset outset ridge
+  }
+  div.text {
+    width: rem-calc(200px);
+    height: 100%;
+    color: white;
+    span {
+      position: absolute;
+      bottom: rem-calc(7px);
+      right: rem-calc(7px);
+      font-size: rem-calc(14px);
+      line-height: rem-calc(14px);
+      font-weight: 200;
     }
   }
+
+  // Background colors
+  &.facebook {
+    background-color: #2980B9;
+  }
+  &.twitter {
+    background-color: #3498DB;
+  }
+  &.google {
+    background-color: #E74C3C;
+  }
+  &:hover {
+    background-color: black;
+    @include transition(background-color 0.3s);
+  }
+
 }
