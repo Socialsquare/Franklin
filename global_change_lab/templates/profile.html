@@ -83,7 +83,7 @@
     {% else %}
       <div class="empty-message">
         You are not working on any skills right now.
-        Find a skill that you <a href="{% url 'skills:skills_overview' %}">want to learn</a>.
+        Find a skill that you <a href="{% url 'skills:skills_overview' %}" class="red">want to learn</a>.
       </div>
     {% endif %}
   </div>
@@ -95,7 +95,7 @@
     {% else %}
       <div class="empty-message">
         You are not working on any training bits right now.<br>
-        Find a training bit that you <a href="{% url 'skills:trainingbits_overview' %}">want to take</a>.
+        Find a training bit that you <a href="{% url 'skills:trainingbits_overview' %}" class="red">want to take</a>.
       </div>
     {% endif %}
   </div>
@@ -113,7 +113,7 @@
     <div class="empty-message">
       {% if own_profile %}
       You have not completed any skills yet. How can this be?<br>
-      You better <a href="{% url 'skills:skills_overview' %}">get going</a> ;-)
+      You better <a href="{% url 'skills:skills_overview' %}" class="red">get going</a> ;-)
       {% else %}
       {{ profile_user.username }} has not yet completed any skills.
       {% endif %}
