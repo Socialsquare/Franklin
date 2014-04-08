@@ -166,6 +166,12 @@ a.red:hover {
   color: black;
 }
 
+a:hover {
+  h1, h2, h3, h4, h5, h6 {
+    color: $gcl-red;
+  }
+}
+
 @mixin text-colored-background {
   padding-left: rem-calc(5px);
   padding-right: rem-calc(5px);
