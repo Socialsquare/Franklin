@@ -221,6 +221,12 @@ ul.skills-grid {
     }
   }
 
+  .skill:hover {
+    .skill-name {
+      color: $gcl-red;
+    }
+  }
+
   .image-column {
     // width, last-column,  center, offset, push, pull, collapse, float
     @include grid-column(3, false, false, 0, 0, 0, true, left);
