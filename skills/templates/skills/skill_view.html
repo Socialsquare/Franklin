@@ -49,7 +49,7 @@
       <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
     {% endif %}
   {% else %}
-    <a class="button small" href="{% url 'account_signup' %}">Sign up to start this skill</a>
+    <a class="button small" href="{% url 'account_login' %}">Sign in to start this skill</a>
   {% endif %}
     <div class="metadata-with-like-button">
       <span class="trainingbit-count">{{ skill.trainingbit_count }} Training Bits</span>
