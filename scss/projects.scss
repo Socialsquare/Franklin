@@ -209,12 +209,12 @@ a:hover .project-title {
 
 
 .project-column {
-  padding-bottom: rem-calc(3px);
-  margin-bottom: rem-calc(20px);
+  margin-bottom: rem-calc(10px);
   width: 100%;
 
   a:hover .project-title {
-    
+    background-color: $gcl-red;
+    color: white;
   }
 
   .project-title { // this is a <h6>
@@ -230,11 +230,23 @@ a:hover .project-title {
     padding: 0;
   }
 
-  .content {
+  hr {
+    margin: 0;
+  }
+
+  div.content {
+    margin-top: rem-calc(10px);
+    margin-bottom: rem-calc(10px);
+
     p {
       font-size: rem-calc(13px);
       margin-bottom: 0;
     }
+  }
+
+  .metadata-fat {
+    margin-top: rem-calc(10px);
+    margin-bottom: rem-calc(10px);
   }
 
   .trainingbit-name {
