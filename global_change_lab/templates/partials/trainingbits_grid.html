@@ -8,7 +8,7 @@
         <div class="label">{{ trainingbit.get_label_display }}</div>
       </div>
       {% if trainingbit in request.user.trainingbits_completed.all %}
-      <img class="completed-icon" src="static/images/checkmark.png">
+      <img class="completed-icon" src="/static/images/checkmark.png">
       {% endif %}
     </div>
     {% if hide_description %}
