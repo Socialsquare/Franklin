@@ -200,7 +200,7 @@ form {
       }
     }
   }
-  input + small.error {
+  input + small.error, label + small.error {
     margin-top: -1rem;
   }
 }
