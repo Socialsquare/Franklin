@@ -82,7 +82,7 @@ class SluggedModel(models.Model):
             # so set the slug
             slug = slugify(self.name)
 
-            if self.__class__.objects.get(slug__exact=slug):
+            if self.__class__.objects.filter(slug__exact=slug).exists():
                 # An object with this slug already exists!
                 existing_slugs = self.__class__.objects.\
                                      filter(slug__regex='^' + slug + r'-\d+').\
