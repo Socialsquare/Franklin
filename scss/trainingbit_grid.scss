@@ -36,6 +36,13 @@ ul.trainingbit-list-view {
   }
 }
 
+.completed-icon {
+  position: absolute;
+  top: - rem-calc(10px);
+  right: - rem-calc(10px);
+  z-index: 3; // Ensure that it is displayed on top of admin-buttons
+}
+
 
 li.trainingbit {
   margin-bottom: rem-calc(10px);
@@ -74,12 +81,7 @@ li.trainingbit {
     margin-top: rem-calc(15px);
     background-color: $gcl-red;
   }
-  div.completion-text {
-    float: left;
-    clear: left;
-    background-color: black;
-  }
-  div.label, div.completion-text {
+  div.label {
     display: inline-block;
     font-size: rem-calc(12px);
     $horisontal-padding: rem-calc(9px);

@@ -6,10 +6,10 @@
     <div class="wrapper">
       <div class="image" style="background-image: url({{ trainingbit.getImage }})">
         <div class="label">{{ trainingbit.get_label_display }}</div>
-        {% if trainingbit in request.user.trainingbits_completed.all %}
-        <div class="completion-text">Done</div>
-        {% endif %}
       </div>
+      {% if trainingbit in request.user.trainingbits_completed.all %}
+      <img class="completed-icon" src="static/images/checkmark.png">
+      {% endif %}
     </div>
     {% if hide_description %}
       <h6 class="trainingbit-name"> {{trainingbit.name}} </h6>

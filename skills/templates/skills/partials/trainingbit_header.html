@@ -7,9 +7,9 @@
   {% endif %}
   <div class="info-container">
     <span class="label white-on-red">{{ trainingbit.get_label_display }}</span>
-    {% if trainingbit in request.user.trainingbits_completed.all %}
-    <span class="completion-text">Done</span>
-    {% endif %}
     <h1>{{ trainingbit.name }}</h1>
   </div>
+  {% if trainingbit in request.user.trainingbits_completed.all %}
+  <img class="completed-icon" src="/static/images/checkmark.png">
+  {% endif %}
 </div>
