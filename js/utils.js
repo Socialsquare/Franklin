@@ -190,7 +190,8 @@ $(document).ready(function() {
       var comment_pk = $a.closest('.comment').data('comment-pk');
       $('#replies-for-' + comment_pk).slideUp();
     },
-    'flag':   function($a) { $a.text('Flagged'); }
+    'flag':   function($a) { $a.text('Flagged'); },
+    'unflag':   function($a) { $a.text('Unflagged'); }
   };
   for (var action in actions) {
 

@@ -46,6 +46,7 @@ urlpatterns = patterns('',
     # Comment URLs (projects, comments)
     url(r'^comment/post/?$', 'skills.views.comment_post', name="comment_post"),
     url(r'^comment/flag/(\d+)/?$', 'skills.views.comment_flag', name="comment_flag"),
+    url(r'^comment/unflag/(\d+)/?$', 'skills.views.comment_unflag', name="comment_unflag"),
     url(r'^comment/delete/(\d+)/?$', 'skills.views.comment_delete', name="comment_delete"),
 
     # Share URLs (projects, comments)

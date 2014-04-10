@@ -702,6 +702,17 @@ def comment_flag(request, comment_pk):
 
 
 @login_required
+def comment_unflag(request, comment_pk):
+    if request.user.is_admin:
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        comment.is_flagged = False
+        comment.save()
+        messages.success(request, 'Comment was successfully unflagged')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
 def comment_delete(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
     comment.is_deleted = True

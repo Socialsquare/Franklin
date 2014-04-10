@@ -102,6 +102,13 @@
     <a href="#" class="button close info">Cancel</a>
   </div>
 
+  {#   Unflag dropdown #}
+  <div id="unflag-dropdown" class="f-dropdown" data-dropdown-content>
+    <h6>Really unflag this comment?</h6>
+    <a href="#" class="unflag button">Unflag comment</a>
+    <a href="#" class="button close info">Cancel</a>
+  </div>
+
   {#   Reply form #}
   <form action="{% url 'skills:comment_post' %}" method="POST" class="reply-form">
     {% csrf_token %}

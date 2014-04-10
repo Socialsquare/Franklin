@@ -25,7 +25,11 @@
 
       {# Flag comment button #}
       {% if user.is_authenticated %}
-      <a href="{% url 'skills:comment_flag' comment.id %}" class="flag notice" data-dropdown="flag-dropdown">Flag comment</a>
+        {% if comment.is_flagged and user.is_admin %}
+        <a href="{% url 'skills:comment_unflag' comment.id %}" class="unflag notice" data-dropdown="unflag-dropdown">Unflag comment</a>
+        {% else %}
+        <a href="{% url 'skills:comment_flag' comment.id %}" class="flag notice" data-dropdown="flag-dropdown">Flag comment</a>
+        {% endif %}
       {% endif %}
 
       {# Reply to comment button #}
