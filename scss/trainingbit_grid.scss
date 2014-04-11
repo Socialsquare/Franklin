@@ -14,9 +14,6 @@ ul.trainingbit-list-view {
   @media #{$large-up} {
     @include block-grid(4, $padding-size, true);
   }
-  @media #{$xlarge-up} {
-    @include block-grid(5, $padding-size, true);
-  }
 
   &.medium {
     // display: inline-block !important;
@@ -28,9 +25,6 @@ ul.trainingbit-list-view {
       @include block-grid(3, $padding-size, true);
     }
     @media #{$large-up} {
-      @include block-grid(3, $padding-size, true);
-    }
-    @media #{$xlarge-up} {
       @include block-grid(3, $padding-size, true);
     }
   }
