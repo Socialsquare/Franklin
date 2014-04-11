@@ -3,6 +3,7 @@
 {% load permissionif %}
 {% load user_skills %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block body-classes %}skill-view{% endblock %}
 
@@ -54,8 +55,8 @@
     <div class="metadata-with-like-button">
       <span class="trainingbit-count">{{ skill.trainingbit_count }} Training Bits</span>
       <!-- <br> -->
-      {% include 'skills/partials/like_counter.html' with object=skill %}
-      <span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span>
+      <div class="tooltip" data-tooltip="{% trans 'Number of likes this skill has' %}">{% include 'skills/partials/like_counter.html' with object=skill %}</div>
+      <div class="tooltip" data-tooltip="{% trans 'Number of users who have this skill' %}"><span class="icon users red"></span><span class="count">{{ skill.users_completed.count }}</span></div>
       {% include 'skills/partials/like_button.html' with object=skill %}
     </div>
   </div>

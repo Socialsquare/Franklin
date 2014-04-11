@@ -323,6 +323,20 @@ $(document).ready(function() {
     }
   });
 
+  /************* TOOLTIPS ************/
+  $('.tooltip').each(function(el) {
+    var $el = $(this);
+    if ($el.data('tooltip') !== undefined) {
+      $el.poshytip({
+        className: 'tip-twitter',
+        alignTo: 'target',
+        alignX: 'center',
+        alignY: 'bottom',
+        content: $el.data('tooltip')
+      });
+    }
+  });
+
   /************* FILE (IMAGE) UPLOAD ************/
   $('.image-upload').each(function() {
     var $image_upload = $(this);

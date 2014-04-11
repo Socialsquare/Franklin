@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load gcl_utils %}
 {% load embed_video_tags %}
+{% load i18n %}
 
 {% block body-classes %}project-view{% endblock %}
 
@@ -39,8 +40,8 @@
         </div>
 
         {# Metadata #}
-        {% include 'skills/partials/like_counter.html' with object=project %}
-        <span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span>
+        <div class="tooltip" data-tooltip="{% trans 'Number of likes this share has' %}">{% include 'skills/partials/like_counter.html' with object=project %}</div>
+        <div class="tooltip" data-tooltip="{% trans 'Number of comments on this share' %}"><span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span></div>
 
         {# Like button #}
         {% include 'skills/partials/like_button.html' with object=project %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load permissionif %}
+{% load i18n %}
 
 {% block content %}
 
@@ -37,9 +38,9 @@
       {% endif %}
     </div>
     <div class="metadata-with-like-button">
-      {% include 'skills/partials/like_counter.html' with object=trainingbit %}
-      <span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span>
-      <span class="icon megaphone red"></span><span class="count">{{ trainingbit.project_set.count }}</span>
+      <div class="tooltip" data-tooltip="{% trans 'Number of likes this training bit has' %}">{% include 'skills/partials/like_counter.html' with object=trainingbit %}</div>
+      <div class="tooltip" data-tooltip="{% trans 'Number of users who are currently taking this training bit' %}"><span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span></div>
+      <div class="tooltip" data-tooltip="{% trans 'Number of projects submitted to this training bit' %}"><span class="icon megaphone red"></span><span class="count">{{ trainingbit.project_set.count }}</span></div>
 
       {% include 'skills/partials/like_button.html' with object=trainingbit %}
     </div>

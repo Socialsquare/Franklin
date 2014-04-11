@@ -35,8 +35,8 @@
             <a href="{{ project.trainingbit.get_absolute_url }}">{{ project.trainingbit.name|truncatechars:25 }}</a>
           </div>
           <div class="icons">
-            <span class="icon heart red"></span> {{ project.likes.count }}
-            <span class="icon chat red"></span> {{ project.comment_set.count }}
+            <div class="tooltip" data-tooltip="Number of likes on this share"><span class="icon heart red"></span> {{ project.likes.count }}</div>
+            <div class="tooltip" data-tooltip="Number of comments on this share"><span class="icon chat red"></span> {{ project.comment_set.count }}</div>
           </div>
         </div>
 

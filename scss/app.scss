@@ -34,7 +34,7 @@
   "foundation/components/tables",
   //"foundation/components/tabs",
   //"foundation/components/thumbs",
-  "foundation/components/tooltips",
+  //"foundation/components/tooltips",
   "foundation/components/top-bar",
   "foundation/components/type",
   //"foundation/components/offcanvas",
@@ -64,6 +64,7 @@
 @import "scss/imageupload";
 @import "scss/user_info_form.scss";
 @import "scss/flatpage";
+@import "scss/poshytip";
 
 %entypo {
   font-family: 'EntypoRegular';

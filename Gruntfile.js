@@ -67,6 +67,11 @@ module.exports = function(grunt) {
             dest: 'global_change_lab/static/medium-editor/medium-editor.css',
             filter: 'isFile',
           },
+          {
+            src: 'bower_components/poshytip/src/tip-twitter/tip-twitter_arrows.gif',
+            dest:        'global_change_lab/static/poshytip/tip-twitter_arrows.gif',
+            filter: 'isFile',
+          },
         ]
       }
     },
@@ -92,6 +97,7 @@ module.exports = function(grunt) {
             'bower_components/jquery-form/jquery.form.js',                              // 14 KiB (for comments)
             'bower_components/masonry/dist/masonry.pkgd.min.js',                        //  ? KiB
             'bower_components/jquery-throttle-debounce/jquery.ba-throttle-debounce.js', //  ? KiB
+            'bower_components/poshytip/src/jquery.poshytip.js',                         //  ? KiB
             // modernizr in conjunction with
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.

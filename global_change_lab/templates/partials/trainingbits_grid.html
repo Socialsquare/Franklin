@@ -1,3 +1,4 @@
+{% load i18n %}
 {# <ul class="trainingbit-list-view small-block-grid-1 medium-block-grid-3 large-block-grid-4"> #}
 <ul class="trainingbit-list-view {{ extra_classes }}">
 {% for trainingbit in trainingbits %}
@@ -31,8 +32,8 @@
         {% endif %}
         {% endcomment %}
         {% if not hide_metadata %}
-        <span class="icon small heart red"></span> {{ trainingbit.likes.count }}
-        <span class="icon small megaphone red"></span> {{ trainingbit.project_set.count }}
+        <div class="tooltip" data-tooltip="{% trans 'Number of likes this training bit has' %}"><span class="icon small heart red"></span> {{ trainingbit.likes.count }}</div>
+        <div class="tooltip" data-tooltip="{% trans 'Number of project this training bit has' %}"><span class="icon small megaphone red"></span> {{ trainingbit.project_set.count }}</div>
         {% endif %}
         <hr>
       </div>
