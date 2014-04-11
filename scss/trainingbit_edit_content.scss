@@ -139,3 +139,20 @@
   }
 }
 
+
+// MODALS
+
+#modal-add-picture {
+  > button {
+    float: right;
+  }
+
+  .image-upload {
+    margin-left:  auto;
+    margin-right: auto;
+    margin-bottom: rem-calc(20px);
+    width: rem-calc(500px);
+    max-width: 100%;
+    height: rem-calc(300px);
+  }
+}

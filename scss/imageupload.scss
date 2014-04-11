@@ -2,8 +2,8 @@ $height: rem-calc(150px);
 $width: rem-calc(150px);
 
 div.dropzone {
-  height: $height;
-  width: $width;
+  height: 100%;
+  width: 100%;
   z-index: 1;
 
   background-color: $gcl-lightgray;
