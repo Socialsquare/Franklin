@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 {% load inlinetrans %}
 
 {% block body-classes %} trainer-interface {% endblock %}
@@ -8,13 +9,6 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="page-buttons">
-  {# View trainingbit button #}
-  {% if trainingbit %}
-  <a href="{% url 'skills:trainingbit_cover' slug=trainingbit.slug %}" class="button info">View training bit cover</a>
-  {% endif %}
-</div>
 
 <form id="trainingbit-cover-form" class="edit-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
@@ -83,18 +77,103 @@
       Only uncheck this when you are ready to show this training bit to the world.
     </div>
   </div>
-  <button id="training-bit-submit" type="submit">
+
+  <div class="save-actions">
+    {# View trainingbit cover button #}
     {% if trainingbit %}
-    Save training bit
-    {% else %}
-    Create new training bit
+    <a href="{% url 'skills:trainingbit_cover' slug=trainingbit.slug %}">View training bit cover</a>
     {% endif %}
+
+    {# Go to training content button #}
+    {% if trainingbit %}
+    <a href="{% url 'skills:trainingbit_edit_content' slug=trainingbit.slug %}">Edit training bit content &raquo;</a>
+    {% endif %}
+
+    {# Save training bit button #}
+    <button id="training-bit-submit" type="submit">
+      {% if trainingbit %}
+      Save training bit
+      {% else %}
+      Create new training bit
+      {% endif %}
+    </button>
+  </div>
+
   </button>
 </form>
 {{ form_errors }}
-<script src="{% static 'jquery.filedrop.js' %}"></script>
-<script type="text/javascript">
-  {# $('#new-training-bit-cover').filedrop({ }); #}
+
+<script>
+
+  // Save initial form data
+  var saved_data = $('#trainingbit-cover-form').serialize();
+
+  // When user tries to leave the page
+  $('a').click(function(e) {
+    console.log('Leaving page...');
+    var current_data = $('#trainingbit-cover-form').serialize();
+    console.log(saved_data);
+    console.log(current_data);
+
+    // Check if form has unsaved changes
+    if (saved_data !== current_data) {
+
+      // Ask user if he/she wants to leave
+      var leave_page = confirm("{% trans 'You have unsaved changes. Do you really want to leave this page?' %}");
+      if (!leave_page) {
+        e.preventDefault();
+      }
+    }
+  });
+
+  {% comment %}
+  This is an alternative solution which uses the event `window.onbeforeunload`
+  which is fired whenever the user tries to leave the page. This event is
+  however also triggered when the user tries to save the training bit (by
+  submitting the form).
+
+  // When user tries to leave the page
+  $(window).bind('beforeunload', function(e) {
+    console.log('Leaving page...');
+    var current_data = $('#trainingbit-cover-form').serialize();
+    console.log(saved_data);
+    console.log(current_data);
+
+    // Check if form has unsaved changes
+    if (saved_data !== current_data) {
+      // This will make the browser prompt the user whether or not he/she wants to leave
+      {# e.preventDefault(); #}
+
+      // From: http://stackoverflow.com/a/1337002/118608
+      //   Note: This message IS NOT displayed in Firefox - as Firefox doesn't
+      //   allow you to customize this message. (A default message is displayed)
+      //   See https://developer.mozilla.org/en-US/docs/Web/API/Window.onbeforeunload
+      var message = "{% trans 'You have unsaved changes. Do you really want to leave this page?' %}";
+      e = e || window.event;
+      // For IE and Firefox
+      if (e) {
+        e.returnValue = message;
+      }
+
+      // For Safari
+      return message;
+
+      {% comment %}
+      The `window.confirm()` function is not available when leaving the page
+      so we cannot ask the user ourselves -- we have to let the browser do it.
+      (via `e.preventDefault()`)
+
+      Ergo the following will not work:
+
+      // Ask user if he/she wants to leave
+      var leave_page = confirm("{% trans 'You have unsaved changes. Do you really want to leave this page?' %}");
+      if (!leave_page) {
+        e.preventDefault();
+      }
+      {# endcomment #}
+    }
+  });
+  {% endcomment %}
 </script>
 
 {% endblock %}

@@ -55,3 +55,16 @@
   }
 
 }
+
+.save-actions {
+  text-align: right;
+  font-size: rem-calc(12px);
+
+  button {
+    float: none;
+  }
+
+  * {
+    margin-left: rem-calc(10px);
+  }
+}
