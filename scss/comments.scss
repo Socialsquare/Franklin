@@ -59,6 +59,17 @@
     padding-top:    rem-calc(7px);
     padding-bottom: rem-calc(7px);
   }
+
+  .metadata-fat {
+    position: relative;
+    overflow-y: visible;
+    .triangle {
+      position: absolute;
+      left: 0.5rem + rem-calc(11px);
+      top: - rem-calc(10px);
+      @include css-triangle(rem-calc(7px), $gcl-comment-color, top);
+    }
+  }
 }
 
 
