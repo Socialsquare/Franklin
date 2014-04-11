@@ -209,8 +209,9 @@ a:hover .project-title {
 
 
 .project-column {
-  margin-bottom: rem-calc(10px);
+  margin-bottom: rem-calc(20px);
   width: 100%;
+  border-bottom: 1px solid $gcl-lightgray;
 
   a:hover .project-title {
     background-color: $gcl-red;
@@ -235,8 +236,8 @@ a:hover .project-title {
   }
 
   div.content {
-    margin-top: rem-calc(10px);
-    margin-bottom: rem-calc(10px);
+    margin-top: rem-calc(20px);
+    margin-bottom: rem-calc(20px);
 
     p {
       font-size: rem-calc(13px);
@@ -245,8 +246,8 @@ a:hover .project-title {
   }
 
   .metadata-fat {
-    margin-top: rem-calc(10px);
-    margin-bottom: rem-calc(10px);
+    margin-top: 0;
+    margin-bottom: rem-calc(20px);
   }
 
   .trainingbit-name {

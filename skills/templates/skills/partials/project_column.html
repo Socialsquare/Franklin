@@ -17,8 +17,6 @@
           <p>{{ project.content|truncatechars:300 }}</p>
         </div>
 
-        <hr>
-
         {% if project.link %}
         <a href="{{ project.link }}">Hello</a>
         {% endif %}
@@ -41,7 +39,5 @@
             <span class="icon chat red"></span> {{ project.comment_set.count }}
           </div>
         </div>
-
-        <hr>
 
       </div>

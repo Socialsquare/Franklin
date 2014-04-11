@@ -456,7 +456,7 @@ div.gcl-column2 {
 .metadata-fat {
   height: $metadata_height;
   line-height: $metadata_height;
-  margin-top: rem-calc(10px) !important; // TODO: Fix !important
+  margin-top: rem-calc(10px);
   font-size: rem-calc(12px);
 
   overflow-y: hidden; // In some layouts the icons will pushed out of the
