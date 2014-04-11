@@ -213,6 +213,10 @@ footer {
     }
   }
 
+  .row {
+    position: relative; // Needed in order position Creative Commons icons
+  }
+
   $social_icons_height: rem-calc(120px);
 
   .social-icons {
@@ -222,6 +226,16 @@ footer {
     margin-top: $margin_top;
     // margin-bottom: rem-calc(10px);
     line-height: 3rem;
+  }
+
+  .creative-commons-icons {
+    position: absolute;
+    right: 0;
+    top: rem-calc(22px);
+
+    .icon {
+      margin-left: - rem-calc(2px);
+    }
   }
 
   .footer-left {
@@ -275,8 +289,5 @@ footer {
     background-repeat: no-repeat;
     background-position: 100% 0%;
   }
-
-
-
 
 }
