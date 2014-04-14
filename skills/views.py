@@ -32,11 +32,29 @@ def fetch_data_for_columns(projects, comments):
     }
 
 def shares_overview(request):
+    if request.is_ajax():
+        i_project = int(request.GET['project_page_last'])
+        i_comment = int(request.GET['comment_page_last'])
 
-    return render(request, 'skills/shares_overview.html', {
-        'projects': Project.objects.filter(is_deleted=False).order_by('-created_at')[:12],
-        'comments': Comment.objects.exclude(is_deleted__exact=True).prefetch_related('author', 'project').order_by('-created_at')[:9],
-    })
+        projects = Project.objects.filter(is_deleted=False).order_by('-created_at')[i_project:i_project+12]
+        comments = Comment.objects.exclude(is_deleted__exact=True).prefetch_related('author', 'project').order_by('-created_at')[i_comment:i_comment+9]
+
+        rendered_projects = [render_to_string('skills/partials/project_column.html', {'project': p}) for p in projects]
+        rendered_comments = [render_to_string('skills/partials/comment_entry_compact.html', {'comment': c}) for c in comments]
+
+        d = {
+            'html_projects':  rendered_projects,
+            'html_comments':  rendered_comments,
+            'project_page_last': i_project+12,
+            'comment_page_last': i_comment+9,
+        }
+
+        return HttpResponse(json.dumps(d), content_type='application/json', status=201)
+    else:
+        return render(request, 'skills/shares_overview.html', {
+            'projects': Project.objects.filter(is_deleted=False).order_by('-created_at')[:12],
+            'comments': Comment.objects.exclude(is_deleted__exact=True).prefetch_related('author', 'project').order_by('-created_at')[:9],
+        })
 
 
 def skills_overview(request, topic_slug=None, show_drafts=False):

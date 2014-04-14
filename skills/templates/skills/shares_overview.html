@@ -11,11 +11,12 @@
       {% include 'skills/partials/project_column.html' %}
     {% endfor %}
   </div>
-  <div class="gcl-column">
+  <div id="comments-container" class="gcl-column">
     <h4 class="shares-overview-header">Comments</h4>
     {% include 'skills/partials/comment_list_compact.html' with hide_reply=True show_project=True maxchars=200 %}
   </div>
 </div>
+<a id="load-more" href="#" class="button">Load more shares</a>
 {% endblock %}
 
 {% block javascript_extra %}
@@ -30,4 +31,28 @@ var updateMasonry = function() {
 };
 
 $(window).on('resize', $.throttle(250, updateMasonry) );
+
+var project_page_last = 12;
+var comment_page_last = 9;
+
+$('#load-more').click(function(e) {
+  e.preventDefault();
+
+  $.ajax({
+    method: 'GET',
+    url: '{% url 'skills:shares_overview' %}?project_page_last=' + project_page_last + '&comment_page_last=' + comment_page_last,
+    success: function(data) {
+      for (var i = 0; i < data.html_projects.length; i++) {
+        var $elem = $(data.html_projects[i]);
+        $('#masonry-container').masonry().append($elem).masonry('appended', $elem);
+      }
+      $('#masonry-container').masonry();
+      for (var i = 0; i < data.html_comments.length; i++) {
+        $('#comments-container').append(data.html_comments[i]);
+      }
+      project_page_last = data.project_page_last;
+      comment_page_last = data.comment_page_last;
+    }
+  });
+});
 {% endblock %}
