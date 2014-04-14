@@ -4,7 +4,7 @@
 {% load navigation %}
 {% load inlinetrans %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/Article">
 <head>
   <meta charset="utf-8">
   {# For showing not-full-pages to iPhones  #}
@@ -38,6 +38,8 @@
   <![endif]-->
 
   <title>{% block title %}Global Change Lab{% endblock %}</title>
+
+  {% block extra_head %}{% endblock %}
 </head>
 
 <body class="{% block body-classes %}{% endblock %}">

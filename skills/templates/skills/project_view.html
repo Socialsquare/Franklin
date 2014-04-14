@@ -5,6 +5,11 @@
 
 {% block body-classes %}project-view{% endblock %}
 
+
+{% block extra_head %}
+  {% include 'skills/partials/metadata_tags.html' with title="GCL project: "|add:project.name image=project.image video=project.video %}
+{% endblock %}
+
 {% block content %}
 <div class="page-buttons">
   {# Delete trainingbit button #}
