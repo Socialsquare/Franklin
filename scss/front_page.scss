@@ -1,39 +1,73 @@
-div#front-page-greeter {
-  background-color : $gcl-darkgray;
-  padding-top: rem-calc(30px);
-  padding-left: rem-calc(42px);
-  padding-right: rem-calc(42px);
-  padding-bottom: 1rem;
+// We want the peace guy-image to overflow vertically out of the box
+// but he should not force the scrollbar horizontally on small screens
+// overflow-y: visible;
+// overflow-x: hidden;
+// This doesn't work in most browsers though: http://stackoverflow.com/a/11163865/118608
+// ... so we hack it
+div#greeter-container {
+  position: relative;
+  overflow-x: hidden;
+  min-height: rem-calc(369px);
   margin-bottom: 1rem;
 
-  background-image: url('/static/images/front-page-people.png');
-  background-position: bottom right;
-  background-repeat: no-repeat;
+  img {
+    position: absolute;
+    left: rem-calc(413px);
+    bottom: 0;
+    height: rem-calc(369px);
+  }
 
-  h1, h2, p {
-    color: white;
-    margin: 0;
+
+  div#front-page-greeter {
+    margin-top: rem-calc(17px);
+
+    background-color : $gcl-darkgray;
+    padding-left: rem-calc(42px);
+    padding-right: rem-calc(42px);
+    padding-bottom: 1rem;
+    min-height: rem-calc(352px);
+
+    .announcement {
+      text-transform: uppercase;
+      color: white;
+      font-family: 'Allerta Stencil', sans-serif;
+      font-size: rem-calc(55px);
+      line-height: 1.15;
+      margin-bottom: rem-calc(20px);
+
+      margin-top: rem-calc(50px);
+      max-width: rem-calc(400px);
+      float: left;
+    }
+    .info {
+      font-size: rem-calc(20px);
+      color: white;
+      line-height: 2rem;
+
+      margin-top: rem-calc(45px);
+      @media #{$large-up} {
+        float: right;
+      }
+      max-width: rem-calc(292px);
+
+      strong {
+        display: block;
+      }
+    }
+
+    .button.join {
+      text-transform: uppercase;
+      font-size: rem-calc(30px);
+      font-weight: bold;
+
+      margin-top: 2rem;
+      width: 100%;
+
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
   }
-  h1 {
-    background-color: $gcl-red;
-    font-size: rem-calc(37);
-    @extend %text-white-on-red;
-  }
-  h2 {
-    @extend %h1;
-  }
-  p {
-    font-family: 'Allerta Stencil', sans-serif;
-    font-size: 2rem;
-    margin-top: 0.8rem;
-    width: 50%;
-    line-height: 2.3rem;
-  }
-  a.button.join {
-    margin-top: 1rem;
-    padding: 1rem;
-    font-size: rem-calc(14px);
-  }
+
 }
 
 div#front-page-cols {
