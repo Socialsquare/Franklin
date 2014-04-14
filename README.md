@@ -91,6 +91,13 @@ And then apply it:
 
 That's it! Good luck :o)
 
+SQLite
+------
+For testing purposes you can enable an SQLite backend instead of the default
+PostgreSQL. This is done by setting the environment variable `GCL_USE_SQLITE`.
+If the varible is present in the environment (regardless of its value) a local
+SQLite database in will be used. (Residing in the file `database.sqlite3`)
+
 Amazon S3
 ---------
 Global Change Lab uses Amazon S3 as backend image host (to save bandwidth costs).

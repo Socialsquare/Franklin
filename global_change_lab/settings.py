@@ -114,16 +114,23 @@ except ImportError:
     warnings.warn('Credentials not found, using `localhost` default setup')
     LOCALHOST = True
     SECRET_KEY = 'localhost-very-secret'
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'USER': 'web',
-            'HOST': 'localhost',
-            'NAME': 'GlobalChangeLab',
-            # 'PASSWORD': 'k0Deword.',
-            #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    if os.getenv('GCL_USE_SQLITE'):
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'database.sqlite3'),
+            }
         }
-    }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'USER': 'web',
+                'HOST': 'localhost',
+                'NAME': 'GlobalChangeLab',
+                # 'PASSWORD': 'k0Deword.',
+            }
+        }
     MEDIA_ROOT = os.path.join(os.getcwd(), 'media')
     MEDIA_URL = '/media/'
 
@@ -198,11 +205,11 @@ if DEBUG:
 if DEBUG:
     INTERNAL_IPS = ('127.0.0.1',)
     MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #    'debug_toolbar.middleware.DebugToolbarMiddleware',
     )
 
     INSTALLED_APPS += (
-        'debug_toolbar',
+    #      'debug_toolbar',
     )
 
     DEBUG_TOOLBAR_PANELS = (
@@ -213,7 +220,7 @@ if DEBUG:
         #'debug_toolbar.panels.profiling.ProfilingPanel',
         'debug_toolbar.panels.request.RequestPanel',
         'debug_toolbar.panels.sql.SQLPanel',
-        'debug_toolbar.panels.templates.TemplatesPanel',
+        # 'debug_toolbar.panels.templates.TemplatesPanel',
         'debug_toolbar.panels.cache.CachePanel',
         'debug_toolbar.panels.signals.SignalsPanel',
         # 'debug_toolbar.panels.logger.LoggingPanel',
@@ -242,7 +249,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # you can login with either
                                                  # username or email
 ACCOUNT_SIGNUP_FORM_CLASS = 'global_change_lab.forms.SignupForm'
 
-LOGIN_REDIRECT_URL = 'front_page'
+LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = '/user/login'
 
 # Sign out immediatly when visiting /account/signout (in this case /user/signout)
@@ -251,6 +258,8 @@ LOGIN_URL = '/user/login'
 # TODO: Change to AJAX POST, since logout on GET is allows 3rd parties to log
 #       out the user
 ACCOUNT_LOGOUT_ON_GET = True
+
+#ACCOUNT_ADAPTER = 'global_change_lab.adapters.AccountAdapter'
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     # allauth specific context processors
