@@ -453,6 +453,34 @@ div.gcl-column2 {
   text-transform: uppercase;
 }
 
+// White-on-red "info" icon that usually open a reveal modal with a help-text.
+// Used in: trainingbit_view, skill_edit, trainingbit_edit, trainingbit_edit_content
+.info-icon {
+  @extend %entypo;
+  font-size: 2.5rem;
+  float: right;
+  color: white;
+  background-color: $gcl-red;
+  display: inline-block;
+  padding: rem-calc(5px);
+  line-height: 1rem;
+  @include rounded(rem-calc(3px));
+
+  &:hover {
+    color: white;
+    background-color: black;
+  }
+
+  &:active, &:focus {
+    color: white;
+    background-color: red;
+  }
+}
+.page-buttons .info-icon {
+  margin-left: rem-calc(5px);
+}
+
+
 
 .metadata-fat {
   height: $metadata_height;

@@ -54,23 +54,6 @@ body.trainingbit-view {
   }
 }
 
-.info-icon {
-  @extend %entypo;
-  font-size: 2.5rem;
-  float: right;
-  color: white;
-  background-color: $gcl-red;
-  display: inline-block;
-  padding: rem-calc(5px);
-  line-height: 1rem;
-  @include rounded(rem-calc(3px));
-
-  &:hover {
-    color: white;
-    background-color: black;
-  }
-}
-
 .project-form-errors {
   background-color: $gcl-browngray;
   padding: 2rem;

@@ -15,6 +15,14 @@
   {% if skill %}
     <a href="{{ skill.get_absolute_url }}" class="button success">View skill</a>
   {% endif %}
+
+  {# Info/help button #}
+  <a href="#" class="info-icon" data-reveal-id="info-modal" data-reveal>&#8505;</a>
+  <div id="info-modal" class="reveal-modal" data-reveal>
+    <h1>{% itrans 'Building a Skill' %}</h1>
+    {% itrans "Make a description that piques the user's interest." %}
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
 </div>
 
 <form id="skill-form" class="edit-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">

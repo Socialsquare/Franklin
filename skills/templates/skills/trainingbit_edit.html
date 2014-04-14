@@ -9,6 +9,15 @@
 {% endblock %}
 
 {% block content %}
+<div class="page-buttons">
+  {# Info/help button #}
+  <a href="#" class="info-icon" data-reveal-id="info-modal" data-reveal>&#8505;</a>
+  <div id="info-modal" class="reveal-modal" data-reveal>
+    <h1>{% itrans 'Building a Training Bit' %}</h1>
+    {% itrans "Make a description that piques the user's interest." %}
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+</div>
 
 <form id="trainingbit-cover-form" class="edit-form" action="{{ request.url }}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
