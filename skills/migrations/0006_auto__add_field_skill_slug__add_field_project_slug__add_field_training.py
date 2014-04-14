@@ -23,12 +23,13 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.SlugField')(default='', max_length=60),
                       keep_default=False)
 
-        for _class in [orm.Skill, orm.Project, orm.TrainingBit]:
-            for obj in _class.objects.all():
-                obj.slug = slugify(obj.name)[:60]
-                if obj.slug == '':
-                    obj.slug = obj.pk
-                obj.save()
+        if not db.dry_run:
+            for _class in [orm.Skill, orm.Project, orm.TrainingBit]:
+                for obj in _class.objects.all():
+                    obj.slug = slugify(obj.name)[:60]
+                    if obj.slug == '':
+                        obj.slug = obj.pk
+                    obj.save()
 
 
     def backwards(self, orm):

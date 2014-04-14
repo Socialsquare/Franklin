@@ -10,36 +10,37 @@ from django.utils.text import slugify
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Ensure that existing slugs are unique
-        for _class in [orm.Skill, orm.Project, orm.TrainingBit]:
-            for obj in _class.objects.all():
-                objs_with_slug = _class.objects.filter(slug__exact=obj.slug)
+        if not db.dry_run:
+            # Ensure that existing slugs are unique
+            for _class in [orm.Skill, orm.Project, orm.TrainingBit]:
+                for obj in _class.objects.all():
+                    objs_with_slug = _class.objects.filter(slug__exact=obj.slug)
 
-                # Empty slug encountered
-                if obj.slug == '':
-                    obj.slug = slugify(obj.name)
-                    # raise Exception('Empty slug for object: %s, new slug "%s"' % (obj.name, obj.slug))
+                    # Empty slug encountered
                     if obj.slug == '':
-                        obj.slug = 'empty-name'
+                        obj.slug = slugify(obj.name)
+                        # raise Exception('Empty slug for object: %s, new slug "%s"' % (obj.name, obj.slug))
+                        if obj.slug == '':
+                            obj.slug = 'empty-name'
 
-                if objs_with_slug.count() > 1:
-                    # The slug of this object is not unique!
-                    existing_slugs = _class.objects.\
-                                       filter(slug__regex='^' + obj.slug + r'-\d+').\
-                                       values_list('slug', flat=True)
-                    if len(existing_slugs) > 0:
-                        # Grab number from highest existing slug
-                        last_existing_slug = sorted(existing_slugs)[-1]
-                        m = re.match(r'^.*-(\d+)$', last_existing_slug)
-                        id_counter = int(m.group(1)) + 1
-                    else:
-                        id_counter = 1
+                    if objs_with_slug.count() > 1:
+                        # The slug of this object is not unique!
+                        existing_slugs = _class.objects.\
+                                        filter(slug__regex='^' + obj.slug + r'-\d+').\
+                                        values_list('slug', flat=True)
+                        if len(existing_slugs) > 0:
+                            # Grab number from highest existing slug
+                            last_existing_slug = sorted(existing_slugs)[-1]
+                            m = re.match(r'^.*-(\d+)$', last_existing_slug)
+                            id_counter = int(m.group(1)) + 1
+                        else:
+                            id_counter = 1
 
-                    # Generate new unique slug
-                    obj.slug = '%s-%u' % (obj.slug, id_counter)
+                        # Generate new unique slug
+                        obj.slug = '%s-%u' % (obj.slug, id_counter)
 
-                # Save
-                obj.save()
+                    # Save
+                    obj.save()
 
         # Adding unique constraint on 'Skill', fields ['slug']
         db.create_unique('skills_skill', ['slug'])
