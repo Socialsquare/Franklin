@@ -3,6 +3,11 @@
 {% load permissionif %}
 {% load i18n %}
 
+{# Metadata: For Facebook updates, Twitter tweets, and posts on your Google Plus wall (Open Graph etc.) #}
+{% block extra_head %}
+  {% include 'skills/partials/metadata_tags.html' with title="GCL training bit: "|add:trainingbit.name description=trainingbit.description image=trainingbit.image url=trainingbit.get_absolute_url %}
+{% endblock %}
+
 {% block content %}
 
 <div class="page-buttons">

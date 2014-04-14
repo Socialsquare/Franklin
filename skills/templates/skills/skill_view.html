@@ -5,6 +5,12 @@
 {% load staticfiles %}
 {% load i18n %}
 
+
+{# Metadata: For Facebook updates, Twitter tweets, and posts on your Google Plus wall (Open Graph etc.) #}
+{% block extra_head %}
+  {% include 'skills/partials/metadata_tags.html' with title="GCL skill: "|add:skill.name description=skill.description image=skill.image url=skill.get_absolute_url %}
+{% endblock %}
+
 {% block body-classes %}skill-view{% endblock %}
 
 {% block content %}

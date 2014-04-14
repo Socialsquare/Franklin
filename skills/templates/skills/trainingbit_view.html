@@ -9,6 +9,10 @@
 <script src="{% static 'global_change_lab/js/trainingbit_view.min.js' %}"></script>
 {% endblock %}
 
+{# Metadata: For Facebook updates, Twitter tweets, and posts on your Google Plus wall (Open Graph etc.) #}
+{% block extra_head %}
+  {% include 'skills/partials/metadata_tags.html' with title="GCL training bit: "|add:trainingbit.name description=trainingbit.description image=trainingbit.image url=trainingbit.get_absolute_url %}
+{% endblock %}
 
 {% block body-classes %}trainingbit-view{% endblock %}
 

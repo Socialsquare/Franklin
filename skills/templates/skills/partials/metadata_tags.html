@@ -1,34 +1,34 @@
 {% load embed_video_tags %}
 
   {# Site name #}
-  <meta property="og:site_name" content="Global Change Lab" /> {# Open Graph #}
+  <meta property="og:site_name" content="Global Change Lab"> {# Open Graph #}
 
   {# Title #}
   <meta itemprop="name" content="{{ title }}"> {# Schema.org markup for Google+ #}
   <meta name="twitter:title" content="{{ title }}"> {# Twitter Card data #}
-  <meta property="og:title" content="GCL Project: {{ project.name }}" /> {# Open Graph data #}
+  <meta property="og:title" content="{{ title }}"> {# Open Graph data #}
 
   {# Description #}
-  <meta itemprop="description" content="{{ project.content|truncatechars:140 }}"> {# Schema.org markup for Google+ #}
-  <meta name="twitter:description" content="{{ project.content|truncatechars:140 }}"> {# Page description less than 200 character #}
-  <meta property="og:description" content="{{ project.content|truncatechars:140 }}" />
+  <meta itemprop="description" content="{{ description|truncatechars:140 }}"> {# Schema.org markup for Google+ #}
+  <meta name="twitter:description" content="{{ description|truncatechars:140 }}"> {# Page description less than 200 character #}
+  <meta property="og:description" content="{{ description|truncatechars:140 }}">
 
   {# Image #}
   {% if image %}
   <meta itemprop="image" content="{{ image.url }}"> {# Schema.org markup for Google+ #}
   <meta name="twitter:image:src" content="{{ image.url }}"> {# Twitter summary card with large image must be at least 280x150px #}
-  <meta property="og:image" content="{{ image.url }}" /> {# Open Graph #}
+  <meta property="og:image" content="{{ image.url }}"> {# Open Graph #}
   {% endif %}
 
   {# Video #}
-  {% if project.video %}
-  {% video project.video as project_video %}
-  <meta property="og:video" content="{{ project_video.url }}" /> {# Open Graph #}
+  {% if video %}
+  {% video video as e_video %}
+  <meta property="og:video" content="{{ e_video.url }}"> {# Open Graph #}
   {% endvideo %}
   {% endif %}
 
   {# URL #}
-  <meta property="og:url" content="{{ request.build_absolute_uri }}{{ project.get_absolute_url }}" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}{{ url }}">
 
   {# Facebook App ID #}
-  <meta property="fb:app_id" content="1396269957300039" />
+  <meta property="fb:app_id" content="1396269957300039">

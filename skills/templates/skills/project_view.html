@@ -5,9 +5,9 @@
 
 {% block body-classes %}project-view{% endblock %}
 
-
+{# Metadata: For Facebook updates, Twitter tweets, and posts on your Google Plus wall (Open Graph etc.) #}
 {% block extra_head %}
-  {% include 'skills/partials/metadata_tags.html' with title="GCL project: "|add:project.name image=project.image video=project.video %}
+  {% include 'skills/partials/metadata_tags.html' with title="GCL project: "|add:project.name description=project.content image=project.image video=project.video url=project.get_absolute_url %}
 {% endblock %}
 
 {% block content %}
