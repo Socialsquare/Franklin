@@ -287,3 +287,10 @@ LOCALE_PATHS = [
 COUNTRIES_OVERRIDE = {
     '00': ' Other',
 }
+
+# Custom middleware - in order to force using English language
+# and not e.g. the Danish translation "Dette felt er påkrævet"
+#  Note: it must be loaded before the django `LocaleMiddleware`
+MIDDLEWARE_CLASSES = (
+    'global_change_lab.middleware.ForceDefaultLanguageMiddleware',
+) + MIDDLEWARE_CLASSES
