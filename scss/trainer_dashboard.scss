@@ -9,13 +9,6 @@
     text-transform: none;
     display: inline-block;
   }
-  a.stats-link {
-    font-size: 0.7rem;
-    // text-align: right;
-    line-height: 2 * $h3-font-size;
-    float: right;
-    // display: inline-block;
-  }
 
   div.list-container {
     $empty_height: rem-calc(90px);

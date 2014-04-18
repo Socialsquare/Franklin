@@ -19,7 +19,7 @@
   <hr>
   <div class="row">
     <div class="large-6 columns">
-      <h3>Your public training bits</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your public training bits</h3>
       <div class="list-container">
       {% if trainingbits_public %}
       {% for item in trainingbits_public %}
@@ -29,7 +29,7 @@
         <div class="empty-message">You have no public training bits</div>
       {% endif %}
       </div>
-      <h3>Your training bit drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your training bit drafts</h3>
       <div class="list-container">
       {% if trainingbits_drafts %}
       {% for item in trainingbits_drafts %}
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="large-6 columns">
-      <h3>Your public skills</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your public skills</h3>
       <div class="list-container">
       {% if skills_public %}
       {% for item in skills_public %}
@@ -51,7 +51,7 @@
         <div class="empty-message">You have no public skills</div>
       {% endif %}
       </div>
-      <h3>Your skill drafts</h3><a class="stats-link" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
+      <h3>Your skill drafts</h3>
       <div class="list-container">
       {% if skills_drafts %}
       {% for item in skills_drafts %}
@@ -77,6 +77,12 @@
         <div class="empty-message">You have no public skills</div>
         {% endif %}
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="medium-6 columns">
+      <h3>Statistics</h3><br>
+      <a class="stats-link red" href="{% url 'statistics' %}">See statistics <span class="icon line-graph"></span></a>
     </div>
   </div>
 </div>
