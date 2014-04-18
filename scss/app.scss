@@ -587,6 +587,17 @@ div.gcl-column2 {
   }
 }
 
+// Ensure that sorting/filtering buttons display correctly
+body.skills-overview, body.trainingbits-overview {
+  .page-buttons {
+    .button {
+      color: white;
+      background-color: $gcl-darkgray;
+    }
+  }
+}
+
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",
