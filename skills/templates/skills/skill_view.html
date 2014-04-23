@@ -15,6 +15,15 @@
 
 {% block content %}
 <div class="page-buttons">
+  {# Mark as recommended #}
+  {% permission request.user has 'skill.recommend' %}
+    {% if skill.is_recommended %}
+      <a href="{% url 'skills:skill_recommend' skill.id %}" class="button admin-button info">Remove recommendation</a>
+    {% else %}
+      <a href="{% url 'skills:skill_recommend' skill.id %}" class="button admin-button success">Mark as recommended</a>
+    {% endif %}
+  {% endpermission %}
+
   {# Mark as public #}
   {% permission request.user has 'skill.publicize' %}
     {% if skill.is_draft %}

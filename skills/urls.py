@@ -5,6 +5,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Training Bit URLs
+    url(r'^trainingbits/recommended/?$', 'skills.views.trainingbits_overview', {'show_recommended':True}, name="trainingbits_overview_recommended"),
     url(r'^trainingbits/([-\w]+)/?$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
     url(r'^trainingbits$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
     url(r'^trainingbit/new$', 'skills.views.trainingbit_edit', name='trainingbit_new'),
@@ -20,12 +21,19 @@ urlpatterns = patterns('',
     # Skill URLs
     url(r'^skills/$', 'skills.views.skills_overview', name="skills_overview"),
     url(r'^skills/drafts/?$', 'skills.views.skills_overview', {'show_drafts':True}, name="skills_overview_all"),
+
+    url(r'^skills/recommended/?$', 'skills.views.skills_overview', {'show_recommended':True}, name="skills_overview_recommended"),
+    url(r'^skills/([-\w]+)/recommended/?$', 'skills.views.skills_overview', {'show_recommended':True}, name="skills_overview_recommended"),
+
     url(r'^skills/([-\w]+)/?$', 'skills.views.skills_overview', name="skills_overview"),
     url(r'^skills/([-\w]+)/drafts/?$', 'skills.views.skills_overview', {'show_drafts':True}, name="skills_overview_all"),
+
+
     url(r'^skill/new$', 'skills.views.skill_edit', name='skill_new'),
     url(r'^skill/(?P<slug>[-\w\d]+)/edit$', 'skills.views.skill_edit', name="skill_edit"),
     url(r'^skill/(?P<slug>[-\w\d]+)$', 'skills.views.skill_view', name='skill_view'),
     url(r'^skill/(\d+)/publicize$', 'skills.views.skill_publicize', name="skill_publicize"),
+    url(r'^skill/(\d+)/recommend$', 'skills.views.skill_recommend', name="skill_recommend"),
     url(r'^skill/(\d+)/delete$', 'skills.views.skill_delete', name="skill_delete"),
     url(r'^skill/(\d+)/start$', 'skills.views.skill_start', name="skill_start"),
     url(r'^skill/(\d+)/stop$', 'skills.views.skill_stop', name="skill_stop"),

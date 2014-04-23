@@ -57,7 +57,7 @@ def shares_overview(request):
         })
 
 
-def skills_overview(request, topic_slug=None, show_drafts=False):
+def skills_overview(request, topic_slug=None, show_drafts=False, show_recommended=False):
     # Show from topic
     if topic_slug is not None:
         topic = get_object_or_404(Topic, slug=topic_slug)
@@ -65,6 +65,10 @@ def skills_overview(request, topic_slug=None, show_drafts=False):
     else:
         topic = None
         skills = Skill.objects.all()
+
+    # Show recommended
+    if show_recommended:
+        skills = skills.filter(is_recommended=True)
 
     # Show public/drafts
     if request.user.has_perm('skills.show_drafts') and show_drafts:
@@ -80,6 +84,7 @@ def skills_overview(request, topic_slug=None, show_drafts=False):
     return render(request, 'skills/skills_overview.html', {
         'skills': skills,
         'showing_drafts': show_drafts,
+        'showing_recommended': show_recommended,
         'topics': Topic.objects.all(),
         'topic_chosen': topic,
     })
@@ -254,7 +259,7 @@ def skill_edit(request, slug=None):
     })
 
 
-def trainingbits_overview(request, topic_slug=None):
+def trainingbits_overview(request, topic_slug=None, show_recommended=False):
     if topic_slug is not None:
         topic = get_object_or_404(Topic, slug=topic_slug)
         trainingbits = topic.trainingbits.all()
@@ -262,12 +267,18 @@ def trainingbits_overview(request, topic_slug=None):
         topic = None
         trainingbits = TrainingBit.objects.all()
 
+
+    # Show recommended
+    if show_recommended:
+        trainingbits = trainingbits.filter(is_recommended=True)
+
     trainingbits = trainingbits.filter(is_draft__exact=False)
     trainingbits = sortable_helper(request, trainingbits)
     return render(request, 'skills/trainingbits_overview.html', {
         'trainingbits': trainingbits,
         'topics': Topic.objects.all(),
         'topic_chosen': topic,
+        'showing_recommended': show_recommended,
     })
 
 def trainingbit_cover(request, slug=None):
@@ -492,17 +503,33 @@ def trainingbit_delete(request, trainingbit_pk):
 def trainingbit_recommend(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
     if request.user.has_perm('trainingbit.recommend', trainingbit):
-        if trainingbit.recommended:
-            trainingbit.recommended = False
+        if trainingbit.is_recommended:
+            trainingbit.is_recommended = False
             messages.info(request, 'The training bit is no longer recommended')
         else:
-            trainingbit.recommended = True
+            trainingbit.is_recommended = True
             messages.success(request, 'Successfully recommended training bit')
         trainingbit.save()
         return HttpResponseRedirect(trainingbit.get_absolute_url())
     else:
         messages.error(request, 'You do not have permission to recommend this training bit')
         return HttpResponseRedirect(trainingbit.get_absolute_url())
+
+@csrf_protect
+def skill_recommend(request, skill_id):
+    skill = get_object_or_404(Skill, pk=skill_id)
+    if request.user.has_perm('skill.recommend', skill):
+        if skill.is_recommended:
+            skill.is_recommended = False
+            messages.info(request, 'The skill is no longer recommended')
+        else:
+            skill.is_recommended = True
+            messages.success(request, 'Successfully recommended skill')
+        skill.save()
+        return HttpResponseRedirect(skill.get_absolute_url())
+    else:
+        messages.error(request, 'You do not have permission to recommend this skill')
+        return HttpResponseRedirect(skill.get_absolute_url())
 
 @login_required
 @csrf_protect

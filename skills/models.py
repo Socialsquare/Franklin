@@ -147,7 +147,7 @@ class TrainingBit(TimedModel, AuthoredModel, SluggedModel):
     likes = generic.GenericRelation(Like)
 
     # Flags
-    recommended = models.BooleanField(default=False)
+    is_recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
 
     def getImage(self):
@@ -241,6 +241,7 @@ class Skill(TimedModel, AuthoredModel, SluggedModel):
     likes = generic.GenericRelation(Like)
 
     # Flags
+    is_recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
 
     def trainingbit_count(self):

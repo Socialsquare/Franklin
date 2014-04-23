@@ -11,6 +11,15 @@
 {% block content %}
 
 <div class="page-buttons">
+  {# Mark as recommended #}
+  {% permission request.user has 'trainingbit.recommend' %}
+    {% if trainingbit.is_recommended %}
+      <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button admin-button info">Remove recommendation</a>
+    {% else %}
+      <a href="{% url 'skills:trainingbit_recommend' trainingbit.id %}" class="button admin-button success">Mark as recommended</a>
+    {% endif %}
+  {% endpermission %}
+
   {# Edit trainingbit button #}
   {% permission request.user has 'skills.change_trainingbit' of trainingbit %}
     <a href="{% url 'skills:trainingbit_edit' slug=trainingbit.slug %}" class="button info admin-button">Edit training bit</a>

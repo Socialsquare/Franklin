@@ -11,6 +11,17 @@
 
 {% block content %}
 <div class="page-buttons">
+  {# View recommended #}
+  {% if showing_recommended %}
+    <a href="{% url 'skills:skills_overview' %}" class="button">
+      Show all
+    </a>
+  {% else %}
+    <a href="{% url 'skills:skills_overview_recommended' %}" class="button">
+      Show recommended
+    </a>
+  {% endif %}
+
   {# Topics #}
     {% if topic_chosen %}
       <a href="{% url 'skills:skills_overview' topic_chosen.slug %}" class="button sorting" data-dropdown="skill-all-topics">
