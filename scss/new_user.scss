@@ -71,11 +71,20 @@ div#new-user-greeter {
     li {
       display: inline-block;
       width: 30%;
+      line-height: 1.5rem;
       label {
         line-height: 1;
       }
+      label:hover {
+        background-color: lighten($gcl-darkgray, 20%);
+      }
       input[type="checkbox"] {
         margin: 0;
+        padding: 0.2rem;
+
+      }
+      :checked, :checked + span {
+        background-color: lighten($gcl-darkgray, 30%);
       }
     }
   }

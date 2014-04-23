@@ -11,9 +11,14 @@
       <h2 class="white">{% itrans "Choose your topics of interest - and we will suggest some skils and training bits you can begin with." %}</h2>
     </div>
     <div class="medium-8 columns">
-      <ul>
+      <ul class="topics">
       {% for topic in topics %}
-        <li><label><input type="checkbox" name="topic_ids[]" value="{{ topic.id }}"> {{ topic.name }}</label></li>
+        <li>
+          <label>
+            <input type="checkbox" name="topic_ids[]" value="{{ topic.id }}">
+            <span>{{ topic.name }}</span>
+          </label>
+        </li>
       {% endfor %}
       </ul>
     </div>
