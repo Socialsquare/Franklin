@@ -31,22 +31,20 @@ div#new-user-greeter {
   }
 
   .new-user-progress {
-    font-size: $h1-font-size;
-    color: $gcl-midgray;
-    text-align: center;
+    margin-right: - $padding_horizontal + $padding_bottom;
+    text-align: right;
 
     span {
       font-size: inherit;
     }
     .next {
-      position: absolute;
-      right: 0;
-      margin-right: $padding_bottom;
-      &.large {
-        bottom: 2rem;
-      }
-      // float: right;
+      margin: 0;
     }
+  }
+
+  #start-using-gcl {
+    font-size: rem-calc(14px);
+    padding: 1rem;
   }
 
   label {
@@ -55,6 +53,13 @@ div#new-user-greeter {
 
   select {
     color: $gcl-midgray;
+  }
+
+  .user_info_form {
+    button {
+      margin-bottom: 0;
+      margin-right: - rem-calc(40px);
+    }
   }
 
 }
@@ -100,9 +105,3 @@ div#new-user-greeter {
   }
 }
 
-#start-using-gcl {
-  font-size: rem-calc(14px);
-  padding: 1rem;
-  margin-right: 0.5rem !important;
-  bottom: 1.5rem;
-}

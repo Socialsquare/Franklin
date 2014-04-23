@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load i18n %}
 
 {% block scripts %}
 <script src="{% static 'global_change_lab/js/fileupload.min.js' %}"></script>
@@ -34,15 +35,16 @@
     </div>
   </div>
   <div class="new-user-progress">
-    1 <span class="white">2</span> 3
   </div>
 </div>
 
 <script>
-var $submitButton = $('#submitButton');
-$submitButton.addClass('next');
-$submitButton.text('Next');
-$submitButton.appendTo('.new-user-progress');
+var $submitButton = $('button');
+$submitButton.removeClass('success');
+$submitButton.text("{% trans '2/3 Save - and choose your topics' %}");
+
+{# $submitButton.addClass('next'); #}
+{# $submitButton.appendTo('.new-user-progress'); #}
 </script>
 
 
