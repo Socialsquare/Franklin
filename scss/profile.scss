@@ -11,8 +11,9 @@ body.user-profile {
 
   div.profile-picture {
     float: left;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     height: 85%;
     width: $height;
     overflow: hidden;
