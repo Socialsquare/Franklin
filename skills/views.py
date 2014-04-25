@@ -295,9 +295,9 @@ def trainingbit_cover(request, slug=None):
     # If the user has a current skill let the user go back to that skill.
     back_url = None
     if request.session.get('current_skill_id') is not None:
-        skill = Skill.objects.get(id__exact=request.session.get('current_skill_id'))
-        if skill is not None:
-            back_url = skill.get_absolute_url()
+        skill = Skill.objects.filter(id__exact=request.session.get('current_skill_id'))
+        if len(skill) != 0:
+            back_url = skill[0].get_absolute_url()
 
     # Like
     content_type = ContentType.objects.get_for_model(trainingbit)
