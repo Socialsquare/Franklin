@@ -137,14 +137,8 @@ $(document).ready(function() {
 
 
   /****************** PROJECTS *******************/
-  // Resize embeds
-  $('.project iframe').each(function() {
-    var $this = $(this);
-    var aspect_ratio = $this.width()/$this.height();
-    var $project = $this.closest('.project');
-    $this.width($project.width());
-    $this.height($this.width() / aspect_ratio);
-  });
+  // Nothing here
+
 
   /****************** COMMENTS *******************/
 
