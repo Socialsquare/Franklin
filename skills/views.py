@@ -71,7 +71,7 @@ def skills_overview(request, topic_slug=None, show_drafts=False, show_recommende
         skills = skills.filter(is_recommended=True)
 
     # Show public/drafts
-    if request.user.is_trainer and show_drafts:
+    if request.user.has_perm('trainingbit.create') and show_drafts:
         skills = skills.filter(is_draft=True)
     else:
         # by default show the skill that are _not_ drafts
