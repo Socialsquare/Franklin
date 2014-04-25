@@ -17,8 +17,10 @@
           <p>{{ project.content|truncatechars:300 }}</p>
         </div>
 
-        {% if project.link %}
-        <a href="{{ project.link }}">Hello</a>
+        {% if project.link_url and project.link_title %}
+        <div class="project-link">
+          <span class="icon link"></span><a target="_blank" class="red" href="{{ project.link_url }}">{{ project.link_title }}</a>
+        </div>
         {% endif %}
 
         {% if project.video %}

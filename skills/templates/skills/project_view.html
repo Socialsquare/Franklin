@@ -64,7 +64,7 @@
     {% endif %}
 
     {% if project.link_url and project.link_title %}
-    <a href="{{ project.link_url }}">{{ project.link_title }}</a>
+    <span class="icon link"></span><a target="_blank" class="red project-link" href="{{ project.link_url }}">{{ project.link_title }}</a>
     {% endif %}
 
     {% if project.video %}
