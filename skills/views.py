@@ -451,6 +451,8 @@ def trainingbit_edit(request, slug=None):
             topics = Topic.objects.filter(pk__in=selected_topic_pks)
             trainingbit.topic_set.clear()
             trainingbit.topic_set.add(*topics)
+
+            return HttpResponseRedirect(reverse('skills:trainingbit_edit', args=[trainingbit.slug]))
         else:
             messages.error(request, 'Could not save training bit %s' % form.errors)
 
