@@ -146,9 +146,10 @@ class UserInfo(models.Model):
         ('other',  'Other'),
     ]
     ORGANISATION_TYPES = [
-        ('noorg', 'No organization'),
-        ('actionaid', 'ActionAid organization'),
-        ('rel', 'ActionAid related organization'),
+        ('actionaid', 'ActionAid'),
+        ('rel', 'ActionAid Partner'),
+        ('other', 'Other'),
+        ('noorg', "No organization - I'm just myself"),
     ]
 
     # Content
