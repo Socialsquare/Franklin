@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+{% load inlinetrans %}
 
 {% block body-classes %}trainingbits-overview{% endblock %}
 
 {% block info %}
+{% comment %}
 <p>
 A training bit is a small bit of training activity that goes into a skill. Each training
 bit has some inspiring content, an activity that you can do and gives you the option of
@@ -14,6 +16,11 @@ There are 3 types of training bits:
 historic activist movements.</p>
 <p><strong>Background</strong> where you get behind the theories, thoughts and principles
 behind the topics.</p>
+{% endcomment %}
+
+<p>
+{% itrans "Training bits are small pieces of inspiration, tools or background in activism and social change. Each training bit has something for you to learn, to act upon and to share with other activists. You are free to choose the bits you want and do them in your own pace." %}
+</p>
 {% endblock %}
 
 {% block content %}

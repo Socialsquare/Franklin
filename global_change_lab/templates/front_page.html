@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load inlinetrans %}
 
 {% block nav_buttons %}{% endblock %}
 
@@ -14,11 +15,9 @@
       Bit by bit
     </div>
     <div class="info">
-      The Global Change Lab is an
-      online training hub for
-      global activists.
+      {% itrans 'The Global Change Lab is a training hub for global activists.' %}
       <strong>Start your training now!</strong>
-      <a href="{% url 'account_signup' %}" class="button join">Join us</a>
+      <a href="{% url 'account_signup' %}" class="button join">{% itrans 'Sign up' %}</a>
     </div>
   </div>
 </div>

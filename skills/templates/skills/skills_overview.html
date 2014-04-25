@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 {% load permissionif %}
+{% load inlinetrans %}
 
 {% block body-classes %}skills-overview{% endblock %}
 
 {% block info %}
+  {% comment %}
   <p>Skills are different trainings where you can practice different skillsets as an activist</p>
   <p>Each training consists of a number of <strong>training bits</strong></p>
   <p>Each time you finish a training bit you'll get on step closer to finishing a skill.</p>
+  {% endcomment %}
+
+  <p>{% itrans "Skills are sets of selected training bits you need to change the world." %}</p>
+  <p>{% itrans "You can take the training bits in any order you'll like but you need to take them all to get the skill." %}</p>
+  <p>{% itrans 'Start with the skill you like the most.' %}</p>
 {% endblock %}
 
 {% block content %}
