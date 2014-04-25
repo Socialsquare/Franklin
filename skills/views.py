@@ -71,7 +71,7 @@ def skills_overview(request, topic_slug=None, show_drafts=False, show_recommende
         skills = skills.filter(is_recommended=True)
 
     # Show public/drafts
-    if request.user.has_perm('trainingbit.create') and show_drafts:
+    if request.user.has_perm('skills.add_trainingbit') and show_drafts:
         skills = skills.filter(is_draft=True)
     else:
         # by default show the skill that are _not_ drafts
@@ -155,7 +155,7 @@ def skill_stop(request, skill_id):
 #@permission_required('skill.publicize')
 def skill_publicize(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
-    if request.user.has_perm('skill.publicize', skill):
+    if request.user.has_perm('skills.skill_publicize', skill):
         if skill.is_draft:
             skill.is_draft = False
             messages.info(request, 'The skill is now public')
@@ -170,7 +170,7 @@ def skill_publicize(request, skill_id):
 
 def skill_delete(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
-    if  request.user.has_perm('skill.delete', skill):
+    if  request.user.has_perm('skills.delete_skill', skill):
         skill.delete()
         messages.success(request, 'The skill was deleted')
         return HttpResponseRedirect(reverse('skills:skills_overview'))
@@ -486,7 +486,7 @@ def trainingbit_edit_content(request, slug=None):
 @csrf_protect
 def trainingbit_delete(request, trainingbit_pk):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_pk)
-    if request.user.has_perm('trainingbit.delete', trainingbit):
+    if request.user.has_perm('skills.delete_trainingbit', trainingbit):
         trainingbit.delete()
         return HttpResponseRedirect(reverse('skills:trainingbits_overview'))
     else:
@@ -502,7 +502,7 @@ def trainingbit_delete(request, trainingbit_pk):
 @csrf_protect
 def trainingbit_recommend(request, trainingbit_id):
     trainingbit = get_object_or_404(TrainingBit, pk=trainingbit_id)
-    if request.user.has_perm('trainingbit.recommend', trainingbit):
+    if request.user.has_perm('skills.recommend_trainingbit', trainingbit):
         if trainingbit.is_recommended:
             trainingbit.is_recommended = False
             messages.info(request, 'The training bit is no longer recommended')
@@ -518,7 +518,7 @@ def trainingbit_recommend(request, trainingbit_id):
 @csrf_protect
 def skill_recommend(request, skill_id):
     skill = get_object_or_404(Skill, pk=skill_id)
-    if request.user.has_perm('skill.recommend', skill):
+    if request.user.has_perm('skills.recommend_skill', skill):
         if skill.is_recommended:
             skill.is_recommended = False
             messages.info(request, 'The skill is no longer recommended')
@@ -590,7 +590,7 @@ def topic_delete(request, topic_pk):
 
     # if request.method == 'POST':
 
-    if request.user.has_perm('topic.delete', topic):
+    if request.user.has_perm('skills.delete_topic', topic):
         topic.delete()
         if request.is_ajax():
             d = {'message': 'Topic was deleted'}

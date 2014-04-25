@@ -296,8 +296,8 @@ add_permission_logic(Comment, gcl_authorpermissionlogic)
 
 
 class AdminPermissionLogic(PermissionLogic):
-    def has_perm(user, permission_str, obj):
-        if user.is_admin:
+    def has_perm(self, user, permission_str, obj):
+        if user.is_authenticated() and user.is_admin:
             return True
         else:
             return False
