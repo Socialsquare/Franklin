@@ -61,7 +61,7 @@
             <span class="terms">
               {# Another possible url is: #}
               {# {% url 'django.contrib.flatpages.views.flatpage' url='/terms' %} #}
-              I agree to the <a href="{% url 'terms' %}">Terms of Service and Privacy Policy</a> of The Global Change Lab
+              I agree to the <a class="red" href="{% url 'terms' %}">Terms of Service</a> of Global Change Lab
             </span>
             {% if form.terms.errors %}
               <small class="error">{{ form.terms.errors.as_text }}</small>
