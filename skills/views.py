@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
@@ -18,7 +18,7 @@ from django_sortable.helpers import sortable_helper
 import json
 
 def fetch_data_for_columns(projects, comments):
-    all_projects = list(projects.order_by('-created_at')[:12])
+    all_projects = list(projects.filter(is_deleted=False).order_by('-created_at')[:12])
     project_list0 = all_projects[0::2]
     project_list1 = all_projects[1::2]
 
@@ -32,12 +32,16 @@ def fetch_data_for_columns(projects, comments):
     }
 
 def shares_overview(request):
+
+    i_project = int(request.GET.get('project_page_last', default=0))
+    i_comment = int(request.GET.get('comment_page_last', default=0))
+
+    projects = Project.objects.filter(is_deleted=False, trainingbit__is_draft=False).order_by('-created_at')[i_project:i_project+12]
+    comments = Comment.objects.filter(is_deleted=False, project__is_deleted=False).prefetch_related('author', 'project').order_by('-created_at')[i_comment:i_comment+9]
+
     if request.is_ajax():
         i_project = int(request.GET['project_page_last'])
         i_comment = int(request.GET['comment_page_last'])
-
-        projects = Project.objects.filter(is_deleted=False).order_by('-created_at')[i_project:i_project+12]
-        comments = Comment.objects.exclude(is_deleted__exact=True).prefetch_related('author', 'project').order_by('-created_at')[i_comment:i_comment+9]
 
         rendered_projects = [render_to_string('skills/partials/project_column.html', {'project': p}) for p in projects]
         rendered_comments = [render_to_string('skills/partials/comment_entry_compact.html', {'comment': c}) for c in comments]
@@ -52,8 +56,8 @@ def shares_overview(request):
         return HttpResponse(json.dumps(d), content_type='application/json', status=201)
     else:
         return render(request, 'skills/shares_overview.html', {
-            'projects': Project.objects.filter(is_deleted=False).order_by('-created_at')[:12],
-            'comments': Comment.objects.exclude(is_deleted__exact=True).prefetch_related('author', 'project').order_by('-created_at')[:9],
+            'projects': projects,
+            'comments': comments,
         })
 
 
@@ -237,10 +241,10 @@ def skill_edit(request, slug=None):
 
     if skill is None:
         trainingbits_chosen    = []
-        trainingbits_available = TrainingBit.objects.all()
+        trainingbits_available = TrainingBit.objects.filter(is_draft=False)
     else:
         trainingbits_chosen    = skill.trainingbits.all() #.extra(order_by=['sort_value'])
-        trainingbits_available = TrainingBit.objects.exclude(id__in=trainingbits_chosen.values('id')).extra(order_by=['name'])
+        trainingbits_available = TrainingBit.objects.filter(is_draft=False).exclude(id__in=trainingbits_chosen.values('id')).extra(order_by=['name'])
 
     try:
         training_bit_ids = list(map(lambda t: t.id, skill.trainingbits.all()))
@@ -272,7 +276,9 @@ def trainingbits_overview(request, topic_slug=None, show_recommended=False):
     if show_recommended:
         trainingbits = trainingbits.filter(is_recommended=True)
 
+    # Filter out drafts
     trainingbits = trainingbits.filter(is_draft__exact=False)
+
     trainingbits = sortable_helper(request, trainingbits)
     return render(request, 'skills/trainingbits_overview.html', {
         'trainingbits': trainingbits,
@@ -283,6 +289,10 @@ def trainingbits_overview(request, topic_slug=None, show_recommended=False):
 
 def trainingbit_cover(request, slug=None):
     trainingbit = get_object_or_404(TrainingBit, slug=slug)
+
+    if trainingbit.is_draft and not (request.user.is_authenticated() and request.user.is_trainer):
+        raise Http404
+
 
     # Remember what skill the user came from and save it as the user's "current
     # skill".
@@ -310,13 +320,12 @@ def trainingbit_cover(request, slug=None):
 
     # Related trainingbits
     topic_pks = trainingbit.topic_set.all().values('id')
-    related_trainingbits = TrainingBit.objects.filter(topic__id__in=topic_pks).distinct()
+    related_trainingbits = TrainingBit.objects.filter(is_draft=False, topic__id__in=topic_pks).distinct()
 
     template_vars = {
         'trainingbit': trainingbit,
         'content_type': content_type,
         'user_like': user_like,
-        'projects': trainingbit.project_set.filter(is_deleted=False).prefetch_related('author').prefetch_related('comment_set'),
         'related_trainingbits': related_trainingbits[:4],
         'current_skill_id': request.session.get('current_skill_id'),
         'back_url': back_url,
@@ -341,6 +350,9 @@ def get_suggested_trainingbits(user, session):
         # If we're not currently doing any skill just pick some trainingbits
         # we haven't already taken
         trainingbits = TrainingBit.objects.all()
+
+    # filter out drafts
+    trainingbits = trainingbits.filter(is_draft=False)
 
     # Don't suggest training bits the user has already completed, including the
     # one he is about to complete. (Because when we show the suggestions he

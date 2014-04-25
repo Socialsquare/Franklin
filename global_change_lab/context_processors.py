@@ -3,7 +3,7 @@ from skills.models import Project, Comment, Like
 def fatfooter_data(request):
     recent_activity_count = 7
 
-    recent_comments = Comment.objects.all().prefetch_related('author', 'project').order_by('-created_at')[:recent_activity_count]
+    recent_comments = Comment.objects.filter(is_deleted=False, project__is_deleted=False, project__trainingbit__is_draft=False).prefetch_related('author', 'project').order_by('-created_at')[:recent_activity_count]
     recent_likes    = Like.objects.all().prefetch_related('author', 'content_object').order_by('-created_at')[:recent_activity_count]
 
     recent_activity = list(recent_comments) + list(recent_likes)
@@ -17,7 +17,8 @@ def fatfooter_data(request):
             l.append((activity.author, 'commented on', activity.project))
 
     return {
-        'recent_projects': Project.objects.all()                 \
+        'recent_projects': Project.objects \
+                            .filter(is_deleted=False, trainingbit__is_draft=False) \
                             .select_related('author__username') \
                             .select_related('author__image')    \
                             .order_by('-created_at')[:3],

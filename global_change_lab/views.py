@@ -84,7 +84,7 @@ def new_user_suggestions(request):
 
         if len(trainingbits) < 4:
             missing_count = 4 - len(trainingbits)
-            trainingbits += TrainingBit.objects.all()[:missing_count]
+            trainingbits += TrainingBit.objects.filter(is_draft=False)[:missing_count]
 
         if len(skills) < 4:
             missing_count = 4 - len(skills)
@@ -159,7 +159,7 @@ def admin_dashboard(request):
 def admin_flagged_comments(request):
 
     return render(request, 'admin_flagged_comments.html', {
-        'comments': Comment.objects.filter(is_deleted=False, is_flagged=True),
+        'comments': Comment.objects.filter(is_deleted=False, is_flagged=True, project__is_deleted=False),
     })
 
 def admin_flagged_shares(request):
@@ -292,7 +292,7 @@ def profile(request, user_id=None):
         trainingbits_completed = request.user.trainingbits_completed.values_list('pk', flat=True)
 
         skills_in_progress_w_percentage = []
-        skills_in_progress = request.user.skills_in_progress.prefetch_related('trainingbits').all()
+        skills_in_progress = request.user.skills_in_progress.filter(is_draft=False).prefetch_related('trainingbits')
         for skill in skills_in_progress:
             tbs = skill.trainingbits.all()
             incompleted_count = len(set([t.pk for t in tbs]) - set(trainingbits_completed))
@@ -305,7 +305,7 @@ def profile(request, user_id=None):
             skill.percentage = percentage
             skills_in_progress_w_percentage.append((skill, int(percentage)))
 
-        trainingbits_in_progress = request.user.trainingbits_in_progress.all()
+        trainingbits_in_progress = request.user.trainingbits_in_progress.filter(is_draft=False)
 
         in_progress_dict = {
             'skills_in_progress_w_percentage': skills_in_progress_w_percentage,
@@ -316,7 +316,7 @@ def profile(request, user_id=None):
         own_profile = False
         in_progress_dict = {}
 
-    projects = list(profile_user.project_set.order_by('-created_at').select_related('trainingbit').prefetch_related('comment_set').all()[:12])
+    projects = list(profile_user.project_set.filter(is_deleted=False).order_by('-created_at').select_related('trainingbit').prefetch_related('comment_set')[:12])
     project_list0 = projects[0::3]
     project_list1 = projects[1::3]
     project_list2 = projects[2::3]
