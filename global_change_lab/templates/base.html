@@ -178,10 +178,12 @@
       <img id="footer-guy" src="{% static 'images/peace-guy.png' %}">
     </div>
     <div class="creative-commons-icons">
-      <span class="icon cc" href="#"></span>
-      <span class="icon cc-by" href="#"></span>
-      <span class="icon cc-nc" href="#"></span>
-      <span class="icon cc-sa" href="#"></span>
+      <a href="{% url 'creative-commons' %}">
+        <span class="icon cc"></span>
+        <span class="icon cc-by"></span>
+        <span class="icon cc-nc"></span>
+        <span class="icon cc-sa"></span>
+      </a>
     </div>
     {% endblock %}
     </div>

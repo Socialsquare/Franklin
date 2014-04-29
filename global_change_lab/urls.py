@@ -77,6 +77,7 @@ if settings.DEBUG:
 # django.contrib.flatpages
 urlpatterns += patterns('django.contrib.flatpages.views',
     url(r'^terms/$', 'flatpage', {'url': '/terms/'}, name='terms'),
+    url(r'^creative-commons/$', 'flatpage', {'url': '/creative-commons/'}, name='creative-commons'),
 )
 
 # django-inlinetrans
