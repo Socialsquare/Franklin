@@ -96,7 +96,7 @@ def skills_overview(request, topic_slug=None, show_drafts=False, show_recommende
 def skill_view(request, slug=None):
     skill = get_object_or_404(Skill, slug=slug)
 
-    if trainingbit.is_draft and not (request.user.is_authenticated() and request.user.is_trainer):
+    if skill.is_draft and not (request.user.is_authenticated() and request.user.is_trainer):
         raise Http404
 
     trainingbits = skill.trainingbits.filter(is_draft__exact=False)
