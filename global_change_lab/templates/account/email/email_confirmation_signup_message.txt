@@ -1,0 +1,40 @@
+{% load account %}
+{% load i18n %}
+
+{% user_display user as user_display %}
+{% autoescape off %}
+{% blocktrans with current_site.name as site_name %}
+Hi {{ user_display }} and welcome to {{ site_name }}.
+Please, confirm your profile by clicking on this link
+
+{{ activate_url }}
+
+and get ready to get the most out of {{ site_name }}:
+
+Get activist skills
+-------------------
+Skills are sets of training bits you need to change the world. Check out what
+skills you can begin with already today.
+http://www.globalchangelab.cloudcontrolled.com/skills
+
+Do Training Bits
+----------------
+Training bits are small pieces of inspiration, tools or background in activism
+and social change. Get going with a bit right away
+http://www.globalchangelab.org/trainingbits
+
+Share with others
+-----------------
+When you complete training bits you need to take some
+action. Share what you do or learn from other activists.
+http://www.globalchangelab.org/shares
+
+
+To learn more about Global Change Lab, visit our About Page
+(http://www.globalchangelab.org/about-global-change-lab)
+
+Enjoy your bits and feel free to contact us (http://www.globalchangelab.org/contact)
+Train the world! Change the world!
+The Global Change Lab
+{% endblocktrans %}
+{% endautoescape %}
