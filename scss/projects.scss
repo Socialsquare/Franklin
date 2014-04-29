@@ -17,9 +17,13 @@
 
   .project {
     .metadata-fat {
-      -moz-box-sizing: content-box;
       padding-bottom: rem-calc(5px);
+      height: auto;
       border-bottom: 1px solid $gcl-lightgray;
+
+      .profile-picture {
+        height: $metadata_height;
+      }
 
       .actions {
         visibility: hidden;
