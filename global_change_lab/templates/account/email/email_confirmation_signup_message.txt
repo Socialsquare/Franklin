@@ -4,12 +4,12 @@
 {% user_display user as user_display %}
 {% autoescape off %}
 {% blocktrans with current_site.name as site_name %}
-Hi {{ user_display }} and welcome to {{ site_name }}.
+Hi {{ user_display }} and welcome to Global Change Lab{# site_name #}.
 Please, confirm your profile by clicking on this link
 
 {{ activate_url }}
 
-and get ready to get the most out of {{ site_name }}:
+and get ready to get the most out of Global Change Lab{# site_name #}:
 
 Get activist skills
 -------------------

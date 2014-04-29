@@ -1,1 +1,1 @@
-Welcome to {{ site_name }}
+Welcome to Global Change Lab{# site_name #}
