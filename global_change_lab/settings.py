@@ -245,9 +245,9 @@ AUTHENTICATION_BACKENDS += (
 
 
 # allauth
-EMAIL_SUBJECT_PREFIX = '' # the default email subject prefix is
-                          # "[{{ site_name }}] " e.g. "[Global Change Lab] "
 DEFAULT_FROM_EMAIL = 'Global Change Lab <hello@globalchangelab.org>'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '' # the default email subject prefix is
+                                  # "[{{ site_name }}] " e.g. "[Global Change Lab] "
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # you can login with either
                                                  # username or email
 ACCOUNT_SIGNUP_FORM_CLASS = 'global_change_lab.forms.SignupForm'
