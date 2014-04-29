@@ -37,7 +37,7 @@ def shares_overview(request):
     i_comment = int(request.GET.get('comment_page_last', default=0))
 
     projects = Project.objects.filter(is_deleted=False, trainingbit__is_draft=False).order_by('-created_at')[i_project:i_project+12]
-    comments = Comment.objects.filter(is_deleted=False, project__is_deleted=False).prefetch_related('author', 'project').order_by('-created_at')[i_comment:i_comment+9]
+    comments = Comment.objects.filter(is_deleted=False, project__is_deleted=False, project__trainingbit__is_draft=False).prefetch_related('author', 'project').order_by('-created_at')[i_comment:i_comment+9]
 
     if request.is_ajax():
         i_project = int(request.GET['project_page_last'])
