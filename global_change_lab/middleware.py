@@ -12,3 +12,19 @@ class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
+
+
+from django.http import HttpResponseRedirect
+import re
+
+# Redirect
+# http://globalchangelab.cloudcontrolled.com -> http://www.globalchangelab.org
+class CloudControlRedirectMiddleware(object):
+    def process_request(self, request):
+        if request.META['HTTP_HOST'].startswith('globalchangelab.cloudcontrolled.com'):
+            url = request.get_full_path()
+            # Redirect to http://globalchangelab.org instead of directly
+            # http://www.globalchangelab.org because we are redirecting to the
+            # same IP, and it seems that Varnish breaks?
+            # (or maybe the browser does?)
+            return HttpResponseRedirect('http://globalchangelab.org' + url)

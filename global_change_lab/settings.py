@@ -292,5 +292,6 @@ COUNTRIES_OVERRIDE = {
 # and not e.g. the Danish translation "Dette felt er påkrævet"
 #  Note: it must be loaded before the django `LocaleMiddleware`
 MIDDLEWARE_CLASSES = (
+    'global_change_lab.middleware.CloudControlRedirectMiddleware',
     'global_change_lab.middleware.ForceDefaultLanguageMiddleware',
 ) + MIDDLEWARE_CLASSES
