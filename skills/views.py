@@ -96,6 +96,9 @@ def skills_overview(request, topic_slug=None, show_drafts=False, show_recommende
 def skill_view(request, slug=None):
     skill = get_object_or_404(Skill, slug=slug)
 
+    if trainingbit.is_draft and not (request.user.is_authenticated() and request.user.is_trainer):
+        raise Http404
+
     trainingbits = skill.trainingbits.filter(is_draft__exact=False)
     trainingbit_pks = [t.id for t in trainingbits]
     project_count = Project.objects.filter(is_deleted=False, trainingbit_id__in=trainingbit_pks).count()
@@ -389,6 +392,9 @@ def get_completed_skills(user, trainingbit):
 @csrf_protect
 def trainingbit_view(request, slug=None):
     trainingbit = get_object_or_404(TrainingBit, slug=slug)
+
+    if trainingbit.is_draft and not (request.user.is_authenticated() and request.user.is_trainer):
+        raise Http404
 
     form = ProjectForm()
 
