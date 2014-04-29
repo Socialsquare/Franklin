@@ -51,9 +51,6 @@ urlpatterns = patterns('',
     #   r'^pages<page.url>'
     # but flatpages enforce `page.url` to have leading and trailing slashes
     # therefore the flatpages base URL _must not_ have a trailing slash!
-
-    # static pages
-    url(r'^about', 'global_change_lab.views.about', name='about'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
