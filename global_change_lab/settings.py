@@ -245,6 +245,7 @@ AUTHENTICATION_BACKENDS += (
 
 
 # allauth
+DEFAULT_FROM_EMAIL = 'Global Change Lab <hello@globalchangelab.org>'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # you can login with either
                                                  # username or email
 ACCOUNT_SIGNUP_FORM_CLASS = 'global_change_lab.forms.SignupForm'
