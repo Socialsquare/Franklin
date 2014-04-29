@@ -133,6 +133,13 @@ a:hover .project-title {
 
   }
 
+  span.icon + a.project-link {
+    margin-left: rem-calc(4px);
+  }
+  a.project-link {
+    font-size: rem-calc(12px);
+  }
+
   a.expand, a.collapse {
     float: right;
     position: relative;
@@ -233,6 +240,17 @@ a:hover .project-title {
 
   hr {
     margin: 0;
+  }
+
+  div.project-link {
+    margin-bottom: rem-calc(20px);
+
+    span.icon + a {
+      margin-left: rem-calc(4px);
+    }
+    a {
+      font-size: rem-calc(12px);
+    }
   }
 
   div.content {
