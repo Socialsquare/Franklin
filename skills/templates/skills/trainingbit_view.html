@@ -87,7 +87,7 @@
     <form id="project-form" action="{% url 'skills:trainingbit_view' slug=trainingbit.slug %}" method="POST"  enctype="multipart/form-data">
       {% csrf_token %}
       <input type="text" name="name" placeholder="Title" class="title">
-      <textarea name="content" placeholder="Write your thoughts about this training bit"></textarea>
+      <textarea name="content" placeholder="{% trans 'Share your actions with others' %}"></textarea>
       <div class="buttons">
         <div class="upload-button">
           <a href="#" id="image-upload-button" class="button">Upload image</a>
@@ -103,7 +103,7 @@
     </form>
     {% if form.errors %}
     <div id="project-form-errors" class="project-form-errors">
-      <h4>Error were encountered when trying to submit project</h4>
+      <h4>{% itrans 'Oups! Your work could not be shared.' %}</h4>
       {{ form.errors }}
     </div>
     {% endif %}
