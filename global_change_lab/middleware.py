@@ -23,8 +23,4 @@ class CloudControlRedirectMiddleware(object):
     def process_request(self, request):
         if request.META['HTTP_HOST'].startswith('globalchangelab.cloudcontrolled.com'):
             url = request.get_full_path()
-            # Redirect to http://globalchangelab.org instead of directly
-            # http://www.globalchangelab.org because we are redirecting to the
-            # same IP, and it seems that Varnish breaks?
-            # (or maybe the browser does?)
-            return HttpResponseRedirect('http://globalchangelab.org' + url)
+            return HttpResponseRedirect('http://www.globalchangelab.org' + url)
