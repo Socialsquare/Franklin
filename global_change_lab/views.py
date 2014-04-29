@@ -316,7 +316,8 @@ def profile(request, user_id=None):
         own_profile = False
         in_progress_dict = {}
 
-    projects = list(profile_user.project_set.filter(is_deleted=False).order_by('-created_at').select_related('trainingbit').prefetch_related('comment_set')[:12])
+    projects = list(profile_user.project_set.filter(is_deleted=False, trainingbit__is_draft=False) \
+                   .order_by('-created_at').select_related('trainingbit').prefetch_related('comment_set')[:12])
     project_list0 = projects[0::3]
     project_list1 = projects[1::3]
     project_list2 = projects[2::3]
