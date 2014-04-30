@@ -20,7 +20,13 @@
   <a class="button"><span class="icon save"></span><span class="status"></span></a>
 </div>
 <div class="alert-box info" id="connection-status">
-  <span class="icon signal"></span><span class="status">You are currently <strong>not</strong> connected to the internet</span>
+  <span class="icon signal"></span>
+  <span class="status">
+    {% blocktrans %}
+    You are currently <strong>not</strong> connected to the internet :-(
+    If you save your bit now the changes will be lost. Take a back up manually or wait for the internet to come back.
+    {% endblocktrans %}
+  </span>
 </div>
 <script>
 Offline.options = {

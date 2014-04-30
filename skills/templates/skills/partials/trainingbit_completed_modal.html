@@ -4,7 +4,7 @@
 {% load inlinetrans %}
 
 {# Content of the "completed trainingbit" modal on the `trainingbit_view` page #}
-<h3>Well done! You have completed</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2>
+<h3>{% itrans 'Well done! You have completed' %}</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2>
 
 {% if completed_skills %}
   {# {{ completed_skills_names|listify:3 }} #}
@@ -28,13 +28,13 @@
 
 {% if suggested_trainingbits %}
 {% url 'profile' as profile_url %}
-<p>{% blocktrans %}Checkout the training bits below - perhaps they are something for you to do next? You can also go to <a class="red" href="{{ profile_url }}">your profile</a> to see your current progress.{% endblocktrans %}</p>
+<p>{% blocktrans %}You want to do another training bit? We found these for you. You can also go to <a class="red" href="{{ profile_url }}">your profile</a> to see your current progress.{% endblocktrans %}</p>
 <div style="width: 30rem; margin-left: auto; margin-right: auto;">
   {% include 'partials/trainingbits_grid.html' with trainingbits=suggested_trainingbits hide_part_of=True extra_classes='medium' %}
 </div>
 {% else %}
 <p>
-  Sorry! We have no suggestions for you at the moment. Maybe you have already completed all Training Bits?
+  {% itrans 'Sorry! We have no suggestions for you at the moment. Maybe you have already completed all Training Bits?' %}
 </p>
 {% endif %}
 
