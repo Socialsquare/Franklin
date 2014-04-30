@@ -121,6 +121,7 @@ def skill_view(request, slug=None):
         'skill_id_get_query': '?skill_id=%u' % skill.id,
         'trainingbits': trainingbits,
         'project_count': project_count,
+        'start_trainingbits': skill.trainingbits.filter(is_draft=False)[:3],
     })
 
 def skill_trainingbits_json(request, skill_id):

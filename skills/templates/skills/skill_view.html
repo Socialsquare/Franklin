@@ -74,7 +74,7 @@
   <p>Get started with these training bits<p>
 
   {# <div style="width: 30rem; margin-left: auto; margin-right: auto;"> #}
-    {% include 'partials/trainingbits_grid.html' with trainingbits=skill.trainingbits.all|slice:":3" extra_classes='medium' get_query=skill_id_get_query %}
+    {% include 'partials/trainingbits_grid.html' with trainingbits=start_trainingbits extra_classes='medium' get_query=skill_id_get_query %}
   {# </div> #}
 
   <a class="close-reveal-modal">&#215;</a>
