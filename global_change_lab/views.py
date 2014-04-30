@@ -77,7 +77,7 @@ def new_user_suggestions(request):
         for topic in topics[:4]:
             trainingbit_pks = [t.pk for t in trainingbits]
             trainingbits += topic.trainingbits.exclude(pk__in=trainingbit_pks, is_draft=True)[:2]
-            skills += topic.skills.exclude(pk__in=skill_pks, is_draft=True)[:2]
+            skills += topic.skills.exclude(is_draft=True)[:2]
             # trainingbits += topic.trainingbits.all()[:2].distinct()
             # skills += topic.skills.all()[:2].distinct()
 
