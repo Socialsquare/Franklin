@@ -82,13 +82,15 @@ def new_user_suggestions(request):
             # trainingbits += topic.trainingbits.all()[:2].distinct()
             # skills += topic.skills.all()[:2].distinct()
 
+        tb_pks = [tb.pk for tb in trainingbits]
         if len(trainingbits) < 4:
             missing_count = 4 - len(trainingbits)
-            trainingbits += TrainingBit.objects.filter(is_draft=False)[:missing_count]
+            trainingbits += TrainingBit.objects.filter(is_draft=False).exclude(pk__in=tb_pks)[:missing_count]
 
+        skill_pks = [s.pk for s in skills]
         if len(skills) < 4:
             missing_count = 4 - len(skills)
-            skills += Skill.objects.all()[:missing_count]
+            skills += Skill.objects.filter(is_draft=False).exclude(pk__in=skill_pks)[:missing_count]
 
         return render(request, 'new_user_suggestions.html', {
             'trainingbits': trainingbits[:4],
