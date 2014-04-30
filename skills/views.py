@@ -12,6 +12,7 @@ from permission.decorators import permission_required
 
 from skills.models import Skill, TrainingBit, Topic, Project, Comment, Like
 from skills.forms import SkillForm, TrainingBitForm, ProjectForm, CommentForm, TopicForm, LikeForm
+from global_change_lab.models import User
 
 from django_sortable.helpers import sortable_helper
 
@@ -206,7 +207,10 @@ def skill_edit(request, slug=None):
         if form.is_valid():
 
             skill = form.save(commit=False)
-            skill.author = request.user
+            try:
+                hasattr(skill, 'author')
+            except User.DoesNotExist:
+                skill.author = request.user
             skill.save()
 
             # Add trainingbits (ORDER IS IMPORTANT HERE)
@@ -464,7 +468,11 @@ def trainingbit_edit(request, slug=None):
                     new_trainingbit.image = trainingbit.image
             except NameError:
                 pass
-            new_trainingbit.author = request.user
+
+            try:
+                hasattr(new_trainingbit, 'author')
+            except User.DoesNotExist:
+                new_trainingbit.author = request.user
 
             new_trainingbit.save()
             trainingbit = new_trainingbit
