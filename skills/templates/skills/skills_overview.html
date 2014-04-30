@@ -68,7 +68,7 @@
       Show public skills
     </a>
   {% else %}
-    {% permission request.user has 'skills.show_drafts' %}
+    {% permission request.user has 'skills.add_skill' %}
     <a href="{% url 'skills:skills_overview_all' show_drafts=True %}" class="button info">
       Show drafts
     </a>

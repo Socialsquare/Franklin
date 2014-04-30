@@ -5,9 +5,12 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Training Bit URLs
+    # trainingbits_overview
+    url(r'^trainingbits/drafts/?$', 'skills.views.trainingbits_overview', {'show_drafts':True}, name="trainingbits_overview_all"),
     url(r'^trainingbits/recommended/?$', 'skills.views.trainingbits_overview', {'show_recommended':True}, name="trainingbits_overview_recommended"),
     url(r'^trainingbits/([-\w]+)/?$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
-    url(r'^trainingbits$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
+    url(r'^trainingbits/?$', 'skills.views.trainingbits_overview', name="trainingbits_overview"),
+
     url(r'^trainingbit/new$', 'skills.views.trainingbit_edit', name='trainingbit_new'),
     url(r'^trainingbit/(?P<slug>[-\w\d]+)/edit$', 'skills.views.trainingbit_edit', name="trainingbit_edit"),
     url(r'^trainingbit/(?P<slug>[-\w\d]+)/edit-content$', 'skills.views.trainingbit_edit_content', name="trainingbit_edit_content"),
@@ -19,12 +22,11 @@ urlpatterns = patterns('',
     url(r'^trainingbit/(\d+)/stop$', 'skills.views.trainingbit_stop', name="trainingbit_stop"),
 
     # Skill URLs
-    url(r'^skills/$', 'skills.views.skills_overview', name="skills_overview"),
+    # skills_overview
+    url(r'^skills/?$', 'skills.views.skills_overview', name="skills_overview"),
     url(r'^skills/drafts/?$', 'skills.views.skills_overview', {'show_drafts':True}, name="skills_overview_all"),
-
     url(r'^skills/recommended/?$', 'skills.views.skills_overview', {'show_recommended':True}, name="skills_overview_recommended"),
     url(r'^skills/([-\w]+)/recommended/?$', 'skills.views.skills_overview', {'show_recommended':True}, name="skills_overview_recommended"),
-
     url(r'^skills/([-\w]+)/?$', 'skills.views.skills_overview', name="skills_overview"),
     url(r'^skills/([-\w]+)/drafts/?$', 'skills.views.skills_overview', {'show_drafts':True}, name="skills_overview_all"),
 

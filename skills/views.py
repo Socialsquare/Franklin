@@ -267,7 +267,7 @@ def skill_edit(request, slug=None):
     })
 
 
-def trainingbits_overview(request, topic_slug=None, show_recommended=False):
+def trainingbits_overview(request, topic_slug=None, show_drafts=False, show_recommended=False):
     if topic_slug is not None:
         topic = get_object_or_404(Topic, slug=topic_slug)
         trainingbits = topic.trainingbits.all()
@@ -275,13 +275,17 @@ def trainingbits_overview(request, topic_slug=None, show_recommended=False):
         topic = None
         trainingbits = TrainingBit.objects.all()
 
+    # Show public/drafts
+    if request.user.has_perm('skills.add_trainingbit') and show_drafts:
+        trainingbits = trainingbits.filter(is_draft=True)
+    else:
+        # by default show the trainingbits that are _not_ drafts
+        # that is - show the public trainingbits
+        trainingbits = trainingbits.filter(is_draft=False)
 
     # Show recommended
     if show_recommended:
         trainingbits = trainingbits.filter(is_recommended=True)
-
-    # Filter out drafts
-    trainingbits = trainingbits.filter(is_draft__exact=False)
 
     trainingbits = sortable_helper(request, trainingbits)
     return render(request, 'skills/trainingbits_overview.html', {
@@ -289,6 +293,7 @@ def trainingbits_overview(request, topic_slug=None, show_recommended=False):
         'topics': Topic.objects.all(),
         'topic_chosen': topic,
         'showing_recommended': show_recommended,
+        'showing_drafts': show_drafts,
     })
 
 def trainingbit_cover(request, slug=None):
