@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 
 
+
 # Django forms
 from django.forms import ValidationError
 
@@ -16,7 +17,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Email
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+### import template renderer (to render email content)
+from django.template.loader import render_to_string
 
 # Python modules
 from datetime import datetime
@@ -316,23 +319,68 @@ def send_notification_email(sender, **kwargs):
         comment = kwargs['instance']
 
         is_reply = comment.parent is not None
-        author_has_email = comment.author.email is not None and comment.author.email != ''
-        if is_reply and author_has_email:
-            print('Sending mail to: %s <%s>' % (comment.parent.author.username,  comment.parent.author.email))
+        try:
+            author_has_email = comment.author.email is not None and comment.author.email != ''
+        except:
+            author_has_email = False
 
-            # From: http://stackoverflow.com/a/8817935/118608
-            from django.contrib.sites.models import get_current_site
-            request = None
-            full_url = ''.join(['http://', get_current_site(request).domain, comment.get_absolute_url()])
-            #'Click here to see the comment %s' % full_url,
+        if not author_has_email:
+            # No reason to do anything if the guy doesn't have a phone
+            # ... email. I mean email!
+            return
 
-            email_subject = 'You got a reply on your comment on Global Change Lab'
-            email_body = '%s just commented on your comment on %s!\r\n\r\n%s' % (comment.author.username, comment.project.name, full_url)
-            email_from = 'Global Change Lab <hello@globalchangelab.org>'
+        # From: http://stackoverflow.com/a/8817935/118608
+        from django.contrib.sites.models import get_current_site
+        request = None
+        domain_url = 'http://' + get_current_site(request).domain
+        full_url = domain_url +  comment.get_absolute_url()
+
+        if is_reply and comment.author != comment.parent.author:
+            email_subject = render_to_string('global_change_lab/email/comment_reply_subject.txt', {
+                'comment': comment,
+            })
+            # remove newlines from email subject
+            email_subject = ''.join(email_subject.split('\n'))
+
+            email_body_txt = render_to_string('global_change_lab/email/comment_reply_message.txt', {
+                'comment': comment,
+                'domain_url': domain_url,
+                'full_url': full_url,
+            })
+            email_body_html = render_to_string('global_change_lab/email/comment_reply_message.html', {
+                'comment': comment,
+                'domain_url': domain_url,
+                'full_url': full_url,
+            })
+
+            email_from = settings.DEFAULT_FROM_EMAIL
             email_to = [comment.parent.author.email]
 
-            send_mail(email_subject,
-                      email_body,
-                      email_from,
-                      email_to,
-                      fail_silently=False)
+            msg = EmailMultiAlternatives(email_subject, email_body_txt, email_from, email_to)
+            msg.attach_alternative(email_body_html, "text/html")
+            msg.send()
+
+        if not is_reply and comment.author != comment.project.author:
+            email_subject = render_to_string('global_change_lab/email/project_comment_subject.txt', {
+                'comment': comment
+            })
+            # remove newlines from email subject
+            email_subject = ''.join(email_subject.split('\n'))
+
+            email_body_txt = render_to_string('global_change_lab/email/project_comment_message.txt', {
+                'comment': comment,
+                'domain_url': domain_url,
+                'full_url': full_url,
+            })
+            email_body_html = render_to_string('global_change_lab/email/project_comment_message.html', {
+                'comment': comment,
+                'domain_url': domain_url,
+                'full_url': full_url,
+            })
+
+            email_from = settings.DEFAULT_FROM_EMAIL
+            email_to = [comment.project.author.email]
+
+            msg = EmailMultiAlternatives(email_subject, email_body_txt, email_from, email_to)
+            msg.attach_alternative(email_body_html, "text/html")
+            msg.send()

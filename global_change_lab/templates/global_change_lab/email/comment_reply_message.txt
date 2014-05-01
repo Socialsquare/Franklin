@@ -1,0 +1,5 @@
+{{ comment.author.username }} just commented on your comment on {{ comment.project.name }}!
+
+{{ full_url }}
+
+The Global Change Lab

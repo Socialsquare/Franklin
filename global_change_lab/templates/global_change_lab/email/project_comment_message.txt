@@ -1,0 +1,7 @@
+{{ comment.author.username }} just commented on your share: {{ comment.project.name }}
+
+Perhaps you want to check out what {{ comment.author.username }} have been sharing?
+{{ comment.author.get_absolute_url }}
+
+The Global Change Lab
+{# Do you want to unsubscribe to this notifation? UNSUBSCRIBE LINK #}

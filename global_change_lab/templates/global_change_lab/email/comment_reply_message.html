@@ -1,0 +1,11 @@
+<html>
+  <head>
+  </head>
+  <body>
+<a href="{{ domain_url }}{{ comment.author.get_absolute_url }}">{{ comment.author.username }}</a>
+just commented on your comment on
+<a href="{{ domain_url }}{{ comment.get_absolute_url }}">{{ comment.project.name }}</a>!<br>
+<br>
+The Global Change Lab<br>
+  </body>
+</html>
