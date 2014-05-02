@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load permissionif %}
-{% load user_skills %}
-{% load inlinetrans %}
 {% load i18n %}
+
+{% load permissionif %}
+{% load inlinetrans %}
+
+{% load gcl_utils %}
+{% load user_skills %}
 
 {% block scripts %}
 <script src="{% static 'global_change_lab/js/trainingbit_view.min.js' %}"></script>
@@ -104,7 +107,15 @@
     {% if form.errors %}
     <div id="project-form-errors" class="project-form-errors">
       <h4>{% itrans 'Oups! Your work could not be shared.' %}</h4>
-      {{ form.errors }}
+      {% if missing_required_fields %}
+      <p>
+        You need to add {{ missing_required_fields|listify:10 }} and share it again.
+      </p>
+      {% endif %}
+      {# form.errors #}
+      {{ form.link_url.errors }}
+      {{ form.video.errors }}
+      {{ form.image.errors }}
     </div>
     {% endif %}
   </div>

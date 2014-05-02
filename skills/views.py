@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 from django.contrib.contenttypes.models import ContentType
 
+from django.core.exceptions import ValidationError
+
 import django.contrib.messages as messages
 from permission.decorators import permission_required
 
@@ -407,6 +409,7 @@ def trainingbit_view(request, slug=None):
         raise Http404
 
     form = ProjectForm()
+    missing_required_fields = []
 
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
@@ -430,9 +433,20 @@ def trainingbit_view(request, slug=None):
 
             return HttpResponseRedirect(project.get_absolute_url())
         else:
+            # "Hack" in order to provide the desired error message
+            for name, field in form.fields.items():
+                try:
+                    field.validate(form[name].value())
+                except ValidationError as e:
+                    if e.code == 'required':
+
+                        if name == 'name':
+                            name = 'title'
+
+                        missing_required_fields.append(name)
+
             if request.is_ajax():
                 return HttpResponse(json.dumps(form.errors), content_type='application/json', status=404)
-
 
 
     return render(request, 'skills/trainingbit_view.html', {
@@ -441,6 +455,7 @@ def trainingbit_view(request, slug=None):
         'next': reverse('skills:trainingbit_view', kwargs={'slug': trainingbit.slug}),
         'back_url': reverse('skills:trainingbit_cover', kwargs={'slug': trainingbit.slug}),
         'form': form,
+        'missing_required_fields': missing_required_fields,
     })
 
 @csrf_protect

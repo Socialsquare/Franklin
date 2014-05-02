@@ -33,3 +33,23 @@ def pretty_timesince(value):
         return match.group(1) + ' ago'
     else:
         return t_str
+
+
+# From: http://stackoverflow.com/a/6887723/118608
+useserialcomma = True
+
+@register.filter
+def listify(values, maxitems=4):
+    sercomma = ',' if useserialcomma else ''
+    l = len(values)
+    if l == 0:
+        return ''
+    elif l == 1:
+        return values[0]
+    elif l == 2:
+        return values[0] + ' and ' + values[1]
+    elif l <= maxitems:
+        return ', '.join(values[:l-1]) + sercomma + ' and ' + values[-1]
+    else:
+        andmoretxt = ' and %d more' % (l - maxitems)
+        return ', '.join(values[:maxitems]) + andmoretxt
