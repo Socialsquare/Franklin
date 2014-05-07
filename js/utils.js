@@ -1,3 +1,10 @@
+if (window.console === undefined) {
+    window.console = {
+        log: function(string) {},
+        err: function(string) {}
+    };
+}
+
 
 var sendMessage = function(msg, class_attr, duration) {
   this.$messages = this.$messages || $('#messages');
