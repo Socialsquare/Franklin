@@ -65,6 +65,13 @@ $left-margin: rem-calc(20px);
 
 .cover-description {
   padding-left: $left-margin;
+  padding-right: $left-margin;
+}
+
+.row {
+     h2 {
+        margin-left: $left-margin;
+     }
 }
 
 .gcl-column.sidebar {
