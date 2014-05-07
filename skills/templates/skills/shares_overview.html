@@ -20,10 +20,12 @@
 {% endblock %}
 
 {% block javascript_extra %}
-$('#masonry-container').masonry({
-  itemSelector: '.project-column',
-  gutter: '.masonry-gutter',
-  stamp: '.stamp'
+$(document).ready(function() {
+  $('#masonry-container').masonry({
+    itemSelector: '.project-column',
+    gutter: '.masonry-gutter',
+    stamp: '.stamp'
+  });
 });
 
 var updateMasonry = function() {
@@ -44,9 +46,14 @@ $('#load-more').click(function(e) {
     success: function(data) {
       for (var i = 0; i < data.html_projects.length; i++) {
         var $elem = $(data.html_projects[i]);
-        $('#masonry-container').masonry().append($elem).masonry('appended', $elem);
+        $('#masonry-container').masonry().append($elem);
+        $elem.find('img.project-image').load(function() {
+          {# $('#masonry-container').masonry('layoutItems', $elem, false); #}
+          $('#masonry-container').masonry('layout');
+        });
+        $('#masonry-container').masonry('appended', $elem);
       }
-      $('#masonry-container').masonry();
+
       for (var i = 0; i < data.html_comments.length; i++) {
         $('#comments-container').append(data.html_comments[i]);
       }
