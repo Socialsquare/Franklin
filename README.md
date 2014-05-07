@@ -77,8 +77,8 @@ Database migrations (using South)
 Initially (when you start your project) you should run the following commands:
 
     > ./manage.py syncdb
-    > ./manage.py schemamigration skills --initial
     > ./manage.py migrate skills
+    > ./manage.py migrate
 
 When you change your models the database will have to be updated.
 You first create a migration
@@ -88,6 +88,16 @@ You first create a migration
 And then apply it:
 
     > ./manage.py migrate skills
+
+Running it
+----------
+Create a super user with
+
+    > ./manage.py createsuperuser
+
+Run the app with
+
+    > ./manage.py runserver
 
 That's it! Good luck :o)
 
