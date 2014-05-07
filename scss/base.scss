@@ -292,3 +292,9 @@ footer {
   }
 
 }
+
+  @media #{$small-up} {
+    #content {
+      padding: rem-calc(20px);
+    }
+  }
