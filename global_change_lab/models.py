@@ -184,7 +184,7 @@ class SiteConfiguration(SingletonModel):
     analytics_code = models.TextField(help_text='Here you should paste the tracking code from Google Analytics, Clicky or another web traffic analysis platform. Including the &lt;script&gt; tags.')
 
     def __unicode__(self):
-        return u"Site Configuration (Google Analytics)"
+        return "Site Configuration (Google Analytics)"
 
     class Meta:
         verbose_name = "Site Configuration"
