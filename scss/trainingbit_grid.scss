@@ -88,7 +88,8 @@ li.trainingbit {
   div.description {
     height: rem-calc(133px);
     // width: $width;
-
+    overflow: hidden;
+    
     h6 {
       color: $gcl-red;
       margin-bottom: 0;

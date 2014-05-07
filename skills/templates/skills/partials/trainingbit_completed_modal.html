@@ -29,7 +29,7 @@
 {% if suggested_trainingbits %}
 {% url 'profile' as profile_url %}
 <p>{% blocktrans %}You want to do another training bit? We found these for you. You can also go to <a class="red" href="{{ profile_url }}">your profile</a> to see your current progress.{% endblocktrans %}</p>
-<div style="width: 60rem; margin-left: auto; margin-right: auto;">
+<div style="width: 100%; margin-left: auto; margin-right: auto;">
   {% include 'partials/trainingbits_grid.html' with trainingbits=suggested_trainingbits hide_part_of=True extra_classes='medium' %}
 </div>
 {% else %}
@@ -48,7 +48,7 @@
 {% comment %}
 {% if completed_skills %}
   <h4>Congratulations with completing this|these skill(s):
-  <div style="width: 60rem; margin-left: auto; margin-right: auto;">
+  <div style="width: 100%; margin-left: auto; margin-right: auto;">
   {% include 'skills/partials/skill_list_small.html' with skills=completed_skills hide_part_of=True extra_classes='medium' %}
   </div>
 {% endif %}
