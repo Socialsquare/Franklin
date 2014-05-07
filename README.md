@@ -89,6 +89,16 @@ And then apply it:
 
     > ./manage.py migrate skills
 
+Running it
+----------
+Create a super user with
+
+    > ./manage.py createsuperuser
+
+Run the app with
+
+    > ./manage.py runserver
+
 That's it! Good luck :o)
 
 SQLite
