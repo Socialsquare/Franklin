@@ -293,8 +293,8 @@ footer {
 
 }
 
-  @media #{$small-up} {
-    #content {
-      padding: rem-calc(20px);
-    }
+@media #{$small-only} {
+  #content {
+    padding: rem-calc(20px);
   }
+}
