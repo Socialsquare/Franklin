@@ -118,14 +118,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_admin(self):
-        return self.is_staff or self.groups.filter(name='Admins')
+        return self.groups.filter(name='Admins') or self.is_superuser
 
     # is_staff = models.BooleanField()
     @property
     def is_staff(self):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
-        return self.is_superuser
+        return self.is_admin or self.is_trainer
 
     def get_absolute_url(self):
         return reverse('profile', args=[self.id])
@@ -154,7 +154,7 @@ class UserInfo(models.Model):
 
     # Content
     sex = models.CharField(max_length=20, choices=SEXES, blank=False)
-    country = CountryField()
+    country = CountryField(null=True)
     birthdate = models.DateField(null=True)
     organization = models.CharField(max_length=15, choices=ORGANISATION_TYPES, blank=False)
 

@@ -13,10 +13,13 @@
 {% block content %}
 {# Edit skill button #}
 <div class="page-buttons">
-  {% permission request.user has 'page.edit' %}
+  {% permission request.user has 'flatpages.change_flatpage' %}
+    {% comment %}
     {% if not request.GET.edit %}
     <a href="?edit=true" class="button info">Edit page</a>
     {% endif %}
+    {% endcomment %}
+    <a href="{% url 'admin:flatpages_flatpage_change' flatpage.pk %}" class="button info">Edit page</a>
   {% endpermission %}
 
   {# Delete skill button #}
