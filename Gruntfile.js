@@ -101,7 +101,8 @@ module.exports = function(grunt) {
             // modernizr in conjunction with
             // <meta name="viewport" content="width=device-width, initial-scale=1.0">
             // in <head> is need for resizing the page for iPhone, Android etc.
-            'bower_components/foundation/js/vendor/modernizr.js',                       // 11 KiB
+            //'bower_components/foundation/js/vendor/modernizr.js',                       // 11 KiB
+            'bower_components/modernizr/modernizr.js',                                  // 11 KiB
             'js/utils.js',
           ]
         }

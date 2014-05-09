@@ -3,13 +3,6 @@ var assert = require("assert"),
 	webdriver = require('selenium-webdriver'),
 	driver;
 
-test.before(function() {
-	driver = new webdriver.Builder().
-		usingServer("http://localhost:9515/").
-		withCapabilities(webdriver.Capabilities.chrome()).
-		build();
-});
-
 function randomString() {
 	var randomness = Math.round(Math.random() * (99999-10000) + 10000); // [10000;99999]
 	return new String(randomness);
@@ -17,15 +10,10 @@ function randomString() {
 
 var admin_username = "admin";
 var admin_password = "never-use-this-in-production";
+var regular_username = "regular";
+var regular_password = "never-use-this-in-production";
 var training_bit_imagepath = "/home/kraen/Billeder/bibtekkonf.jpg";
 
-test.after(function() {
-	driver.quit();
-});
-
-var randomness = randomString();
-var regular_username = "john-doe"+randomness;
-var regular_password = randomness +":"+ randomness;
 
 function signOut() {
 	// Sign out
@@ -33,158 +21,105 @@ function signOut() {
 	driver.findElement(webdriver.By.linkText('Sign out')).click();
 }
 
-test.describe('Signing up a user', function() {
+function signIn() {
+	// Go to the login page.
+	driver.get("http://localhost:8000/user/login/");
+	driver.findElement(webdriver.By.name('login')).sendKeys(regular_username);
+	driver.findElement(webdriver.By.name('password')).sendKeys(regular_password);
+	driver.findElement(webdriver.By.css('button[type=submit]')).click();
+}
 
-	test.it('Navigating to the frontpage should show the frontpage.', function() {
-		driver.get("http://127.0.0.1:8000/");
+test.before(function() {
+	driver = new webdriver.Builder().
+		usingServer("http://localhost:9515/").
+		withCapabilities(webdriver.Capabilities.chrome()).
+		build();
+	driver.manage().window().maximize();
+	signIn();
+});
 
-		driver.getTitle().then(function(title) {
-			assert.equal("Global Change Lab", title);
-		});
+test.after(function() {
+	driver.quit();
+});
 
-		var announcement = driver.findElement(webdriver.By.className('announcement'));
-		announcement.getText().then(function(text) {
-			assert.notEqual(text.indexOf("CHANGE"), -1);
-			assert.notEqual(text.indexOf("BIT BY BIT"), -1);
-		});
-	
-	});
+/*
+test.describe('Share a bit', function() {
 
 	test.it('Clicking the sign up on the frontpage should take one to the signup page.', function() {
-	
-		var signUpButton = driver.findElement(webdriver.By.linkText('SIGN UP'));
+		signIn();
 
-		signUpButton.click();
-
-		var header = driver.findElement(webdriver.By.className('column-header'));
-
-		header.getText().then(function(title) {
-			assert.equal("Sign up for a Global Change Lab account", title);
-		});
-
-		driver.findElement(webdriver.By.name('email')).sendKeys("kh+"+randomness+"@bitblueprint.com");
-		driver.findElement(webdriver.By.name('username')).sendKeys(regular_username);
-		driver.findElement(webdriver.By.name('password1')).sendKeys(regular_password);
-		driver.findElement(webdriver.By.name('password2')).sendKeys(regular_password);
-		driver.findElement(webdriver.By.name('terms')).click();
-
-		driver.findElement(webdriver.By.css('button[type=submit]')).click();
-
-		// When the user has been created it is greeted.
-		driver.findElement(webdriver.By.id('new-user-greeter')).getText().then(function(text) {
-			assert.notEqual(text.indexOf(regular_username), -1);
-		});
-
-		signOut();
-
-	});
-});
-
-var skill_name = "Test Skill "+randomString();
-var training_bit_names = [];
-
-test.describe('A superuser can login and create shareable content.', function() {
-
-	test.it('A superuser can login.', function() {
-		// Go to the login page.
-		driver.findElement(webdriver.By.id('logged-in-menu')).click();
-		driver.findElement(webdriver.By.name('login')).sendKeys(admin_username);
-		driver.findElement(webdriver.By.name('password')).sendKeys(admin_password);
-		driver.findElement(webdriver.By.css('button[type=submit]')).click();
-	});
-
-	test.it('A superuser can create a skill.', function() {
-		// Go to the login page.
-		driver.findElement(webdriver.By.linkText('TRAINER DASHBOARD')).click();
-		driver.findElement(webdriver.By.linkText('ADD NEW SKILL')).click();
-
-		driver.findElement(webdriver.By.name('name')).sendKeys(skill_name);
-		driver.findElement(webdriver.By.name('description')).sendKeys("The description of the "+skill_name);
-		driver.findElement(webdriver.By.css('input[type=radio][name=is_draft][value=False]')).click();
-		driver.findElement(webdriver.By.css('button[type=submit]')).click();
-	});
-
-	test.it('A superuser can create a couple of training bits.', function() {
-		// Create three random training bits.
-		for(var i = 0; i < 3; i++) {
-			driver.findElement(webdriver.By.linkText('TRAINER DASHBOARD')).click();
-			driver.findElement(webdriver.By.linkText('ADD NEW TRAINING BIT')).click();
-			var randomness = randomString();
-			var name = "Test training bit "+randomness;
-			training_bit_names.push(name);
-			driver.findElement(webdriver.By.name('name')).sendKeys(name);
+		for(var i = 0; i < 10; i++) {
+			driver.get('http://localhost:8000/trainingbit/1/start');
+			// TODO: Test what happens if the name is not unique? (I've seen it fail.)
+			driver.findElement(webdriver.By.name('name')).sendKeys("Test share title " + randomString());
+			driver.findElement(webdriver.By.name('content')).sendKeys("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 			driver.findElement(webdriver.By.name('image')).sendKeys(training_bit_imagepath);
-			driver.findElement(webdriver.By.name('description')).sendKeys("The description of the Test training bit "+randomness);
-			driver.findElement(webdriver.By.css('input[type=radio][name=is_draft][value=False]')).click();
-			driver.findElement(webdriver.By.css('button[type=submit]')).click();
+			driver.findElement(webdriver.By.className('share-button')).click();
 		}
 	});
-
-	test.it('A superuser can link the training bits to the skill.', function() {
-		driver.findElement(webdriver.By.linkText('TRAINER DASHBOARD')).click();
-		// Locate the skill.
-		driver.findElement(webdriver.By.linkText(skill_name)).click();
-		// Locate the element on which to drop the training bits.
-		var chosenList = driver.findElement(webdriver.By.id("trainingbits-chosen-list"));
-		// Create three random training bits.
-		for(var n in training_bit_names) {
-			var name = training_bit_names[n];
-			var bitElement = driver.findElement(webdriver.By.xpath("//span[text()='" +name+ "']"));
-			
-			new webdriver.ActionSequence(driver).
-				dragAndDrop(bitElement, chosenList).
-				perform();
-		}
-		driver.findElement(webdriver.By.css('button[type=submit]')).click();
-	});
-
-	test.it('An admin can sign out.', function() {
-		signOut();
-	});
-
 });
+*/
 
-test.describe('A regular user I can login and share content.', function() {
+function ensureNoOverlaps(elements) {
+		var bounding_boxes = [];
+		// A refresh breaks the grid.
+		for(s in elements) {
+			bounding_boxes[s] = {};
+			var share = elements[s];
+			var appendLocation = (function(s) { return function(location) {
+				bounding_boxes[s].location = location;
+			} })(s);
+			var appendSize = (function(s) { return function(size) {
+				bounding_boxes[s].size = size;
+			} })(s);
+			share.getLocation().then(appendLocation);
+			share.getSize().then(appendSize);
+		}
+		driver.wait(function() {
+			for(e in elements) {
+				if (!bounding_boxes[e].location || !bounding_boxes[e].size)
+					return false;
+				return true;
+			}
+			// All locations and sizes are known.
+		}, 1000).then(function() {
+			var no_overlaps = true;
+			for(b in bounding_boxes) {
+				var box = bounding_boxes[b];
+				for(a in bounding_boxes) {
+					if(b === a) {
+						continue; // Don't compare with itself.
+					}
+					var anotherBox = bounding_boxes[a];
+					// box is to the left of another box.
+					var isLeftOf = box.location.x + box.size.width < anotherBox.location.x,
+						isRightOf = box.location.x > anotherBox.location.x + anotherBox.size.width,
+						isAbove = box.location.y + box.size.height < anotherBox.location.y,
+						isBelow = box.location.y > anotherBox.location.y + anotherBox.size.height;
+					if(!isLeftOf && !isRightOf && !isAbove && !isBelow) {
+						no_overlaps = false;
+						console.error("Box "+b+" is overlapping box "+a);
+					}
 
-	test.it('A regular user can login.', function() {
-		// Go to the login page.
-		driver.findElement(webdriver.By.id('logged-in-menu')).click();
-		driver.findElement(webdriver.By.name('login')).sendKeys(regular_username);
-		driver.findElement(webdriver.By.name('password')).sendKeys(regular_password);
-		driver.findElement(webdriver.By.css('button[type=submit]')).click();
-	});
-
-	test.it('A regular user can locate a skill created by the admin.', function() {
-		// Go to the login page.
-		driver.findElement(webdriver.By.linkText('SKILLS')).click();
-		driver.findElement(webdriver.By.linkText(skill_name.toUpperCase())).click();
-	});
-
-	test.it('A regular user can start a skill.', function() {
-		driver.findElement(webdriver.By.linkText('START THIS SKILL')).click();
-		driver.findElement(webdriver.By.className('close-reveal-modal')).click();
-	});
-
-	for(var n in training_bit_names) {
-		var bit_name = training_bit_names[n];
-		driver.findElement(webdriver.By.linkText(bit_name)).click();
+				}
+			}
+			assert.equal(no_overlaps, true);
+		});
 	}
 
-});
+// Check that no two shares overlap on the /shares page.
+test.describe('The ability to see all shares without overlapping.', function() {
 
-
-test.describe('The "Shares" page shouldn´t have elements stacking ontop of each other.', function() {
-
-	test.it('Should be the case that all elements on the page clears each other.', function() {
-	
-		driver.get("http://127.0.0.1:8000/");
-		var signUpButton = driver.findElement(webdriver.By.linkText('TRAINER DASHBOARD'));
-		/*
-		var searchBox = driver.findElement(webdriver.By.name('q'));
-		searchBox.sendKeys('webdriver');
-		searchBox.getAttribute('value').then(function(value) {
-			assert.equal(value, 'webdriver');
-		});
-		*/
+	test.it('Is not possible for two shares to overlap.', function() {
+		//for(var i = 0; i < 10; i++) { // Try a couple of times.
+		driver.get('http://localhost:8000/shares');
+		driver.sleep(500);
+		driver.navigate().refresh();
+		driver.sleep(500);
+		driver.findElements(webdriver.By.className("project")).then(ensureNoOverlaps);
+		// Load more.
+		driver.findElements(webdriver.By.linkText("LOAD MORE SHARES")).then(ensureNoOverlaps);
+		driver.findElements(webdriver.By.className("project")).then(ensureNoOverlaps);
+		//};
 	});
 });

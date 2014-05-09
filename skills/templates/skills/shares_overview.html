@@ -20,17 +20,19 @@
 {% endblock %}
 
 {% block javascript_extra %}
-$(document).ready(function() {
-  $('#masonry-container').masonry({
-    itemSelector: '.project-column',
-    gutter: '.masonry-gutter',
-    stamp: '.stamp'
-  });
-});
 
 var updateMasonry = function() {
   $('#masonry-container').masonry();
 };
+
+$(document).ready(function() {
+  // Initialize the masonry and update it when images loads.
+  $('#masonry-container').masonry({
+    itemSelector: '.project-column',
+    gutter: '.masonry-gutter',
+    stamp: '.stamp'
+  }).find('img').on('load', updateMasonry);
+});
 
 $(window).on('resize', $.throttle(250, updateMasonry) );
 
@@ -46,11 +48,8 @@ $('#load-more').click(function(e) {
     success: function(data) {
       for (var i = 0; i < data.html_projects.length; i++) {
         var $elem = $(data.html_projects[i]);
-        $('#masonry-container').masonry().append($elem);
-        $elem.find('img.project-image').load(function() {
-          {# $('#masonry-container').masonry('layoutItems', $elem, false); #}
-          $('#masonry-container').masonry('layout');
-        });
+        // Update the masonry when images load.
+        $elem.appendTo('#masonry-container').find('img').on('load', updateMasonry);
         $('#masonry-container').masonry('appended', $elem);
       }
 
@@ -62,4 +61,5 @@ $('#load-more').click(function(e) {
     }
   });
 });
+
 {% endblock %}
