@@ -15,9 +15,9 @@
 
   <div class="metadata-fat">
     <div class="triangle"></div>
-    <div class="profile-picture" style="background-image: url({{ comment.author.getImage }})"></div>
     <div class="text">
-      comment by <a href="{% url 'profile' comment.author.id %}">{{ comment.author.username }}</a>
+      <div class="profile-picture" style="background-image: url({{ comment.author.getImage }})"></div>
+      comment by <a href="{% url 'profile' comment.author.id %}" title="{{ comment.author.username }}">{{ comment.author.username|truncatechars:17 }}</a>
       {{ comment.created_at|pretty_timesince }}<br>
       {% if show_project %}
       on <a href="{{ comment.project.get_absolute_url }}">{{ comment.project.name|truncatechars:30 }}</a>
