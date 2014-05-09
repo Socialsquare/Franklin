@@ -5,7 +5,7 @@
   {% include 'skills/partials/comment_entry_compact.html' %}
   <div class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
   {% for reply in comment.comment_set.all %}
-    {% include 'skills/partials/comment_entry_compact.html' with comment=reply %}
+    {% include 'skills/partials/comment_entry_compact.html' with comment=reply indented=True %}
   {% endfor %}
   </div>
 {% endfor %}

@@ -17,10 +17,19 @@
     <div class="triangle"></div>
     <div class="text">
       <div class="profile-picture" style="background-image: url({{ comment.author.getImage }})"></div>
-      comment by <a href="{% url 'profile' comment.author.id %}" title="{{ comment.author.username }}">{{ comment.author.username|truncatechars:17 }}</a>
-      {{ comment.created_at|pretty_timesince }}<br>
-      {% if show_project %}
-      on <a href="{{ comment.project.get_absolute_url }}">{{ comment.project.name|truncatechars:30 }}</a>
+      comment by 
+      <a href="{% url 'profile' comment.author.id %}" title="{{ comment.author.username }}">
+          {{ comment.author.username|truncatechars:15 }}
+      </a>
+      {% if indented %}
+        <br>
+      {% endif %}
+      {{ comment.created_at|pretty_timesince }}
+      {% if not indented %}
+        <br>
+        {% if show_project %}
+        on <a href="{{ comment.project.get_absolute_url }}">{{ comment.project.name|truncatechars:30 }}</a>
+        {% endif %}
       {% endif %}
     </div>
   </div>
