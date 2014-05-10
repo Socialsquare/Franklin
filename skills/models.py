@@ -165,6 +165,9 @@ class TrainingBit(TimedModel, AuthoredModel, SluggedModel):
     def get_absolute_url(self):
         return reverse('skills:trainingbit_cover', kwargs={'slug': self.slug})
 
+    def get_sanitized_json(self):
+        return self.json_content.replace("</script>", "</scr\"+\"ipt>");
+
     class Meta:
         ordering = ['-created_at']
 

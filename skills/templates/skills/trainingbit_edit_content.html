@@ -265,7 +265,7 @@ var EditorToolbar = Backbone.Model.extend({
 {% if trainingbit.json_content == '' %}
 var tb = { learn:[], act:[], share:[]};
 {% else %}
-var tb = {{ trainingbit.json_content|safe }};
+var tb = {{ trainingbit.get_sanitized_json|safe }};
 {% endif %}
 var tb_learn = new TrainingBit(
   tb['learn']

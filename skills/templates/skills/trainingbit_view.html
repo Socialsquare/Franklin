@@ -186,7 +186,8 @@ $('#share-video-accept').click(function(e) {
 {% include 'skills/partials/trainingbit_parts.html' %}
 
 <script>
-var tb = {{ trainingbit.json_content|safe }};
+var tb = {{ trainingbit.get_sanitized_json|safe }};
+{# var tb = {{ trainingbit.json_content|safe }}; #}
 {# var tb = {{ trainingbit.json_content|escapejs }}; #}
 {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/#escapejs #}
 
