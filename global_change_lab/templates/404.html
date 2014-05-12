@@ -81,13 +81,13 @@
       </div>
 
       {% block content %}
-      <h1>Page not found</h1>
+      <h1>Page not found (404)</h1>
       
       <div id="404-container" style="position: relative">
         <a href="/"><img src="{% static 'images/404.jpg' %}"></a>
 
         <h2 style="position: absolute; top: 40%; right: 5%; width: 35%;">
-          Go to <a href="/">the home page</a> or go out and change the world!
+          Go to <a href="/" style="text-decoration: underline">the home page</a> or go out and change the world!
         </h2>
       </div>
       {% endblock %}
