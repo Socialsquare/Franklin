@@ -280,12 +280,10 @@ def profile(request, user_id=None):
             primary_emailaddress = EmailAddress.objects.get_primary(userinfo)
             if primary_emailaddress and primary_emailaddress.email != userinfo.email:
                 primary_emailaddress.change(request, userinfo.email)
-    else:
-        form = UserInfoForm(instance=request.user)
-
 
     if user_id is None:
         profile_user = request.user
+        form = UserInfoForm(instance=request.user)
     else:
         profile_user = get_object_or_404(User, pk=user_id)
 
