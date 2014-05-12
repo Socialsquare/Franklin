@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.flatpages.admin import FlatPageAdmin, FlatpageForm
+from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.forms import UserChangeForm
 from global_change_lab.models import User, GCLFlatPage
 import django.forms as forms
@@ -57,7 +58,7 @@ class GCLFlatPageAdmin(FlatPageAdmin):
         self.fieldsets[0][1]['fields'] += ('show_in_footer', )
 
 
-# admin.site.unregister(FlatPage)
+admin.site.unregister(FlatPage)
 admin.site.register(GCLFlatPage, GCLFlatPageAdmin)
 
 from solo.admin import SingletonModelAdmin
