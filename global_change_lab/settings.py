@@ -262,6 +262,9 @@ LOGIN_URL = '/user/login'
 #       out the user
 ACCOUNT_LOGOUT_ON_GET = True
 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
 #ACCOUNT_ADAPTER = 'global_change_lab.adapters.AccountAdapter'
 
 TEMPLATE_CONTEXT_PROCESSORS += (
