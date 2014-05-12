@@ -12,10 +12,12 @@
 {% block content %}
 <div id="trainer-dashboard">
   <h1>Trainer Dashboard</h1>
-  <a class="button" href="{% url 'skills:trainingbit_new' %}">Add new training bit</a>
-  <a class="button" href="{% url 'skills:skill_new' %}">Add new skill</a>
-  <a class="button" href="#" data-reveal-id="topic-new-modal" data-reveal>Add new topic</a>
-  <a class="button" href="#" data-reveal-id="flatpage-new-modal" data-reveal>Add new page</a>
+  <div class="controls">
+    <a class="button" href="{% url 'skills:trainingbit_new' %}">Add new training bit</a>
+    <a class="button" href="{% url 'skills:skill_new' %}">Add new skill</a>
+    <a class="button" href="#" data-reveal-id="topic-new-modal" data-reveal>Add new topic</a>
+    <a class="button" href="#" data-reveal-id="flatpage-new-modal" data-reveal>Add new page</a>
+  </div>
   <hr>
   <div class="row">
     <div class="large-6 columns">
@@ -74,7 +76,21 @@
         {% endfor %}
         </ul>
         {% else %}
-        <div class="empty-message">You have no public skills</div>
+        <div class="empty-message">You have no topics</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="medium-6 columns">
+    <h3>Pages</h3>
+      <div class="list-container">
+        {% if flatpages %}
+        <ul id="flatpage-list" class="flatpage-list">
+        {% for flatpage in flatpages %}
+          <li><a href="{{ flatpage.get_absolute_url }}">{{ flatpage.title }}</a> <a href="{% url 'admin:global_change_lab_gclflatpage_change' flatpage.pk %}" class="button" data-id="{{ flatpage.pk }}">Edit</a></li>
+        {% endfor %}
+        </ul>
+        {% else %}
+        <div class="empty-message">You have no pages.</div>
         {% endif %}
       </div>
     </div>

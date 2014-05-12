@@ -4,6 +4,10 @@ from django import template
 
 from django.contrib.humanize.templatetags.humanize import naturaltime
 
+# For the GCL Flat Page template tag.
+from django.conf import settings
+from global_change_lab.models import GCLFlatPage
+
 register = template.Library()
 
 re_timesince = re.compile(r'(.+),.* ago')
@@ -53,3 +57,24 @@ def listify(values, maxitems=4):
     else:
         andmoretxt = ' and %d more' % (l - maxitems)
         return ', '.join(values[:maxitems]) + andmoretxt
+
+class GCLFlatpageNode(template.Node):
+    def __init__(self, context_name, only_in_footer=False):
+        self.context_name = context_name
+        self.only_in_footer = only_in_footer
+
+    def render(self, context):
+        flatpages = GCLFlatPage.objects.filter(sites__id=settings.SITE_ID)
+        if(self.only_in_footer):
+             flatpages = flatpages.filter(show_in_footer = True)
+        context[self.context_name] = flatpages
+        return ''
+
+@register.tag
+def get_footer_flatpages(parser, token):
+    bits = token.split_contents()
+    # The very last bit must be the context name
+    if bits[-2] != 'as':
+        raise template.TemplateSyntaxError(syntax_message)
+    context_name = bits[-1]
+    return GCLFlatpageNode(context_name, only_in_footer=True)

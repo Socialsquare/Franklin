@@ -1,4 +1,5 @@
 #trainer-dashboard {
+  position: relative;
 
   h1 {
     display: inline-block;
@@ -46,9 +47,19 @@
 
   a.button {
     @extend %blue-button;
-    float: right;
     margin-right: rem-calc(10px);
   }
+
+  .controls {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    a.button {
+      float: right;
+    }
+  }
+
   ul.icon-list, ol.icon-list {
     font-size: rem-calc(10px);
     margin-left: 0;
@@ -63,6 +74,7 @@
     }
   }
 }
+
 #flatpage-new-modal {
   #content-medium-editor {
     min-height: rem-calc(200px);
@@ -93,6 +105,18 @@ ul.topic-list {
       &:hover {
         color: black;
       }
+    }
+  }
+}
+
+ul.flatpage-list {
+  padding: 0.5em;
+  margin-left: 0px;
+  li {
+    list-style-type: none;
+    clear: both;
+    .button {
+      margin: 0.2em;
     }
   }
 }

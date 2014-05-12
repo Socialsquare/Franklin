@@ -5,13 +5,12 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 
 import django.contrib.messages as messages
-from django.contrib.flatpages.models import FlatPage
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 
 from skills.models import Skill, TrainingBit, Topic, Image, Comment, Project
 
-from global_change_lab.models import User
+from global_change_lab.models import User, GCLFlatPage
 from global_change_lab.forms import UserInfoForm
 
 from django.db.models import Q
@@ -125,6 +124,7 @@ def trainer_dashboard(request):
         'skills_public': skills_public,
         'skills_drafts': skills_drafts,
         'topics': Topic.objects.all(),
+        'flatpages': GCLFlatPage.objects.all(),
     })
 
 def statistics(request):
@@ -384,7 +384,7 @@ def user_upgrade_to_trainer(request, user_id):
 def page_new(request):
 
     if request.method == 'POST':
-        flatpage = FlatPage()
+        flatpage = GCLFlatPage()
         flatpage.url = '/' + request.POST['title'].replace(' ', '-').lower() + '/'
         flatpage.title = request.POST['title']
         flatpage.content = request.POST['content']
@@ -398,7 +398,7 @@ def page_new(request):
 
 @csrf_protect
 def page_edit(request, page_pk):
-    flatpage = get_object_or_404(FlatPage, pk=page_pk)
+    flatpage = get_object_or_404(GCLFlatPage, pk=page_pk)
 
     if request.method == 'POST':
         flatpage.content = request.POST['content']
@@ -413,7 +413,7 @@ def page_edit(request, page_pk):
 @csrf_protect
 def page_delete(request, page_pk):
 
-    page = get_object_or_404(FlatPage, pk=page_pk)
+    page = get_object_or_404(GCLFlatPage, pk=page_pk)
     page.delete()
     messages.success(request, 'Successfully deleted page "%s"' % page.title)
     return HttpResponseRedirect(reverse('trainer_dashboard'))

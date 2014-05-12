@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import UserManager
+from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
 
 from django.db import models
@@ -175,6 +176,13 @@ def get_or_create_userinfo(user):
 
 User.userinfo = property(get_or_create_userinfo)
 
+class GCLFlatPage(FlatPage):
+    show_in_footer = models.BooleanField(default=False)
+    class Meta:
+        verbose_name = "flat page"
+        verbose_name_plural = "flat pages"
+    def get_absolute_url(self):
+        return reverse('django.contrib.flatpages.views.flatpage', args=[self.url])
 
 from solo.models import SingletonModel
 

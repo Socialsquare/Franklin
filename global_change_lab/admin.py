@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.flatpages.admin import FlatPageAdmin, FlatpageForm
 from django.contrib.auth.forms import UserChangeForm
-from global_change_lab.models import User
+from global_change_lab.models import User, GCLFlatPage
+import django.forms as forms
 
 # see: http://stackoverflow.com/questions/16391467/customise-useradmin-model
 # and: http://stackoverflow.com/questions/15012235/using-django-auth-useradmin-for-a-custom-user-model
@@ -9,7 +11,6 @@ from global_change_lab.models import User
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = User
-
 
 class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
@@ -40,9 +41,24 @@ class CustomUserAdmin(UserAdmin):
     # Filters shown in admin
     list_filter = ('is_superuser', )
 
-
 admin.site.register(User, CustomUserAdmin)
 
+# Adding a show_in_footer field to the FlatPage form
+class GCLFlatPageForm(FlatpageForm):
+    show_in_footer = forms.BooleanField(required=False)
+    class Meta:
+        model = GCLFlatPage
+
+class GCLFlatPageAdmin(FlatPageAdmin):
+    form = GCLFlatPageForm
+
+    def __init__(self, *args, **kwargs):
+        super(FlatPageAdmin, self).__init__(*args, **kwargs)
+        self.fieldsets[0][1]['fields'] += ('show_in_footer', )
+
+
+# admin.site.unregister(FlatPage)
+admin.site.register(GCLFlatPage, GCLFlatPageAdmin)
 
 from solo.admin import SingletonModelAdmin
 from global_change_lab.models import SiteConfiguration
