@@ -10,6 +10,7 @@ __pycache__
 # ignore generated .css and .js files
 global_change_lab/static/global_change_lab/css
 global_change_lab/static/global_change_lab/js
+global_change_lab/static/poshytip
 global_change_lab/static/medium-editor
 
 # JC's symlink for less stress, more sanity and 0% rage
@@ -23,4 +24,4 @@ global_change_lab/template
 *~
 
 # who needs this anyway?!
-global_change_lab/static/
+# global_change_lab/static/
