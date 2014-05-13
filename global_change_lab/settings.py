@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     # 'rosetta',
     # 'translations',
     'inlinetrans',
+    'django_s3_collectstatic',
 
     'allauth',
     'allauth.account',
