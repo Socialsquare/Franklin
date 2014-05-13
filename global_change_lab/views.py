@@ -278,7 +278,7 @@ def profile(request, user_id=None):
             userinfo = form.save()
             # Update the primary email if changed!
             primary_emailaddress = EmailAddress.objects.get_primary(userinfo)
-            if(primary_emailaddress and primary_emailaddress.email is not userinfo.email):
+            if primary_emailaddress and primary_emailaddress.email != userinfo.email:
                 primary_emailaddress.change(request, userinfo.email)
     else:
         form = UserInfoForm(instance=request.user)

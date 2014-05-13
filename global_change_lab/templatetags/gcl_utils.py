@@ -65,7 +65,7 @@ class GCLFlatpageNode(template.Node):
 
     def render(self, context):
         flatpages = GCLFlatPage.objects.filter(sites__id=settings.SITE_ID)
-        if(self.only_in_footer):
+        if self.only_in_footer:
              flatpages = flatpages.filter(show_in_footer = True)
         context[self.context_name] = flatpages
         return ''
