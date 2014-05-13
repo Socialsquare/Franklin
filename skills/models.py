@@ -254,7 +254,7 @@ class Skill(TimedModel, AuthoredModel, SluggedModel):
     is_draft = models.BooleanField(default=True)
 
     def get_flag_image(self, user):
-        completed = user.has_completed_skill(self)
+        completed = user.is_authenticated() and user.has_completed_skill(self)
         if not completed and self.normal_flag_image:
             return self.normal_flag_image.url
         elif completed and self.completed_flag_image:
