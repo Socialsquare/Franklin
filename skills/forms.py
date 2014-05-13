@@ -36,10 +36,18 @@ class SkillForm(ModelForm):
         widget=widgets.Textarea(attrs={'placeholder': 'Describe the skill'}),
         error_messages={'required': 'You must fill out a description'},
     )
+    normal_flag_image = forms.ImageField(
+        widget=widgets.ClearableFileInput(),
+        required=False
+    )
+    completed_flag_image = forms.ImageField(
+        widget=widgets.ClearableFileInput(),
+        required=False
+    )
 
     class Meta:
         model = Skill
-        fields = ['name', 'description', 'is_draft']
+        fields = ['name', 'description', 'is_draft', 'normal_flag_image', 'completed_flag_image']
 
 
 class TrainingBitForm(ModelForm):

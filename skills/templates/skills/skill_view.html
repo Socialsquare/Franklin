@@ -36,11 +36,7 @@
 </div>
 <div id="skill-cover">
   <div class="skill-headline">
-    {% if skill in request.user.skills_completed.all %}
-    <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
-    {% else %}
-    <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
-    {% endif %}
+    <img src="{% skill_user_flag_image skill request.user %}" alt="Skill image">
     <div class="text-container">
     <h1>{{skill.name}}</h1>
   </div>

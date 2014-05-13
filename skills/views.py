@@ -204,10 +204,8 @@ def skill_edit(request, slug=None):
 
     # If something has been uploaded
     if request.method == 'POST':
-
-        form = SkillForm(request.POST, instance=skill)
+        form = SkillForm(request.POST, request.FILES, instance=skill)
         if form.is_valid():
-
             skill = form.save(commit=False)
             try:
                 hasattr(skill, 'author')

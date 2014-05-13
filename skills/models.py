@@ -247,8 +247,22 @@ class Skill(TimedModel, AuthoredModel, SluggedModel):
     likes = generic.GenericRelation(Like)
 
     # Flags
+    normal_flag_image = models.ImageField(upload_to='skill-flags', null=True, blank=True)
+    completed_flag_image = models.ImageField(upload_to='skill-flags', null=True, blank=True)
+
     is_recommended = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=True)
+
+    def get_flag_image(self, user):
+        completed = user.has_completed_skill(self)
+        if not completed and self.normal_flag_image:
+            return self.normal_flag_image.url
+        elif completed and self.completed_flag_image:
+            return self.completed_flag_image.url
+        elif completed:
+            return '/static/images/skill-flag-red.png'
+        else:
+            return '/static/images/skill-flag-gray.png'
 
     def trainingbit_count(self):
         return self.trainingbits.filter(is_draft=False).count()

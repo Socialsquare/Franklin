@@ -1,14 +1,11 @@
 {% load staticfiles %}
 {% load i18n %}
+{% load user_skills %}
 <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-2 xlarge-block-grid-3 skill-list-view">
   {% for skill in skills %}
   <li class="row">
     <div class="skill-icon"> <!-- small-2 columns"> -->
-      {% if skill in request.user.skills_completed.all %}
-      <img src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
-      {% else %}
-      <img src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image">
-      {% endif %}
+      <img src="{% skill_user_flag_image skill request.user %}" alt="Skill image">
     </div>
     <div class="description"> <!--  small-10 columns"> -->
       <a href="{{ skill.get_absolute_url }}"><h2>{{skill.name}}</h2></a>

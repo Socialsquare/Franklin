@@ -47,6 +47,26 @@
       {% itrans "Add a description to the skill" %}
     </div>
   </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      {{ form.normal_flag_image }}
+      {{ form.normal_flag_image.errors }}
+    </div>
+    <div class="help-text">
+      <h6>Normal flag (optional)</h6>
+      {% itrans "Add an image to use as flag associated to this skill. This is show on a skill that the user has <em>not</em> completed. It has to be 91px wide and 155px high." %}
+    </div>
+  </div>
+  <div class="input-field-row">
+    <div class="input-field">
+      {{ form.completed_flag_image }}
+      {{ form.completed_flag_image.errors }}
+    </div>
+    <div class="help-text">
+      <h6>Completed flag (optional)</h6>
+      {% itrans "Add an image to use as flag associated to this skill. This is show on a skill that the user has completed. It has to be 91px wide and 155px high." %}
+    </div>
+  </div>
 
   <div class="input-field-row">
     <div class="input-field">

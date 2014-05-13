@@ -2,6 +2,7 @@
 {% load gcl_utils %}
 {% load i18n %}
 {% load inlinetrans %}
+{% load user_skills %}
 
 {# Content of the "completed trainingbit" modal on the `trainingbit_view` page #}
 <h3>{% itrans 'Well done! You have completed' %}</h3> <h2 class="trainingbit-title">{{ trainingbit.name }}</h2>
@@ -13,11 +14,7 @@
     {% if forloop.last and forlopp.revcounter != 0 %} and {% endif %}
     {% if not forloop.last and not forloop.first %}, {% endif %}
 
-    {# {% if skill in request.user.skills_completed.all %} #}
-    <img class="skill-flag" src="{% static 'images/skill-flag-red.png' %}" alt="Skill image">
-    {# {% else %} #}
-    {# <img class="skill-flag" src="{% static 'images/skill-flag-gray.png' %}" alt="Skill image"> #}
-    {# {% endif %} #}
+    <img class="skill-flag" src="{% skill_user_flag_image skill request.user %}" alt="Skill image">
 
     {{ skill.name }}
   {% endfor %}
