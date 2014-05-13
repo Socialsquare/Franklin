@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load staticfiles %}
 {# <ul class="trainingbit-list-view small-block-grid-1 medium-block-grid-3 large-block-grid-4"> #}
 <ul class="trainingbit-list-view {{ extra_classes }}">
 {% for trainingbit in trainingbits %}
@@ -9,7 +10,7 @@
         <div class="label">{{ trainingbit.get_label_display }}</div>
       </div>
       {% if trainingbit in request.user.trainingbits_completed.all %}
-      <img class="completed-icon" src="/static/images/checkmark.png">
+      <img class="completed-icon" src="{% static 'images/checkmark.png' %}">
       {% endif %}
     </div>
     {% if hide_description %}

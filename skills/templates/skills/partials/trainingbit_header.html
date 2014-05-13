@@ -1,4 +1,4 @@
-
+{% load staticfiles %}
 <div id="trainingbit-cover" style="background-image: url({{trainingbit.getImage}})">
   {% if back_url %}
   <a class="back-button" href="{{ back_url }}">
@@ -10,6 +10,6 @@
     <h1>{{ trainingbit.name }}</h1>
   </div>
   {% if trainingbit in request.user.trainingbits_completed.all %}
-  <img class="completed-icon" src="/static/images/checkmark.png">
+  <img class="completed-icon" src="{% static 'images/checkmark.png' %}">
   {% endif %}
 </div>

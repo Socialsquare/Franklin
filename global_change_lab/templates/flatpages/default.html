@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load permissionif %}
-
+{% load staticfiles %}
 
 {% permission request.user has 'page.edit' %}
 {% if request.GET.edit%}
 {% block scripts %}
-  <link rel="stylesheet" href="/static/medium-editor/medium-editor.css"></script>
+  <link rel="stylesheet" href="{% static 'medium-editor/medium-editor.css' %}"></script>
 {% endblock %}
 {% endif %}
 {% endpermission %}
@@ -42,7 +42,7 @@
       <button>Save</button>
     </form>
 
-    <script src="/static/global_change_lab/js/trainer.min.js"></script>
+    <script src="{% static 'global_change_lab/js/trainer.min.js' %}"></script>
     <script>
       {# var $this = $('#content-editor-textarea'); #}
       {# var styles = $this.attr('style'); #}

@@ -2,9 +2,10 @@
 
 {% load socialaccount %}
 {% load inlinetrans %}
+{% load staticfiles %}
 
 {% block scripts %}
-<script src="/static/global_change_lab/js/foundation.orbit.min.js"></script>
+<script src="{% static 'global_change_lab/js/foundation.orbit.min.js' %}"></script>
 {% endblock %}
 
 {% block content %}
