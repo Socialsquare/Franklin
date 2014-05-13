@@ -107,14 +107,15 @@ try:
                              INSTALLED_APPS_EXTRA, DEFAULT_FILE_STORAGE, \
                              EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, \
                              AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, \
-                             STATICFILES_STORAGE, STATIC_URL, STATIC_ROOT, \
+                             STATICFILES_STORAGE, STATIC_URL, \
                              ALLOWED_HOSTS
 
     LOCALHOST = False
     INSTALLED_APPS += INSTALLED_APPS_EXTRA
-except ImportError:
+except ImportError as import_error:
     import warnings
     warnings.warn('Credentials not found, using `localhost` default setup')
+    warnings.warn('Exception: %s' % import_error)
     LOCALHOST = True
     DEBUG=True
     TEMPLATE_DEBUG = True
