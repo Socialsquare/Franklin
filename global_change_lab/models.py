@@ -40,7 +40,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # The error message on duplicate unique values cannot be set in forms
     # https://code.djangoproject.com/ticket/8913
     email = models.CharField(max_length=100, blank=True)
-    image = models.ImageField(upload_to='trainingbits', null=True, blank=True)
+    image = models.ImageField(upload_to='user-images', null=True, blank=True)
     description = models.TextField(blank=True)
 
     # Relations
