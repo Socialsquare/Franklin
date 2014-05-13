@@ -44,7 +44,15 @@
 
   <a class="close-reveal-modal">&#215;</a>
 </div>
-
+{% if request.POST and not form.is_valid %}
+  <script>
+  (function ($) {
+    $(document).ready(function () {
+      $(".button[data-reveal-id=edit-modal]").click();
+    });
+  })(jQuery);
+  </script>
+{% endif %}
 
 
 <div class="row" id="profile-bar">
