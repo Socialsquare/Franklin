@@ -9,6 +9,7 @@ from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 
 from skills.models import Skill, TrainingBit, Topic, Image, Comment, Project
+from allauth.account.models import EmailAddress
 
 from global_change_lab.models import User, GCLFlatPage
 from global_change_lab.forms import UserInfoForm
@@ -273,9 +274,12 @@ def profile(request, user_id=None):
 
     if request.POST:
         form = UserInfoForm(request.POST, instance=request.user)
-
         if form.is_valid():
             userinfo = form.save()
+            # Update the primary email if changed!
+            primary_emailaddress = EmailAddress.objects.get_primary(userinfo)
+            if(primary_emailaddress and primary_emailaddress.email is not userinfo.email):
+                primary_emailaddress.change(request, userinfo.email)
     else:
         form = UserInfoForm(instance=request.user)
 

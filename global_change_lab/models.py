@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import UserManager
 from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
+from django.db.models import signals
 
 from django.db import models
 from allauth.account.models import EmailAddress
@@ -24,8 +25,6 @@ class CustomUserManager(UserManager):
         user.set_password(password)
         user.save()
         return user
-
-
 
 class User(AbstractBaseUser, PermissionsMixin):
     # usertype = models.CharField(max_length=16, choices=USERTYPES, default='user')
@@ -106,7 +105,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def account_verified(self):
         if self.user.is_authenticated:
-            result = EmailAddress.objects.filter(email=self.user.email)
+            result = EmailAddress.objects.get_primary(self.user) 
+            #result = EmailAddress.objects.filter(email=self.user.email)
             if len(result):
                 return result[0].verified
         return False
@@ -136,6 +136,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.image.url
         else:
             return '/static/images/profile-picture-placeholder.png'
+
+#signals.post_save.connect(update_allauth_primary_email, sender=User)
 
 
 class UserInfo(models.Model):
