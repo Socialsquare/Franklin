@@ -3,6 +3,7 @@ from django.contrib.auth.models import UserManager
 from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
 from django.db.models import signals
+from django.templatetags.static import static
 
 from django.db import models
 from allauth.account.models import EmailAddress
@@ -135,7 +136,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.image:
             return self.image.url
         else:
-            return '/static/images/profile-picture-placeholder.png'
+            return static('images/profile-picture-placeholder.png')
 
 #signals.post_save.connect(update_allauth_primary_email, sender=User)
 

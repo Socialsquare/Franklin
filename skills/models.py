@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
-
+from django.templatetags.static import static
 
 
 # Django forms
@@ -157,7 +157,7 @@ class TrainingBit(TimedModel, AuthoredModel, SluggedModel):
         if self.image and self.image.url != '':
             return self.image.url
         else:
-            return '/static/images/trainingbit-cover-placeholder.png'
+            return static('images/trainingbit-cover-placeholder.png')
 
     def __str__(self):
         return self.name
@@ -260,9 +260,9 @@ class Skill(TimedModel, AuthoredModel, SluggedModel):
         elif completed and self.completed_flag_image:
             return self.completed_flag_image.url
         elif completed:
-            return '/static/images/skill-flag-red.png'
+            return static('images/skill-flag-red.png')
         else:
-            return '/static/images/skill-flag-gray.png'
+            return static('images/skill-flag-gray.png')
 
     def trainingbit_count(self):
         return self.trainingbits.filter(is_draft=False).count()
