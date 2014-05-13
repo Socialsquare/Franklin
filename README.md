@@ -143,3 +143,5 @@ In order to upload things from the bucket you need permissions to the actions:
     	"s3:PutObjectAcl",
     	"s3:PutObjectVersionAcl"
     ]
+
+For static files hosting on S3 you also need the `s3:DeleteObject` permission.

@@ -22,7 +22,6 @@ SITE_ID = 1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-TEMPLATE_DEBUG = True
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
@@ -106,7 +105,10 @@ try:
     from .credentials import SITE_ID, SECRET_KEY, DATABASES, \
                              INSTALLED_APPS_EXTRA, DEFAULT_FILE_STORAGE, \
                              EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, \
-                             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, ALLOWED_HOSTS
+                             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, \
+                             STATICFILES_STORAGE, STATIC_URL, STATIC_ROOT, \
+                             ALLOWED_HOSTS
+
     LOCALHOST = False
     INSTALLED_APPS += INSTALLED_APPS_EXTRA
 except ImportError:
@@ -114,6 +116,7 @@ except ImportError:
     warnings.warn('Credentials not found, using `localhost` default setup')
     LOCALHOST = True
     DEBUG=True
+    TEMPLATE_DEBUG = True
     ALLOWED_HOSTS = ['localhost']
     SECRET_KEY = 'localhost-very-secret'
     if os.getenv('GCL_USE_SQLITE'):
@@ -133,6 +136,8 @@ except ImportError:
                 # 'PASSWORD': 'k0Deword.',
             }
         }
+    STATIC_ROOT = os.path.join(os.getcwd(), 'static')
+    STATIC_URL = '/static/'
     MEDIA_ROOT = os.path.join(os.getcwd(), 'media')
     MEDIA_URL = '/media/'
 
@@ -163,8 +168,6 @@ DATETIME_FORMAT = 'N jS Y'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(os.getcwd(), 'static')
-STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
