@@ -20,7 +20,7 @@ SITE_ID = 1
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 TEMPLATE_LOADERS = (
@@ -113,6 +113,8 @@ except ImportError:
     import warnings
     warnings.warn('Credentials not found, using `localhost` default setup')
     LOCALHOST = True
+    DEBUG=True
+    ALLOWED_HOSTS = ['localhost']
     SECRET_KEY = 'localhost-very-secret'
     if os.getenv('GCL_USE_SQLITE'):
         DATABASES = {
