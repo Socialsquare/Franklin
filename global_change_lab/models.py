@@ -56,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Flags
     is_active = models.BooleanField(default=True)
+    has_been_welcomed = models.BooleanField(default=False)
 
     def is_taking_skill(self, skill):
         return skill in self.skills_in_progress.all()

@@ -43,6 +43,9 @@ def new_user_input_details(request):
 
         if form.is_valid():
             userinfo = form.save()
+            
+            request.user.has_been_welcomed = True
+            request.user.save()
 
             # request.user.userinfo = userinfo
 
@@ -419,7 +422,4 @@ def page_delete(request, page_pk):
     page.delete()
     messages.success(request, 'Successfully deleted page "%s"' % page.title)
     return HttpResponseRedirect(reverse('trainer_dashboard'))
-
     # return HttpResponseRedirect(reverse('django.contrib.flatpages.views.flatpage', args=[flatpage.url]))
-
-

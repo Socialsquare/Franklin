@@ -59,9 +59,8 @@
           <input type="checkbox" id="terms-checkbox" name="terms">
           <label for="terms-checkbox">
             <span class="terms">
-              {# Another possible url is: #}
-              {# {% url 'django.contrib.flatpages.views.flatpage' url='/terms' %} #}
-              I agree to the <a class="red" href="{% url 'terms' %}">Terms of Service</a> of Global Change Lab
+              I agree to the <a class="red" href="{% url 'django.contrib.flatpages.views.flatpage' url='/terms' %}">Terms of Service</a> of Global Change Lab <link: http://www.globalchangelab.org/pages/terms-of-service/>
+              {# I agree to the <a class="red" href="{% url 'terms' %}">Terms of Service</a> of Global Change Lab #}
             </span>
             {% if form.terms.errors %}
               <small class="error">{{ form.terms.errors.as_text }}</small>

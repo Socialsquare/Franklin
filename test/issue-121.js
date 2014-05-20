@@ -112,10 +112,23 @@ test.describe('The activation workflow', function() {
 		driver.findElement(webdriver.By.css('h1.red')).getText().then(function(text) {
 			assert( text === 'Welcome to Global Change Lab!', "the welcome message exists." );
 		});
+		driver.findElement(webdriver.By.css('.button.next')).click();
+		driver.findElement(webdriver.By.css('#id_sex_1')).click();
+		driver.findElement(webdriver.By.name('birthdate_0')).sendKeys('01');
+		driver.findElement(webdriver.By.name('birthdate_1')).sendKeys('1');
+		driver.findElement(webdriver.By.name('birthdate_2')).sendKeys('1337');
+
+		driver.findElement(webdriver.By.name('country')).sendKeys('o');
+		driver.findElement(webdriver.By.name('organization')).sendKeys('o');
+
+		driver.findElement(webdriver.By.name('description')).sendKeys('Some description.');
+		// Submit form.
+		driver.findElement(webdriver.By.css('button.button')).click();
+
 	})
 
 	test.it('redirects to the normal page when logging in a second time', function() {
-		driver.sleep(5000);
+		//driver.sleep(5000);
 		signOut();
 		signIn( regular_user.username, regular_user.password );
 		// Page contains the welcome message.
