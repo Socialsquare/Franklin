@@ -20,7 +20,7 @@ SITE_ID = 1
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
@@ -277,6 +277,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_ADAPTER = 'global_change_lab.allauth.AccountAdapter'
 
 #ACCOUNT_ADAPTER = 'global_change_lab.adapters.AccountAdapter'
 
