@@ -20,7 +20,7 @@ SITE_ID = 1
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
