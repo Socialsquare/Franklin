@@ -9,7 +9,6 @@ $left-margin: rem-calc(20px);
 
   position: relative;
 
-
   .back-button {
     display: inline-block;
     float: left;
@@ -73,10 +72,16 @@ $left-margin: rem-calc(20px);
 }
 
 .gcl-column.sidebar {
-  margin-left: 2.5%;
-  border-left: 1px solid $gcl-lightgray;
-  padding-left: 2.5%;
-  width: 32.5%;
+
+  @media #{$large-only} {
+    margin-left: 2.5%;
+    border-left: 1px solid $gcl-lightgray;
+    padding-left: 2.5%;
+    width: 32.5%;
+  }
+  @media #{$small-only}, #{$medium-only} {
+    width: 100%;
+  }
 
   &>div {
     clear: both;

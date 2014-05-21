@@ -83,6 +83,11 @@ body.trainer-interface {
 
 
 .top-bar {
+
+  @media #{$small-only}, #{$medium-only} {
+    padding: 0px 10px;
+  }
+
   // Logo
   a#gcl-logo {
     line-height: $topbar-height;
@@ -230,7 +235,7 @@ footer {
 
   .creative-commons-icons {
     position: absolute;
-    right: 0;
+    right: 0.5em;
     top: rem-calc(22px);
 
     .icon {
@@ -293,7 +298,7 @@ footer {
 
 }
 
-@media #{$small-only} {
+@media #{$small-only}, #{$medium-only} {
   #content {
     padding: rem-calc(20px);
   }
