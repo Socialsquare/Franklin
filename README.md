@@ -54,6 +54,10 @@ Step 7. South migrations
 Step 8. Try it out!
 
     > python manage.py runserver
+    
+(optional) Step 9. Create a superuser
+
+    > python manage.py createsuperuser
 
 You should now be able to see the site at <http://localhost:8000> :)
 
@@ -91,18 +95,6 @@ You first create a migration
 And then apply it:
 
     > ./manage.py migrate skills
-
-Running it
-----------
-Create a super user with
-
-    > ./manage.py createsuperuser
-
-Run the app with
-
-    > ./manage.py runserver
-
-That's it! Good luck :o)
 
 SQLite
 ------
