@@ -16,6 +16,7 @@ function randomString() {
 var REGULAR_USERNAME_PREFIX = "regular";
 var REGULAR_PASSWORD = "never-use-this-in-production";
 var MAIL_DIRECTORY = "/tmp/gcl-messages";
+var BASE_URL = "http://local.globalchangelab.org:8000/";
 
 function signOut() {
 	// Sign out
@@ -25,7 +26,7 @@ function signOut() {
 
 function signIn( username, password ) {
 	// Go to the login page.
-	driver.get("http://localhost:8000/user/login/");
+	driver.get(BASE_URL + "user/login/");
 	driver.findElement(webdriver.By.name('login')).sendKeys(username);
 	driver.findElement(webdriver.By.name('password')).sendKeys(password);
 	driver.findElement(webdriver.By.css('button[type=submit]')).click();
@@ -74,7 +75,7 @@ test.describe('The activation workflow', function() {
 		var email = REGULAR_USERNAME_PREFIX + "-" + randomString() + "@bitblueprint.com";
 		var username = REGULAR_USERNAME_PREFIX + "-" + randomString();
 		var password = REGULAR_PASSWORD;
-		driver.get("http://localhost:8000/user/signup/");
+		driver.get(BASE_URL + "user/signup/");
 		driver.findElement(webdriver.By.name('email')).sendKeys(email);
 		driver.findElement(webdriver.By.name('username')).sendKeys(username);
 		driver.findElement(webdriver.By.name('password1')).sendKeys(password);
