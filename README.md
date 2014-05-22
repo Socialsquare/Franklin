@@ -8,6 +8,9 @@ project.
 
 Getting started
 ---------------
+
+Global Change Lab uses the 3.4+ version of the Python interpreter, make sure you have this installed before proceeding.
+
 If you haven't already set up a virtual environment please see the
 **Virtual environment** section below.
 
