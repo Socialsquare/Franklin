@@ -68,7 +68,7 @@ If you don't already have virtualenv, install it with the command
 
 Then create the virtual environment in the folder `.venv`:
 
-    > virtualenv .venv
+    > virtualenv --python=python3.4 .venv
 
 And lastly activate the virtual environment:
 
