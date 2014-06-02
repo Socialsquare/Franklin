@@ -6,6 +6,9 @@ __pycache__
 /static
 /migrations
 
+# Ignoring configuration files.
+global_change_lab/settings_s3.py
+global_change_lab/settings_production.py
 
 # ignore generated .css and .js files
 global_change_lab/static/global_change_lab/css

@@ -18,9 +18,10 @@ BASEDIR = BASE_DIR # for compatibility with django-inlinetrans
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 SITE_ID = 1
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = True
+ALLOWED_HOSTS = ['localhost']
+SECRET_KEY = 'localhost-very-secret'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
@@ -30,9 +31,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
 )
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -79,9 +77,6 @@ INSTALLED_APPS = (
 
 )
 
-from S3 import CallingFormat
-AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
-
 # GZIP security issues
 # If you care about HTTPS security, you may want to disable HTTP GZIP compression
 # (which is provided by the django gzip middleware)
@@ -106,53 +101,31 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'global_change_lab.context_processors.fatfooter_data',
 )
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-try:
-    from .credentials import SITE_ID, SECRET_KEY, DATABASES, \
-                             INSTALLED_APPS_EXTRA, DEFAULT_FILE_STORAGE, \
-                             EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, \
-                             AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, \
-                             STATICFILES_STORAGE, STATIC_URL, \
-                             ALLOWED_HOSTS
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'database.sqlite3'),
+    }
+}
 
-    LOCALHOST = False
-    INSTALLED_APPS += INSTALLED_APPS_EXTRA
-except ImportError as import_error:
-    import warnings
-    warnings.warn('Credentials not found, using `localhost` default setup')
-    warnings.warn('Exception: %s' % import_error)
-    LOCALHOST = True
-    DEBUG=True
-    TEMPLATE_DEBUG = True
-    ALLOWED_HOSTS = ['localhost']
-    SECRET_KEY = 'localhost-very-secret'
-    if os.getenv('GCL_USE_SQLITE'):
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': os.path.join(BASE_DIR, 'database.sqlite3'),
-            }
+if os.getenv('GCL_USE_POSTGRES'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'USER': 'web',
+            'HOST': 'localhost',
+            'NAME': 'GlobalChangeLab',
+            # 'PASSWORD': 'k0Deword.',
         }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'USER': 'web',
-                'HOST': 'localhost',
-                'NAME': 'GlobalChangeLab',
-                # 'PASSWORD': 'k0Deword.',
-            }
-        }
-    STATIC_ROOT = os.path.join(os.getcwd(), 'static')
-    STATIC_URL = '/static/'
-    MEDIA_ROOT = os.path.join(os.getcwd(), 'media')
-    MEDIA_URL = '/media/'
+    }
 
-    # email
-    if DEBUG:
-        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+STATIC_ROOT = os.path.join(os.getcwd(), 'static')
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(os.getcwd(), 'media')
+MEDIA_URL = '/media/'
 
+# Sending emails to the console.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -257,7 +230,9 @@ AUTHENTICATION_BACKENDS += (
 )
 
 
-# allauth
+############################################################
+# allauth - BEGIN
+
 DEFAULT_FROM_EMAIL = 'Global Change Lab <hello@globalchangelab.org>'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '' # the default email subject prefix is
                                   # "[{{ site_name }}] " e.g. "[Global Change Lab] "
@@ -292,6 +267,9 @@ AUTHENTICATION_BACKENDS += (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+# allauth - END
+############################################################
+
 # django.contrib.messages
 import django.contrib.messages as messages
 MESSAGE_TAGS = {
@@ -312,6 +290,5 @@ COUNTRIES_OVERRIDE = {
 # and not e.g. the Danish translation "Dette felt er påkrævet"
 #  Note: it must be loaded before the django `LocaleMiddleware`
 MIDDLEWARE_CLASSES = (
-    'global_change_lab.middleware.CloudControlRedirectMiddleware',
     'global_change_lab.middleware.ForceDefaultLanguageMiddleware',
 ) + MIDDLEWARE_CLASSES

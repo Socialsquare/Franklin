@@ -91,8 +91,8 @@ test.describe('The activation workflow', function() {
 
 	test.it('sends a link and the account can be activated', function() {
 		receiveMockedMail(function(activation_mail) {
-			var link_regexp = 'http://localhost:8000/user/confirm-email/([^/]*)/';
-			var link = activation_mail.match(/http:\/\/localhost:8000\/user\/confirm-email\/([^\/]*)\//g);
+			var link = activation_mail.match(/http:\/\/([^\/]*)\/user\/confirm-email\/([^\/]*)\//g);
+			assert.notNull(link);
 			assert.equal(link.length > 0, true, "The link contains an activation link.");
 			link = link[0];
 			driver.get(link);
