@@ -1,3 +1,2 @@
 global_change_lab/settings_production.py filter=git-crypt diff=git-crypt
 global_change_lab/settings_s3.py filter=git-crypt diff=git-crypt
-secret_file filter=git-crypt diff=git-crypt
