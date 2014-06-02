@@ -26,5 +26,7 @@ global_change_lab/template
 /.venv
 *~
 
+database.sqlite3
+
 # who needs this anyway?!
 # global_change_lab/static/
