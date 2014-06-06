@@ -28,7 +28,6 @@ TEMPLATE_LOADERS = (
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
-    'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
 )
 
@@ -68,7 +67,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
@@ -89,7 +87,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
@@ -139,6 +136,7 @@ USE_I18N = True
 USE_L10N = False # True
 
 USE_TZ = True
+
 
 # Date (how to display them)
 #   in order for these settings to actually take preference `USE_L10N` must be `FALSE`
@@ -271,10 +269,24 @@ AUTHENTICATION_BACKENDS += (
 ############################################################
 
 # django.contrib.messages
-import django.contrib.messages as messages
-MESSAGE_TAGS = {
-    messages.ERROR: 'alert' # foundation 5 uses 'alert' as its 'error'-class
-}
+# !!! Messages have been disabled !!!
+# Problem: Messages are saved until they are displayed to the user.
+#   - As we are not displaying messages right now, they stack indefinitely
+#     and seem to have become a performace problem
+#
+# import django.contrib.messages as messages
+# MESSAGE_TAGS = {
+#     messages.ERROR: 'alert' # foundation 5 uses 'alert' as its 'error'-class
+# }
+# INSTALLED_APPS += (
+#     'django.contrib.messages',
+# )
+# TEMPLATE_CONTEXT_PROCESSORS += (
+#     'django.contrib.messages.context_processors.messages',
+# )
+# MIDDLEWARE_CLASSES += (
+#     'django.contrib.messages.middleware.MessageMiddleware',
+# )
 
 # django-inlinetrans
 LOCALE_PATHS = [

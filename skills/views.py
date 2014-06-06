@@ -9,7 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from django.core.exceptions import ValidationError
 
-import django.contrib.messages as messages
+import messages_shim as messages
 from permission.decorators import permission_required
 
 from skills.models import Skill, TrainingBit, Topic, Project, Comment, Like

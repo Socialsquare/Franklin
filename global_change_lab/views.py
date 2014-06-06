@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 
-import django.contrib.messages as messages
+import messages_shim as messages
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 
@@ -43,7 +43,7 @@ def new_user_input_details(request):
 
         if form.is_valid():
             userinfo = form.save()
-            
+
             request.user.has_been_welcomed = True
             request.user.save()
 
