@@ -41,6 +41,8 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'is_superuser')
     # Filters shown in admin
     list_filter = ('is_superuser', )
+    # Order by username only
+    search_fields = ('username', 'email')
 
 admin.site.register(User, CustomUserAdmin)
 
