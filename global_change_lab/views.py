@@ -133,8 +133,8 @@ def trainer_dashboard(request):
 
 def statistics(request):
     return render(request, 'statistics.html', {
-        'trainingbits': TrainingBit.objects.all(),
-        'skills': Skill.objects.all(),
+        'trainingbits': TrainingBit.objects.filter(is_draft=False),
+        'skills': Skill.objects.filter(is_draft=False),
     })
 
 def get_user_statistics():

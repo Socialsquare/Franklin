@@ -132,7 +132,7 @@ def skill_trainingbits_json(request, skill_id):
 
     trainingbits = []
 
-    for trainingbit in skill.trainingbits.all():
+    for trainingbit in skill.trainingbits.filter(is_draft=False):
         d = {
             'id': trainingbit.id,
             'name': trainingbit.name,
