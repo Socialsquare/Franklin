@@ -187,6 +187,17 @@ module.exports = function(grunt) {
           livereload: true
         }
       }
+    },
+
+    webdriver: {
+      options: {
+          desiredCapabilities: {
+              browserName: 'chrome'
+          }
+      },
+      'issue-139': {
+        tests: ['test/issue-139.js']
+      }
     }
   });
 
@@ -201,9 +212,40 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-bower-task');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-webdriver');
+
+  /*
+  var runserver_pid;
+  grunt.registerTask('runserver', function() {
+    //var done = this.async();
+    runserver_pid = grunt.util.spawn({
+      cmd: 'python',
+      args: ['manage.py', 'runserver', '--settings=global_change_lab.settings_mocha'],
+      opts: {
+        stdio: 'inherit'
+      }
+    }).pid;
+    //}, done);
+  });
+
+  grunt.registerTask('exitserver', function() {
+    var done = this.async();
+
+    console.log("Killing process #"+runserver_pid);
+    grunt.util.spawn({
+      cmd: 'kill',
+      args: [runserver_pid],
+      opts: {
+        stdio: 'inherit'
+      }
+    }, done);
+  });
+  */
 
   // grunt.registerTask('build', ['sass', 'processhtml', 'uncss']);
   grunt.registerTask('build', ['bower', 'sass', 'uglify', 'copy']);
   // grunt.registerTask('default', ['build','watch']);
   grunt.registerTask('default', ['build']);
+
+  grunt.registerTask('test-current-issue', [ 'webdriver:issue-139' ]);
 }

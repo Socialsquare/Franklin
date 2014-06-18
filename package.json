@@ -15,6 +15,7 @@
     "grunt-bower-task": "~0.3.4",
     "grunt-contrib-uglify": "~0.3.2",
     "selenium-webdriver": "~2.41.0",
-    "mocha": "~1.18.2"
+    "mocha": "~1.18.2",
+    "grunt-webdriver": "~0.4.1"
   }
 }
