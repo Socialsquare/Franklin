@@ -1,12 +1,10 @@
 
 div#new-user-greeter {
-  $padding_horizontal: rem-calc(42px);
+  $padding_horizontal: 0;
   $padding_bottom: 1rem;
 
   background-color : $gcl-darkgray;
   padding-top: rem-calc(30px);
-  padding-left:  $padding_horizontal;
-  padding-right: $padding_horizontal;
   padding-bottom: $padding_bottom;
   margin-bottom: 1rem;
 
@@ -22,16 +20,11 @@ div#new-user-greeter {
     h2 {
       @extend .red;
     }
-    li {
-      $pad: rem-calc(30px);
-      padding-left: $pad;
-      padding-right: $pad;
-    }
     height: rem-calc(230px);
   }
 
   .new-user-progress {
-    margin-right: - $padding_horizontal + $padding_bottom;
+    margin-right: $padding_bottom;
     text-align: right;
 
     .next {
@@ -61,8 +54,28 @@ div#new-user-greeter {
 
 }
 
+@media #{$medium-up} {
+  div#new-user-greeter {
+    $padding_horizontal: rem-calc(42px);
+    $padding_bottom: 1rem;
+    padding-left: $padding_horizontal;
+    padding-right: $padding_horizontal;
 
+    .new-user-progress {
+      margin-right: - $padding_horizontal + $padding_bottom;
+    }
 
+    .carousel li {
+      $pad: rem-calc(30px);
+      padding-left: $pad;
+      padding-right: $pad;
+    }
+  }
+}
+
+.touch .orbit-bullets {
+  display: block;
+}
 
 
 #topics-select {
