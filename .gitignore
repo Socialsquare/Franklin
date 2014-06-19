@@ -6,10 +6,6 @@ __pycache__
 /static
 /migrations
 
-# Ignoring configuration files - no need to do this any more, as they are now encrypted.
-#global_change_lab/settings_s3.py
-#global_change_lab/settings_production.py
-
 # ignore generated .css and .js files
 global_change_lab/static/global_change_lab/css
 global_change_lab/static/global_change_lab/js
@@ -24,6 +20,7 @@ global_change_lab/template
 /gcl.sqlite
 /media
 /.venv
+/.vagrant
 *~
 
 database.sqlite3
