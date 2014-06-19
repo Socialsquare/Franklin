@@ -1,6 +1,10 @@
 {
   "name": "global-change-lab",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bitblueprint/Global-Change-Lab.git"
+  },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-watch": "~0.5.3",
