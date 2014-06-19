@@ -7,7 +7,7 @@ Pillow==2.3.0
 South==0.8.4
 django-allauth==0.15.0
 django-debug-toolbar==1.0.1
-git+git://github.com/coagulant/django-storages-py3.git#egg=django-storages
+git+git://github.com/Axik/django-storages-py3.git#egg=django-storages
 django-comments-xtd==1.2f1
 git+git://github.com/lambdalisue/django-permission.git#egg=django-permission
 git+git://github.com/malthejorgensen/django-sortable.git#egg=django-sortable
