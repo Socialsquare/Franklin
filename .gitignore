@@ -5,6 +5,7 @@ __pycache__
 /bower_components
 /static
 /migrations
+/build
 
 # ignore generated .css and .js files
 global_change_lab/static/global_change_lab/css
