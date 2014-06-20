@@ -81,12 +81,16 @@ div#new-user-greeter {
 #topics-select {
   ul {
     list-style: none;
+
     li {
       display: inline-block;
-      width: 30%;
+      width: 100%;
       line-height: 1.5rem;
+      vertical-align: top;
+      margin-bottom: 0.5em;
       label {
         line-height: 1;
+        padding: 0.2rem;
       }
       label:hover {
         background-color: lighten($gcl-darkgray, 20%);
@@ -94,10 +98,15 @@ div#new-user-greeter {
       input[type="checkbox"] {
         margin: 0;
         padding: 0.2rem;
-
       }
       :checked, :checked + span {
         background-color: lighten($gcl-darkgray, 30%);
+      }
+    }
+
+    @media #{$medium-up} {
+      li {
+        width: 30%;
       }
     }
   }
