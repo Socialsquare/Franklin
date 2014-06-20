@@ -197,6 +197,9 @@ module.exports = function(grunt) {
       },
       'issue-139': {
         tests: ['test/issue-139.js']
+      },
+      'issue-149': {
+        tests: ['test/issue-149.js']
       }
     }
   });
@@ -247,5 +250,5 @@ module.exports = function(grunt) {
   // grunt.registerTask('default', ['build','watch']);
   grunt.registerTask('default', ['build']);
 
-  grunt.registerTask('test-current-issue', [ 'webdriver:issue-139' ]);
+  grunt.registerTask('test-current-issue', [ 'webdriver:issue-149' ]);
 }
