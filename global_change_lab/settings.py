@@ -253,6 +253,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_ADAPTER = 'global_change_lab.allauth.AccountAdapter'
 
+# Don't require the users logging in with social accounts to verify their emails.
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+
 #ACCOUNT_ADAPTER = 'global_change_lab.adapters.AccountAdapter'
 
 TEMPLATE_CONTEXT_PROCESSORS += (
