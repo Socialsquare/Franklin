@@ -3,13 +3,14 @@ from django.forms import widgets
 from django.forms.models import fields_for_model, model_to_dict
 from global_change_lab.models import User, UserInfo
 from datetime import date
+from django.utils.safestring import mark_safe
 
 class SignupForm(forms.Form):
     email = forms.CharField(max_length=100, label='Email')
     username = forms.CharField(max_length=30, label='Username')
     terms = forms.BooleanField(
-        label='Terms and conditions',
-        error_messages={'required': 'You must accept the terms and conditions'},
+        label=mark_safe('I agree to the <a href="/pages/terms-of-service/">Terms of Service</a> of Global Change Lab'),
+        error_messages={'required': 'You must accept the terms and conditions'}
     )
     # password = forms.PasswordField(max_length=30, label='Password')
 
