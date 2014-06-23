@@ -205,8 +205,8 @@ class Project(TimedModel, AuthoredModel, SluggedModel):
         #        '#project-%u' % self.id
         return reverse('skills:project_view', kwargs={'slug': self.slug})
 
-    def root_comments(self):
-        return self.comment_set.filter(parent=None)
+    def root_comments(self, exclude_deleted = True):
+        return self.comment_set.filter(parent=None).exclude(is_deleted=True)
 
 
 class Comment(TimedModel, AuthoredModel):
