@@ -92,7 +92,7 @@ def skills_overview(request, topic_slug=None, show_drafts=False, show_recommende
         'skills': skills,
         'showing_drafts': show_drafts,
         'showing_recommended': show_recommended,
-        'topics': Topic.objects.all(),
+        'topics': Topic.objects.exclude(slug__exact=''),
         'topic_chosen': topic,
     })
 
@@ -616,6 +616,9 @@ def topic_new(request):
             topic = form.save(commit=False)
             topic.author = request.user
             topic.slug = slugify(topic.name)
+            if topic.slug == '':
+                pass
+                # TODO: Reject a topic resulting in an empty slug.
             topic.save()
             # messages.success(request, 'Project was successfully saved')
 
@@ -687,7 +690,7 @@ def project_view(request, slug=None):
         pass
 
     # Related projects
-    related_projects = list(project.trainingbit.project_set.exclude(pk__exact=project.pk, is_deleted=True)[:3])
+    related_projects = list(project.trainingbit.project_set.exclude(pk__exact=project.pk).exclude(is_deleted=True)[:3])
     related_project1 = None
     related_project2 = None
     related_project3 = None
