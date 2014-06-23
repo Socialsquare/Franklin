@@ -1,8 +1,7 @@
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.account.utils import user_email, user_username, user_field
 from allauth.utils import valid_email_or_none, generate_unique_username
-from django.core.files import File
-from django.core.files.temp import NamedTemporaryFile
+from django.core.files.base import ContentFile
 import requests
 
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
@@ -66,12 +65,9 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 			profile_picture_url = "http://graph.facebook.com/%s/picture?type=large" % sociallogin.account.uid
 			# Download the Facebook profile image.
 			profile_image_r = requests.get(profile_picture_url)
-			profile_image_temp = NamedTemporaryFile(delete=True)
-			profile_image_temp.write(profile_image_r.content)
-			profile_image_temp.flush()
-			profile_image_file = File(profile_image_temp)
+			profile_image_file = ContentFile(profile_image_r.content)
 			# We have to use save=False, otherwise saving the image field saves the user model.
-			user.image.save("%s.jpg" % sociallogin.account.uid, File(profile_image_temp))
+			user.image.save("%s.jpg" % sociallogin.account.uid, profile_image_file)
 
 			# Gender
 			if "gender" in sociallogin.account.extra_data.keys():
@@ -117,12 +113,9 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 				profile_picture_url = profile_picture_url.replace('normal', '400x400')
 				# Download the Facebook profile image.
 				profile_image_r = requests.get(profile_picture_url)
-				profile_image_temp = NamedTemporaryFile(delete=True)
-				profile_image_temp.write(profile_image_r.content)
-				profile_image_temp.flush()
-				profile_image_file = File(profile_image_temp)
+				profile_image_file = ContentFile(profile_image_r.content)
 				# We have to use save=False, otherwise saving the image field saves the user model.
-				user.image.save("%s.jpg" % sociallogin.account.uid, File(profile_image_temp))
+				user.image.save("%s.jpg" % sociallogin.account.uid, profile_image_file)
 			# Saving the desciption
 			if "description" in sociallogin.account.extra_data.keys():
 				user.description = sociallogin.account.extra_data['description']
@@ -134,12 +127,9 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 				profile_picture_url = sociallogin.account.extra_data['picture']
 				# Download the Facebook profile image.
 				profile_image_r = requests.get(profile_picture_url)
-				profile_image_temp = NamedTemporaryFile(delete=True)
-				profile_image_temp.write(profile_image_r.content)
-				profile_image_temp.flush()
-				profile_image_file = File(profile_image_temp)
+				profile_image_file = ContentFile(profile_image_r.content)
 				# We have to use save=False, otherwise saving the image field saves the user model.
-				user.image.save("%s.jpg" % sociallogin.account.uid, File(profile_image_temp))
+				user.image.save("%s.jpg" % sociallogin.account.uid, profile_image_file)
 
 			# Gender
 			if "gender" in sociallogin.account.extra_data.keys():
