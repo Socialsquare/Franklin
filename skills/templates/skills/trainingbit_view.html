@@ -106,10 +106,10 @@
     </form>
     {% if form.errors %}
     <div id="project-form-errors" class="project-form-errors">
-      <h4>{% itrans 'Oups! Your work could not be shared.' %}</h4>
+      <h4>{% itrans 'Oops! Your work could not be shared.' %}</h4>
       {% if missing_required_fields %}
       <p>
-        You need to add {{ missing_required_fields|listify:10 }} and share it again.
+        You need to add {{ missing_required_fields|listify:10 }} and share again.
       </p>
       {% endif %}
       {# form.errors #}
@@ -124,9 +124,10 @@
 <script>
 // Scroll to errors on project submission error
 $(document).ready(function() {
-  if ($('#project-form-errors').length === 1) {
-    $('html, body').scrollTop($("#project-form-errors").offset().top);
-  }
+  $('#project-form-errors').each(function() {
+    var verticalOffset = $(this).offset().top;
+    $(window).scrollTop(verticalOffset);
+  });
   // $('html, body').animate({
   //   scrollTop: $("#project-form-errors").offset().top
   // }, 1000);
