@@ -7,19 +7,33 @@ import requests
 
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
 	def populate_user(self, request, sociallogin, data):
+		first_name = data.get('first_name')
+		last_name = data.get('last_name')
+		email = data.get('email')
+		name = data.get('name')
+		username = data.get('username')
+		user = sociallogin.account.user
 		# TODO: Consider using the super class for the stuff that is not unique to facebook!
 		if sociallogin.account.provider == 'facebook':
-			first_name = data.get('first_name')
-			last_name = data.get('last_name')
-			email = data.get('email')
-			name = data.get('name')
-			username = data.get('username')
-
-			user = sociallogin.account.user
 			user_email(user, valid_email_or_none(email) or '')
 			name_parts = (name or '').partition(' ')
 			user_field(user, 'first_name', first_name or name_parts[0])
 			user_field(user, 'last_name', last_name or name_parts[2])
+			# Save a good username
+			if username:
+				username_suggestions = [username, first_name, last_name, email, 'user']
+			else:
+				username_suggestions = [first_name, last_name, email, 'user']
+			user_username(user, generate_unique_username(username_suggestions))
+			return user
+		elif sociallogin.account.provider == 'twitter':
+			if "screen_name" in sociallogin.account.extra_data.keys():
+				username = sociallogin.account.extra_data['screen_name']
+			user_email(user, valid_email_or_none(email) or '')
+			name_parts = (name or '').partition(' ')
+			user_field(user, 'first_name', first_name or name_parts[0])
+			user_field(user, 'last_name', last_name or name_parts[2])
+			print("sociallogin.account.extra_data:", str(sociallogin.account.extra_data).encode('utf-8'))
 			# Save a good username
 			if username:
 				username_suggestions = [username, first_name, last_name, email, 'user']
@@ -78,5 +92,25 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 					employer = work['employer']
 					descriptions.append( "I work at %s." % employer['name'] )
 			user.description = "\n".join(descriptions)
+			user.save()
+		elif sociallogin.account.provider == 'twitter':
+			# Saving the profile image
+			# Profile picture!
+			# Generate the Facebook image URL
+			if "profile_image_url" in sociallogin.account.extra_data.keys():
+				profile_picture_url = sociallogin.account.extra_data['profile_image_url']
+				# Search/replace 'normal' for 400x400 in the profile image URL
+				profile_picture_url = profile_picture_url.replace('normal', '400x400')
+				# Download the Facebook profile image.
+				profile_image_r = requests.get(profile_picture_url)
+				profile_image_temp = NamedTemporaryFile(delete=True)
+				profile_image_temp.write(profile_image_r.content)
+				profile_image_temp.flush()
+				profile_image_file = File(profile_image_temp)
+				# We have to use save=False, otherwise saving the image field saves the user model.
+				user.image.save("%s.jpg" % sociallogin.account.uid, File(profile_image_temp))
+			# Saving the desciption
+			if "description" in sociallogin.account.extra_data.keys():
+				user.description = sociallogin.account.extra_data['description']
 			user.save()
 		return user
