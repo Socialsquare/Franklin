@@ -162,7 +162,6 @@ class UserInfo(models.Model):
     country = CountryField(null=True)
     birthdate = models.DateField(null=True)
     organization = models.CharField(max_length=15, choices=ORGANISATION_TYPES, blank=False)
-
     # Relations
     user = models.OneToOneField(User, null=True, blank=True)
 

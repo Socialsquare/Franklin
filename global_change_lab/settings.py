@@ -255,6 +255,8 @@ ACCOUNT_ADAPTER = 'global_change_lab.allauth.AccountAdapter'
 
 # Don't require the users logging in with social accounts to verify their emails.
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_ADAPTER ="global_change_lab.socialaccount.SocialAccountAdapter"
+USER_MODEL_USERNAME_FIELD = "username"
 
 #ACCOUNT_ADAPTER = 'global_change_lab.adapters.AccountAdapter'
 
