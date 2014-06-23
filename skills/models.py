@@ -168,12 +168,14 @@ class TrainingBit(TimedModel, AuthoredModel, SluggedModel):
     def get_sanitized_json(self):
         return self.json_content.replace("</script>", "</scr\"+\"ipt>");
 
+    def share_count(self):
+        return self.project_set.exclude(is_deleted=True).count()
+
     class Meta:
         ordering = ['-created_at']
 
 
 class Project(TimedModel, AuthoredModel, SluggedModel):
-
     # Content
     name = models.CharField(max_length=100, blank=False)
     content = models.TextField(blank=False)
