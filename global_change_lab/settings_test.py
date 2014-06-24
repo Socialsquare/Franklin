@@ -10,6 +10,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 from .settings import *
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/gcl-messages' # change this to a proper location
-ALLOWED_HOSTS += ( 'kh.vpn.bitblueprint.com' )
+ALLOWED_HOSTS += ( 'kh.vpn.bitblueprint.com', 'local.globalchangelab.org' )
 DEBUG = True
 
