@@ -15,7 +15,12 @@ def current(context, url_name, return_value=' current', **kwargs):
 
 @register.simple_tag(takes_context=True)
 def current_url_name(context, **kwargs):
-    return urlresolvers.resolve(context.get('request').path).url_name
+    try:
+        url_name = urlresolvers.resolve(context.get('request').path).url_name
+        return url_name
+    except:
+        return ""
+
 
 
 def current_url_equals(context, url_name, **kwargs):

@@ -7,16 +7,16 @@
 
 {# Metadata: For Facebook updates, Twitter tweets, and posts on your Google Plus wall (Open Graph etc.) #}
 {% block extra_head %}
-  {% include 'skills/partials/metadata_tags.html' with title="GCL project: "|add:project.name description=project.content image=project.image video=project.video url=project.get_absolute_url %}
+	{% include 'skills/partials/metadata_tags.html' with title="GCL project: "|add:project.name description=project.content image=project.image video=project.video url=project.get_absolute_url %}
 {% endblock %}
 
 {% block content %}
 <div class="page-buttons">
-  {# Delete trainingbit button #}
-  {# {% permission request.user has 'skills.delete_project' of project %}{% endpermission %} #}
-  {% if user.is_admin %}
-    <a href="{% url 'skills:project_delete' project.pk %}" data-dynamic="false" class="button hard-delete admin-button">Delete share</a>
-  {% endif %}
+	{# Delete trainingbit button #}
+	{# {% permission request.user has 'skills.delete_project' of project %}{% endpermission %} #}
+	{% if user.is_admin %}
+		<a href="{% url 'skills:project_delete' project.pk %}" data-dynamic="false" class="button hard-delete admin-button">Delete share</a>
+	{% endif %}
 </div>
 
 {% with 'Go to training bit' as back_text %}
@@ -26,123 +26,123 @@
 {#{% include 'skills/partials/project.html' %}#}
 <div class="project-wrapper">
 
-  <div class="project" id="project-{{ project.id }}">
-    <h6 class="project-title">{{ project.name }}</h6>
+	<div class="project" id="project-{{ project.id }}">
+		<h6 class="project-title">{{ project.name }}</h6>
 
-    {# <div class="clear-both"></div> #}
-    <div class="metadata-fat">
-      <div class="profile-picture" style="background-image: url({{ project.author.getImage }})"></div>
-      <div class="text">
-        <a class="author" href="{{ project.author.get_absolute_url }}">{{ project.author.username }}</a><br>
-        <span class="date">{{ project.created_at|date }}</span>
-      </div>
-      <div class="metadata-with-like-button">
-        {# Flag comment button #}
-        <div class="actions">
-          {% if user.is_authenticated %}
-          <a href="{% url 'skills:project_flag' project.pk %}" class="flag notice" data-object-type="share" data-dropdown="flag-dropdown">Flag this share</a>
-          {% endif %}
-        </div>
+		{# <div class="clear-both"></div> #}
+		<div class="metadata-fat">
+			<div class="profile-picture" style="background-image: url({{ project.author.getImage }})"></div>
+			<div class="text">
+				<a class="author" href="{{ project.author.get_absolute_url }}">{{ project.author.username }}</a><br>
+				<span class="date">{{ project.created_at|date }}</span>
+			</div>
+			<div class="metadata-with-like-button">
+				{# Flag comment button #}
+				<div class="actions">
+					{% if user.is_authenticated %}
+					<a href="{% url 'skills:project_flag' project.pk %}" class="flag notice" data-object-type="share" data-dropdown="flag-dropdown">Flag this share</a>
+					{% endif %}
+				</div>
 
-        {# Metadata #}
-        <div class="tooltip" data-tooltip="{% trans 'Number of likes this share has' %}">{% include 'skills/partials/like_counter.html' with object=project %}</div>
-        <div class="tooltip" data-tooltip="{% trans 'Number of comments on this share' %}"><span class="icon chat red"></span><span class="count">{{ project.comment_set.count }}</span></div>
+				{# Metadata #}
+				<div class="tooltip" data-tooltip="{% trans 'Number of likes this share has' %}">{% include 'skills/partials/like_counter.html' with object=project %}</div>
+				<div class="tooltip" data-tooltip="{% trans 'Number of comments on this share' %}"><i class="icon-chat red"></i><span class="count">{{ project.comment_set.count }}</span></div>
 
-        {# Like button #}
-        {% include 'skills/partials/like_button.html' with object=project %}
-      </div>
-    </div>
-    {# <span class="date">{{ project.created_at|pretty_timesince }}</span> #}
+				{# Like button #}
+				{% include 'skills/partials/like_button.html' with object=project %}
+			</div>
+		</div>
+		{# <span class="date">{{ project.created_at|pretty_timesince }}</span> #}
 
-    <div class="content">
-      <p>{{ project.content }}</p>
-    </div>
-    {% if project.image %}
-    <ul class="clearing-thumbs" data-clearing>
-      <li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
-    </ul>
-    {% endif %}
+		<div class="content">
+			<p>{{ project.content }}</p>
+		</div>
+		{% if project.image %}
+		<ul class="clearing-thumbs" data-clearing>
+			<li><a href="{{ project.image.url }}"><img class="project-image" data-caption="{{ project.name }}" src="{{ project.image.url }}"></a></li>
+		</ul>
+		{% endif %}
 
-    {% if project.link_url and project.link_title %}
-    <span class="icon link"></span><a target="_blank" class="red project-link" href="{{ project.link_url }}">{{ project.link_title }}</a>
-    {% endif %}
+		{% if project.link_url and project.link_title %}
+		<i class="icon-link"></i><a target="_blank" class="red project-link" href="{{ project.link_url }}">{{ project.link_title }}</a>
+		{% endif %}
 
-    {% if project.video %}
-      {% video project.video %}
-    {% endif %}
+		{% if project.video %}
+			{% video project.video %}
+		{% endif %}
 
-  </div>
+	</div>
 
-  <div class="comment-form-container">
-    {% if user.is_authenticated %}
-    <form action="{% url 'skills:comment_post' %}" method="POST" class="comment-form">
-      {% csrf_token %}
-      <input type="hidden" name="project" value="{{ project.pk }}">
-      <input type="hidden" name="parent" value="">
-      <textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
-      {# <button class="small">Comment</button> #}
-      <button>Comment</button>
-    </form>
-    {% else %}
-    <div class="not-logged-in">
-      <a href="{% url 'account_login' %}">Sign in to comment</a>
-    </div>
-    {% endif %}
-  </div>
-
-
-
-  {# Hidden elements we supply for Javascript #}
-
-  {#   Delete dropdown #}
-  <div id="delete-dropdown" class="f-dropdown" data-dropdown-content>
-    <h6>Really delete this comment?</h6>
-    <a href="#" class="delete button">Delete comment</a>
-    <a href="#" class="button close info">Cancel</a>
-  </div>
-
-  {#   Flag dropdown #}
-  <div id="flag-dropdown" class="f-dropdown" data-dropdown-content>
-    <h6>Really flag this <span class="object-type">object</span>?</h6>
-    <a href="#" class="flag button">Flag <span class="object-type">object</span></a>
-    <a href="#" class="button close info">Cancel</a>
-  </div>
-
-  {#   Unflag dropdown #}
-  <div id="unflag-dropdown" class="f-dropdown" data-dropdown-content>
-    <h6>Really unflag this comment?</h6>
-    <a href="#" class="unflag button">Unflag comment</a>
-    <a href="#" class="button close info">Cancel</a>
-  </div>
-
-  {#   Reply form #}
-  <form action="{% url 'skills:comment_post' %}" method="POST" class="reply-form">
-    {% csrf_token %}
-    <input type="hidden" name="project" value="{{ project.pk }}">
-    <input type="hidden" name="parent" value="">
-    <textarea class="comment" name="text" placeholder="Write a reply..."></textarea>
-    {# <button class="small">Comment</button> #}
-    <button>Reply</button>
-  </form>
+	<div class="comment-form-container">
+		{% if user.is_authenticated %}
+		<form action="{% url 'skills:comment_post' %}" method="POST" class="comment-form">
+			{% csrf_token %}
+			<input type="hidden" name="project" value="{{ project.pk }}">
+			<input type="hidden" name="parent" value="">
+			<textarea class="comment" name="text" placeholder="Write a comment..."></textarea>
+			{# <button class="small">Comment</button> #}
+			<button>Comment</button>
+		</form>
+		{% else %}
+		<div class="not-logged-in">
+			<a href="{% url 'account_login' %}">Sign in to comment</a>
+		</div>
+		{% endif %}
+	</div>
 
 
-  {# Comments section #}
-  <h3>Comments</h3>
-  <div class="comment-list">
-  {% if comments %}
-  {% for comment in comments %}
-    {% include 'skills/partials/comment_entry.html' %}
-    <div id="replies-for-{{comment.pk}}" class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
-    {% for reply in comment.comment_set.all %}
-      {% include 'skills/partials/comment_entry.html' with comment=reply %}
-    {% endfor %}
-    </div>
-  {% endfor %}
-  {% else %}
-  {# <div class="message-missing">No comments yet</div> #}
-    <span class="missing-message notice">No comments yet</span>
-  {% endif %}
-  </div>
+
+	{# Hidden elements we supply for Javascript #}
+
+	{#   Delete dropdown #}
+	<div id="delete-dropdown" class="f-dropdown" data-dropdown-content>
+		<h6>Really delete this comment?</h6>
+		<a href="#" class="delete button">Delete comment</a>
+		<a href="#" class="button close info">Cancel</a>
+	</div>
+
+	{#   Flag dropdown #}
+	<div id="flag-dropdown" class="f-dropdown" data-dropdown-content>
+		<h6>Really flag this <span class="object-type">object</span>?</h6>
+		<a href="#" class="flag button">Flag <span class="object-type">object</span></a>
+		<a href="#" class="button close info">Cancel</a>
+	</div>
+
+	{#   Unflag dropdown #}
+	<div id="unflag-dropdown" class="f-dropdown" data-dropdown-content>
+		<h6>Really unflag this comment?</h6>
+		<a href="#" class="unflag button">Unflag comment</a>
+		<a href="#" class="button close info">Cancel</a>
+	</div>
+
+	{#   Reply form #}
+	<form action="{% url 'skills:comment_post' %}" method="POST" class="reply-form">
+		{% csrf_token %}
+		<input type="hidden" name="project" value="{{ project.pk }}">
+		<input type="hidden" name="parent" value="">
+		<textarea class="comment" name="text" placeholder="Write a reply..."></textarea>
+		{# <button class="small">Comment</button> #}
+		<button>Reply</button>
+	</form>
+
+
+	{# Comments section #}
+	<h3>Comments</h3>
+	<div class="comment-list">
+	{% if comments %}
+	{% for comment in comments %}
+		{% include 'skills/partials/comment_entry.html' %}
+		<div id="replies-for-{{comment.pk}}" class="replies" data-parent-pk="{{ comment.pk }}" data-project-pk="{{ project.pk }}">
+		{% for reply in comment.comment_set.all %}
+			{% include 'skills/partials/comment_entry.html' with comment=reply %}
+		{% endfor %}
+		</div>
+	{% endfor %}
+	{% else %}
+	{# <div class="message-missing">No comments yet</div> #}
+		<span class="missing-message notice">No comments yet</span>
+	{% endif %}
+	</div>
 
 </div>
 
@@ -150,34 +150,34 @@
 {% if related_project1 %}
 <hr>
 <div class="row">
-  <h1>Related shares</h1>
-  <div class="gcl-column">
-    {% include 'skills/partials/project_column.html' with project=related_project1 %}
-  </div>
-  <div class="gcl-column">
-    {% if related_project2 %}
-    {% include 'skills/partials/project_column.html' with project=related_project2 %}
-    {% endif %}
-  </div>
-  <div class="gcl-column">
-    {% if related_project3 %}
-    {% include 'skills/partials/project_column.html' with project=related_project3 %}
-    {% endif %}
-  </div>
+	<h1>Related shares</h1>
+	<div class="gcl-column">
+		{% include 'skills/partials/project_column.html' with project=related_project1 %}
+	</div>
+	<div class="gcl-column">
+		{% if related_project2 %}
+		{% include 'skills/partials/project_column.html' with project=related_project2 %}
+		{% endif %}
+	</div>
+	<div class="gcl-column">
+		{% if related_project3 %}
+		{% include 'skills/partials/project_column.html' with project=related_project3 %}
+		{% endif %}
+	</div>
 
 </div>
 {% endif %}
 
 <div id="trainingbit-completed-modal" class="reveal-modal medium" data-reveal>
-  {% if show_suggestions %}
-  {% include 'skills/partials/trainingbit_completed_modal.html' with trainingbit=project.trainingbit %}
-  {% endif %}
+	{% if show_suggestions %}
+	{% include 'skills/partials/trainingbit_completed_modal.html' with trainingbit=project.trainingbit %}
+	{% endif %}
 </div>
 
 {% if show_suggestions %}
 <script>
 $(document).ready(function() {
-  $('#trainingbit-completed-modal').foundation('reveal', 'open');
+	$('#trainingbit-completed-modal').foundation('reveal', 'open');
 });
 </script>
 {% endif %}

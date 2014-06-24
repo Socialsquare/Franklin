@@ -6,7 +6,7 @@
       <div class="image-upload">
         <div class="dropzone" {% if request.user.image %}style="background-image: url({{ request.user.getImage }})"{% endif %}>
           {% if not request.user.image %}<div class="helptext">Drop a picture of yourself here</div>{% endif %}
-          <div class="icon circled-plus"></div>
+          <div class="icon"><i class="icon-plus-circled large"></i></div>
         </div>
         <div class="upload-button-container">
           <a href="#" class="button">Upload image</a>

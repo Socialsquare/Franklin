@@ -33,8 +33,8 @@
         {% endif %}
         {% endcomment %}
         {% if not hide_metadata %}
-        <div class="tooltip" data-tooltip="{% trans 'Number of likes this training bit has' %}"><span class="icon small heart red"></span> {{ trainingbit.likes.count }}</div>
-        <div class="tooltip" data-tooltip="{% trans 'Number of shares this training bit has' %}"><span class="icon small megaphone red"></span> {{ trainingbit.share_count }}</div>
+        <div class="tooltip" data-tooltip="{% trans 'Number of likes this training bit has' %}"><i class="icon-heart small red"></i> {{ trainingbit.likes.count }}</div>
+        <div class="tooltip" data-tooltip="{% trans 'Number of shares this training bit has' %}"><i class="icon-megaphone small red"></i> {{ trainingbit.share_count }}</div>
         {% endif %}
         <hr>
       </div>

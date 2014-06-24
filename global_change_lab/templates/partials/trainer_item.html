@@ -1,11 +1,11 @@
 
 <div class="trainer-item">
-    <h6 class="item-title"><a href="{% url url_name slug=item.slug %}">{{item.name}}</a></h6>
-    <ul class="icon-list">
-      {# "item" is pretty unspecific, see #}
-      {# http://stackoverflow.com/questions/6571649/model-name-of-objects-in-django-templates #}
-      {# for a fix #}
-      <li title="Number of users who have started taking this item"><span class="icon small play"></span> {{item.users_in_progress.count}}</li>
-      <li title="Number of users who have completed this item"><span class="icon small check"></span> {{item.users_completed.count}}</li>
-    </ul>
+	<h6 class="item-title"><a href="{% url url_name slug=item.slug %}">{{item.name}}</a></h6>
+	<ul class="icons">
+		{# "item" is pretty unspecific, see #}
+		{# http://stackoverflow.com/questions/6571649/model-name-of-objects-in-django-templates #}
+		{# for a fix #}
+		<li title="Number of users who have started taking this item"><i class="icon-play small"></i> {{item.users_in_progress.count}}</li>
+		<li title="Number of users who have completed this item"><i class="icon-check small"></i> {{item.users_completed.count}}</li>
+	</ul>
 </div>

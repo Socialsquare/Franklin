@@ -36,6 +36,9 @@
   <!--[if ie 9]>
   <link rel="stylesheet" href="{% static 'global_change_lab/css/ie9.css' %}">
   <![endif]-->
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="{% static 'global_change_lab/entypo/entypo-ie7.css' %}">
+  <![endif]-->
 
   <title>{% block title %}Global Change Lab{% endblock %}</title>
 
@@ -105,7 +108,7 @@
             {% if user.is_authenticated %}
             <li id="logged-in-menu" class="has-dropdown logged-in">
               <a href="#">
-                <span class="icon user"></span>
+                <i class="icon-user"></i>
                 {{ user.username }}
               </a>
               <ul class="dropdown">
@@ -145,10 +148,10 @@
     {% block footer %}
     <div class="columns footer-left">
       <div class="social-icons">
-        <a class="icon-social medium c-twitter red" href="#"></a>
-        <a class="icon-social medium c-facebook red" href="#"></a>
-        <a class="icon-social medium c-google-plus red" href="#"></a>
-        <a class="icon-social medium c-flickr red" href="#"></a>
+        <a class="icon-twitter-circled medium red" href="#"></a>
+        <a class="icon-facebook-circled medium red" href="#"></a>
+        <a class="icon-gplus-circled medium red" href="#"></a>
+        <a class="icon-flickr-circled medium red" href="#"></a>
       </div>
       <div class="row" id="footer-links">
         <div class="large-4 columns">
@@ -178,10 +181,10 @@
     </div>
     <div class="creative-commons-icons">
       <a href="{% url 'creative-commons' %}">
-        <span class="icon cc"></span>
-        <span class="icon cc-by"></span>
-        <span class="icon cc-nc"></span>
-        <span class="icon cc-sa"></span>
+        <span class="icon-cc"></span>
+        <span class="icon-cc-by"></span>
+        <span class="icon-cc-nc"></span>
+        <span class="icon-cc-sa"></span>
       </a>
     </div>
     {% endblock %}

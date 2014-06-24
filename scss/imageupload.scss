@@ -49,6 +49,10 @@ div.dropzone {
     font-size: 9rem;
     opacity: 0;
     @include transition(opacity 0.6s);
+    i {
+      position: relative;
+      top: -2rem;
+    }
   }
 
   &.dragging-into {

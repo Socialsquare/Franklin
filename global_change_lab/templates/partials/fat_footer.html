@@ -23,7 +23,7 @@
       <ul>
       {% for author, action, obj in recent_activity %}
         <li>
-          <span class="icon chat red"></span>
+          <i class="icon-chat red"></i>
           <a href="{% url 'profile' author.pk %}">{{ author.username }}</a>
           {{ action }}
           <a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a>

@@ -154,7 +154,7 @@
 </div>
 
   {% if not hide_user %}
-    <div class="profile-image"><span class="icon user"></span></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
+    <div class="profile-image"><i class="icon-user"></i></div><a href="{% url 'profile' project.author.id %}"class="author">{{ project.author.username }}</a>
   {% endif %}
 {% endwith %}
 {% else %}

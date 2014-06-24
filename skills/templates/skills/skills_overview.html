@@ -33,12 +33,12 @@
     {% if topic_chosen %}
       <a href="{% url 'skills:skills_overview' topic_chosen.slug %}" class="button sorting" data-dropdown="skill-all-topics">
         {{ topic_chosen.name }}
-        <span class="icon triangle-down red"></span>
+        <i class="icon-down-dir red"></i>
       </a>
     {% else %}
       <a href="{% url 'skills:skills_overview' %}" class="button sorting" data-dropdown="skill-all-topics">
         All topics
-        <span class="icon triangle-down red"></span>
+        <i class="icon-down-dir red"></i>
       </a>
     {% endif %}
   <ul id="skill-all-topics" class="f-dropdown topics" data-dropdown-content>
@@ -55,7 +55,7 @@
   {# Sorting #}
   <a href="#" class="button sorting" data-dropdown="skill-sort">
     Sort by
-    <span class="icon triangle-down red"></span>
+    <i class="icon-down-dir red"></i>
   </a>
   <ul id="skill-sort" class="f-dropdown" data-dropdown-content>
     <li><a href="?sort=created_at&dir=desc">Newest</a></li>

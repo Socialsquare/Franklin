@@ -7,11 +7,11 @@
   {% if user_like %}
     Unlike
   {% else %}
-  <span class="icon heart"></span>Like
+  <i class="icon-heart"></i>Like
   {% endif %}
 </a>
 {% else %}
 <a class="button small like signup" href="{% url 'account_login' %}">
-  <span class="icon heart"></span>Sign in to like
+  <i class="icon-heart"></i>Sign in to like
 </a>
 {% endif %}

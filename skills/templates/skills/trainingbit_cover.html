@@ -53,8 +53,8 @@
     </div>
     <div class="metadata-with-like-button">
       <div class="tooltip" data-tooltip="{% trans 'Number of likes this training bit has' %}">{% include 'skills/partials/like_counter.html' with object=trainingbit %}</div>
-      <div class="tooltip" data-tooltip="{% trans 'Number of users taking this bit right now' %}"><span class="icon users red"></span><span class="count">{{ trainingbit.users_in_progress.count }}</span></div>
-      <div class="tooltip" data-tooltip="{% trans 'Number of shares' %}"><span class="icon megaphone red"></span><span class="count">{{ trainingbit.share_count }}</span></div>
+      <div class="tooltip" data-tooltip="{% trans 'Number of users taking this bit right now' %}"><i class="icon-users red"></i><span class="count">{{ trainingbit.users_in_progress.count }}</span></div>
+      <div class="tooltip" data-tooltip="{% trans 'Number of shares' %}"><i class="icon-megaphone red"></i><span class="count">{{ trainingbit.share_count }}</span></div>
 
       {% include 'skills/partials/like_button.html' with object=trainingbit %}
     </div>

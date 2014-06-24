@@ -17,10 +17,10 @@
 
 {% block permanent-messages %}
 <div id="save-button">
-  <a class="button"><span class="icon save"></span><span class="status"></span></a>
+  <a class="button"><i class="icon-floppy"></i><span class="status"></span></a>
 </div>
 <div class="alert-box info" id="connection-status">
-  <span class="icon signal"></span>
+  <i class="icon-signal"></i>
   <span class="status">
     {% blocktrans %}
     <p>You are currently <strong>not</strong> connected to the internet :-(</p>
@@ -70,7 +70,7 @@ Offline.on('up', function() {
 
   <div class="trainingbit">
     <h1>1. Learn</h1>
-    <a href="#" class="info-icon" data-reveal-id="learn-info-modal" data-reveal>&#8505;</a>
+    <a href="#" class="info-icon" data-reveal-id="learn-info-modal" data-reveal><i class="icon-info"></i></a>
     <div id="learn-info-modal" class="reveal-modal" data-reveal>
       <h1>Learn</h1>
       {# {% itrans "This first part of the training bit is focused on giving you the right input and information about the topic you are studying. Whether it is a text on the background of the topic, a tutorial on how to use a specific tool or model or some input that inspires your creative thinking it will help you to understand and later, apply, this particular field." %} #}
@@ -86,7 +86,7 @@ Offline.on('up', function() {
     </div>
 
     <h1>2. Act</h1>
-    <a href="#" class="info-icon" data-reveal-id="act-info-modal" data-reveal>&#8505;</a>
+    <a href="#" class="info-icon" data-reveal-id="act-info-modal" data-reveal><i class="icon-info"></i></a>
     <div id="act-info-modal" class="reveal-modal" data-reveal>
       <h1>Act</h1>
       {# {% itrans "The second part of each training bit is focused on action. Whether you have to go out an take photos of your stencil or answer a couple of tricky questions, this is where we want you to act and use the information you read through in the first part in real life." %} #}
@@ -101,7 +101,7 @@ Offline.on('up', function() {
       </div>
     </div>
     <h1>3. Share</h1>
-    <a href="#" class="info-icon" data-reveal-id="share-info-modal" data-reveal>&#8505;</a>
+    <a href="#" class="info-icon" data-reveal-id="share-info-modal" data-reveal><i class="icon-info"></i></a>
     <div id="share-info-modal" class="reveal-modal" data-reveal>
       <h1>Share</h1>
       {# {% itrans "The last part of the training bit - and a step you need to do to complete it - is to share your work with the rest of us. Whether it is a short essay and a video of your latest campaign or a reflection about the use of a specific tool, it is an opportunity for you to share and connect with the Global Change Lab community." %} #}
@@ -134,7 +134,7 @@ Offline.on('up', function() {
       <div class="dropzone">
         {# {% if not request.user.image %}<div class="helptext">Drop a picture of yourself here</div>{% endif %} #}
         <div class="helptext">Drop a picture here</div>
-        <div class="icon circled-plus"></div>
+        <div class="icon"><i class="icon-plus-circled large"></i></div>
       </div>
       <div class="upload-button-container">
         <a href="#" class="button">Upload image</a>
@@ -167,7 +167,7 @@ Offline.on('up', function() {
   {# TEMPLATES #}
   <script type="text/template" id="TbPart-editable-template">
     <div class="input-field-row">
-      <div class="handle"><span class="icon arrow-combo"></span></div>
+      <div class="handle"><i class="icon-arrow-combo"></i></div>
       <div class="input-field editable">
         <%= content %>
       </div>
@@ -175,10 +175,10 @@ Offline.on('up', function() {
         <%= help_text %>
       </div>
       <div class="edit">
-        <a class=""><span class="icon pencil"></span></a>
+        <a class=""><i class="icon-pencil"></i></a>
       </div>
       <div class="delete">
-        <a class=""><span class="icon trash"></span></a><!-- Delete -->
+        <a class=""><i class="icon-trash"></i></a><!-- Delete -->
       </div>
     </div>
   </script>
@@ -216,37 +216,36 @@ Offline.on('up', function() {
 
   <script type="text/template" id="toolbar-template">
     <div class="large-indicator">
-      <div class="add-text"><span class="icon circled-plus"></span><%= name %>
-      </div>
+      <div class="add-text"><i class="icon-plus-circled"></i><%= name %></div>
     </div>
     <div class="icon-container">
       <ul>
         <li>
           <a class="add-text" href="#">
-            <span class="icon medium language"></span>
+            <i class="icon-language medium"></i>
             <p>Add text</p>
           </a>
         </li>
         <li>
           <a class="add-link" href="#" data-reveal-id="modal-add-link" data-reveal>
-          <span class="icon medium link"></span><br>
+          <i class="icon-link medium"></i><br>
           Add link
           </a>
         </li>
         <li>
           <a class="add-picture" href="#" data-reveal-id="modal-add-picture" data-reveal>
-          <span class="icon medium camera"></span><br>
+          <i class="icon-camera medium"></i><br>
           Add picture
           </a>
         </li>
         <li>
           <a class="add-embed" href="#" data-reveal-id="modal-add-embed" data-reveal>
-          <span class="icon medium video"></span>
+          <i class="icon-video medium"></i>
           <p>Add embed</p>
           </a>
         </li>
-          {# <span class="icon medium camera"></span> #}
-          {# <span class="icon medium attach"></span> #}
+          {# <i class="icon-camera medium"></i> #}
+          {# <i class="icon-attach medium"></i> #}
       </ul>
     </div>
   </script>
@@ -285,7 +284,7 @@ if (tb_learn.length < 1) {
 // Check out: http://benalman.com/projects/jquery-throttle-debounce-plugin/
 // Right now we update the model of the text field on every keypress, but only
 // update the form contents every 3000 ms.
-var $save_spinner = $('<div id="save-spinner"><span class="icon cycle"></span></div>');
+var $save_spinner = $('<div id="save-spinner"><i class="icon-cycle"></i></div>');
 var saveTrainingBit = $.throttle(3000, function() {
   $('#save-button .status').text('Saving...')
   $('#save-button .status').fadeIn(1000);
