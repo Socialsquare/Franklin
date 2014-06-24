@@ -1,149 +1,17 @@
+{% extends "base.html" %}
 {% load staticfiles %}
-{% load permissionif %}
-{% load solo_tags %}
-{% load navigation %}
 {% load inlinetrans %}
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/Article">
-<head>
-  <meta charset="utf-8">
-  {# For showing not-full-pages to iPhones  #}
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="http://fonts.googleapis.com/css?family=Allerta+Stencil" rel="stylesheet" type="text/css">
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="{% static 'global_change_lab/js/user.min.js' %}"></script>
+{% block nav_buttons %}{% endblock %}
 
-  {% inlinetrans_static %}
-  {# {% inlinetrans_media %} output the same as the above #}
+{% block content %}
+<h1>Page not found (404)</h1>
 
+<div id="404-container" style="position: relative">
+  <a href="/"><img src="{% static 'images/404.jpg' %}"></a>
 
-
-  {% block scripts %}
-  {% endblock %}
-  <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}">
-  <!--[if ie 9]>
-  <link rel="stylesheet" href="{% static 'global_change_lab/css/ie9.css' %}">
-  <![endif]-->
-
-  <title>{% block title %}Global Change Lab{% endblock %}</title>
-
-</head>
-
-<body class="{% block body-classes %}{% endblock %}">
-
-  <div id="permanent-messages">
-    {% block permanent-messages %}
-    {% endblock %}
-  </div>
-
-
-  {# Unfortunately we need this wrapper to position the footer at the bottom of the page #}
-  <div id="sticky-footer-wrap">
-    <div class="contain-to-grid">
-      <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-          <li class="name">
-            <!-- <h1><a href="#">My Site</a></h1> -->
-            <a href="/" title="Global Change Lab home" id="gcl-logo"><img src="{% static 'images/gcl-logo.png' %}"></a>
-          </li>
-          <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
-        </ul>
-
-        <section class="top-bar-section">
-          <!-- Left Nav Section -->
-          <ul class="left">
-
-          </ul>
-
-          <!-- Right Nav Section -->
-          <ul class="right">
-            {% block admin_dashboard_button %}
-
-            {% endblock %}
-
-            {% block trainer_dashboard_button %}
-
-            {% endblock %}
-
-
-            </li>
-          </ul>
-        </section>
-      </nav>
-    </div>
-
-    <div id="content" class="{% block content-classes %}{% endblock %}">
-
-      <div id="info-box" data-url-name="">
-        <div class="text">{% block info %}{% endblock %}</div>
-        <a href="#" class="close">&times;</a>
-      </div>
-
-      {% block content %}
-      <h1>Page not found (404)</h1>
-      
-      <div id="404-container" style="position: relative">
-        <a href="/"><img src="{% static 'images/404.jpg' %}"></a>
-
-        <h2 style="position: absolute; top: 40%; right: 5%; width: 35%;">
-          Go to <a href="/" style="text-decoration: underline">the home page</a> or go out and change the world!
-        </h2>
-      </div>
-      {% endblock %}
-
-    </div>
-    <div id="sticky-footer-push"></div>
-  </div>
-  {# End wrapper for content in "sticky footer"-scheme #}
-
-  <footer class="{% block footer-classes %}{% endblock %}">
-    {% block fat_footer %}{% endblock %}
-
-    <div class="row">
-    {% block footer %}
-    <div class="columns footer-left">
-      <div class="social-icons">
-        <a class="icon-social medium c-twitter red" href="#"></a>
-        <a class="icon-social medium c-facebook red" href="#"></a>
-        <a class="icon-social medium c-google-plus red" href="#"></a>
-        <a class="icon-social medium c-flickr red" href="#"></a>
-      </div>
-      <div class="row" id="footer-links">
-        <div class="large-4 columns">
-          <h6>About Training</h6>
-          <a target="_blank" class="notice" href="http://www.globalplatforms.org/training-principles">{% itrans 'Training Principles' %}</a>
-          <a target="_blank" class="notice" href="http://www.globalplatforms.org/all-trainings">{% itrans 'Get Trained Face To Face' %}</a>
-        </div>
-        <div class="large-8 columns">
-          <h6>Who We Are</h6>
-          <a target="_blank" class="notice" href="http://www.globalplatforms.org">Global Platforms</a>
-          <a target="_blank" class="notice" href="http://ms.dk">ActionAid Denmark</a>
-        </div>
-      </div>
-    </div>
-    <div class="columns footer-images">
-      <img id="footer-logo" src="{% static 'images/logo-small-footer.png' %}">
-      <img id="footer-guy" src="{% static 'images/peace-guy.png' %}">
-    </div>
-    <div class="creative-commons-icons">
-      <a href="{% url 'creative-commons' %}">
-        <span class="icon cc"></span>
-        <span class="icon cc-by"></span>
-        <span class="icon cc-nc"></span>
-        <span class="icon cc-sa"></span>
-      </a>
-    </div>
-    {% endblock %}
-    </div>
-  </footer>
-
-  <script>
-    $(document).foundation();
-
-    {% block javascript_extra %}{% endblock %}
-  </script>
-
-
-</body>
-</html>
+  <h2 style="position: absolute; top: 40%; right: 5%; width: 35%;">
+    Go to <a href="/" style="text-decoration: underline">the home page</a> or go out and change the world!
+  </h2>
+</div>
+{% endblock %}
