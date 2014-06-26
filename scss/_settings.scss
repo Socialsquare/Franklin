@@ -633,6 +633,11 @@ $info-color: $gcl-lightgray;
 // $orbit-slide-number-font-color: #fff;
 // $orbit-slide-number-padding: rem-calc(5);
 
+// Hide controls on small
+// $orbit-nav-hide-for-small: true;
+// $orbit-bullet-hide-for-small: false;
+// $orbit-timer-hide-for-small: false;
+
 // Graceful Loading Wrapper and preloader
 // $wrapper-class: "slideshow-wrapper";
 // $preloader-class: "preloader";

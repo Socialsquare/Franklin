@@ -38,6 +38,17 @@ body.skill-view {
   .start-row {
     max-width: 50rem;
     height: $metadata_height;
+    @media #{$small-only} {
+      .button {
+        width: 100%;
+      }
+      .metadata-with-like-button {
+        width: 100%;
+        .button {
+          margin-top: 0.5rem;
+        }
+      }
+    }
   }
   .stop {
     font-size: rem-calc(13px);
@@ -53,18 +64,23 @@ body.skill-view {
 .skill-list-view {
   $skill-height: rem-calc(160px);
 
+  @media #{$medium-up} {
+    li {
+      min-height: $skill-height;
+      &>div {
+        min-height: $skill-height;
+      }
+    }
+  }
+
   li {
-    height: $skill-height;
     margin-bottom: 2rem;
     // padding-right: 1rem;
 
-
     &>div {
       display: inline-block;
-      height: $skill-height;
       float: left;
       padding:0;
-
 
       &.skill-icon {
         width: 10%;

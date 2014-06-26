@@ -164,9 +164,13 @@
     display: inline-block;
     margin-bottom: 0;
   }
-  textarea {
-    width: 80%;
+  
+  @media #{$medium-up} {
+    textarea {
+      width: 80%;
+    }
   }
+
   button {
     vertical-align: bottom;
     padding: rem-calc(7px);

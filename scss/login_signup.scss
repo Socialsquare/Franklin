@@ -1,4 +1,4 @@
-body.login-signup {
+body.login-signup #content {
   .column-header {
     font-family: $body-font-family;
     font-weight: bold;
@@ -10,13 +10,15 @@ body.login-signup {
     padding: 0;
   }
 
-  .signup.columns {
-    // border-right: 2px groove rgba(128,128,128,0.1);
-    border-right: 1px solid $gcl-lightgray;
-    padding-right: rem-calc(60px);
-  }
-  .social-login.columns {
-    padding-left: rem-calc(60px);
+  @media #{$medium-up} {
+    .signup.columns {
+      // border-right: 2px groove rgba(128,128,128,0.1);
+      border-right: 1px solid $gcl-lightgray;
+      padding-right: rem-calc(60px);
+    }
+    .social-login.columns {
+      padding-left: rem-calc(60px);
+    }
   }
 }
 

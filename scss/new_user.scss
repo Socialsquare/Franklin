@@ -45,13 +45,6 @@ div#new-user-greeter {
     color: $gcl-midgray;
   }
 
-  .user_info_form {
-    button {
-      margin-bottom: 0;
-      margin-right: - rem-calc(40px);
-    }
-  }
-
 }
 
 @media #{$medium-up} {
@@ -70,9 +63,17 @@ div#new-user-greeter {
       padding-left: $pad;
       padding-right: $pad;
     }
+
+    .user_info_form {
+      button {
+        margin-bottom: 0;
+        margin-right: - rem-calc(40px);
+      }
+    }
   }
 }
 
+// This couldn't be acheived using settings instead.
 .touch .orbit-bullets {
   display: block;
 }

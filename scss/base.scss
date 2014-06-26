@@ -258,14 +258,27 @@ footer {
 
     img {
       float: right;
-      &#footer-logo {
-        margin-top: $social_icons_height;
-        margin-left: rem-calc(20px);
-        width: rem-calc(190px);
+      @media #{$medium-up} {
+        &#footer-logo {
+          margin-top: $social_icons_height;
+          margin-left: rem-calc(20px);
+          width: rem-calc(190px);
+        }
+        &#footer-guy {
+          margin-top: rem-calc(20px);
+          height: rem-calc(280px);
+        }
       }
-      &#footer-guy {
-        margin-top: rem-calc(20px);
-        height: rem-calc(280px);
+      @media #{$small-only} {
+        &#footer-logo {
+          margin-top: rem-calc(20px);
+          margin-left: rem-calc(20px);
+          width: rem-calc(190px);
+        }
+        &#footer-guy {
+          margin-top: rem-calc(20px);
+          height: rem-calc(140px);
+        }
       }
     }
   }
@@ -277,7 +290,11 @@ footer {
     // font-weight: 100;
 
     div.columns {
-      padding-left: 0;
+
+      @media #{$large-up} {
+        padding-left: 0;
+      }
+
     }
 
     a {

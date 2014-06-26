@@ -73,16 +73,25 @@ div#greeter-container {
 div#front-page-cols {
   margin-bottom: 2rem;
 
-  .columns:first-child {
-    border-left: none;
+  @media #{$medium-up} {
+    .columns:first-child {
+      border-left: none;
+    }
+
+    .columns {
+      border-left: 1px solid #eee;
+      /*min-height: 23rem;*/
+    }
   }
+
   .columns {
-    border-left: 1px solid #eee;
 
     text-align: center;
-    min-height: 23rem;
     padding-left: 2rem;
     padding-right: 2rem;
+    @media #{$small-only} {
+      padding-bottom: 4rem;
+    }
     // position: relative;
 
     .icon {

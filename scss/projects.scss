@@ -1,7 +1,11 @@
 /******* PROJECT VIEW *********/
 .project-wrapper {
-  width: 70%;
-  margin-left: 15%;
+
+  @media #{$medium-up} {
+    width: 70%;
+    margin-left: 15%;
+  }
+
   //max-width: rem-calc(500px);
   //margin-left: auto;
   //margin-right: auto;
@@ -179,6 +183,7 @@ a:hover .project-title {
 
     .profile-picture {
       float: left;
+      clear: left;
       display: inline-block;
       margin-right: 0.7rem;
       @include rounded(0.2rem);
