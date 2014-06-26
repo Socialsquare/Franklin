@@ -58,7 +58,7 @@
       <span class="trainingbit-count">{{ skill.trainingbit_count }} Training Bits</span>
       <!-- <br> -->
       <div class="tooltip" data-tooltip="{% trans 'Number of likes this skill has' %}">{% include 'skills/partials/like_counter.html' with object=skill %}</div>
-      <div class="tooltip" data-tooltip="{% trans 'Number of users taking this skill right now' %}"><i class="icon-users red"></i><span class="count">{{ skill.users_completed.count }}</span></div>
+      <div class="tooltip" data-tooltip="{% trans 'Number of users taking this skill right now' %}"><i class="icon-users red"></i><span class="count">{{ skill.users_in_progress.count }}</span></div>
       {% include 'skills/partials/like_button.html' with object=skill %}
     </div>
   </div>
