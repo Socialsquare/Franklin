@@ -31,7 +31,12 @@ div#greeter-container {
       text-transform: uppercase;
       color: white;
       font-family: 'Allerta Stencil', sans-serif;
-      font-size: rem-calc(55px);
+      @media #{$medium-up} {
+        font-size: rem-calc(55px);
+      }
+      @media #{$small-only} {
+        font-size: rem-calc(32px);
+      }
       line-height: 1.15;
       margin-bottom: rem-calc(20px);
 
@@ -40,6 +45,9 @@ div#greeter-container {
       float: left;
     }
     .info {
+      @media #{$small-only} {
+        clear: left;
+      }
       font-size: rem-calc(20px);
       color: white;
       line-height: 2rem;

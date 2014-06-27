@@ -146,49 +146,48 @@
 
     <div class="row">
     {% block footer %}
-    <div class="columns footer-left">
-      <div class="social-icons">
-        <a class="icon-twitter-circled medium red" href="https://twitter.com/Gchangelab" title="Follow us on Twitter!"></a>
-        <!--a class="icon-facebook-circled medium red" href="#"></a>
-        <a class="icon-gplus-circled medium red" href="#"></a>
-        <a class="icon-flickr-circled medium red" href="#"></a-->
-      </div>
-      <div class="row" id="footer-links">
-        <div class="large-4 columns">
-          <h6>From The Lab</h6>
+      <div class="columns footer-left">
+        <div class="social-icons">
+          <a class="icon-twitter-circled medium red" href="https://twitter.com/Gchangelab" title="Follow us on Twitter!"></a>
+          <!--a class="icon-facebook-circled medium red" href="#"></a>
+          <a class="icon-gplus-circled medium red" href="#"></a>
+          <a class="icon-flickr-circled medium red" href="#"></a-->
+        </div>
+        <div class="row" id="footer-links">
+          <div class="large-4 columns">
+            <h6>From The Lab</h6>
 
-          {% load gcl_utils %}
-          {% get_footer_flatpages as flatpages %}
-          {% for page in flatpages %}
-          <a class="notice" href="{% url 'django.contrib.flatpages.views.flatpage' page.url %}">{{ page.title }}</a>
-          {% endfor %}
-        </div>
-        <div class="large-4 columns">
-          <h6>About Training</h6>
-          <a target="_blank" class="notice" href="http://www.globalplatforms.org/training-principles">{% itrans 'Training Principles' %}</a>
-          <a target="_blank" class="notice" href="http://www.globalplatforms.org/all-trainings">{% itrans 'Get Trained Face To Face' %}</a>
-        </div>
-        <div class="large-4 columns">
-          <h6>Who We Are</h6>
-          <a target="_blank" class="notice" href="http://www.globalplatforms.org">Global Platforms</a>
-          <a target="_blank" class="notice" href="http://ms.dk">ActionAid Denmark</a>
+            {% load gcl_utils %}
+            {% get_footer_flatpages as flatpages %}
+            {% for page in flatpages %}
+            <a class="notice" href="{% url 'django.contrib.flatpages.views.flatpage' page.url %}">{{ page.title }}</a>
+            {% endfor %}
+          </div>
+          <div class="large-4 columns">
+            <h6>About Training</h6>
+            <a target="_blank" class="notice" href="http://www.globalplatforms.org/training-principles">{% itrans 'Training Principles' %}</a>
+            <a target="_blank" class="notice" href="http://www.globalplatforms.org/all-trainings">{% itrans 'Get Trained Face To Face' %}</a>
+          </div>
+          <div class="large-4 columns">
+            <h6>Who We Are</h6>
+            <a target="_blank" class="notice" href="http://www.globalplatforms.org">Global Platforms</a>
+            <a target="_blank" class="notice" href="http://ms.dk">ActionAid Denmark</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="columns footer-images">
+      <div class="creative-commons-icons">
+        <a href="{% url 'creative-commons' %}">
+          <span class="icon-cc"></span>
+          <span class="icon-cc-by"></span>
+          <span class="icon-cc-nc"></span>
+          <span class="icon-cc-sa"></span>
+        </a>
+      </div>
       <img id="footer-logo" src="{% static 'images/logo-small-footer.png' %}">
       <img id="footer-guy" src="{% static 'images/peace-guy.png' %}">
-    </div>
-    <div class="creative-commons-icons">
-      <a href="{% url 'creative-commons' %}">
-        <span class="icon-cc"></span>
-        <span class="icon-cc-by"></span>
-        <span class="icon-cc-nc"></span>
-        <span class="icon-cc-sa"></span>
-      </a>
-    </div>
     {% endblock %}
     </div>
+
   </footer>
 
   <script>

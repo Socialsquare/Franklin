@@ -40,6 +40,8 @@
   //"foundation/components/offcanvas",
   "foundation/components/visibility";
 
+$medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
+
 @import "scss/gcl-functions";
 @import "scss/entypo";
 @import "scss/front_page";
@@ -253,8 +255,6 @@ h1, h2, h3, h4, h5, h6 {
 a.notice:hover {
   color: $gcl-red;
 }
-
-$medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
 
 h1 {
   text-transform: uppercase;

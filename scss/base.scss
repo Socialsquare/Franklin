@@ -11,12 +11,19 @@ html, body {
 $fat-footer-height: 0;
 $static-footer-height: rem-calc(300px);
 $footer-height: $fat-footer-height + $static-footer-height;
+$footer-height-small: $footer-height - rem-calc(60px);
+
 #sticky-footer-wrap {
   clear: both;
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin-bottom: -$footer-height;
+  @media #{$small-only} {
+    margin-bottom: -$footer-height-small;
+  }
+  @media #{$medium-up} {
+    margin-bottom: -$footer-height;
+  }
 }
 footer {
   clear: both;
@@ -26,7 +33,13 @@ footer {
   }
 }
 #sticky-footer-push {
-  height: $footer-height;
+  @media #{$small-only} {
+    height: $footer-height-small;
+  }
+  @media #{$medium-up} {
+    height: $footer-height;
+  }
+
 }
 
 body.trainer-interface {
@@ -134,6 +147,7 @@ body.trainer-interface {
       }
     }
   }
+
   #logged-in-menu:not(.has-dropdown) {
     a:after {
       @include css-triangle($topbar-dropdown-toggle-size, rgba($topbar-dropdown-toggle-color, $topbar-dropdown-toggle-alpha), $default-float);
@@ -142,6 +156,20 @@ body.trainer-interface {
       position: absolute;
       top: 50%;
       #{$opposite-direction}: 0;
+    }
+  }
+
+  // Make the menu stack nicely on mobile.
+  @media #{$small-only}, #{$medium-only} {
+    .top-bar-section .left {
+      li {
+        float: left;
+        text-align: center;
+        width: 33%;
+        a {
+          padding-left: 0;
+        }
+      }
     }
   }
 }
@@ -218,8 +246,16 @@ footer {
     }
   }
 
-  .row {
+  &>.row {
     position: relative; // Needed in order position Creative Commons icons
+
+    @media #{$small-only} {
+      min-height: $footer-height-small;
+    }
+    @media #{$medium-up} {
+      min-height: $footer-height;
+    }
+
   }
 
   $social_icons_height: rem-calc(120px);
@@ -227,7 +263,12 @@ footer {
   .social-icons {
     width: 100%;
     $margin_top: rem-calc(10px);
-    height: $social_icons_height -  $margin_top;
+    @media #{$small-only} {
+      height: $social_icons_height -  $margin_top - rem-calc(60px);
+    }
+    @media #{$medium-up} {
+      height: $social_icons_height -  $margin_top;
+    }
     margin-top: $margin_top;
     // margin-bottom: rem-calc(10px);
     line-height: 3rem;
@@ -244,43 +285,8 @@ footer {
   }
 
   .footer-left {
-    @media #{$medium-up} {
-      // width, last-column,  center, offset, push, pull, collapse, float
-      @include grid-column(7, false, false, 0, 0, 0, true, left);
-    }
-  }
-
-  .footer-images {
-    @media #{$medium-up} {
-      // width, last-column,  center, offset, push, pull, collapse, float
-      @include grid-column(5, false, false, 0, 0, 0, true, left);
-    }
-
-    img {
-      float: right;
-      @media #{$medium-up} {
-        &#footer-logo {
-          margin-top: $social_icons_height;
-          margin-left: rem-calc(20px);
-          width: rem-calc(190px);
-        }
-        &#footer-guy {
-          margin-top: rem-calc(20px);
-          height: rem-calc(280px);
-        }
-      }
-      @media #{$small-only} {
-        &#footer-logo {
-          margin-top: rem-calc(20px);
-          margin-left: rem-calc(20px);
-          width: rem-calc(190px);
-        }
-        &#footer-guy {
-          margin-top: rem-calc(20px);
-          height: rem-calc(140px);
-        }
-      }
-    }
+    // width, last-column,  center, offset, push, pull, collapse, float
+    @include grid-column(7, false, false, 0, 0, 0, true, left);
   }
 
   #footer-links {
@@ -302,6 +308,40 @@ footer {
       font-family: arial, sans-serif;
     }
 
+  }
+
+  #footer-guy {
+    display: block;
+    position: absolute;
+    right: 26%;
+    bottom: 0%;
+    height: rem-calc(280px);
+  }
+
+  @media #{$small-only} {
+    #footer-guy {
+      display: none;
+    }
+  }
+
+  #footer-logo {
+    display: block;
+    position: absolute;
+    @media #{$small-only} {
+      top: $social_icons_height - rem-calc(60px);
+    }
+    @media #{$medium-up} {
+      top: $social_icons_height;
+    }
+    right: rem-calc(20px);
+
+    @media #{$medium-up} {
+      width: rem-calc(190px);
+      max-width: 25%;
+    }
+    @media #{$small-only} {
+      max-width: 50%;
+    }
   }
 
   background-color: $gcl-lightgray;

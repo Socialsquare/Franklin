@@ -2,7 +2,7 @@
 
 .tooltip {
   display: inline-block;
-  height: 1em;
+  /*height: 1em;*/ // Why would we ever constrain this?
 }
 
 .tip-twitter {

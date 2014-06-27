@@ -86,7 +86,7 @@ li.trainingbit {
   }
 
   div.description {
-    height: rem-calc(133px);
+    max-height: rem-calc(133px);
     // width: $width;
     overflow: hidden;
     
@@ -95,7 +95,7 @@ li.trainingbit {
       margin-bottom: 0;
     }
     p {
-      height: rem-calc(75px);
+      max-height: rem-calc(75px);
       font-weight: 200;
       // font-size: rem-calc(12px);
       font-size: 0.85rem;
