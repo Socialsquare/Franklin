@@ -71,7 +71,12 @@ $left-margin: rem-calc(20px);
      }
 }
 
+.cover-content {
+  position: relative;
+}
+
 .gcl-column.sidebar {
+  position: initial;
 
   @media #{$large-only} {
     margin-left: 2.5%;
@@ -87,11 +92,18 @@ $left-margin: rem-calc(20px);
     clear: both;
   }
 
+  .metadata {
+    position: absolute;
+    bottom: 0px;
+    width: 30%;
+  }
+
   ul {
     font-size: rem-calc(12px);
     line-height: 1.8;
     font-weight: 500;
     color: $gcl-lightgray !important;
+    margin: 0;
   }
   h5 {
     text-transform: uppercase;
