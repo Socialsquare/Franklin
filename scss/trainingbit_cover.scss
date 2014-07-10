@@ -65,10 +65,8 @@ $left-margin: rem-calc(20px);
 .cover-description {
 }
 
-.row {
-     h2 {
-        margin-left: $left-margin;
-     }
+h2.shared-by-others {
+  margin-left: $left-margin;
 }
 
 .cover-content {
