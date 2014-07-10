@@ -11,7 +11,7 @@
   {# {{ completed_skills_names|listify:3 }} #}
   <h3> and the skill of 
   {% for skill in completed_skills %}
-    {% if forloop.last and forlopp.revcounter != 0 %} and {% endif %}
+    {% if forloop.last and not forloop.first %} and {% endif %}
     {% if not forloop.last and not forloop.first %}, {% endif %}
 
     <img class="skill-flag" src="{% skill_user_flag_image skill request.user %}" alt="Skill image">
