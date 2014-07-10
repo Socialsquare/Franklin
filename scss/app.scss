@@ -144,7 +144,7 @@ a.button.admin-button, .top-bar-section li a.button.admin-button {
   }
 }
 
-.button {
+.button, button {
 
   padding-left: rem-calc(10px);
   padding-right: rem-calc(10px);
@@ -161,7 +161,7 @@ a.button.admin-button, .top-bar-section li a.button.admin-button {
   }
 }
 
-.button.info {
+button.info, .button.info {
   background-color: $info-color;
   color: $gcl-darkgray;
 }

@@ -163,6 +163,7 @@
   textarea, button {
     display: inline-block;
     margin-bottom: 0;
+    vertical-align: bottom;
   }
   
   @media #{$medium-up} {
@@ -172,7 +173,6 @@
   }
 
   button {
-    vertical-align: bottom;
     padding: rem-calc(7px);
     background-color: $gcl-red;
     text-transform: uppercase;
@@ -182,4 +182,10 @@
 
 .reply-form {
   display: none;
+}
+
+.project-wrapper .comment-list .reply-form {
+  textarea {
+    margin-bottom: 0.5rem;
+  }
 }
