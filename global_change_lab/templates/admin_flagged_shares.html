@@ -19,9 +19,10 @@
   <table>
     <thead>
       <tr>
-        <th>Name</th>
-        <th>User</th>
-        <th>Date</th>
+        <th>Title</th>
+        <th>Shared by</th>
+        <th>When</th>
+        <th>Remove the flag</th>
       </tr>
     </thead>
 
@@ -31,6 +32,7 @@
         <td><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></td>
         <td><a href="{{ project.author.get_absolute_url }}">{{ project.author.username }}</a></td>
         <td>{{ project.created_at|pretty_timesince }}</td>
+        <td><a href="{% url 'skills:project_unflag' project.pk %}" class="button admin-button">Unflag</a></td>
       </tr>
     {% endfor %}
     </tbody>

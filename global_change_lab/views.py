@@ -163,17 +163,14 @@ def admin_dashboard(request):
 
 
 def admin_flagged_comments(request):
-
     return render(request, 'admin_flagged_comments.html', {
         'comments': Comment.objects.filter(is_deleted=False, is_flagged=True, project__is_deleted=False),
     })
 
 def admin_flagged_shares(request):
-
     return render(request, 'admin_flagged_shares.html', {
         'projects': Project.objects.filter(is_deleted=False, is_flagged=True),
     })
-
 
 def admin_users_csv(request):
     response = HttpResponse(content_type='text/csv')

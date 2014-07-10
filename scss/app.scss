@@ -49,6 +49,7 @@ $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
 @import "scss/base";
 @import "scss/messages";
 @import "scss/trainer_dashboard";
+@import "scss/admin_dashboard";
 @import "scss/statistics";
 @import "scss/trainingbit_cover";
 @import "scss/trainingbit_view";

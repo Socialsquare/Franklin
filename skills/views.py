@@ -729,6 +729,16 @@ def project_flag(request, project_pk):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required
+def project_unflag(request, project_pk):
+    if request.user.is_admin:
+        project = get_object_or_404(Project, pk=project_pk)
+        project.is_flagged = False
+        project.save()
+        messages.success(request, 'Project was successfully unflagged')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required
 def project_delete(request, project_pk):
