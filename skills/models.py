@@ -84,6 +84,8 @@ class SluggedModel(models.Model):
             # The object has "just" been created (not in the database yet)
             # so set the slug
             slug = slugify(self.name)
+            if not slug:
+                slug = "unnamed"
 
             if self.__class__.objects.filter(slug__exact=slug).exists():
                 # An object with this slug already exists!
