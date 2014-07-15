@@ -10,8 +10,8 @@
         <div class="columns small-10 text">
           <a href="{% url 'profile' project.author.pk %}">{{ project.author.username }}</a>
           shared
-          <br>
           <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+          <br>
           in the bit
           <a href="{{ project.trainingbit.get_absolute_url }}">{{ project.trainingbit.name }}</a>
         </div>

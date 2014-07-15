@@ -81,6 +81,12 @@ h2.shared-by-others {
     border-left: 1px solid $gcl-lightgray;
     padding-left: 2.5%;
     width: 32.5%;
+    
+    .metadata {
+      position: absolute;
+      bottom: 0px;
+      width: 30%;
+    }
   }
   @media #{$small-only}, #{$medium-only} {
     width: 100%;
@@ -90,11 +96,7 @@ h2.shared-by-others {
     clear: both;
   }
 
-  .metadata {
-    position: absolute;
-    bottom: 0px;
-    width: 30%;
-  }
+  /**/
 
   ul {
     font-size: rem-calc(12px);

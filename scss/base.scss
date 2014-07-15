@@ -24,6 +24,8 @@ $footer-height-small: $footer-height - rem-calc(60px);
   @media #{$medium-up} {
     margin-bottom: -$footer-height;
   }
+  /* Making sure that nothing make the page wider than the device's width. */
+  overflow-x: hidden;
 }
 footer {
   clear: both;
@@ -223,6 +225,11 @@ footer {
         margin-left: 0;
         li {
           margin-bottom: rem-calc(5px);
+          margin-left: 1.85rem;
+          [class^="icon-"] {
+            vertical-align: inherit;
+            margin-left: -1.85rem;
+          }
         }
       }
     }
@@ -237,6 +244,7 @@ footer {
         height: 3.5rem;
 
         .profile-picture {
+          padding-right: 0;
           text-align: center;
           img {
             max-height: 3.5rem;

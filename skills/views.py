@@ -419,7 +419,6 @@ def trainingbit_view(request, slug=None):
             project.save()
             messages.success(request, 'Project was successfully saved')
 
-
             # complete trainingbit
             request.user.complete_trainingbit(trainingbit)
             request.session['completed_trainingbit_pk'] = trainingbit.pk

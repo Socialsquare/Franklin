@@ -292,11 +292,13 @@ h1 {
 #info-box {
   // Hide by default, shown by Javascript
   display: none;
+  position: relative;
 
   background-color: $gcl-browngray;
   padding-top: rem-calc(22px);
   padding-bottom: rem-calc(22px);
-  padding-left: rem-calc(30px);
+  padding-left: rem-calc(15px);
+  padding-right: rem-calc(15px);
 
   font-weight: 200;
   margin-bottom: rem-calc(20px);
@@ -314,17 +316,16 @@ h1 {
     position: absolute;
     top: rem-calc(10px);
     right: rem-calc(10px);
-    margin-top: 1rem;
 
-    padding-left: rem-calc(5px);
-    padding-right: rem-calc(5px);
-    padding-top: 0;
-    padding-bottom: 0.35rem;
+    // padding-left: rem-calc(5px);
+    // padding-right: rem-calc(5px);
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 
     @include rounded(3px);
 
-    line-height: 0.8;
-    font-size: 1.9rem;
+    // line-height: 0.8;
+    // font-size: 1.9rem;
 
     background-color: $gcl-red;
     color: white;
@@ -464,6 +465,13 @@ div.gcl-column2 {
                       // .metadata-fat box and onto a new line. In that case we
                       // hide the icons that are overflowing.
 
+  /* These are hidden anyway, and they push the Like button, onto a new line. */
+  @media #{$small-only} {
+    .actions {
+      display: none;
+    }
+  }
+
   .profile-picture {
     height: 100%;
     width: $metadata_height;
@@ -532,7 +540,7 @@ div.gcl-column2 {
 #trainingbit-completed-modal {
   h2, h3 {
     text-transform: none;
-    display: inline-block;
+    display: inline;
   }
   .trainingbit-title {
     @extend %text-white-on-red;
