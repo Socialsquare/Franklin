@@ -27,13 +27,11 @@ def current_url_equals(context, url_name, **kwargs):
     current_url = False
     try:
         current_url = urlresolvers.resolve(context.get('request').path)
+        if current_url.url_name == url_name or url_name == current_url.namespace + ':' + current_url.url_name:
+            return current_url
     except:
         pass
-
-    if current_url.url_name == url_name or url_name == current_url.namespace + ':' + current_url.url_name:
-        return current_url
-    else:
-        return False
+    return False
 
     # for key in kwargs:
     #     kwarg = kwargs.get(key)
