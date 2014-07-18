@@ -44,6 +44,7 @@ $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
 
 @import "scss/gcl-functions";
 @import "scss/entypo";
+@import "scss/helvetica_neue";
 @import "scss/front_page";
 @import "scss/new_user";
 @import "scss/base";

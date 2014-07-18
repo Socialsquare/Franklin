@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'entypo';
-  src: url('/static/global_change_lab/entypo/entypo.eot?75834018');
-  src: url('/static/global_change_lab/entypo/entypo.eot?75834018#iefix') format('embedded-opentype'),
-       url('/static/global_change_lab/entypo/entypo.woff?75834018') format('woff'),
-       url('/static/global_change_lab/entypo/entypo.ttf?75834018') format('truetype'),
-       url('/static/global_change_lab/entypo/entypo.svg?75834018#entypo') format('svg');
+  src: url('/static/global_change_lab/fonts/entypo/entypo.eot?75834018');
+  src: url('/static/global_change_lab/fonts/entypo/entypo.eot?75834018#iefix') format('embedded-opentype'),
+       url('/static/global_change_lab/fonts/entypo/entypo.woff?75834018') format('woff'),
+       url('/static/global_change_lab/fonts/entypo/entypo.ttf?75834018') format('truetype'),
+       url('/static/global_change_lab/fonts/entypo/entypo.svg?75834018#entypo') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'entypo';
-    src: url('/static/global_change_lab/entypo/font/entypo.svg?75834018#entypo') format('svg');
+    src: url('/static/global_change_lab/fonts/entypo/entypo.svg?75834018#entypo') format('svg');
   }
 }
 */
