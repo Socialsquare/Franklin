@@ -216,7 +216,7 @@ class Project(TimedModel, AuthoredModel, SluggedModel):
 class Comment(TimedModel, AuthoredModel):
 
     # Content
-    text = models.TextField(blank=True)
+    text = models.TextField(blank=False)
 
     # Relations
     project = models.ForeignKey(Project)
