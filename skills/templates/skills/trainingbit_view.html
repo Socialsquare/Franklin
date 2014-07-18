@@ -123,7 +123,7 @@
 
 <script>
 // Scroll to errors on project submission error
-$(document).ready(function() {
+$(window).load(function() {
   $('#project-form-errors').each(function() {
     var verticalOffset = $(this).offset().top;
     $(window).scrollTop(verticalOffset - 50);
