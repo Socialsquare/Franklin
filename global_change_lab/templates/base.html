@@ -65,6 +65,13 @@
   <link rel="stylesheet" href="{% static 'global_change_lab/entypo/entypo-ie7.css' %}">
   <![endif]-->
 
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+    <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+  <![endif]-->
+
   <title>{% block title %}Global Change Lab{% endblock %}</title>
 
   {% block extra_head %}{% endblock %}
@@ -208,8 +215,11 @@
           <span class="icon-cc-sa"></span>
         </a>
       </div>
+
+      <!--[if lt IE 9]><div style="display:none;"><![endif]-->
       <img id="footer-logo" src="{% static 'images/logo-small-footer.png' %}">
       <img id="footer-guy" src="{% static 'images/peace-guy.png' %}">
+      <!--[if lt IE 9]></div><![endif]-->
     {% endblock %}
     </div>
 
@@ -260,5 +270,8 @@
   {% get_solo 'global_change_lab.SiteConfiguration' as site_config %}
   {{ site_config.analytics_code|safe }}
 
+  <!--[if lt IE 9]>
+    <script src="//cdn.rawgit.com/chuckcarpenter/REM-unit-polyfill/master/js/rem.min.js"></script>
+  <![endif]-->
 </body>
 </html>
