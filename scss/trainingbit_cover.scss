@@ -71,23 +71,40 @@ h2.shared-by-others {
 
 .cover-content {
   position: relative;
+
+  @media #{$large-up} {
+    .sidebar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+
+ @media #{$large-up} {
+  .cover-metadata {
+    position: relative;
+    min-height: 3rem;
+    .gcl-column2 {
+      position: absolute;
+      bottom: 0;
+    }
+    .sidebar {
+      position: relative;
+      left: 65%;
+    }
+  }
 }
 
 .gcl-column.sidebar {
-  position: initial;
-
-  @media #{$large-only} {
+  @media #{$large-up} {
     margin-left: 2.5%;
     border-left: 1px solid $gcl-lightgray;
     padding-left: 2.5%;
     width: 32.5%;
-    
-    .metadata {
-      position: absolute;
-      bottom: 0px;
-      width: 30%;
-    }
   }
+
   @media #{$small-only}, #{$medium-only} {
     width: 100%;
   }

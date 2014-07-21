@@ -38,6 +38,19 @@
 <div class="row cover-content">
   <div class="gcl-column2 cover-description">
     <p class="trainingbit-description">{{ trainingbit.description }}</p>
+  </div>
+  <div class="gcl-column sidebar">
+    <div class="metadata-fat">
+      <div class="profile-picture" style="background-image: url({{ trainingbit.author.getImage }})"></div>
+      <div class="text">
+        <a href="{{ trainingbit.author.get_absolute_url }}" class="author">{{ trainingbit.author.username }}</a><br>
+        <span class="date">{{ trainingbit.created_at|date }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row cover-metadata">
+  <div class="gcl-column2">
     <div class="start-trainingbit-container">
       {% if request.user.is_authenticated %}
         {% if trainingbit in request.user.trainingbits_in_progress.all %}
@@ -60,15 +73,6 @@
     </div>
   </div>
   <div class="gcl-column sidebar">
-
-    <div class="metadata-fat">
-      <div class="profile-picture" style="background-image: url({{ trainingbit.author.getImage }})"></div>
-      <div class="text">
-        <a href="{{ trainingbit.author.get_absolute_url }}" class="author">{{ trainingbit.author.username }}</a><br>
-        <span class="date">{{ trainingbit.created_at|date }}</span>
-      </div>
-    </div>
-
     <div class="metadata">
       <div class="columns small-6">
         <h5>Topics</h5>
