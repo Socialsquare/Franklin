@@ -6,7 +6,7 @@ body.user-profile {
 #profile-bar {
 
   $height: rem-calc(150px);
-  height: $height;
+  min-height: $height;
   position: relative;
 
   div.profile-picture {
@@ -14,7 +14,7 @@ body.user-profile {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 85%;
+    height: $height;
     width: $height;
     overflow: hidden;
 

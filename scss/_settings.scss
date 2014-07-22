@@ -18,7 +18,8 @@ $gcl-blue: #4B81BF;
 
 $gcl-comment-color: #F4F3F1; // Background color of comments
 
-$page-buttons-overlay: absolute;
+// $page-buttons-overlay: absolute;
+$page-buttons-overlay: floating;
 
 $button-font-size: rem-calc(12px);
 

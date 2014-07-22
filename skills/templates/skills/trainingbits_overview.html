@@ -25,7 +25,7 @@ behind the topics.</p>
 {% endblock %}
 
 {% block content %}
-<div class="page-buttons">
+<div class="page-buttons hide-for-small-only">
   {# View recommended #}
   {% if showing_recommended %}
     <a href="{% url 'skills:trainingbits_overview' %}" class="button">

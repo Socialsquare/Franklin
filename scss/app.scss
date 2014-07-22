@@ -98,7 +98,7 @@ $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
 //   should contain button that regard an object (a user, a training bit, a skill)
 .page-buttons {
 
-  @extend .hide-for-small-only;
+  // @extend .hide-for-small-only;
 
   // To make sure the buttons are on top of e.g. trainingbit-cover
   // See: https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Understanding_z_index/Adding_z-index
