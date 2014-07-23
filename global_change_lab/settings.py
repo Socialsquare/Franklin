@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     # our own stuff
     'global_change_lab',
     'skills',
+    'respond_proxy',
 
     # requirements
     'django.contrib.sites', # requirement for django-allauth

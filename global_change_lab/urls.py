@@ -51,6 +51,9 @@ urlpatterns = patterns('',
     #   r'^pages<page.url>'
     # but flatpages enforce `page.url` to have leading and trailing slashes
     # therefore the flatpages base URL _must not_ have a trailing slash!
+
+    # respond-proxy
+    url(r'^', include('respond_proxy.urls', namespace='respond_proxy')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
