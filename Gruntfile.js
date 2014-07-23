@@ -150,6 +150,17 @@ module.exports = function(grunt) {
             'bower_components/offline/offline.min.js',
           ]
         }
+      },
+      // For editing training bits and using the trainer interface
+      ie8: {
+        files: {
+          'global_change_lab/static/global_change_lab/js/ie8.min.js': [
+            'js/html5shiv.min.js',
+            'js/nwmatcher-1.2.5-min.js',
+            'js/selectivizr-1.0.3b.js',
+            'js/respond.min.js'
+          ]
+        }
       }
     },
 
