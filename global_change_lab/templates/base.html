@@ -9,6 +9,7 @@
   <meta charset="utf-8">
   {# For showing not-full-pages to iPhones  #}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="http://fonts.googleapis.com/css?family=Allerta+Stencil" rel="stylesheet" type="text/css">
   {% if debug %}
   <script src="//localhost:35729/livereload.js"></script>
@@ -71,12 +72,10 @@
 
   -->
   <link rel="stylesheet" href="{% static 'global_change_lab/css/app.css' %}">
-  <!--[if ie 9]>
-  <link rel="stylesheet" href="{% static 'global_change_lab/css/ie9.css' %}">
-  <![endif]-->
-  <!--[if IE 7]>
-  <link rel="stylesheet" href="{% static 'global_change_lab/entypo/entypo-ie7.css' %}">
-  <![endif]-->
+
+  <title>{% block title %}Global Change Lab{% endblock %}</title>
+
+  {% block extra_head %}{% endblock %}
 
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
@@ -85,9 +84,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
   <![endif]-->
 
-  <title>{% block title %}Global Change Lab{% endblock %}</title>
-
-  {% block extra_head %}{% endblock %}
 </head>
 
 <body class="{% block body-classes %}{% endblock %}">
