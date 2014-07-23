@@ -77,13 +77,13 @@
 
   {% block extra_head %}{% endblock %}
 
-  <!--[if lt IE 9]>
-    <script src="{% static 'global_change_lab/js/ie8.min.js' %}"></script>
-  <![endif]-->
-
 </head>
 
 <body class="{% block body-classes %}{% endblock %}">
+
+  <!--[if lt IE 9]>
+    <script src="{% static 'global_change_lab/js/ie8.min.js' %}"></script>
+  <![endif]-->
 
   {% comment %}
   {# It was decided that we don't show messages #}
