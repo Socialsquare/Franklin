@@ -127,5 +127,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, host: 8001, guest: 8000
   # Make the . folder the /vagrant
   # config.vm.synced_folder ".", "/vagrant"
-  config.vm.synced_folder "/tmp/gcl-messages", "/tmp/gcl-messages"
+  config.vm.synced_folder "/tmp/gcl-messages", "/tmp/gcl-messages", create: true
 end
