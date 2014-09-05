@@ -107,7 +107,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def account_verified(self):
         if self.user.is_authenticated:
-            result = EmailAddress.objects.get_primary(self.user) 
+            result = EmailAddress.objects.get_primary(self.user)
             #result = EmailAddress.objects.filter(email=self.user.email)
             if len(result):
                 return result[0].verified
@@ -148,13 +148,12 @@ class UserInfo(models.Model):
         # (data representation, textual/user representation)
         ('female', 'Female'),
         ('male',   'Male'),
-        ('other',  'Other'),
     ]
     ORGANISATION_TYPES = [
-        ('actionaid', 'ActionAid'),
-        ('rel', 'ActionAid Partner'),
-        ('other', 'Other'),
-        ('noorg', "No organization - I'm just myself"),
+        ('org1', 'Organisation 1'),
+        ('org2', 'Organisation 2'),
+        ('org3', 'Organisation 3'),
+        ('noorg', 'No organization'),
     ]
 
     # Content

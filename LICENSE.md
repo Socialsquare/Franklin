@@ -1,6 +1,6 @@
-Global Change Lab license
+Franklin license
 =========================
-The code and design of Global Change Lab is released under the BSD 2-clause
+The code and design of Franklin is released under the BSD 2-clause
 license:
 
 > Copyright (c) 2014, BIT BLUEPRINT and SOCIALSQUARE
@@ -29,7 +29,7 @@ license:
 
 Dependency Licenses
 ===================
-Global Change Lab depends on a number of projects released under their
+Franklin depends on a number of projects released under their
 respective licenses. These are includede below.
 
 django

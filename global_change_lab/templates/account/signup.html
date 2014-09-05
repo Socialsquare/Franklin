@@ -21,7 +21,7 @@
 
 <div class="small-row">
   <div class="medium-6 columns signup">
-      <h2 class="column-header">{% itrans 'Sign up for a Global Change Lab account' %}</h2>
+      <h2 class="column-header">{% itrans 'Sign up for a Franklin account' %}</h2>
       <form method="POST" action="{% url 'account_signup' %}" class="signup" id="signup_form">
         {% csrf_token %}
         <label>
@@ -59,8 +59,8 @@
           <input type="checkbox" id="terms-checkbox" name="terms">
           <label for="terms-checkbox">
             <span class="terms">
-              I agree to the <a class="red" href="{% url 'django.contrib.flatpages.views.flatpage' url='/terms' %}">Terms of Service</a> of Global Change Lab <link: http://www.globalchangelab.org/pages/terms-of-service/>
-              {# I agree to the <a class="red" href="{% url 'terms' %}">Terms of Service</a> of Global Change Lab #}
+              I agree to the <a class="red" href="{% url 'django.contrib.flatpages.views.flatpage' url='/terms' %}">Terms of Service</a> of Franklin <link: http://www.getfranklin.com/pages/terms-of-service/>
+              {# I agree to the <a class="red" href="{% url 'terms' %}">Terms of Service</a> of Franklin #}
             </span>
             {% if form.terms.errors %}
               <small class="error">{{ form.terms.errors.as_text }}</small>

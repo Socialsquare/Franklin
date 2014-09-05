@@ -18,9 +18,9 @@ from django.http import HttpResponseRedirect
 import re
 
 # Redirect
-# http://globalchangelab.cloudcontrolled.com -> http://www.globalchangelab.org
+# http://globalchangelab.cloudcontrolled.com -> http://www.getfranklin.com
 class CloudControlRedirectMiddleware(object):
     def process_request(self, request):
         if request.META['HTTP_HOST'].startswith('globalchangelab.cloudcontrolled.com'):
             url = request.get_full_path()
-            return HttpResponseRedirect('http://www.globalchangelab.org' + url)
+            return HttpResponseRedirect('http://www.getfranklin.com' + url)

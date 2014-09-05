@@ -1,6 +1,6 @@
-Global Change Lab
+Franklin
 =================
-Global Change Lab is an activist training platform built by BIT BLUEPRINT and
+Franklin is an activist training platform built by BIT BLUEPRINT and
 Socialsquare for actionAid.
 
 The readme contains section explaining how to configure different parts of the
@@ -9,7 +9,7 @@ project.
 Getting started
 ---------------
 
-Global Change Lab uses the 3.4+ version of the Python interpreter, make sure you have this installed before proceeding.
+Franklin uses the 3.4+ version of the Python interpreter, make sure you have this installed before proceeding.
 
 If you haven't already set up a virtual environment please see the
 **Virtual environment** section below.
@@ -127,7 +127,7 @@ A single test from the test suite can be run with a command like this:
 
 Amazon S3
 ---------
-Global Change Lab uses Amazon S3 as backend image host (to save bandwidth costs).
+Franklin uses Amazon S3 as backend image host (to save bandwidth costs).
 
 I recommend creating an IAM user under your account so that you don't access the
 S3 bucket directly via the root user on your AWS account.

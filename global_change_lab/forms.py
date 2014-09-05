@@ -9,7 +9,7 @@ class SignupForm(forms.Form):
     email = forms.CharField(max_length=100, label='Email')
     username = forms.CharField(max_length=30, label='Username')
     terms = forms.BooleanField(
-        label=mark_safe('I agree to the <a href="/pages/terms-of-service/">Terms of Service</a> of Global Change Lab'),
+        label=mark_safe('I agree to the <a href="/pages/terms-of-service/">Terms of Service</a> of Franklin'),
         error_messages={'required': 'You must accept the terms and conditions'}
     )
     # password = forms.PasswordField(max_length=30, label='Password')

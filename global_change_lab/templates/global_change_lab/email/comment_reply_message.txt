@@ -2,4 +2,4 @@
 
 {{ full_url }}
 
-The Global Change Lab
+The Franklin

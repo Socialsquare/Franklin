@@ -25,7 +25,7 @@
 
 <div class="small-row">
   <div class="medium-6 columns signup">
-      <h2 class="column-header">{% itrans 'Sign in with your Global Change Lab account' %}</h2>
+      <h2 class="column-header">{% itrans 'Sign in with your Franklin account' %}</h2>
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {# {{ form.as_p }} #} {# TODO: Use translation instead of this manual override #}
@@ -94,7 +94,7 @@
             <span class="terms">
               {# Another possible url is: #}
               {# {% url 'django.contrib.flatpages.views.flatpage' url='/terms' %} #}
-              I agree to the <a href="{% url 'terms' %}">Terms of Service and Privacy Policy</a> of The Global Change Lab
+              I agree to the <a href="{% url 'terms' %}">Terms of Service and Privacy Policy</a> of The Franklin
             </span>
             {% if form.terms.errors %}
               <small class="error">{{ form.terms.errors.as_text }}</small>
