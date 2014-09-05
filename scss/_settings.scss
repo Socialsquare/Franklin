@@ -8,12 +8,12 @@
 // Allows the use of rem-calc() or lower-bound() in your settings
 @import "foundation/functions";
 
-$gcl-lightgray: #BBE4FF; // Backgrounds
+$gcl-lightgray: #CCC; // Backgrounds
 // $gcl-lightgray: #CED0C9; // Backgrounds
 $gcl-midgray: #565B5B;   // Stencils
 $gcl-darkgray: #373737;  // Headings
-$gcl-browngray: #E8E7D6;  // Info-box
-$gcl-red: #ED1C24;
+$gcl-browngray: #ecffa5;  // Info-box
+$gcl-red: #4E6D94;
 $gcl-blue: #4B81BF;
 
 $gcl-comment-color: #F4F3F1; // Background color of comments
@@ -26,7 +26,7 @@ $button-font-size: rem-calc(12px);
 $metadata_height: rem-calc(38px);
 
 %stencil-font {
-  font-family: 'Allerta Stencil', sans-serif;
+  font-family: 'Roboto Slab', 'Helvetica Neue', serif;
 }
 
 // $experimental: true;
@@ -1117,7 +1117,7 @@ $topbar-link-color: $gcl-darkgray; //#fff;
 
 // We use these to control header font styles
 // $header-font-family: join("Open Sans", $body-font-family);
-$header-font-family: 'Allerta Stencil', sans-serif;
+$header-font-family: 'Roboto Slab', 'Helvetica Neue', sans-serif;
 // $header-font-weight: 300;
 // $header-font-style: normal;
 // $header-font-color: #222;

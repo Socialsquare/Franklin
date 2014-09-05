@@ -21,7 +21,7 @@ div#greeter-container {
   div#front-page-greeter {
     margin-top: rem-calc(17px);
 
-    background-color : $gcl-darkgray;
+    background-color: $gcl-darkgray;
     padding-left: rem-calc(42px);
     padding-right: rem-calc(42px);
     padding-bottom: 1rem;
@@ -29,10 +29,10 @@ div#greeter-container {
 
     .announcement {
       text-transform: uppercase;
-      color: white;
-      font-family: 'Allerta Stencil', sans-serif;
+      color: rgb(233, 186, 54);
+      font-family: $header-font-family;
       @media #{$medium-up} {
-        font-size: rem-calc(55px);
+        font-size: rem-calc(34px);
       }
       @media #{$small-only} {
         font-size: rem-calc(32px);
@@ -43,6 +43,13 @@ div#greeter-container {
       margin-top: rem-calc(50px);
       max-width: rem-calc(400px);
       float: left;
+
+      .cited-author {
+        color: white;
+        // text-align: right;
+        margin-top: rem-calc(10px);
+        font-size: rem-calc(22px);
+      }
     }
     .info {
       @media #{$small-only} {
@@ -108,7 +115,7 @@ div#front-page-cols {
 
     h1 {
       margin: 0 auto;
-      width: 60%;
+      // width: 60%;
     }
     p {
       font-weight: 100;

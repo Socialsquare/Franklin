@@ -211,8 +211,8 @@ a:hover {
 }
 
 @mixin white-on-red {
-  background-color: $gcl-red;
-  color: white;
+  // background-color: $gcl-red;
+  color: $gcl-red;
   @include text-colored-background;
 }
 %white-on-red {

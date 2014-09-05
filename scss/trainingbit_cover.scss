@@ -33,6 +33,11 @@ $left-margin: rem-calc(20px);
     margin-top: rem-calc(75px);
     float: left;
     clear: both;
+
+    h1 {
+      background-color: #FFF;
+      color: #000;
+    }
   }
 
   .label {
