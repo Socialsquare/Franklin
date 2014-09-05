@@ -255,7 +255,7 @@ LOGIN_URL = '/user/login'
 ACCOUNT_LOGOUT_ON_GET = True
 
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_ADAPTER = 'global_change_lab.allauth.AccountAdapter'
 
 # Don't require the users logging in with social accounts to verify their emails.
