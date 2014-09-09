@@ -116,6 +116,10 @@ body.trainer-interface {
   }
 
   .left {
+    // The following line ensures the right background color, when in the
+    // trainer interface
+    li { background-color: inherit; }
+
     li a {
       font-weight: bold;
       color: $gcl-midgray;
