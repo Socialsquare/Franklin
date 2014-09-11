@@ -209,6 +209,12 @@ module.exports = function(grunt) {
       'issue-139': {
         tests: ['test/issue-139.js']
       },
+      'front-page-sanity-test':{
+        tests: ['test/front-page-sanity-test.js']
+      },
+      'login-test':{
+        tests: ['test/login-test.js']
+      },
       'issue-149': {
         tests: ['test/issue-149.js']
       }
@@ -261,5 +267,5 @@ module.exports = function(grunt) {
   // grunt.registerTask('default', ['build','watch']);
   grunt.registerTask('default', ['build']);
 
-  grunt.registerTask('test-current-issue', [ 'webdriver:issue-149' ]);
+  grunt.registerTask('test-current-issue', ['webdriver:login-test']);
 }
