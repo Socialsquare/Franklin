@@ -26,6 +26,7 @@ test.describe('Checks that a known user can log in and that the main page is dis
     test.it('Opening the homepage shows the main headline properly', function()
     {
         driver.get("http://localhost:8000/");
+        driver.sleep(500);
         driver.findElement(webdriver.By.name("main-headline")).getText().then(function(returned_title_text) {
             if (returned_title_text != title)
             {

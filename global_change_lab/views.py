@@ -24,7 +24,6 @@ def front_page(request):
         return profile(request)
 
     return render(request, 'front_page.html', {
-        'name': 'malthe',
         'skills': Skill.objects.all(),
     })
 

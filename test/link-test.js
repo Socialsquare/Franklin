@@ -49,7 +49,6 @@ function visitUrls(startingUrl) {
                     a.getAttribute("href").then(function(href) {
                         if (re.test(href) && visitedUrls.indexOf(href) == -1)
                         {
-
                             visitUrls(href);
                         }
                     })
