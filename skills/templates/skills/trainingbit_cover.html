@@ -58,7 +58,7 @@
         {% elif trainingbit in request.user.trainingbits_completed.all %}
           <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Do this training bit again</a>
         {% else %}
-          <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>
+          <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin" name="start-button">Start this training bit</a>
         {% endif %}
       {% else %}
         <a href="{% url 'skills:trainingbit_start' trainingbit.id %}" class="button small begin">Start this training bit</a>

@@ -49,7 +49,7 @@
       <a class="stop notice" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
     {% else %}
       <a class="stop notice" style="display: none" href="{% url 'skills:skill_stop' skill.id %}">Stop taking this skill</a>
-      <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}">Start this skill</a>
+      <a class="button small begin" href="{% url 'skills:skill_start' skill.id %}" name="start-button">Start this skill</a>
     {% endif %}
   {% else %}
     <a class="button small" href="{% url 'account_login' %}">Sign in to start this skill</a>

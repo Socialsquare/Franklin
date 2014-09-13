@@ -79,7 +79,7 @@ INSTALLED_APPS = (
 
 )
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # GZIP security issues
 # If you care about HTTPS security, you may want to disable HTTP GZIP compression
