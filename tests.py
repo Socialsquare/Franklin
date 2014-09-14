@@ -1,5 +1,8 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from scipy import misc
+import matplotlib.pyplot as plt
+import numpy as np
 import time
 
 import os
@@ -67,6 +70,7 @@ class MySeleniumTests(LiveServerTestCase):
         """A specific skill can be completed"""
         MySeleniumTests.login(self)
         self.selenium.get('%s%s' % (self.live_server_url, '/skills'))
+        time.sleep(1)
         self.selenium.find_element_by_name('skill-name').click()
         # buttons = self.selenium.find_elements_by_name('start-button')
         # print(self.selenium.current_url)
@@ -86,6 +90,27 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_class_name('skill-flag')
         assert('%s%s' % (self.live_server_url, '/share/') in self.selenium.current_url)
 
+
+    def test_pdiff(self):
+        self.selenium.get('%s' % (self.live_server_url))
+        self.selenium.save_screenshot('newscreenshot.png')
+        old_image = misc.imread('oldscreenshot.png')
+        new_image = misc.imread('newscreenshot.png')
+        differences = new_image
+        for x in range(len(new_image)):
+            row = new_image[x]
+            for y in range(len(row)):
+                pixel = row[y]
+                for u in range(len(pixel)):
+                    value = pixel[u]
+
+                    differences[x][y][u] = new_image[x][y][u] - old_image[x][y][u]
+                if pixel.any() != 0:
+                    differences[x][y] = new_image[x][y]
+        # plt.imshow(old_image)
+        # plt.imshow(new_image)
+        plt.imshow(differences)
+        plt.show()
 
         # for pdiff, use http://scipy-lectures.github.io/advanced/image_processing/. create an array of arrays, each of which stores points.
         # For each point that's different, look for other different points within 10 pixels on each side (maybe change later)
