@@ -174,33 +174,46 @@ class MySeleniumTests(LiveServerTestCase):
         return [highest_x, lowest_x, highest_y, lowest_y, array_of_differences]
 
 
+    def test_like_skill(self):
+        MySeleniumTests.login(self)
+        self.selenium.get('%s%s' % (self.live_server_url, '/skill/cleaning-nuclear-waste'))
+        buttons = self.selenium.find_elements_by_class_name('button')
+        for button in buttons:
+            if button.text == "LIKE":
+                button.click()
+
+        buttons = self.selenium.find_elements_by_class_name('button')
+        button_text = [button.text for button in buttons]
+        assert('UNLIKE' in button_text)
+
 
     def test_signup(self):
-                self.selenium.get('%s%s' % (self.live_server_url, '/user/signup/'))
-                self.selenium.find_element_by_name('email').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + "@mailinator.com")
-                self.selenium.find_element_by_name('username').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
-                self.selenium.find_element_by_name('password1').send_keys(password)
-                self.selenium.find_element_by_name('password2').send_keys(password)
-                self.selenium.find_element_by_name('terms').click()
-                self.selenium.find_element_by_name('terms').submit()
-                self.selenium.find_element_by_class_name('button').click()
-                sex_options = self.selenium.find_elements_by_name('sex')
-                option_other = [element for element in sex_options if element.get_attribute('value') == 'other'][0]
-                option_other.click()
-                self.selenium.find_element_by_name('birthdate_0').send_keys('12')
-                self.selenium.find_element_by_name('birthdate_1').send_keys('12')
-                self.selenium.find_element_by_name('birthdate_2').send_keys('1212')
-                select = Select(self.selenium.find_element_by_name('country'))
-                # select.deselect_all()
-                select.select_by_visible_text('Other')
-                select = Select(self.selenium.find_element_by_name('organization'))
-                select.select_by_visible_text('Other')
-                self.selenium.find_element_by_name('description').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
-                self.selenium.find_element_by_name('description').submit()
-                # time.sleep(60)
-                self.selenium.find_element_by_name('topic_ids[]').click()
-                self.selenium.find_element_by_name('topic_ids[]').submit()
-                trainingbit_names = [element.text for element in self.selenium.find_elements_by_class_name('trainingbit-name')]
-                assert("Punch an angry shark" in trainingbit_names and "Run away from trouble" in trainingbit_names)
-                skill_names = [element.text for element in self.selenium.find_elements_by_name('skill-name')]
-                assert("RESCUING PANDAS FROM FIRE" in skill_names and "CLEANING NUCLEAR WASTE" in skill_names)
+        self.selenium.get('%s%s' % (self.live_server_url, '/user/signup/'))
+        self.selenium.find_element_by_name('email').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + "@mailinator.com")
+        self.selenium.find_element_by_name('username').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('password1').send_keys(password)
+        self.selenium.find_element_by_name('password2').send_keys(password)
+        self.selenium.find_element_by_name('terms').click()
+        self.selenium.find_element_by_name('terms').submit()
+        self.selenium.find_element_by_class_name('button').click()
+        sex_options = self.selenium.find_elements_by_name('sex')
+        option_other = [element for element in sex_options if element.get_attribute('value') == 'other'][0]
+        option_other.click()
+        self.selenium.find_element_by_name('birthdate_0').send_keys('12')
+        self.selenium.find_element_by_name('birthdate_1').send_keys('12')
+        self.selenium.find_element_by_name('birthdate_2').send_keys('1212')
+        select = Select(self.selenium.find_element_by_name('country'))
+        # select.deselect_all()
+        select.select_by_visible_text('Other')
+        select = Select(self.selenium.find_element_by_name('organization'))
+        select.select_by_visible_text('Other')
+        self.selenium.find_element_by_name('description').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('description').submit()
+        # time.sleep(60)
+        self.selenium.find_element_by_name('topic_ids[]').click()
+        self.selenium.find_element_by_name('topic_ids[]').submit()
+        trainingbit_names = [element.text for element in self.selenium.find_elements_by_class_name('trainingbit-name')]
+        assert("Punch an angry shark" in trainingbit_names and "Run away from trouble" in trainingbit_names)
+        skill_names = [element.text for element in self.selenium.find_elements_by_name('skill-name')]
+        assert("RESCUING PANDAS FROM FIRE" in skill_names and "CLEANING NUCLEAR WASTE" in skill_names)
+
