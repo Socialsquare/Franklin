@@ -186,6 +186,38 @@ class MySeleniumTests(LiveServerTestCase):
         button_text = [button.text for button in buttons]
         assert('UNLIKE' in button_text)
 
+    def test_like_trainingbit(self):
+        MySeleniumTests.login(self)
+        self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/run-away-from-trouble'))
+        buttons = self.selenium.find_elements_by_class_name('button')
+        for button in buttons:
+            if button.text == "LIKE":
+                button.click()
+
+        buttons = self.selenium.find_elements_by_class_name('button')
+        button_text = [button.text for button in buttons]
+        assert('UNLIKE' in button_text)
+
+    def share(self):
+        self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/punch-an-angry-shark/view'))
+        self.selenium.find_element_by_name('name').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('content').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_class_name('share-button').click()
+
+    def test_like_share(self):
+        MySeleniumTests.login(self)
+        MySeleniumTests.share(self)
+        self.selenium.get('%s%s' % (self.live_server_url, '/shares'))
+        self.selenium.find_element_by_class_name('project-title').click()
+        buttons = self.selenium.find_elements_by_class_name('button')
+        for button in buttons:
+            if button.text == "LIKE":
+                button.click()
+
+        buttons = self.selenium.find_elements_by_class_name('button')
+        button_text = [button.text for button in buttons]
+
+        assert('UNLIKE' in button_text)
 
     def test_signup(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/user/signup/'))
