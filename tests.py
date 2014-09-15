@@ -1,6 +1,7 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
 from scipy import misc
 import matplotlib.pyplot as plt
 import numpy as np
@@ -218,6 +219,44 @@ class MySeleniumTests(LiveServerTestCase):
         button_text = [button.text for button in buttons]
 
         assert('UNLIKE' in button_text)
+
+    def test_create_skill(self):
+        MySeleniumTests.login(self)
+        self.selenium.get('%s%s' % (self.live_server_url, '/trainer/dashboard'))
+        buttons = self.selenium.find_elements_by_class_name('button')
+        correctButton = []
+        for button in buttons:
+            if button.text == "ADD NEW SKILL":
+                correctButton = button
+        correctButton.click()
+        self.selenium.find_element_by_name('name').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('description').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('topic-pks[]').click()
+        dragItems = self.selenium.find_elements_by_class_name('name')
+        correctItem = []
+        for item in dragItems:
+            if item.text == 'Punch an angry shark':
+                correctItem = item
+        ActionChains(self.selenium).drag_and_drop(correctItem, self.selenium.find_element_by_id('trainingbits-chosen-list')).perform()
+        self.selenium.find_element_by_name('name').submit()
+        assert('edit' in self.selenium.current_url)
+
+    def test_create_trainingbit(self):
+        MySeleniumTests.login(self)
+        self.selenium.get('%s%s' % (self.live_server_url, '/trainer/dashboard'))
+        buttons = self.selenium.find_elements_by_class_name('button')
+        correctButton = []
+        for button in buttons:
+            if button.text == "ADD NEW TRAINING BIT":
+                correctButton = button
+        correctButton.click()
+        self.selenium.find_element_by_name('name').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('description').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        self.selenium.find_element_by_name('topic-pks[]').click()
+        self.selenium.find_element_by_name('name').submit()
+        assert('edit' in self.selenium.current_url)
+
+
 
     def test_signup(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/user/signup/'))
