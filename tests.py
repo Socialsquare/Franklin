@@ -24,12 +24,13 @@ driver = None
 username = "admin"
 password = "123456"
 
+display_radius = 10
+
 class MySeleniumTests(LiveServerTestCase):
     fixtures = ['users.json', 'trainingbits.json', 'skills.json']
 
     @classmethod
     def setUpClass(cls):
-        print(BASE_DIR)
         chromedriver = BASE_DIR + "/chromedriver"
         os.environ["webdriver.chrome.driver"] = chromedriver
         cls.selenium = webdriver.Chrome(chromedriver)
@@ -72,13 +73,8 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/skills'))
         time.sleep(1)
         self.selenium.find_element_by_name('skill-name').click()
-        # buttons = self.selenium.find_elements_by_name('start-button')
-        # print(self.selenium.current_url)
-        # correct_button = [button for button in buttons if button.is_displayed()]
-        # correct_button[0].click()
         time.sleep(1)
         self.selenium.find_element_by_name('start-button').click()
-        # self.selenium.find_element_by_class_name('trainingbit-name').click()
 
         # self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/punch-an-angry-shark/view'))
         self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/run-away-from-trouble/view'))
@@ -86,7 +82,6 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_name('content').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
         self.selenium.find_element_by_class_name('share-button').click()
 
-        print(self.selenium.current_url)
         self.selenium.find_element_by_class_name('skill-flag')
         assert('%s%s' % (self.live_server_url, '/share/') in self.selenium.current_url)
 
@@ -96,27 +91,84 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.save_screenshot('newscreenshot.png')
         old_image = misc.imread('oldscreenshot.png')
         new_image = misc.imread('newscreenshot.png')
-        differences = new_image
+        diff_image = np.copy(new_image)
+        for x in range(len(diff_image)):
+            for y in range(len(diff_image[x])):
+                for u in range(len(diff_image[x][y])):
+                    diff_image[x][y][u] = 0
+        differences = [[False for y in range(len(new_image[0]))] for x in range(len(new_image))]
+        boxes = []
         for x in range(len(new_image)):
             row = new_image[x]
             for y in range(len(row)):
                 pixel = row[y]
+                different = False
                 for u in range(len(pixel)):
-                    value = pixel[u]
 
-                    differences[x][y][u] = new_image[x][y][u] - old_image[x][y][u]
-                if pixel.any() != 0:
-                    differences[x][y] = new_image[x][y]
-        # plt.imshow(old_image)
-        # plt.imshow(new_image)
-        plt.imshow(differences)
-        plt.show()
-
-        # for pdiff, use http://scipy-lectures.github.io/advanced/image_processing/. create an array of arrays, each of which stores points.
-        # For each point that's different, look for other different points within 10 pixels on each side (maybe change later)
-        # Every point that's within 10 pixels, add to the array, and look for points within 10 pixels there. After that, move on to the next
-        # Point that hasn't already been added, and add it as an entirely new array of points, repeat until all the points are gone
+                    if new_image[x][y][u] - old_image[x][y][u] != 0:
+                        different = True
 
 
+                differences[x][y] = different
+
+        while any(True in row for row in differences):
+            for x in range(len(differences)):
+                for y in range(len(differences[0])):
+                    if differences[x][y]:
+                        array_of_return_values = self.find_borders(x, y, differences, 0, len(differences), 0, len(differences[0]))
+                        differences = array_of_return_values.pop()
+                        boxes.append(array_of_return_values)
+
+        for box in boxes:
+            highest_x = box[0]
+            lowest_x = box[1]
+            highest_y = box[2]
+            lowest_y = box[3]
+            for x in range(highest_x - lowest_x):
+                current_x = x + lowest_x
+                for y in range(highest_y - lowest_y):
+                    current_y = y + lowest_y
+                    diff_image[current_x][current_y] = new_image[current_x][current_y]
+
+
+        misc.imsave('pdiff.png', diff_image)
+
+        # Uncomment these lines to have the program stop the testing halfway through and display the image until the window is closed.
+        # plt.imshow(diff_image)
+        # plt.show()
+
+
+
+    def find_borders(self, x, y, array_of_differences, highest_x, lowest_x, highest_y, lowest_y):
+        stack = []
+        stack.append([x,y])
+        array_of_differences[x][y] = False
+        while (len(stack) != 0):
+            point = stack.pop()
+            point_x = point[0]
+            point_y = point[1]
+
+            if point_x < lowest_x:
+                lowest_x = point_x
+            if point_x > highest_x:
+                highest_x = point_x
+            if point_y < lowest_y:
+                lowest_y = point_y
+            if point_y > highest_y:
+                highest_y = point_y
+
+
+            for x_radius in range(2*display_radius):
+                current_x = point_x + x_radius - display_radius
+                if 0 < current_x < len(array_of_differences):
+                    for y_radius in range(2*display_radius):
+                        current_y = point_y + y_radius - display_radius
+                        if 0 < current_y < len(array_of_differences[0]):
+                            if array_of_differences[current_x][current_y]:
+                                array_of_differences[current_x][current_y] = False
+                                stack.append([current_x, current_y])
+
+
+        return [highest_x, lowest_x, highest_y, lowest_y, array_of_differences]
 
 
