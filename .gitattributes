@@ -1,3 +1,0 @@
-global_change_lab/settings_production.py filter=git-crypt diff=git-crypt
-global_change_lab/settings_s3.py filter=git-crypt diff=git-crypt
-newrelic.ini filter=git-crypt diff=git-crypt
