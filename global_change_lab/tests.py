@@ -59,7 +59,10 @@ class MySeleniumTests(LiveServerTestCase):
 
     def test_front_page_sanity(self):
         self.selenium.get('%s' % (self.live_server_url))
-        assert(self.selenium.find_element_by_name("main-headline").text=="CHANGE\nTHE WORLD!")
+        greet_elem = \
+            self.selenium.\
+            find_element_by_css_selector("#front-page-greeter .announcement span.red")
+        self.assertEqual(greet_elem.text.lower(), "CHANGE\nTHE WORLD!".lower())
 
     def test_login(self):
         MySeleniumTests.login(self)
