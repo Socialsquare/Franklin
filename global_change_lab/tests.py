@@ -82,7 +82,8 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_name('content').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
         self.selenium.find_element_by_class_name('share-button').click()
 
-        assert('%s%s' % (self.live_server_url, '/share/') in self.selenium.current_url)
+        expected_url = '%s/share/' % self.live_server_url
+        self.assertIn(expected_url, self.selenium.current_url)
 
     def test_complete_skill(self):
         """A specific skill can be completed"""
@@ -100,7 +101,8 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_class_name('share-button').click()
 
         self.selenium.find_element_by_class_name('skill-flag')
-        assert('%s%s' % (self.live_server_url, '/share/') in self.selenium.current_url)
+        expected_url = '%s/share/' % self.live_server_url
+        self.assertIn(expected_url, self.selenium.current_url)
 
 
     def test_pdiff(self):
@@ -201,7 +203,7 @@ class MySeleniumTests(LiveServerTestCase):
 
         buttons = self.selenium.find_elements_by_class_name('button')
         button_text = [button.text for button in buttons]
-        assert('UNLIKE' in button_text)
+        self.assertIn('UNLIKE', button_text)
 
     def test_like_trainingbit(self):
         MySeleniumTests.login(self)
@@ -213,7 +215,7 @@ class MySeleniumTests(LiveServerTestCase):
 
         buttons = self.selenium.find_elements_by_class_name('button')
         button_text = [button.text for button in buttons]
-        assert('UNLIKE' in button_text)
+        self.assertIn('UNLIKE', button_text)
 
     def share(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/punch-an-angry-shark/view'))
@@ -234,7 +236,7 @@ class MySeleniumTests(LiveServerTestCase):
         buttons = self.selenium.find_elements_by_class_name('button')
         button_text = [button.text for button in buttons]
 
-        assert('UNLIKE' in button_text)
+        self.assertIn('UNLIKE', button_text)
 
     def test_create_skill(self):
         MySeleniumTests.login(self)
@@ -255,7 +257,7 @@ class MySeleniumTests(LiveServerTestCase):
                 correctItem = item
         ActionChains(self.selenium).drag_and_drop(correctItem, self.selenium.find_element_by_id('trainingbits-chosen-list')).perform()
         self.selenium.find_element_by_name('name').submit()
-        assert('edit' in self.selenium.current_url)
+        self.assertIn('edit', self.selenium.current_url)
 
     def test_create_trainingbit(self):
         MySeleniumTests.login(self)
@@ -270,7 +272,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_name('description').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
         self.selenium.find_element_by_name('topic-pks[]').click()
         self.selenium.find_element_by_name('name').submit()
-        assert('edit' in self.selenium.current_url)
+        self.assertIn('edit', self.selenium.current_url)
 
 
 
@@ -300,7 +302,8 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_name('topic_ids[]').click()
         self.selenium.find_element_by_name('topic_ids[]').submit()
         trainingbit_names = [element.text for element in self.selenium.find_elements_by_class_name('trainingbit-name')]
-        assert("Punch an angry shark" in trainingbit_names and "Run away from trouble" in trainingbit_names)
+        self.assertIn("Punch an angry shark", trainingbit_names)
+        self.assertIn("Run away from trouble", trainingbit_names)
         skill_names = [element.text for element in self.selenium.find_elements_by_name('skill-name')]
-        assert("RESCUING PANDAS FROM FIRE" in skill_names and "CLEANING NUCLEAR WASTE" in skill_names)
-
+        self.assertIn("RESCUING PANDAS FROM FIRE", skill_names)
+        self.assertIn("CLEANING NUCLEAR WASTE", skill_names)
