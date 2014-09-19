@@ -73,13 +73,8 @@ INSTALLED_APPS = (
 
     # flatpages
     'django.contrib.flatpages',
-
-    # testing stuff
-    'django_nose'
-
 )
 
-# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # GZIP security issues
 # If you care about HTTPS security, you may want to disable HTTP GZIP compression
