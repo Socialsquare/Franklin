@@ -32,9 +32,12 @@ class MySeleniumTests(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        chromedriver = BASE_DIR + "/chromedriver"
-        os.environ["webdriver.chrome.driver"] = chromedriver
-        cls.selenium = webdriver.Chrome(chromedriver)
+
+        if os.getenv('FRANKLIN_TEST_FIREFOX'):
+            cls.selenium = webdriver.Firefox()
+        else:
+            cls.selenium = webdriver.Chrome()
+
         super(MySeleniumTests, cls).setUpClass()
 
     @classmethod

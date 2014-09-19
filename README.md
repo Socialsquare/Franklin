@@ -103,6 +103,23 @@ PostgreSQL. This is done by setting the environment variable `GCL_USE_SQLITE`.
 If the varible is present in the environment (regardless of its value) a local
 SQLite database in will be used. (Residing in the file `database.sqlite3`)
 
+Tests
+-----
+You can run the tests by running the command
+
+    python manage.py test global_change_lab.tests
+
+By default the tests are run through Google Chrome.
+You need to have the executable binary `chromedriver` on your `PATH`.
+`chromedriver` can be downloaded [here](https://code.google.com/p/selenium/wiki/ChromeDriver).
+
+You can also test with Mozilla Firefox by setting the environment variable
+`FRANKLIN_TEST_FIREFOX`, e.g.
+
+    FRANKLIN_TEST_FIREFOX=1 python manage.py test global_change_lab.tests
+
+in this case you don't need the `chromedriver` binary.
+
 Amazon S3
 ---------
 Global Change Lab uses Amazon S3 as backend image host (to save bandwidth costs).
