@@ -66,7 +66,13 @@ class MySeleniumTests(LiveServerTestCase):
 
     def test_login(self):
         MySeleniumTests.login(self)
-        assert('%s%s' % (self.live_server_url, '/welcome') in self.selenium.current_url)
+
+        expected_url = '%s/welcome' % self.live_server_url
+
+        if settings.ACCOUNT_EMAIL_VERIFICATION == 'mandatory':
+            expected_url = '%s/user/confirm-email/' % self.live_server_url
+
+        self.assertIn(expected_url, self.selenium.current_url)
 
     def test_complete_training_bit(self):
         """A specific trainingbit can be completed"""
