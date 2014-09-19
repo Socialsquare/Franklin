@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -39,6 +40,9 @@ class MySeleniumTests(LiveServerTestCase):
             cls.selenium = webdriver.Chrome()
 
         super(MySeleniumTests, cls).setUpClass()
+
+        # We cannot get anywhere, if we have to respond to an email
+        settings.ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
     @classmethod
     def tearDownClass(cls):
