@@ -1,8 +1,11 @@
 {
-  "name": "Global Change Lab",
+  "name": "Franklin",
   "version": "0.0.1",
   "authors": [
-    "Malthe Jørgensen <mj@bitblueprint.com>"
+    "Malthe Jørgensen <mj@bitblueprint.com>",
+    "Kræn Hansen <kh@bitblueprint.com>",
+    "Jens Christian Hillerup <jc@bitblueprint.com>",
+    "Niles Christensen <nc@bitblueprint.com>"
   ],
   "description": "An activist training platform for actionAid",
   "license": "BSD 2-clause",
