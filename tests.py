@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 from scipy import misc
-import matplotlib.pyplot as plt
 import numpy as np
 import time
 
@@ -137,6 +136,7 @@ class MySeleniumTests(LiveServerTestCase):
 
 
         # Uncomment these lines to have the program stop the testing halfway through and display the image until the window is closed.
+        # import matplotlib.pyplot as plt
         # plt.imshow(diff_image)
         # plt.show()
 
