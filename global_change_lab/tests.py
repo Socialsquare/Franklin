@@ -28,7 +28,7 @@ password = "123456"
 
 display_radius = 10
 
-class MySeleniumTests(LiveServerTestCase):
+class SeleniumTestSuite(LiveServerTestCase):
     fixtures = ['users.json', 'trainingbits.json', 'skills.json', 'topics.json']
 
     @classmethod
@@ -39,7 +39,7 @@ class MySeleniumTests(LiveServerTestCase):
         else:
             cls.selenium = webdriver.Chrome()
 
-        super(MySeleniumTests, cls).setUpClass()
+        super(SeleniumTestSuite, cls).setUpClass()
 
         # We cannot get anywhere, if we have to respond to an email
         settings.ACCOUNT_EMAIL_VERIFICATION = 'optional'
@@ -47,7 +47,7 @@ class MySeleniumTests(LiveServerTestCase):
     @classmethod
     def tearDownClass(cls):
         cls.selenium.quit()
-        super(MySeleniumTests, cls).tearDownClass()
+        super(SeleniumTestSuite, cls).tearDownClass()
 
     def login(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/user/login/'))
@@ -65,7 +65,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertEqual(greet_elem.text.lower(), "CHANGE\nTHE WORLD!".lower())
 
     def test_login(self):
-        MySeleniumTests.login(self)
+        self.login()
 
         expected_url = '%s/welcome' % self.live_server_url
 
@@ -76,7 +76,7 @@ class MySeleniumTests(LiveServerTestCase):
 
     def test_complete_training_bit(self):
         """A specific trainingbit can be completed"""
-        MySeleniumTests.login(self)
+        self.login()
         self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/punch-an-angry-shark/view'))
         self.selenium.find_element_by_name('name').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
         self.selenium.find_element_by_name('content').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
@@ -87,7 +87,7 @@ class MySeleniumTests(LiveServerTestCase):
 
     def test_complete_skill(self):
         """A specific skill can be completed"""
-        MySeleniumTests.login(self)
+        self.login()
         self.selenium.get('%s%s' % (self.live_server_url, '/skills'))
         time.sleep(1)
         self.selenium.find_element_by_name('skill-name').click()
@@ -194,7 +194,7 @@ class MySeleniumTests(LiveServerTestCase):
 
 
     def test_like_skill(self):
-        MySeleniumTests.login(self)
+        self.login()
         self.selenium.get('%s%s' % (self.live_server_url, '/skill/cleaning-nuclear-waste'))
         buttons = self.selenium.find_elements_by_class_name('button')
         for button in buttons:
@@ -206,7 +206,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertIn('UNLIKE', button_text)
 
     def test_like_trainingbit(self):
-        MySeleniumTests.login(self)
+        self.login()
         self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/run-away-from-trouble'))
         buttons = self.selenium.find_elements_by_class_name('button')
         for button in buttons:
@@ -224,8 +224,8 @@ class MySeleniumTests(LiveServerTestCase):
         self.selenium.find_element_by_class_name('share-button').click()
 
     def test_like_share(self):
-        MySeleniumTests.login(self)
-        MySeleniumTests.share(self)
+        self.login()
+        self.share()
         self.selenium.get('%s%s' % (self.live_server_url, '/shares'))
         self.selenium.find_element_by_class_name('project-title').click()
         buttons = self.selenium.find_elements_by_class_name('button')
@@ -239,7 +239,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertIn('UNLIKE', button_text)
 
     def test_create_skill(self):
-        MySeleniumTests.login(self)
+        self.login()
         self.selenium.get('%s%s' % (self.live_server_url, '/trainer/dashboard'))
         buttons = self.selenium.find_elements_by_class_name('button')
         correctButton = []
@@ -260,7 +260,7 @@ class MySeleniumTests(LiveServerTestCase):
         self.assertIn('edit', self.selenium.current_url)
 
     def test_create_trainingbit(self):
-        MySeleniumTests.login(self)
+        self.login()
         self.selenium.get('%s%s' % (self.live_server_url, '/trainer/dashboard'))
         buttons = self.selenium.find_elements_by_class_name('button')
         correctButton = []

@@ -120,6 +120,11 @@ You can also test with Mozilla Firefox by setting the environment variable
 
 in this case you don't need the `chromedriver` binary.
 
+### Running a single test
+A single test from the test suite can be run with a command like this:
+
+    python manage.py test global_change_lab.tests.SeleniumTestSuite.test_login
+
 Amazon S3
 ---------
 Global Change Lab uses Amazon S3 as backend image host (to save bandwidth costs).
