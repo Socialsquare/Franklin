@@ -4,7 +4,7 @@ dj-database-url==0.2.2
 Django==1.6.1
 psycopg2==2.5.2
 Pillow==2.3.0
-South==0.8.4
+hg+https://bitbucket.com/malthejorgensen/south#egg=South
 django-allauth==0.15.0
 django-debug-toolbar==1.0.1
 git+git://github.com/malthejorgensen/django-storages-py3.git@py3-dev#egg=django-storages
