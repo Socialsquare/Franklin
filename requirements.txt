@@ -5,7 +5,7 @@ Django==1.6.1
 psycopg2==2.5.2
 Pillow==2.3.0
 hg+https://bitbucket.com/malthejorgensen/south#egg=South
-django-allauth==0.15.0
+django-allauth==0.18.0
 django-debug-toolbar==1.0.1
 git+git://github.com/malthejorgensen/django-storages-py3.git@py3-dev#egg=django-storages
 django-comments-xtd==1.2f1
