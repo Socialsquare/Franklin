@@ -1,1 +1,20 @@
-[{"model": "skills.topic", "fields": {"slug": "posters", "created_at": "2014-09-09T12:12:58.594Z", "trainingbits": [4, 1], "author": 2, "name": "posters", "updated_at": "2014-09-09T12:12:58.596Z", "skills": [3]}, "pk": 1}]
+[
+    {
+        "fields": {
+            "author": 2, 
+            "created_at": "2014-09-09T12:12:58.594Z", 
+            "name": "posters", 
+            "skills": [
+                3
+            ], 
+            "slug": "posters", 
+            "trainingbits": [
+                4, 
+                1
+            ], 
+            "updated_at": "2014-09-09T12:12:58.596Z"
+        }, 
+        "model": "skills.topic", 
+        "pk": 1
+    }
+]
