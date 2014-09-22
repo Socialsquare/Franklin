@@ -32,8 +32,10 @@ class SeleniumTest(LiveServerTestCase):
 
         if os.getenv('FRANKLIN_TEST_FIREFOX'):
             cls.selenium = webdriver.Firefox()
-        else:
+        elif os.getenv('FRANKLIN_TEST_CHROME'):
             cls.selenium = webdriver.Chrome()
+        else:
+            cls.selenium = webdriver.PhantomJS()
 
         super(SeleniumTest, cls).setUpClass()
 

@@ -109,16 +109,23 @@ You can run the tests by running the command
 
     python manage.py test global_change_lab.tests
 
-By default the tests are run through Google Chrome.
+By default the tests are run through [PhantomJS](http://phantomjs.org/).
+This means you need to have the executable binary `phantomjs` on your `PATH`.
+
+### Using Google Chrome for testing
+To run the tests with Chrome you can set the environment variable
+`FRANKLIN_TEST_CHROME`, e.g.
+
+    FRANKLIN_TEST_CHROME=1 python manage.py test global_change_lab.tests
+
 You need to have the executable binary `chromedriver` on your `PATH`.
 `chromedriver` can be downloaded [here](https://code.google.com/p/selenium/wiki/ChromeDriver).
 
+### Using Firefox for testing
 You can also test with Mozilla Firefox by setting the environment variable
 `FRANKLIN_TEST_FIREFOX`, e.g.
 
     FRANKLIN_TEST_FIREFOX=1 python manage.py test global_change_lab.tests
-
-in this case you don't need the `chromedriver` binary.
 
 ### Running a single test
 A single test from the test suite can be run with a command like this:
