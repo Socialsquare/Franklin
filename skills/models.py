@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from django.utils import timezone
 from django.templatetags.static import static
 
 
@@ -42,7 +43,7 @@ add_introspection_rules([], ['skills.models.AutoDateTimeField'])
 #   https://groups.google.com/forum/#!topic/django-developers/TNYxwiXLTlI
 class AutoDateTimeField(models.DateTimeField):
     def pre_save(self, model_instance, add):
-        return datetime.now()
+        return timezone.now()
 
 
 # Please have this model as a parent for your models if you want to have the
@@ -52,7 +53,7 @@ class AutoDateTimeField(models.DateTimeField):
 # in your model
 class TimedModel(models.Model):
     # Metadata
-    created_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=timezone.now)
     updated_at = AutoDateTimeField()
 
     class Meta:
