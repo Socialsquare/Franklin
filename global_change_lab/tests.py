@@ -15,6 +15,8 @@ import string
 
 import sys
 
+import requests
+
 
 sys.path.append('..')
 from global_change_lab.settings import BASE_DIR
@@ -106,6 +108,29 @@ class SeleniumTestSuite(SeleniumTest):
         expected_url = '%s/share/' % self.live_server_url
         self.assertIn(expected_url, self.selenium.current_url)
 
+
+    def test_crawler(self):
+        stack = []
+        already_visited = []
+        current_url = ""
+        stack.append('%s' % (self.live_server_url))
+        while len(stack) != 0:
+            current_url = stack.pop()
+            self.selenium.get(current_url)
+            already_visited.append(current_url)
+            self.assertEqual(self.get_status_code(current_url), 200, 'Broke on: %s' % (current_url))
+            for link in self.selenium.find_elements_by_tag_name('a'):
+                next_url = link.get_attribute('href')
+                if  next_url != None:
+                    if next_url not in already_visited:
+                        stack.append(next_url)
+
+    def get_status_code(self, url):
+        try:
+            r = requests.head(url)
+            return r.status_code
+        except requests.ConnectionError:
+            return None
 
 
 
