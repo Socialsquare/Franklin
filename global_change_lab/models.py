@@ -4,14 +4,13 @@ from django.contrib.flatpages.models import FlatPage
 from django.core.urlresolvers import reverse
 from django.db.models import signals
 from django.templatetags.static import static
+from django.utils import timezone
 
 from django.db import models
 from allauth.account.models import EmailAddress
 from django_countries.fields import CountryField
 
 from skills.models import Skill, TrainingBit
-
-from datetime import datetime
 
 # USERTYPES = (
 #     ('user', 'User'),
@@ -32,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
 
     # Metadata
-    datetime_joined = models.DateTimeField(default=datetime.now)
+    datetime_joined = models.DateTimeField(default=timezone.now)
 
     # Content
     username = models.CharField(max_length=40, unique=True, error_messages={
