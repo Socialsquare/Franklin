@@ -6,36 +6,71 @@ from selenium.webdriver.common.action_chains import ActionChains
 from scipy import misc
 import numpy as np
 import time
+import string
 
 from .tests import SeleniumTest
+
+display_radius = 10
 
 class PdiffTest(SeleniumTest):
     fixtures = ['users.json', 'trainingbits.json', 'skills.json', 'topics.json']
 
-    def test_pdiff(self):
-        self.selenium.get('%s' % (self.live_server_url))
-        self.selenium.save_screenshot('newscreenshot.png')
-        old_image = misc.imread('oldscreenshot.png')
-        new_image = misc.imread('newscreenshot.png')
-        diff_image = np.copy(new_image)
-        for x in range(len(diff_image)):
-            for y in range(len(diff_image[x])):
-                for u in range(len(diff_image[x][y])):
-                    diff_image[x][y][u] = 0
-        differences = [[False for y in range(len(new_image[0]))] for x in range(len(new_image))]
-        boxes = []
-        for x in range(len(new_image)):
-            row = new_image[x]
-            for y in range(len(row)):
-                pixel = row[y]
-                different = False
-                for u in range(len(pixel)):
+    def pdiff(self, name, url):
+        self.selenium.get('%s' % (url))
+        self.selenium.save_screenshot('new_images/%s%s' % (name, '.png'))
+        new_image = misc.imread('new_images/%s%s' % (name, '.png'))
+        
+        try:
+            old_image = misc.imread('old_images/%s%s' % (name, '.png'))
+        except FileNotFoundError:
+            misc.imsave('old_images/%s%s' % (name, '.png'), new_image)
+            old_image = misc.imread('old_images/%s%s' % (name, '.png'))
 
-                    if new_image[x][y][u] - old_image[x][y][u] != 0:
-                        different = True
+        try:
+            diff_image = np.copy(new_image)
+            for x in range(len(diff_image)):
+                for y in range(len(diff_image[x])):
+                    for u in range(len(diff_image[x][y])):
+                        diff_image[x][y][u] = 0
+            differences = [[False for y in range(len(new_image[0]))] for x in range(len(new_image))]
+            boxes = []
+            for x in range(len(new_image)):
+                row = new_image[x]
+                for y in range(len(row)):
+                    pixel = row[y]
+                    different = False
+                    for u in range(len(pixel)):
+
+                        if new_image[x][y][u] - old_image[x][y][u] != 0:
+                            different = True
 
 
-                differences[x][y] = different
+                    differences[x][y] = different
+
+        except IndexError:
+            misc.imsave('old_images/%s%s' % (name, '.png'), new_image)
+            old_image = misc.imread('old_images/%s%s' % (name, '.png'))
+
+            diff_image = np.copy(new_image)
+            for x in range(len(diff_image)):
+                for y in range(len(diff_image[x])):
+                    for u in range(len(diff_image[x][y])):
+                        diff_image[x][y][u] = 0
+            differences = [[False for y in range(len(new_image[0]))] for x in range(len(new_image))]
+            boxes = []
+            for x in range(len(new_image)):
+                row = new_image[x]
+                for y in range(len(row)):
+                    pixel = row[y]
+                    different = False
+                    for u in range(len(pixel)):
+
+                        if new_image[x][y][u] - old_image[x][y][u] != 0:
+                            different = True
+
+
+                    differences[x][y] = different
+
 
         while any(True in row for row in differences):
             for x in range(len(differences)):
@@ -57,7 +92,10 @@ class PdiffTest(SeleniumTest):
                     diff_image[current_x][current_y] = new_image[current_x][current_y]
 
 
-        misc.imsave('pdiff.png', diff_image)
+        misc.imsave('pdiff/%s%s' % (name, '.png'), diff_image)
+        misc.imsave('old_images/%s%s' % (name, '.png'), old_image)
+        misc.imsave('new_images/%s%s' % (name, '.png'), new_image)
+
 
 
         # Uncomment these lines to have the program stop the testing halfway through and display the image until the window is closed.
@@ -65,6 +103,35 @@ class PdiffTest(SeleniumTest):
         # plt.imshow(diff_image)
         # plt.show()
 
+    def test_pdiff_crawler(self):
+        url_list = self.get_urls()
+        for url in url_list:
+            self.pdiff(self.sanitize_url(url), url)
+
+
+    def sanitize_url(self, url):
+        valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
+        return ''.join(c for c in url if c in valid_chars)
+
+    def get_urls(self):
+        stack = []
+        stack_record = []
+        already_visited = []
+        stack.append('%s' % (self.live_server_url))
+        while len(stack) != 0:
+            current_url = stack.pop()
+
+            self.selenium.get(current_url)
+            for link in self.selenium.find_elements_by_tag_name('a'):
+                next_url = link.get_attribute('href')
+                if  next_url != None and len(next_url) != 0:
+                    if next_url not in already_visited:
+                        if self.live_server_url in next_url:
+                            already_visited.append(next_url)
+                            stack.append(next_url)
+                            stack_record.append(next_url)
+
+        return stack_record
 
     def find_borders(self, x, y, array_of_differences, highest_x, lowest_x, highest_y, lowest_y):
         stack = []
