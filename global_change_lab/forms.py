@@ -14,7 +14,7 @@ class SignupForm(forms.Form):
     )
     # password = forms.PasswordField(max_length=30, label='Password')
 
-    def save(self, user):
+    def signup(self, request, user):
         user.email = self.cleaned_data['email']
         user.username = self.cleaned_data['username']
         # user.password = self.cleaned_data['password']
