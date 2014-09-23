@@ -29,3 +29,5 @@ database.sqlite3
 # who needs this anyway?!
 # global_change_lab/static/
 
+gcl.log
+ghostdriver.log
