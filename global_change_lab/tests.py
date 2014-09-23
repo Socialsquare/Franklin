@@ -110,20 +110,30 @@ class SeleniumTestSuite(SeleniumTest):
 
 
     def test_crawler(self):
+        url_list = self.get_urls()
+        acceptable_values = [200, 302]
+        for url in url_list:
+            self.assertIn(self.get_status_code(url), acceptable_values, 'Broke on: %s' % (url))
+
+    def get_urls(self):
         stack = []
+        stack_record = []
         already_visited = []
-        current_url = ""
         stack.append('%s' % (self.live_server_url))
         while len(stack) != 0:
             current_url = stack.pop()
+
             self.selenium.get(current_url)
-            already_visited.append(current_url)
-            self.assertEqual(self.get_status_code(current_url), 200, 'Broke on: %s' % (current_url))
             for link in self.selenium.find_elements_by_tag_name('a'):
                 next_url = link.get_attribute('href')
-                if  next_url != None:
+                if  next_url != None and len(next_url) != 0:
                     if next_url not in already_visited:
-                        stack.append(next_url)
+                        if self.live_server_url in next_url:
+                            already_visited.append(next_url)
+                            stack.append(next_url)
+                            stack_record.append(next_url)
+
+        return stack_record
 
     def get_status_code(self, url):
         try:
