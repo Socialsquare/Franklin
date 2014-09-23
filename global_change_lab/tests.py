@@ -63,8 +63,8 @@ class SeleniumTestSuite(SeleniumTest):
         self.selenium.get('%s' % (self.live_server_url))
         greet_elem = \
             self.selenium.\
-            find_element_by_css_selector("#front-page-greeter .announcement span.red")
-        self.assertEqual(greet_elem.text.lower(), "CHANGE\nTHE WORLD!".lower())
+            find_element_by_css_selector("#front-page-greeter .announcement")
+        self.assertEqual(greet_elem.text.lower(), "Tell me and I forget.\nTeach me and I remember.\nInvolve me and I learn.\n- Benjamin Franklin".lower())
 
     def test_login(self):
         self.login()
@@ -191,7 +191,6 @@ class SeleniumTestSuite(SeleniumTest):
         self.assertIn('edit', self.selenium.current_url)
 
 
-
     def test_signup(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/user/signup/'))
         self.selenium.find_element_by_name('email').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)) + "@mailinator.com")
@@ -202,7 +201,7 @@ class SeleniumTestSuite(SeleniumTest):
         self.selenium.find_element_by_name('terms').submit()
         self.selenium.find_element_by_class_name('button').click()
         sex_options = self.selenium.find_elements_by_name('sex')
-        option_other = [element for element in sex_options if element.get_attribute('value') == 'other'][0]
+        option_other = [element for element in sex_options if element.get_attribute('value') == 'male'][0]
         option_other.click()
         self.selenium.find_element_by_name('birthdate_0').send_keys('12')
         self.selenium.find_element_by_name('birthdate_1').send_keys('12')
@@ -211,7 +210,7 @@ class SeleniumTestSuite(SeleniumTest):
         # select.deselect_all()
         select.select_by_visible_text('Other')
         select = Select(self.selenium.find_element_by_name('organization'))
-        select.select_by_visible_text('Other')
+        select.select_by_visible_text('No organization')
         self.selenium.find_element_by_name('description').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
         self.selenium.find_element_by_name('description').submit()
         # time.sleep(60)
