@@ -77,7 +77,6 @@ class ProjectForm(ModelForm):
     def clean(self, *args, **kwargs):
         data_list = [self.cleaned_data.get('link_title'), self.cleaned_data.get('link_url')]
         none_list = list(filter(lambda r: r == '', data_list))
-        print(data_list, none_list)
         if len(none_list) == 1:
             raise forms.ValidationError("Your link must have both a title and a URL")
 

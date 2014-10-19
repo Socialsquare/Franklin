@@ -12,7 +12,6 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 		name = data.get('name')
 		username = data.get('username')
 		user = sociallogin.account.user
-		print(sociallogin.account.provider)
 		# TODO: Consider using the super class for the stuff that is not unique to facebook!
 		if sociallogin.account.provider == 'facebook':
 			user_email(user, valid_email_or_none(email) or '')
@@ -47,7 +46,6 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 			name_parts = (name or '').partition(' ')
 			user_field(user, 'first_name', first_name or name_parts[0])
 			user_field(user, 'last_name', last_name or name_parts[2])
-			print("sociallogin.account.extra_data:", str(sociallogin.account.extra_data).encode('utf-8'))
 			if username:
 				username_suggestions = [username, first_name, last_name, email, 'user']
 			else:

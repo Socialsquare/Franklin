@@ -235,9 +235,7 @@ def skill_edit(request, slug=None):
             # Add topics
             selected_topic_pks = request.POST.getlist('topic-pks[]')
             selected_topic_pks = [int(s) for s in selected_topic_pks]
-            print(selected_topic_pks)
             topics = Topic.objects.filter(pk__in=selected_topic_pks)
-            print(topics)
             skill.topic_set.clear()
             skill.topic_set.add(*topics)
 
@@ -516,8 +514,6 @@ def trainingbit_edit_content(request, slug=None):
     # If a form has been submitted
     if request.method == 'POST':
 
-        print(trainingbit.author)
-        print(request.POST['trainingbit_content_json'])
         # Save the training bit
         trainingbit.json_content = request.POST['trainingbit_content_json']
         trainingbit.save()
@@ -761,7 +757,6 @@ def comment_post(request):
             comment = form.save(commit=False)
             comment.author = request.user
             project = comment.project
-            print(request.POST)
             if 'parent_pk' in request.POST:
                 comment.parent = Comment.objects.get(pk__exact=request.POST['parent_pk'])
             # comment.project = project
@@ -831,7 +826,6 @@ def like(request):
         like = Like.objects.filter(object_id=request.POST['object_id'],
                                    content_type=request.POST['content_type'],
                                    author__pk=request.user.pk)
-        print(len(like))
         if like.exists():
             like.delete()
             if request.is_ajax():

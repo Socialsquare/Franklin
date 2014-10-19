@@ -42,7 +42,6 @@ class DateSelectorWidget(widgets.MultiWidget):
         return u''.join(rendered_widgets)
 
     def value_from_datadict(self, data, files, name):
-        print(data)
         datelist = [
             widget.value_from_datadict(data, files, name + '_%s' % i)
             for i, widget in enumerate(self.widgets)]

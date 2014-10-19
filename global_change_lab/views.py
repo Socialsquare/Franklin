@@ -72,7 +72,6 @@ def new_user_suggestions(request):
     if request.method == 'POST':
         topic_ids = [int(pk) for pk in request.POST.getlist('topic_ids[]')]
         topics = Topic.objects.filter(id__in=topic_ids)
-        print(topics)
 
         trainingbits = []
         skills = []
@@ -245,7 +244,6 @@ def upload_picture(request):
 
 # @csrf_protect
 def upload_profile_picture(request):
-    print('did recieve')
     if request.method == 'POST':
         request.user.image = request.FILES['profile-picture']
         request.user.save()
@@ -347,7 +345,6 @@ def user_list(request):
     # `-datetime_joined` means descending
     # `+datetime_joined` doesn't exist and will result in an error(!)
     new_users = User.objects.all().order_by('-datetime_joined')
-    print(new_users)
 
     return render(request, 'user_list.html', {
         'new_users': new_users,
