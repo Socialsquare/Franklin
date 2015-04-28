@@ -127,6 +127,9 @@ class Like(TimedModel, AuthoredModel):
                 'NON_FIELD_ERRORS': ('You already liked this',)
             })
 
+    def __str__(self):
+        return '%s likes "%s"' % (self.author.username, self.content_object.name)
+
 
 class Image(TimedModel):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='uploaded_images', blank=False)
