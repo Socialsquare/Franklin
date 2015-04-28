@@ -1,32 +1,28 @@
+import sys, os, time, json, random, string
+import os
+import time
+import json
+import random
+import string
+
 from django.conf import settings
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
-import time
-
-import os
-
-import json
-
-import random
-
-import string
-
-import sys
-
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities    
 import requests
 
+from django.utils.text import slugify
 
 sys.path.append('..')
 from global_change_lab.settings import BASE_DIR
-
-driver = None
+from global_change_lab.models import User
+from skills.models import Project, Like
 
 username = "admin"
 password = "123456"
 
-display_radius = 10
 
 class SeleniumTest(LiveServerTestCase):
     @classmethod
@@ -35,11 +31,18 @@ class SeleniumTest(LiveServerTestCase):
         if os.getenv('FRANKLIN_TEST_FIREFOX'):
             cls.selenium = webdriver.Firefox()
         elif os.getenv('FRANKLIN_TEST_CHROME'):
-            cls.selenium = webdriver.Chrome()
+            # enable browser logging
+            d = DesiredCapabilities.CHROME
+            d['loggingPrefs'] = { 'browser':'ALL' }
+            cls.selenium = webdriver.Chrome(desired_capabilities=d)
         else:
             cls.selenium = webdriver.PhantomJS()
 
         super(SeleniumTest, cls).setUpClass()
+
+        # Wait half a second before failing when trying to find an element
+        # (see: http://stackoverflow.com/a/19382234/118608)
+        cls.selenium.implicitly_wait(0.5)
 
         # We cannot get anywhere, if we have to respond to an email
         settings.ACCOUNT_EMAIL_VERIFICATION = 'optional'
@@ -60,6 +63,9 @@ class SeleniumTestSuite(SeleniumTest):
         password_input = self.selenium.find_element_by_name("password")
         password_input.send_keys(password)
         self.selenium.find_element_by_css_selector('button[type=submit]').click()
+
+        u = User.objects.get(username=username)
+        return u
 
     def test_front_page_sanity(self):
         self.selenium.get('%s' % (self.live_server_url))
@@ -109,31 +115,31 @@ class SeleniumTestSuite(SeleniumTest):
         self.assertIn(expected_url, self.selenium.current_url)
 
 
-    def test_crawler(self):
-        url_list = self.get_urls()
-        acceptable_values = [200, 302]
-        for url in url_list:
-            self.assertIn(self.get_status_code(url), acceptable_values, 'Broke on: %s' % (url))
-
-    def get_urls(self):
-        stack = []
-        stack_record = []
-        already_visited = []
-        stack.append('%s' % (self.live_server_url))
-        while len(stack) != 0:
-            current_url = stack.pop()
-
-            self.selenium.get(current_url)
-            for link in self.selenium.find_elements_by_tag_name('a'):
-                next_url = link.get_attribute('href')
-                if  next_url != None and len(next_url) != 0:
-                    if next_url not in already_visited:
-                        if self.live_server_url in next_url:
-                            already_visited.append(next_url)
-                            stack.append(next_url)
-                            stack_record.append(next_url)
-
-        return stack_record
+    # def test_crawler(self):
+    #     url_list = self.get_urls()
+    #     acceptable_values = [200, 302]
+    #     for url in url_list:
+    #         self.assertIn(self.get_status_code(url), acceptable_values, 'Broke on: %s' % (url))
+    #
+    # def get_urls(self):
+    #     stack = []
+    #     stack_record = []
+    #     already_visited = []
+    #     stack.append('%s' % (self.live_server_url))
+    #     while len(stack) != 0:
+    #         current_url = stack.pop()
+    #
+    #         self.selenium.get(current_url)
+    #         for link in self.selenium.find_elements_by_tag_name('a'):
+    #             next_url = link.get_attribute('href')
+    #             if  next_url != None and len(next_url) != 0:
+    #                 if next_url not in already_visited:
+    #                     if self.live_server_url in next_url:
+    #                         already_visited.append(next_url)
+    #                         stack.append(next_url)
+    #                         stack_record.append(next_url)
+    #
+    #     return stack_record
 
     def get_status_code(self, url):
         try:
@@ -170,24 +176,34 @@ class SeleniumTestSuite(SeleniumTest):
 
     def share(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/trainingbit/punch-an-angry-shark/view'))
-        self.selenium.find_element_by_name('name').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
+        share_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20))
+        self.selenium.find_element_by_name('name').send_keys(share_name)
         self.selenium.find_element_by_name('content').send_keys(''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(20)))
         self.selenium.find_element_by_class_name('share-button').click()
 
+        s = Project.objects.get(slug=slugify(share_name))
+
+        return s
+
     def test_like_share(self):
-        self.login()
-        self.share()
+        user = self.login()
+        share = self.share()
         self.selenium.get('%s%s' % (self.live_server_url, '/shares'))
         self.selenium.find_element_by_class_name('project-title').click()
-        buttons = self.selenium.find_elements_by_class_name('button')
-        for button in buttons:
-            if button.text == "LIKE":
-                button.click()
+        # Wait a little here?
+        self.selenium.find_element_by_css_selector('a[data-gcl-like-button]').click()
+ 
+        # Print `console.log()` entries from the browser
+        # for entry in self.selenium.get_log('browser'):
+        #     if entry['source'] == 'console-api':
+        #         print(entry['message'])
 
-        buttons = self.selenium.find_elements_by_class_name('button')
-        button_text = [button.text for button in buttons]
+        # new_buttons = self.selenium.find_elements_by_class_name('unlike')
+        # self.assertIn(buttons[0], new_buttons)
 
-        self.assertIn('UNLIKE', button_text)
+        self.selenium.find_element_by_css_selector('a[data-gcl-like-button].unlike')
+
+        self.assertIn(share, [l.content_object for l in user.like_set.all()])
 
     def test_create_skill(self):
         self.login()

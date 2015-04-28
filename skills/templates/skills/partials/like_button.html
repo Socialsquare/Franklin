@@ -1,6 +1,7 @@
 {% if user.is_authenticated %}
 <a class="button small {% if user_like %}unlike{% else %}like{% endif %}"
     href="{% url 'skills:like' %}"
+    data-gcl-like-button
     data-csrf_token="{{ csrf_token }}"
     data-object_id="{{ object.pk }}"
     data-content_type="{{ content_type.pk }}">
